@@ -1,0 +1,91 @@
+<div class="alerts-page">
+
+  <section class="summary-cards">
+    @for (card of summaryCards; track card.title) {
+      <div class="summary-card">
+        <h3>{{ card.value }}</h3>
+        <p>{{ card.title }}</p>
+      </div>
+    }
+  </section>
+
+  <section class="filters-bar">
+    <input type="text" placeholder="Search alerts..."/>
+    <select>
+      <option>Severity</option>
+    </select>
+    <select>
+      <option>Laboratory</option>
+    </select>
+    <select>
+      <option>Status</option>
+    </select>
+  </section>
+
+  <section class="alerts-list">
+    @for (alert of alerts; track alert.title) {
+      <div class="alert-card">
+        <div class="alert-info">
+          <div class="alert-header">
+            <h3>{{ alert.title }}</h3>
+            <span class="severity-tag">
+              {{ alert.severity }}
+            </span>
+          </div>
+
+          <p class="alert-description">
+            {{ alert.description }}
+          </p>
+
+          <span class="status-badge">
+            {{ alert.status }}
+          </span>
+        </div>
+
+        <div class="alert-actions">
+          <button (click)="openDrawer(alert)">View Details</button>
+        </div>
+      </div>
+    }
+  </section>
+
+</div>
+
+@if (drawerOpen) {
+  <div class="drawer-overlay" (click)="closeDrawer()"></div>
+}
+
+<aside class="alert-drawer" [class.open]="drawerOpen">
+
+  <div class="drawer-header">
+    <h2>Alert Details</h2>
+    <button (click)="closeDrawer()">X</button>
+  </div>
+
+  @if (selectedAlert; as alert) {
+
+    <span class="severity-badge">
+      {{ alert.severity }}
+    </span>
+
+    <div class="mini-cards">
+      @for (metric of alert.metrics; track metric.label) {
+        <div class="mini-card">
+          <p>{{ metric.label }}</p>
+          <strong>{{ metric.value }}</strong>
+        </div>
+      }
+    </div>
+
+    <h3>Description</h3>
+    <p class="drawer-description">
+      {{ alert.description }}
+    </p>
+
+    <button class="resolve-btn">
+      Mark as Resolved
+    </button>
+
+  }
+
+</aside>

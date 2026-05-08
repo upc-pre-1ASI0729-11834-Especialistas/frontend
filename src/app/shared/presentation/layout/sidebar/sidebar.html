@@ -1,0 +1,26 @@
+<aside class="sidebar">
+
+  <div class="logo">
+    <img class="logo-asset" src="safelab-logo.png" alt="SafeLab Logo">
+  </div>
+
+  <nav class="nav-links">
+    @for (section of navSections; track section.title) {
+      <p class="options-title">{{ section.title }}</p>
+      @for (item of section.items; track item.route) {
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="active">
+          {{ item.label }}
+        </a>
+      }
+    }
+  </nav>
+
+  <div class="user-panel">
+    <img alt="profile" class="user-photo" src="user-photo.png">
+    <p class="user-name">Dr. Alexander Vance</p>
+    <button class="logout-btn">Logout</button>
+  </div>
+
+</aside>
