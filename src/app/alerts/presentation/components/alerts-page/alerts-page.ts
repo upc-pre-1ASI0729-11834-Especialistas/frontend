@@ -1,5 +1,15 @@
-import { Component } from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { Component, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatSidenavModule, MatDrawer } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
 
 interface AlertMiniMetric {
   label: string;
@@ -16,14 +26,27 @@ interface Alert {
 
 @Component({
   selector: 'app-alerts-page',
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatChipsModule,
+    MatDividerModule
+  ],
   templateUrl: './alerts-page.html',
   styleUrl: './alerts-page.css',
 })
 export class AlertsPage {
 
-  drawerOpen = false;
-  selectedAlert: any = null;
+  @ViewChild('drawer') drawer!: MatDrawer;
+
+  selectedAlert: Alert | null = null;
 
   summaryCards = [
     { title: 'Critical Alerts', value: 3 },
@@ -73,12 +96,6 @@ export class AlertsPage {
 
   openDrawer(alert: Alert) {
     this.selectedAlert = alert;
-    this.drawerOpen = true;
-    document.body.classList.add('no-scroll');
-  }
-
-  closeDrawer() {
-    this.drawerOpen = false;
-    document.body.classList.remove('no-scroll');
+    this.drawer.open();
   }
 }
