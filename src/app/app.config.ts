@@ -1,5 +1,4 @@
 import {ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection} from '@angular/core';
-import { routes } from './app.routes';
 import {provideHttpClient} from '@angular/common/http';
 import {provideTranslateService} from '@ngx-translate/core';
 import {provideTranslateHttpLoader} from '@ngx-translate/http-loader';

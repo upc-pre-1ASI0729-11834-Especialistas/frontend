@@ -1,0 +1,47 @@
+{
+  "alerts": [
+    {
+      "id": 1,
+      "title": "Temperature threshold exceeded",
+      "description": "Sensor T-01 detected abnormal temperature levels.",
+      "severity": "Critical",
+      "status": "Active",
+      "metrics": [
+        { "id": 1, "label": "Status", "value": "Active" },
+        { "id": 2, "label": "Duration", "value": "5 min" },
+        { "id": 3, "label": "Current Temp", "value": "42.8°C" },
+        { "id": 4, "label": "Threshold", "value": "38°C" }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Humidity drop detected",
+      "description": "Humidity sensor detected low humidity.",
+      "severity": "Warning",
+      "status": "Active",
+      "metrics": [
+        { "id": 1, "label": "Status", "value": "Active" },
+        { "id": 2, "label": "Duration", "value": "2 min" },
+        { "id": 3, "label": "Humidity", "value": "20%" },
+        { "id": 4, "label": "Threshold", "value": "30%" }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Unknown element detected",
+      "description": "An unknown element was detected in the system.",
+      "severity": "Warning",
+      "status": "Active",
+      "metrics": [
+        { "id": 1, "label": "Status", "value": "Active" },
+        { "id": 2, "label": "Duration", "value": "3 min" },
+        { "id": 3, "label": "Humidity", "value": "55%" },
+        { "id": 4, "label": "Threshold", "value": "15%" }
+      ]
+    }
+  ],
+  "telemetry": [],
+  "automation": [],
+  "history": [],
+  "labs": []
+}

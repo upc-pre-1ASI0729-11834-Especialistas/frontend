@@ -1,0 +1,13 @@
+.app-container {
+  height: 100vh;
+  background: #f5f7fb;
+}
+
+.app-sidenav {
+  width: 210px;
+  border-right: none;
+}
+
+.content {
+  overflow: auto;
+}

@@ -1,0 +1,74 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: white;
+  border-right: 1px solid #e5e7eb;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2563eb;
+  padding: 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.logo-asset {
+  width: 130px;
+}
+
+.options-title {
+  font-size: 10px;
+  padding: 4px 16px;
+  margin: 4px;
+  font-weight: bold;
+  color: #c6c6c6;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 24px;
+  flex: 1;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #556782;
+  padding: 12px 16px;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.nav-links a:hover {
+  background-color: #eff6ff;
+}
+
+.nav-links a.active {
+  background-color: #2563eb;
+  color: white;
+}
+
+.user-panel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.user-photo {
+  width: 40px;
+  height: 40px;
+}
+
+.user-name {
+  display: block;
+  height: fit-content;
+  margin: 0;
+  font-size: 12px;
+}
