@@ -1,0 +1,67 @@
+<app-card padding="section" [hoverLift]="true">
+  <app-section-header icon="notifications" iconColor="var(--warning-color)" title="Notification Preferences"
+    subtitle="Choose how and when you receive laboratory alerts" />
+
+  <div class="notifications-grid">
+    <label class="notif-card-wrap">
+      <app-card class="notif-card" [borderColor]="notifications().email ? 'var(--mat-sys-primary-container)' : ''"
+        [bgColor]="notifications().email ? 'var(--mat-sys-primary-container)' : ''" padding="compact">
+        <div class="notif-row">
+          <mat-checkbox [(ngModel)]="notifications().email" />
+          <app-icon-badge color="var(--mat-sys-primary)" size="md">
+            <mat-icon>email</mat-icon>
+          </app-icon-badge>
+          <div class="notif-text">
+            <h4 class="notif-title">Email</h4>
+            <p class="notif-desc">Receive alerts via email</p>
+          </div>
+        </div>
+      </app-card>
+    </label>
+
+    <label class="notif-card-wrap">
+      <app-card class="notif-card" [borderColor]="notifications().sms ? 'color-mix(in srgb, var(--success-color) 20%, transparent)' : ''"
+        [bgColor]="notifications().sms ? 'color-mix(in srgb, var(--success-color) 8%, transparent)' : ''" padding="compact">
+        <div class="notif-row">
+          <mat-checkbox [(ngModel)]="notifications().sms" />
+          <app-icon-badge color="var(--success-color)" size="md">
+            <mat-icon>chat</mat-icon>
+          </app-icon-badge>
+          <div class="notif-text">
+            <h4 class="notif-title">SMS</h4>
+            <p class="notif-desc">Text alerts to your phone</p>
+          </div>
+        </div>
+      </app-card>
+    </label>
+
+    <label class="notif-card-wrap">
+      <app-card class="notif-card" [borderColor]="notifications().push ? 'var(--warning-color)' : ''"
+        [bgColor]="notifications().push ? 'var(--mat-sys-background)' : ''" padding="compact">
+        <div class="notif-row">
+          <mat-checkbox [(ngModel)]="notifications().push" />
+          <app-icon-badge color="var(--warning-color)" size="md">
+            <mat-icon>notifications</mat-icon>
+          </app-icon-badge>
+          <div class="notif-text">
+            <h4 class="notif-title">Push Notifications</h4>
+            <p class="notif-desc">In-app push alerts</p>
+          </div>
+        </div>
+      </app-card>
+    </label>
+
+    <app-card class="notif-card critical-card-wrap" borderColor="var(--warning-color)" bgColor="var(--mat-sys-background)" padding="compact">
+      <div class="notif-row critical-row">
+        <app-icon-badge color="var(--warning-color)" size="sm">
+          <mat-icon>warning</mat-icon>
+        </app-icon-badge>
+        <div class="notif-text">
+          <h4 class="notif-title">Critical Alerts Only</h4>
+          <p class="notif-desc">Suppress non-critical notifications</p>
+        </div>
+        <mat-slide-toggle [(ngModel)]="notifications().criticalOnly" />
+      </div>
+    </app-card>
+  </div>
+</app-card>

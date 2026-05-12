@@ -1,0 +1,15 @@
+<div class="page-body">
+  @if (laboratoryStore.creationSuccess()) {
+  <app-lab-success-card [createdLab]="laboratoryStore.lastCreatedLab()" (goToLaboratories)="onGoToLaboratories()"
+    (createAnother)="onCreateAnother()" />
+  } @else {
+  <app-lab-general-info [(formData)]="formData" />
+
+  <app-lab-sensors-config [(sensors)]="formData.sensors" [sensorCards]="sensorCards" />
+
+  <app-lab-thresholds-config [(thresholds)]="formData.thresholds" />
+
+  <app-lab-notifications-config [(notifications)]="formData.notifications" />
+
+  }
+</div>
