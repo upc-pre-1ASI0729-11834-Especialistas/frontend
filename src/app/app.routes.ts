@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Layout } from './shared/presentation/layout/layout';
 import { AlertsPage } from './alerts/presentation/components/alerts-page/alerts-page';
+import { DashboardPageComponent } from './telemetry/presentation/pages/dashboard-page/dashboard-page.component';
 
 export const routes: Routes = [
   {
@@ -9,7 +10,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: AlertsPage,
+        component: DashboardPageComponent,
         data: {
           title: 'Dashboard',
           subtitle: 'Overview of all laboratory environments'
