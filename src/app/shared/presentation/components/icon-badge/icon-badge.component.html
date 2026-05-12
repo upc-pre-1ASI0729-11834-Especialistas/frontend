@@ -1,0 +1,10 @@
+<span
+  class="icon-badge"
+  [class.size-sm]="size() === 'sm'"
+  [class.size-md]="size() === 'md'"
+  [class.size-lg]="size() === 'lg'"
+  [style.background]="background() ?? 'color-mix(in srgb, ' + color() + ' 8%, transparent)'"
+  [style.color]="color()"
+>
+  <ng-content />
+</span>

@@ -1,0 +1,17 @@
+<app-card padding="none">
+  <div class="stat-inner">
+    <div class="stat-header">
+      <app-icon-badge [color]="accentColor()" size="sm">
+        <ng-content />
+      </app-icon-badge>
+      <span class="stat-label">{{ label() }}</span>
+    </div>
+    <div class="stat-value-area">
+      <div class="stat-value">{{ value() }}</div>
+      @if (showProgress()) {
+      <mat-progress-bar mode="determinate" [value]="progressValue()"
+        [style.--mdc-linear-progress-active-indicator-color]="accentColor()" />
+      }
+    </div>
+  </div>
+</app-card>
