@@ -7,10 +7,26 @@
       "severity": "Critical",
       "status": "Active",
       "metrics": [
-        { "id": 1, "label": "Status", "value": "Active" },
-        { "id": 2, "label": "Duration", "value": "5 min" },
-        { "id": 3, "label": "Current Temp", "value": "42.8°C" },
-        { "id": 4, "label": "Threshold", "value": "38°C" }
+        {
+          "id": 1,
+          "label": "Status",
+          "value": "Active"
+        },
+        {
+          "id": 2,
+          "label": "Duration",
+          "value": "5 min"
+        },
+        {
+          "id": 3,
+          "label": "Current Temp",
+          "value": "42.8°C"
+        },
+        {
+          "id": 4,
+          "label": "Threshold",
+          "value": "38°C"
+        }
       ]
     },
     {
@@ -20,10 +36,26 @@
       "severity": "Warning",
       "status": "Active",
       "metrics": [
-        { "id": 1, "label": "Status", "value": "Active" },
-        { "id": 2, "label": "Duration", "value": "2 min" },
-        { "id": 3, "label": "Humidity", "value": "20%" },
-        { "id": 4, "label": "Threshold", "value": "30%" }
+        {
+          "id": 1,
+          "label": "Status",
+          "value": "Active"
+        },
+        {
+          "id": 2,
+          "label": "Duration",
+          "value": "2 min"
+        },
+        {
+          "id": 3,
+          "label": "Humidity",
+          "value": "20%"
+        },
+        {
+          "id": 4,
+          "label": "Threshold",
+          "value": "30%"
+        }
       ]
     },
     {
@@ -33,14 +65,283 @@
       "severity": "Warning",
       "status": "Active",
       "metrics": [
-        { "id": 1, "label": "Status", "value": "Active" },
-        { "id": 2, "label": "Duration", "value": "3 min" },
-        { "id": 3, "label": "Humidity", "value": "55%" },
-        { "id": 4, "label": "Threshold", "value": "15%" }
+        {
+          "id": 1,
+          "label": "Status",
+          "value": "Active"
+        },
+        {
+          "id": 2,
+          "label": "Duration",
+          "value": "3 min"
+        },
+        {
+          "id": 3,
+          "label": "Humidity",
+          "value": "55%"
+        },
+        {
+          "id": 4,
+          "label": "Threshold",
+          "value": "15%"
+        }
       ]
     }
   ],
-  "telemetry": [],
+  "telemetry-alerts": [
+    {
+      "id": 1,
+      "labName": "Lab 04",
+      "title": "High CO2 Level",
+      "description": "Levels exceeded 1000ppm threshold in sector B.",
+      "severity": "CRITICAL",
+      "timeAgo": "10 mins ago"
+    },
+    {
+      "id": 2,
+      "labName": "Lab 12",
+      "title": "Temperature Fluctuation",
+      "description": "Temp dropped 1.5°C below target range.",
+      "severity": "WARNING",
+      "timeAgo": "45 mins ago"
+    },
+    {
+      "id": 3,
+      "labName": "Lab 07",
+      "title": "Door Sensor Offline",
+      "description": "Sensor reconnected automatically.",
+      "severity": "RESOLVED",
+      "timeAgo": "2 hours ago"
+    }
+  ],
+  "telemetry-laboratories": [
+    {
+      "id": 1,
+      "name": "Lab 01",
+      "type": "Chemical Synthesis",
+      "temperature": 22.1,
+      "status": "ALERT"
+    },
+    {
+      "id": 2,
+      "name": "Lab 02",
+      "type": "Chemical Synthesis",
+      "temperature": 21.5,
+      "status": "NORMAL"
+    },
+    {
+      "id": 3,
+      "name": "Lab 03",
+      "type": "Clean Room",
+      "temperature": 18.2,
+      "status": "NORMAL"
+    },
+    {
+      "id": 4,
+      "name": "Lab 04",
+      "type": "Biohazard Level 3",
+      "temperature": 12.6,
+      "status": "WARNING"
+    },
+    {
+      "id": 5,
+      "name": "Lab 05",
+      "type": "Cold Storage",
+      "temperature": 2.2,
+      "status": "NORMAL"
+    }
+  ],
+  "telemetry-stats": [
+    {
+      "id": 1,
+      "totalLaboratories": 24,
+      "activeAlerts": 3,
+      "systemsHealth": 98.2,
+      "upcomingMaintenance": 5
+    }
+  ],
+  "telemetry-temperature-readings": [
+    {
+      "id": 1,
+      "date": "2026-04-07",
+      "lab01Value": 20.8,
+      "lab02Value": 18.4
+    },
+    {
+      "id": 2,
+      "date": "2026-04-08",
+      "lab01Value": 20.5,
+      "lab02Value": 17.8
+    },
+    {
+      "id": 3,
+      "date": "2026-04-09",
+      "lab01Value": 20.7,
+      "lab02Value": 17.5
+    },
+    {
+      "id": 4,
+      "date": "2026-04-10",
+      "lab01Value": 19.9,
+      "lab02Value": 17
+    },
+    {
+      "id": 5,
+      "date": "2026-04-11",
+      "lab01Value": 19.2,
+      "lab02Value": 16.6
+    },
+    {
+      "id": 6,
+      "date": "2026-04-12",
+      "lab01Value": 18.7,
+      "lab02Value": 16.4
+    },
+    {
+      "id": 7,
+      "date": "2026-04-13",
+      "lab01Value": 18.1,
+      "lab02Value": 16.4
+    },
+    {
+      "id": 8,
+      "date": "2026-04-14",
+      "lab01Value": 17.7,
+      "lab02Value": 16.9
+    },
+    {
+      "id": 9,
+      "date": "2026-04-15",
+      "lab01Value": 17.9,
+      "lab02Value": 17.2
+    },
+    {
+      "id": 10,
+      "date": "2026-04-16",
+      "lab01Value": 18.4,
+      "lab02Value": 17.3
+    },
+    {
+      "id": 11,
+      "date": "2026-04-17",
+      "lab01Value": 18.9,
+      "lab02Value": 18
+    },
+    {
+      "id": 12,
+      "date": "2026-04-18",
+      "lab01Value": 19.8,
+      "lab02Value": 18.5
+    },
+    {
+      "id": 13,
+      "date": "2026-04-19",
+      "lab01Value": 20.4,
+      "lab02Value": 18.7
+    },
+    {
+      "id": 14,
+      "date": "2026-04-20",
+      "lab01Value": 20.6,
+      "lab02Value": 18.8
+    },
+    {
+      "id": 15,
+      "date": "2026-04-21",
+      "lab01Value": 20.7,
+      "lab02Value": 18.8
+    },
+    {
+      "id": 16,
+      "date": "2026-04-22",
+      "lab01Value": 20.1,
+      "lab02Value": 18.6
+    },
+    {
+      "id": 17,
+      "date": "2026-04-23",
+      "lab01Value": 19.8,
+      "lab02Value": 18.2
+    },
+    {
+      "id": 18,
+      "date": "2026-04-24",
+      "lab01Value": 18.6,
+      "lab02Value": 17.7
+    },
+    {
+      "id": 19,
+      "date": "2026-04-25",
+      "lab01Value": 18.4,
+      "lab02Value": 17.4
+    },
+    {
+      "id": 20,
+      "date": "2026-04-26",
+      "lab01Value": 18,
+      "lab02Value": 16.9
+    },
+    {
+      "id": 21,
+      "date": "2026-04-27",
+      "lab01Value": 17.7,
+      "lab02Value": 16.7
+    },
+    {
+      "id": 22,
+      "date": "2026-04-28",
+      "lab01Value": 18,
+      "lab02Value": 16.4
+    },
+    {
+      "id": 23,
+      "date": "2026-04-29",
+      "lab01Value": 18.8,
+      "lab02Value": 16.4
+    },
+    {
+      "id": 24,
+      "date": "2026-04-30",
+      "lab01Value": 19.5,
+      "lab02Value": 16.8
+    },
+    {
+      "id": 25,
+      "date": "2026-05-01",
+      "lab01Value": 20.3,
+      "lab02Value": 17
+    },
+    {
+      "id": 26,
+      "date": "2026-05-02",
+      "lab01Value": 20.6,
+      "lab02Value": 17.8
+    },
+    {
+      "id": 27,
+      "date": "2026-05-03",
+      "lab01Value": 20.9,
+      "lab02Value": 18.2
+    },
+    {
+      "id": 28,
+      "date": "2026-05-04",
+      "lab01Value": 20.7,
+      "lab02Value": 18.7
+    },
+    {
+      "id": 29,
+      "date": "2026-05-05",
+      "lab01Value": 20.2,
+      "lab02Value": 18.7
+    },
+    {
+      "id": 30,
+      "date": "2026-05-06",
+      "lab01Value": 19.5,
+      "lab02Value": 18.7
+    }
+  ],
   "automation": [],
   "history": [],
   "labs": []
