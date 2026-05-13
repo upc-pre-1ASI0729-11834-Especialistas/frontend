@@ -2,7 +2,7 @@
 import { GeneralSettingStore } from './general-setting.store';
 import { UserProfileStore } from './user-profile.store';
 import { SensorConfigurationStore } from './sensor-configuration.store';
-import { NotificationPreferenceStore } from './notification-preference';
+import { NotificationPreferenceStore } from './notification-preference.store';
 import { SecurityAccessStore } from './security-access.store';
 
 @Injectable({ providedIn: 'root' })
