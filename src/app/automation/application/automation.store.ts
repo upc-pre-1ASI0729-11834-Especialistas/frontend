@@ -3,7 +3,7 @@ import { GeneralSettingStore } from './general-setting.store';
 import { UserProfileStore } from './user-profile.store';
 import { SensorConfigurationStore } from './sensor-configuration.store';
 import { NotificationPreferenceStore } from './notification-preference.store';
-import { SecurityAccessStore } from './security-access.store';
+import { SecurityAccessStore } from './security-acces.store';
 
 @Injectable({ providedIn: 'root' })
 export class AutomationStore {
