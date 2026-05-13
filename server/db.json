@@ -43,5 +43,125 @@
   "telemetry": [],
   "automation": [],
   "history": [],
-  "labs": []
+  "labs": [],
+  "general-settings": [
+    {
+      "id": 1,
+      "key": "timezone",
+      "value": "America/Lima",
+      "category": "Regional",
+      "description": "Default timezone for all laboratory environments"
+    },
+    {
+      "id": 2,
+      "key": "temperature_unit",
+      "value": "Celsius",
+      "category": "Units",
+      "description": "Default unit for temperature measurements"
+    },
+    {
+      "id": 3,
+      "key": "date_format",
+      "value": "DD/MM/YYYY",
+      "category": "Regional",
+      "description": "Date display format across the platform"
+    }
+  ],
+  "user-profiles": [
+    {
+      "id": 1,
+      "fullName": "John Doe",
+      "role": "Senior Lab Manager",
+      "email": "john.doe@safelab.io",
+      "avatarUrl": "https://ui-avatars.com/api/?name=John+Doe&background=1976d2&color=fff&size=128"
+    }
+  ],
+  "sensor-configurations": [
+    {
+      "id": 1,
+      "sensorName": "Temp sensor - Hood 3",
+      "type": "Model PT100",
+      "unit": "S/N: SN-88291-B",
+      "calibrationDate": "2026-05-10",
+      "isActive": true
+    },
+    {
+      "id": 2,
+      "sensorName": "Pressure Monitor - Airlock B",
+      "type": "Model PX-400 Differential",
+      "unit": "S/N: SN-11023-C",
+      "calibrationDate": "2025-01-01",
+      "isActive": true
+    },
+    {
+      "id": 3,
+      "sensorName": "Ambient Humidity - Cryo A",
+      "type": "Model Capacitive Polymer",
+      "unit": "S/N: SN-90042-H",
+      "calibrationDate": "2026-04-20",
+      "isActive": false
+    },
+    {
+      "id": 4,
+      "sensorName": "CO2 Level - Incubator 7",
+      "type": "Model NDIR Optical",
+      "unit": "S/N: SN-22441-I",
+      "calibrationDate": "2026-05-11",
+      "isActive": true
+    },
+    {
+      "id": 5,
+      "sensorName": "Ultra-Low Temp - Freezer 04",
+      "type": "Model Cryogenic RTD",
+      "unit": "S/N: SN-00122-F",
+      "calibrationDate": "2026-05-12",
+      "isActive": true
+    }
+  ],
+  "notification-preferences": [
+    {
+      "id": 1,
+      "channel": "Email",
+      "isEnabled": true,
+      "threshold": "Critical",
+      "description": "Send email alerts for critical threshold breaches"
+    },
+    {
+      "id": 2,
+      "channel": "SMS",
+      "isEnabled": false,
+      "threshold": "Warning",
+      "description": "Send SMS notifications for warning-level events"
+    },
+    {
+      "id": 3,
+      "channel": "In-App",
+      "isEnabled": true,
+      "threshold": "All",
+      "description": "Show in-app notifications for all alert levels"
+    }
+  ],
+  "security-accesses": [
+    {
+      "id": 1,
+      "permission": "View Dashboards",
+      "role": "Lab Technician",
+      "isGranted": true,
+      "lastAuditDate": "2026-05-10"
+    },
+    {
+      "id": 2,
+      "permission": "Manage Sensors",
+      "role": "Lab Manager",
+      "isGranted": true,
+      "lastAuditDate": "2026-05-08"
+    },
+    {
+      "id": 3,
+      "permission": "API Key Management",
+      "role": "Administrator",
+      "isGranted": true,
+      "lastAuditDate": "2026-05-12"
+    }
+  ]
 }
