@@ -1,0 +1,5 @@
+<mat-card [appearance]="appearance()" [style.border-color]="borderColor() || null"
+  [style.background-color]="bgColor() || null" [class]="'card-pad-' + padding()"
+  [class.hover-lift]="hoverLift()">
+  <ng-content />
+</mat-card>
