@@ -1,32 +1,32 @@
 ﻿import { BaseEntity } from '../../../shared/domain/model/base-entity';
 
-export class NotificationPreference implements BaseEntity {
+export class SecurityAccess implements BaseEntity {
   private _id: number;
-  private _channel: string;
-  private _isEnabled: boolean;
-  private _threshold: string;
-  private _description: string;
+  private _permission: string;
+  private _role: string;
+  private _isGranted: boolean;
+  private _lastAuditDate: string;
 
-  constructor(data: { id: number; channel: string; isEnabled: boolean; threshold: string; description: string }) {
+  constructor(data: { id: number; permission: string; role: string; isGranted: boolean; lastAuditDate: string }) {
     this._id = data.id;
-    this._channel = data.channel;
-    this._isEnabled = data.isEnabled;
-    this._threshold = data.threshold;
-    this._description = data.description;
+    this._permission = data.permission;
+    this._role = data.role;
+    this._isGranted = data.isGranted;
+    this._lastAuditDate = data.lastAuditDate;
   }
 
   get id(): number { return this._id; }
   set id(value: number) { this._id = value; }
 
-  get channel(): string { return this._channel; }
-  set channel(value: string) { this._channel = value; }
+  get permission(): string { return this._permission; }
+  set permission(value: string) { this._permission = value; }
 
-  get isEnabled(): boolean { return this._isEnabled; }
-  set isEnabled(value: boolean) { this._isEnabled = value; }
+  get role(): string { return this._role; }
+  set role(value: string) { this._role = value; }
 
-  get threshold(): string { return this._threshold; }
-  set threshold(value: string) { this._threshold = value; }
+  get isGranted(): boolean { return this._isGranted; }
+  set isGranted(value: boolean) { this._isGranted = value; }
 
-  get description(): string { return this._description; }
-  set description(value: string) { this._description = value; }
+  get lastAuditDate(): string { return this._lastAuditDate; }
+  set lastAuditDate(value: string) { this._lastAuditDate = value; }
 }
