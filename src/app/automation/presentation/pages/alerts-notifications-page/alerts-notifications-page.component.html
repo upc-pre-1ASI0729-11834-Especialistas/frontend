@@ -1,0 +1,121 @@
+﻿<div class="page-body">
+
+  <div class="header-section">
+    <h1 class="page-title">Alerts & Notifications</h1>
+    <p class="page-subtitle">Configure how and when you receive laboratory safety and status updates.</p>
+  </div>
+
+  <mat-card appearance="outlined" class="main-card">
+    <mat-card-content class="main-content">
+
+      <!-- Notifications Channel Section -->
+      <section class="config-section">
+        <h2 class="section-title">Notifications Channel</h2>
+        <div class="divider"></div>
+
+        <div class="channel-grid">
+
+          <div class="channel-card">
+            <div class="channel-info">
+              <h3 class="channel-name">Email Notifications</h3>
+              <p class="channel-desc">Daily digests and critical alerts via email</p>
+            </div>
+            <mat-slide-toggle [checked]="true" color="primary"></mat-slide-toggle>
+          </div>
+
+          <div class="channel-card">
+            <div class="channel-info">
+              <h3 class="channel-name">In-App Notifications</h3>
+              <p class="channel-desc">Real-time alerts within the dashboard</p>
+            </div>
+            <mat-slide-toggle color="primary"></mat-slide-toggle>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Alert Thresholds Section -->
+      <section class="config-section">
+        <h2 class="section-title">Alert Thresholds</h2>
+        <div class="divider"></div>
+
+        <div class="threshold-container">
+          <div class="threshold-header">
+            <mat-icon class="threshold-icon">device_thermostat</mat-icon>
+            <span class="threshold-title">Temperature Alerts</span>
+          </div>
+
+          <div class="threshold-grid">
+            <div class="threshold-field">
+              <span class="field-label">Warning Level</span>
+              <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                <mat-select value="2c">
+                  <mat-option value="2c">2°C Deviation</mat-option>
+                  <mat-option value="3c">3°C Deviation</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div class="helper-text warning">
+                <span class="dot"></span> Visual indicator on dashboard
+              </div>
+            </div>
+
+            <div class="threshold-field">
+              <span class="field-label">Critical Level</span>
+              <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                <mat-select value="5c">
+                  <mat-option value="4c">4°C Deviation</mat-option>
+                  <mat-option value="5c">5°C Deviation</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div class="helper-text critical">
+                <span class="dot"></span> Immediate push notification required
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Lab Activity Summary Section -->
+      <section class="config-section">
+        <h2 class="section-title">Lab Activity Summary</h2>
+        <div class="divider"></div>
+
+        <div class="summary-list">
+
+          <div class="summary-item">
+            <mat-checkbox color="primary" class="summary-checkbox"></mat-checkbox>
+            <div class="summary-info">
+              <h3 class="summary-name">Daily Summary</h3>
+              <p class="summary-desc">A concise snapshot of all lab readings and events over the past 24 hours.</p>
+            </div>
+          </div>
+
+          <div class="summary-item">
+            <mat-checkbox color="primary" class="summary-checkbox"></mat-checkbox>
+            <div class="summary-info">
+              <h3 class="summary-name">Weekly Report</h3>
+              <p class="summary-desc">Comprehensive trends and compliance documentation for the previous week.</p>
+            </div>
+          </div>
+
+          <div class="summary-item">
+            <mat-checkbox [checked]="true" color="primary" class="summary-checkbox"></mat-checkbox>
+            <div class="summary-info">
+              <h3 class="summary-name">Instant Sensor Alerts</h3>
+              <p class="summary-desc">Immediate notification for any sensor hardware malfunctions or connectivity loss.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="divider full-width"></div>
+
+      <div class="actions-footer">
+        <button mat-flat-button color="primary" class="save-btn">Save Changes</button>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+</div>

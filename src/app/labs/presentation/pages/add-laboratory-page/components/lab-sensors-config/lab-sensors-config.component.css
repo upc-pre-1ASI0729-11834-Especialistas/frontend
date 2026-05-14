@@ -1,0 +1,49 @@
+.sensors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.sensor-card {
+  background: var(--mat-sys-background);
+  border: 1.5px solid var(--mat-sys-outline-variant);
+  border-radius: 14px;
+  padding: 18px;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sensor-card.active {
+  background: linear-gradient(135deg, var(--mat-sys-tertiary-container) 0%, var(--mat-sys-primary-container) 100%);
+  border-color: var(--mat-sys-primary-container);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--mat-sys-primary) 8%, transparent);
+}
+
+.sensor-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.sensor-name { font-size: var(--mat-sys-title-medium-size); font-weight: var(--mat-sys-title-large-weight); color: var(--mat-sys-on-surface); margin: 0; }
+.sensor-desc { font-size: var(--mat-sys-label-medium-size); color: var(--mat-sys-on-surface-variant); margin: 0; line-height: 1.4; }
+
+.sensor-badge {
+  display: inline-block;
+  width: fit-content;
+  padding: 3px 10px;
+  border-radius: var(--mat-sys-corner-small);
+  font-size: var(--mat-sys-label-medium-size);
+  font-weight: var(--mat-sys-title-large-weight);
+  background: var(--mat-sys-outline-variant);
+  color: var(--mat-sys-on-surface-variant);
+  margin-top: 4px;
+}
+
+.sensor-badge.active {
+  background: linear-gradient(135deg, var(--mat-sys-primary-container) 0%, var(--mat-sys-primary-container) 100%);
+  color: var(--mat-sys-primary);
+}

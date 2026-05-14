@@ -1,0 +1,12 @@
+<span class="status-badge" 
+      [class.badge-critical]="normalizedSeverity() === 'critical'"
+      [class.badge-warning]="normalizedSeverity() === 'warning'"
+      [class.badge-resolved]="normalizedSeverity() === 'resolved'"
+      [class.badge-normal]="normalizedSeverity() === 'normal'"
+      [class.badge-info]="normalizedSeverity() === 'info'"
+      [class.strong]="strong()">
+  @if (showDot() && normalizedSeverity() !== 'info') {
+    <span class="badge-dot"></span>
+  }
+  {{ displayLabel() }}
+</span>

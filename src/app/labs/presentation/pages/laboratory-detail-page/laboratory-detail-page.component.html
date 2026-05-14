@@ -1,0 +1,61 @@
+@if (laboratoryStore.loading()) {
+<div class="loading-state">
+  <mat-spinner diameter="36" />
+  <p>Loading laboratory details...</p>
+</div>
+} @else if (laboratoryStore.selectedLaboratory(); as lab) {
+<div class="page-body">
+
+  <nav class="breadcrumb">
+    <a routerLink="/laboratories" class="breadcrumb-link">Laboratories</a>
+    <mat-icon class="breadcrumb-sep">chevron_right</mat-icon>
+    <span class="breadcrumb-current">{{ lab.name }}</span>
+  </nav>
+
+
+  <app-laboratory-header [lab]="lab" />
+
+
+  <mat-tab-group (selectedIndexChange)="onTabChange($event)" animationDuration="200ms">
+    @for (tab of tabs; track tab) {
+    <mat-tab [label]="tab" />
+    }
+  </mat-tab-group>
+
+
+  <app-laboratory-stats [lab]="lab" />
+
+
+  <div class="metrics-alerts-row">
+    <div class="metrics-section">
+      <div class="section-header">
+        <h3 class="section-title">Real-time Metrics</h3>
+        <span class="live-indicator">
+          <span class="live-dot"></span> Live data
+        </span>
+      </div>
+      <div class="metrics-grid">
+        @for (metric of lab.metrics; track metric.name) {
+        <app-metric-card [metric]="metric" />
+        }
+      </div>
+    </div>
+
+
+    <div class="alerts-section">
+      <app-laboratory-alerts [alerts]="lab.recentAlerts" />
+    </div>
+  </div>
+
+
+  <div class="bottom-row">
+    <div class="activity-section">
+      <app-laboratory-activity [activities]="lab.recentActivities" />
+    </div>
+
+    <div class="schedules-section">
+      <app-laboratory-schedules [schedules]="lab.schedules" />
+    </div>
+  </div>
+</div>
+}

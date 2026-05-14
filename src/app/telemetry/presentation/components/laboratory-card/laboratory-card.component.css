@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  cursor: default;
+}
+
+:host:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.06));
+}
+
+.lab-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.lab-name { font-size: var(--mat-sys-title-medium-size); font-weight: var(--mat-sys-title-large-weight); color: var(--mat-sys-on-surface); }
+.lab-type { font-size: var(--mat-sys-label-medium-size); color: var(--mat-sys-on-surface-variant); margin: 0 0 10px; }
+.lab-temp {
+  font-size: var(--mat-sys-title-large-size);
+  font-weight: var(--mat-sys-title-large-weight);
+  color: var(--mat-sys-on-surface);
+  margin: 0;
+  letter-spacing: -0.02em;
+}

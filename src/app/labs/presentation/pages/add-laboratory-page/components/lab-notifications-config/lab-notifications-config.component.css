@@ -1,0 +1,54 @@
+.notifications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+.notif-card-wrap {
+  display: block;
+  cursor: pointer;
+  height: 100%;
+}
+
+.notif-card {
+  height: 100%;
+  cursor: inherit;
+}
+
+.notif-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 100%;
+}
+
+.notif-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.notif-title {
+  font-size: var(--mat-sys-title-medium-size);
+  font-weight: var(--mat-sys-title-large-weight);
+  color: var(--mat-sys-on-surface);
+  margin: 0;
+}
+
+.notif-desc {
+  font-size: var(--mat-sys-label-medium-size);
+  color: var(--mat-sys-on-surface-variant);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.critical-card-wrap {
+  cursor: default;
+}
+
+.critical-row {
+  justify-content: space-between;
+}

@@ -1,0 +1,135 @@
+<mat-drawer-container class="drawer-container">
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <mat-drawer-content>
+
+    <div class="alerts-page">
+
+      <section class="summary-cards">
+        @for (card of summaryCards; track card.title) {
+          <mat-card appearance="outlined" class="summary-card">
+            <mat-card-content>
+              <h2>{{ card.value }}</h2>
+              <p>{{ card.title }}</p>
+            </mat-card-content>
+          </mat-card>
+        }
+      </section>
+
+      <section class="filters-bar">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Search alerts</mat-label>
+          <input matInput placeholder="Type to search..." />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Severity</mat-label>
+          <mat-select>
+            <mat-option>Critical</mat-option>
+            <mat-option>Warning</mat-option>
+            <mat-option>Info</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Laboratory</mat-label>
+          <mat-select>
+            <mat-option>Lab A</mat-option>
+            <mat-option>Lab B</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select>
+            <mat-option>Active</mat-option>
+            <mat-option>Resolved</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </section>
+
+      <section class="alerts-list">
+
+        @for (alert of alerts; track alert.title) {
+          <mat-card appearance="outlined" class="alert-card">
+            <mat-card-content class="alert-content">
+              <div class="alert-left">
+                <div class="alert-header">
+                  <h3>{{ alert.title }}</h3>
+                  <mat-chip-set>
+                    <mat-chip color="warn" selected>
+                      {{ alert.severity }}
+                    </mat-chip>
+                  </mat-chip-set>
+                </div>
+
+                <p class="alert-description">
+                  {{ alert.description }}
+                </p>
+
+                <mat-chip-set>
+                  <mat-chip color="primary" selected>
+                    {{ alert.status }}
+                  </mat-chip>
+                </mat-chip-set>
+              </div>
+
+              <div class="alert-actions">
+                <button mat-raised-button color="primary" (click)="openDrawer(alert)">
+                  View Details
+                </button>
+              </div>
+
+            </mat-card-content>
+
+          </mat-card>
+        }
+
+      </section>
+
+    </div>
+
+  </mat-drawer-content>
+
+  <!-- DRAWER -->
+  <mat-drawer #drawer position="end" mode="over" class="alert-drawer">
+
+    <div class="drawer-header">
+      <h2>Alert Details</h2>
+
+      <button mat-icon-button (click)="drawer.close()" aria-label="Close drawer">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    @if (selectedAlert; as alert) {
+      <mat-chip-set>
+        <mat-chip color="warn" selected>
+          {{ alert.severity }}
+        </mat-chip>
+      </mat-chip-set>
+
+      <div class="mini-cards">
+        @for (metric of alert.metrics; track metric.label) {
+          <mat-card appearance="outlined">
+            <mat-card-content>
+              <p>{{ metric.label }}</p>
+              <h3>{{ metric.value }}</h3>
+            </mat-card-content>
+          </mat-card>
+        }
+      </div>
+
+      <h3>Description</h3>
+      <p class="drawer-description">{{ alert.description }}</p>
+
+      <button mat-raised-button color="primary">
+        Mark as Resolved
+      </button>
+    }
+
+  </mat-drawer>
+
+</mat-drawer-container>

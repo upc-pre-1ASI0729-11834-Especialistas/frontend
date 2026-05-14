@@ -1,0 +1,57 @@
+@if (grouped().length === 0) {
+  <mat-card appearance="outlined" class="empty-state">
+    <mat-card-content>
+      <p>No history records match the current filters.</p>
+    </mat-card-content>
+  </mat-card>
+}
+
+@for (group of grouped(); track group.label) {
+  <div class="history-group">
+    <p class="group-label">{{ group.label }}</p>
+
+    @for (record of group.records; track record.id) {
+      <mat-card appearance="outlined" class="history-card">
+        <mat-card-content class="history-content">
+          <div class="history-main">
+            <div class="history-header">
+              <h3>{{ record.name }}</h3>
+              <mat-chip-set>
+                <mat-chip
+                  selected
+                  class="severity-chip"
+                  [class.severity-critical]="record.severity === 'Critical'"
+                  [class.severity-warning]="record.severity === 'Warning'"
+                  [class.severity-medium]="record.severity === 'Medium'"
+                  [class.severity-low]="record.severity === 'Low'"
+                >
+                  {{ record.severity }}
+                </mat-chip>
+                <mat-chip
+                  selected
+                  class="status-chip"
+                  [class.status-active]="record.status === 'Active'"
+                  [class.status-resolved]="record.status === 'Resolved'"
+                >
+                  {{ record.status }}
+                </mat-chip>
+              </mat-chip-set>
+            </div>
+
+            <p class="history-meta">
+              {{ record.lab }} · {{ record.eventType }} · {{ record.occurredAt | date: 'shortTime' }}
+            </p>
+
+            <p class="history-description">{{ record.description }}</p>
+          </div>
+
+          <div class="history-actions">
+            <button mat-raised-button color="primary" (click)="select(record)">
+              View details
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+}

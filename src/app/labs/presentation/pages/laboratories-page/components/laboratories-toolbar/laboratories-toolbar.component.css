@@ -1,0 +1,63 @@
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lab-count { font-size: var(--mat-sys-body-medium-size); color: var(--mat-sys-on-surface-variant); font-weight: var(--mat-sys-title-medium-weight); }
+.lab-count strong { color: var(--mat-sys-on-surface); font-weight: var(--mat-sys-title-large-weight); }
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-field { width: 140px; }
+
+@media (max-width: 900px) {
+  .toolbar-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto auto;
+    gap: 12px;
+  }
+  .filter-field { width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .toolbar-left { justify-content: flex-start; }
+}
+
+@media (max-width: 640px) {
+  .toolbar-right {
+    grid-template-columns: 1fr 1fr;
+  }
+  mat-button-toggle-group, #add-laboratory-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  mat-button-toggle-group mat-button-toggle {
+    flex: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .toolbar-right {
+    grid-template-columns: 1fr;
+  }
+}
