@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.delevopment';
 import { BaseApi } from '../../shared/infrastructure/base-api';
 import { Laboratory } from '../domain/model/laboratory.entity';
-import { LaboratoryPagination } from '../domain/model/laboratory-pagination';
 import { LaboratoryApiEndpoint } from './laboratory-api-endpoint';
 import { Observable } from 'rxjs';
 import { LaboratoryResponse } from './laboratory-response';
@@ -22,16 +21,6 @@ export class LaboratoryApi extends BaseApi {
 
   getAll(): Observable<Laboratory[]> {
     return this.endpoint.getAll();
-  }
-
-  getPaginated(
-    page: number,
-    limit: number,
-    status?: string,
-    location?: string,
-    search?: string
-  ): Observable<LaboratoryPagination> {
-    return this.endpoint.getPaginated(page, limit, status, location, search);
   }
 
   getById(id: number): Observable<Laboratory> {
