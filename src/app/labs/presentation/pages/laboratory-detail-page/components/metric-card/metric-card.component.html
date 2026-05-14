@@ -1,0 +1,20 @@
+<app-card padding="none">
+  <div class="metric-inner">
+    <div class="metric-header">
+      <app-icon-badge [color]="iconColor()" size="sm">
+        <mat-icon>{{ metric().icon }}</mat-icon>
+      </app-icon-badge>
+      <span class="metric-name">{{ metric().name }}</span>
+      <app-status-badge [severity]="metric().status" [label]="metric().status" [showDot]="false" />
+    </div>
+    <div class="metric-body">
+      <span class="metric-value">{{ metric().value }}<span class="metric-unit">{{ metric().unit }}</span></span>
+    </div>
+    <div class="metric-sparkline">
+      <svg viewBox="0 0 100 28" preserveAspectRatio="none">
+        <path [attr.d]="sparklinePath()" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" [style.color]="iconColor()" />
+      </svg>
+    </div>
+  </div>
+</app-card>

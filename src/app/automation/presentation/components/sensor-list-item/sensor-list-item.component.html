@@ -1,0 +1,32 @@
+﻿<mat-card appearance="outlined" class="sensor-item-card">
+  <mat-card-content class="sensor-content">
+
+    <div class="sensor-icon" [ngClass]="{'needs-calibration-icon': status() === 'Needs Calibration'}">
+      <mat-icon>{{ icon() }}</mat-icon>
+    </div>
+
+    <div class="sensor-info">
+      <h3 class="sensor-name">{{ sensor().sensorName }}</h3>
+      <p class="sensor-details">Type: {{ sensor().type }} | Unit: {{ sensor().unit }} | Last Cal: {{ sensor().calibrationDate }}</p>
+    </div>
+
+    <div class="sensor-status-badge">
+      @if (status() === 'Active') {
+        <span class="status-indicator active"></span> Active
+      } @else if (status() === 'Needs Calibration') {
+        <div class="status-warning-badge">
+          <mat-icon>warning_amber</mat-icon>
+          Needs Calibration
+        </div>
+      } @else {
+        <span class="status-indicator inactive"></span> Inactive
+      }
+    </div>
+
+    <div class="sensor-actions">
+      <button mat-flat-button color="primary" (click)="onCalibrate()">Calibrate</button>
+      <button mat-stroked-button (click)="onEdit()">Edit</button>
+    </div>
+
+  </mat-card-content>
+</mat-card>

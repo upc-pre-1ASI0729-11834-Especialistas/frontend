@@ -1,0 +1,9 @@
+<div class="section-header">
+  <mat-icon class="section-icon" [style.color]="iconColor()">{{ icon() }}</mat-icon>
+  <div>
+    <h2 class="section-title">{{ title() }}</h2>
+    @if (subtitle()) {
+      <p class="section-subtitle">{{ subtitle() }}</p>
+    }
+  </div>
+</div>

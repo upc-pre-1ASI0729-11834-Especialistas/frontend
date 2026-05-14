@@ -1,0 +1,7 @@
+<div class="labs-grid" [class.list-mode]="viewMode() === 'list'">
+  @for (lab of laboratories(); track lab.id) {
+  <a class="lab-card-link" [routerLink]="['/laboratories', lab.id]">
+    <app-laboratory-detail-card [lab]="lab" />
+  </a>
+  }
+</div>
