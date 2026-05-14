@@ -42,6 +42,107 @@
   ],
   "telemetry": [],
   "automation": [],
-  "history": [],
+  "history": [
+    {
+      "id": 1,
+      "name": "Temperature returned to normal",
+      "description": "Temperature sensor TH-04 stabilized after the alert was resolved.",
+      "occurredAt": "2026-05-14T08:47:00Z",
+      "lab": "Lab A - Biochemistry Wing",
+      "eventType": "Alert resolved",
+      "severity": "Low",
+      "status": "Resolved"
+    },
+    {
+      "id": 2,
+      "name": "High temperature detected",
+      "description": "Temperature exceeded threshold of 38C. Sensor TH-04 recorded 41.2C.",
+      "occurredAt": "2026-05-14T08:32:00Z",
+      "lab": "Lab A - Biochemistry Wing",
+      "eventType": "Alert",
+      "severity": "Critical",
+      "status": "Active"
+    },
+    {
+      "id": 3,
+      "name": "Ventilation activated automatically",
+      "description": "Automated ventilation started to reduce temperature in cabinet C3.",
+      "occurredAt": "2026-05-14T08:33:20Z",
+      "lab": "Lab A - Biochemistry Wing",
+      "eventType": "Automation",
+      "severity": "Medium",
+      "status": "Resolved"
+    },
+    {
+      "id": 4,
+      "name": "User updated laboratory settings",
+      "description": "Thresholds updated for CO2 sensors. New threshold set to 600 ppm.",
+      "occurredAt": "2026-05-14T07:30:00Z",
+      "lab": "Lab B - Molecular Research",
+      "eventType": "User action",
+      "severity": "Low",
+      "status": "Resolved"
+    },
+    {
+      "id": 5,
+      "name": "System uptime check",
+      "description": "Daily uptime check completed successfully.",
+      "occurredAt": "2026-05-13T22:10:00Z",
+      "lab": "Lab C - Diagnostics",
+      "eventType": "System",
+      "severity": "Low",
+      "status": "Resolved"
+    },
+    {
+      "id": 6,
+      "name": "Humidity spike detected",
+      "description": "Humidity rose to 70% in storage room S2.",
+      "occurredAt": "2026-05-13T17:05:00Z",
+      "lab": "Lab C - Diagnostics",
+      "eventType": "Alert",
+      "severity": "Warning",
+      "status": "Active"
+    },
+    {
+      "id": 7,
+      "name": "Calibration cycle completed",
+      "description": "Sensor calibration cycle finished with no issues.",
+      "occurredAt": "2026-05-12T15:20:00Z",
+      "lab": "Lab D - Analytical Chemistry",
+      "eventType": "Maintenance",
+      "severity": "Low",
+      "status": "Resolved"
+    },
+    {
+      "id": 8,
+      "name": "Power fluctuation detected",
+      "description": "Power fluctuation detected in freezer unit F1.",
+      "occurredAt": "2026-05-12T12:45:00Z",
+      "lab": "Lab B - Molecular Research",
+      "eventType": "Alert",
+      "severity": "Warning",
+      "status": "Resolved"
+    },
+    {
+      "id": 9,
+      "name": "Inventory audit logged",
+      "description": "Inventory audit completed for cold storage area.",
+      "occurredAt": "2026-05-11T10:15:00Z",
+      "lab": "Lab A - Biochemistry Wing",
+      "eventType": "User action",
+      "severity": "Low",
+      "status": "Resolved"
+    },
+    {
+      "id": 10,
+      "name": "Sensor offline",
+      "description": "Pressure sensor P-09 lost connection for 4 minutes.",
+      "occurredAt": "2026-05-10T21:05:00Z",
+      "lab": "Lab D - Analytical Chemistry",
+      "eventType": "Alert",
+      "severity": "Critical",
+      "status": "Resolved"
+    }
+  ],
   "labs": []
 }
