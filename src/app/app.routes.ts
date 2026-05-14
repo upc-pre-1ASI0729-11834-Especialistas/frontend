@@ -17,6 +17,14 @@ export const routes: Routes = [
     component: Layout,
     children: [
       {
+        path: '',
+        component: DashboardPageComponent,
+        data: {
+          title: 'Dashboard',
+          subtitle: 'Overview of all laboratory environments'
+        }
+      },
+      {
         path: 'dashboard',
         component: DashboardPageComponent,
         data: {
