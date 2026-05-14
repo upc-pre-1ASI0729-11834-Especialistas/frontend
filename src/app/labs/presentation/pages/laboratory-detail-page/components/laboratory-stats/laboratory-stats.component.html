@@ -1,0 +1,43 @@
+<div class="status-row">
+  <app-card padding="none">
+    <div class="status-card-inner">
+      <app-icon-badge color="var(--success-color)" size="md">
+        <mat-icon>check_circle</mat-icon>
+      </app-icon-badge>
+      <div class="status-card-data">
+        <span class="status-card-label">Overall Status</span>
+        <span class="status-card-value">{{ lab().overallStatus }}</span>
+      </div>
+      @if (lab().active) {
+      <app-status-badge severity="normal" label="Active" [showDot]="true" />
+      }
+    </div>
+  </app-card>
+  <app-card padding="none">
+    <div class="status-card-inner">
+      <app-icon-badge color="var(--mat-sys-primary)" size="md">
+        <mat-icon>schedule</mat-icon>
+      </app-icon-badge>
+      <div class="status-card-data">
+        <span class="status-card-label">Last Update</span>
+        <span class="status-card-value">{{ lab().lastUpdate }}</span>
+      </div>
+      @if (lab().isLive) {
+      <span class="live-badge">Live</span>
+      }
+    </div>
+  </app-card>
+  <app-card padding="none">
+    <div class="status-card-inner">
+      <app-icon-badge [color]="lab().isMaintenanceUrgent() ? 'var(--mat-sys-error)' : 'var(--warning-color)'" size="md">
+        <mat-icon>event</mat-icon>
+      </app-icon-badge>
+      <div class="status-card-data">
+        <span class="status-card-label">Next Maintenance</span>
+        <span class="status-card-value">{{ lab().getFormattedMaintenance() }}</span>
+      </div>
+      <app-status-badge [severity]="lab().isMaintenanceUrgent() ? 'warning' : 'normal'"
+        [label]="lab().getMaintenanceBadgeLabel()" [showDot]="false" />
+    </div>
+  </app-card>
+</div>

@@ -1,0 +1,8 @@
+.form-grid {
+  display: grid;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.form-grid.cols-1 { grid-template-columns: 1fr; }

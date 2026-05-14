@@ -1,0 +1,52 @@
+<app-card padding="section" [hoverLift]="true">
+  <app-section-header icon="description" title="Basic Information"
+    subtitle="General details about the laboratory" />
+
+  <div class="form-grid cols-3">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Laboratory Name *</mat-label>
+      <input matInput id="lab-name" placeholder="e.g. Chemistry Lab A" [(ngModel)]="formData().name" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Lab ID / Code *</mat-label>
+      <input matInput id="lab-code" placeholder="e.g. LAB-CHM-001" [(ngModel)]="formData().labCode" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Building</mat-label>
+      <mat-select id="lab-building" [(ngModel)]="formData().building">
+        <mat-option value="">Select building</mat-option>
+        @for (b of buildings; track b) { <mat-option [value]="b">{{ b }}</mat-option> }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="form-grid cols-3">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Floor</mat-label>
+      <mat-select id="lab-floor" [(ngModel)]="formData().floor">
+        <mat-option value="">Select floor</mat-option>
+        @for (f of floors; track f) { <mat-option [value]="f">{{ f }}</mat-option> }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Room Number</mat-label>
+      <input matInput id="lab-room" placeholder="e.g. 204" [(ngModel)]="formData().roomNumber" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Laboratory Type *</mat-label>
+      <mat-select id="lab-type" [(ngModel)]="formData().type">
+        <mat-option value="">Select type</mat-option>
+        @for (t of labTypes; track t) { <mat-option [value]="t">{{ t }}</mat-option> }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="form-grid cols-1">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Description</mat-label>
+      <textarea matInput id="lab-desc" rows="3"
+        placeholder="Brief description of the laboratory's purpose and any special safety requirements..."
+        [(ngModel)]="formData().description"></textarea>
+    </mat-form-field>
+  </div>
+</app-card>
