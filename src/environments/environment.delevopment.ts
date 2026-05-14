@@ -3,4 +3,11 @@ export const environment = {
   platformProviderApiBaseUrl: 'http://localhost:3000',
   platformProviderAlertsEndpointPath: '/alerts',
   platformProviderHistoryEndpointPath: '/history',
+
+  // Automation module endpoints
+  platformProviderAutomationGeneralSettingsEndpointPath: '/general-settings',
+  platformProviderAutomationUserProfilesEndpointPath: '/user-profiles',
+  platformProviderAutomationSensorConfigurationsEndpointPath: '/sensor-configurations',
+  platformProviderAutomationNotificationPreferencesEndpointPath: '/notification-preferences',
+  platformProviderAutomationSecurityAccessesEndpointPath: '/security-accesses',
 };

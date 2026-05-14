@@ -1,0 +1,210 @@
+﻿:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.page-body {
+  padding: 24px 32px 40px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* Filter Card */
+.filter-card {
+  margin-bottom: var(--spacing-lg);
+  background-color: #f8fafc;
+  border: 1px solid var(--border-color);
+}
+
+.filter-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: 12px 24px;
+}
+
+.filter-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.dense-field {
+  width: 200px;
+  background-color: white;
+}
+
+::ng-deep .dense-field .mdc-text-field--outlined {
+  --mdc-outlined-text-field-container-shape: 4px;
+}
+
+::ng-deep .dense-field .mat-mdc-form-field-infix {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  min-height: 40px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.total-sensors {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* Sensor List */
+.sensor-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: 40px;
+}
+
+/* Bottom Section */
+.bottom-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-lg);
+}
+
+.compliance-card {
+  background-color: #f4f6fb; /* Light blueish gray */
+  border: 1px solid var(--border-color);
+}
+
+.compliance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.section-title {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.audit-badge {
+  background-color: rgba(25, 118, 210, 0.15);
+  color: var(--primary-color);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+}
+
+.metric-box {
+  background-color: white;
+  padding: var(--spacing-xl) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.metric-value {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.metric-value.success { color: var(--success-color); }
+.metric-value.warning { color: #ed6c02; }
+.metric-value.error { color: var(--error-color); }
+
+.metric-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Safety Card */
+.safety-card {
+  background-color: var(--primary-color);
+  border-radius: var(--border-radius-md);
+  padding: 32px 24px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.safety-icon {
+  margin-bottom: 16px;
+}
+
+.safety-icon mat-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+.safety-title {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+.safety-text {
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+  opacity: 0.9;
+  flex: 1;
+}
+
+.safety-btn {
+  background-color: white !important;
+  color: var(--primary-color) !important;
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .bottom-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+
+  .filter-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dense-field {
+    width: 100%;
+  }
+}

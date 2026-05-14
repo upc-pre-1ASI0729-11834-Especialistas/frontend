@@ -1,0 +1,25 @@
+﻿<mat-card appearance="outlined" class="settings-card">
+  <mat-card-content class="card-content">
+
+    <div class="card-icon">
+      <mat-icon>{{ icon() }}</mat-icon>
+    </div>
+
+    <h3 class="card-title">{{ title() }}</h3>
+
+    <p class="card-description">{{ description() }}</p>
+
+    <div class="card-action">
+      @if (buttonStyle() === 'filled') {
+        <button mat-raised-button color="primary" (click)="onAction()">
+          {{ buttonLabel() }}
+        </button>
+      } @else {
+        <button mat-stroked-button color="primary" (click)="onAction()">
+          {{ buttonLabel() }}
+        </button>
+      }
+    </div>
+
+  </mat-card-content>
+</mat-card>

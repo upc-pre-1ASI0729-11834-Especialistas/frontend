@@ -1,0 +1,71 @@
+﻿<div class="settings-page">
+
+  <!-- Top Row: General Settings + User Profile -->
+  <section class="top-row">
+
+    <!-- General Settings Card (wide) -->
+    <mat-card appearance="outlined" class="general-card">
+      <mat-card-content class="general-content">
+
+        <div class="general-header">
+          <div class="general-icon">
+            <mat-icon>settings</mat-icon>
+          </div>
+          <h3 class="general-title">General Settings</h3>
+          <mat-chip-set class="system-badge">
+            <mat-chip color="primary" selected>System-wide</mat-chip>
+          </mat-chip-set>
+        </div>
+
+        <p class="general-description">
+          Manage your global laboratory environment settings, including regional formatting, time zones, and default units of measurement for all experiments.
+        </p>
+
+        <div class="general-action">
+          <button mat-raised-button color="primary">View Details</button>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <!-- User Profile Card -->
+    <app-user-profile-card
+      [profile]="displayProfile()"
+      (editProfile)="null"
+    />
+
+  </section>
+
+  <!-- Bottom Row: 3 settings cards -->
+  <section class="bottom-row">
+
+    <app-settings-card
+      icon="sensors"
+      title="Sensor Configuration"
+      description="Calibrate and manage lab sensors for temperature, humidity, and atmospheric pressure monitoring."
+      buttonLabel="Configure"
+      buttonStyle="filled"
+      (actionClick)="navigateToSensorConfig()"
+    />
+
+    <app-settings-card
+      icon="notifications"
+      title="Alerts & Notifications"
+      description="Define critical thresholds for automated alerts via SMS, email, or in-app notifications for specimen safety."
+      buttonLabel="Set Preferences"
+      buttonStyle="outlined"
+      (actionClick)="navigateToAlertsNotifications()"
+    />
+
+    <app-settings-card
+      icon="lock"
+      title="Security & Access"
+      description="Control user permissions, API keys, and audit logs to ensure compliance with laboratory safety protocols."
+      buttonLabel="Manage"
+      buttonStyle="outlined"
+      (actionClick)="navigateToSecurityAccess()"
+    />
+
+  </section>
+
+</div>
