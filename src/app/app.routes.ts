@@ -4,6 +4,11 @@ import { AlertsPage } from './alerts/presentation/components/alerts-page/alerts-
 import { LaboratoriesPageComponent } from './labs/presentation/pages/laboratories-page/laboratories-page.component';
 import { AddLaboratoryPageComponent } from './labs/presentation/pages/add-laboratory-page/add-laboratory-page.component';
 import { LaboratoryDetailPageComponent } from './labs/presentation/pages/laboratory-detail-page/laboratory-detail-page.component';
+import { HistoryPage } from './history/presentation/views/history-page/history-page';
+import { SettingsPageComponent } from './automation/presentation/pages/settings-page/settings-page.component';
+import { SensorConfigurationPageComponent } from './automation/presentation/pages/sensor-configuration-page/sensor-configuration-page.component';
+import { AlertsNotificationsPageComponent } from './automation/presentation/pages/alerts-notifications-page/alerts-notifications-page.component';
+import { SecurityAccessPageComponent } from './automation/presentation/pages/security-access-page/security-access-page.component';
 
 export const routes: Routes = [
   {
@@ -57,7 +62,7 @@ export const routes: Routes = [
       },
       {
         path: 'history',
-        component: AlertsPage,
+        component: HistoryPage,
         data: {
           title: 'History',
           subtitle: 'View system activity and logs'
@@ -73,12 +78,37 @@ export const routes: Routes = [
       },
       {
         path: 'settings',
-        component: AlertsPage,
+        component: SettingsPageComponent,
         data: {
           title: 'Settings',
-          subtitle: 'Manage system configuration'
+          subtitle: 'Configure your Safelab workspace and personal preferences.'
+        }
+      },
+      {
+        path: 'settings/sensor-configuration',
+        component: SensorConfigurationPageComponent,
+        data: {
+          title: 'Settings',
+          subtitle: 'Configure your Safelab workspace and personal preferences.'
+        }
+      },
+      {
+        path: 'settings/alerts-notifications',
+        component: AlertsNotificationsPageComponent,
+        data: {
+          title: 'Settings',
+          subtitle: 'Configure your Safelab workspace and personal preferences.'
+        }
+      },
+      {
+        path: 'settings/security-access',
+        component: SecurityAccessPageComponent,
+        data: {
+          title: 'Settings',
+          subtitle: 'Configure your Safelab workspace and personal preferences.'
         }
       }
     ]
   }
 ];
+

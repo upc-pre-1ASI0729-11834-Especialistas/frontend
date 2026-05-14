@@ -90,7 +90,6 @@
   ],
   "telemetry": [],
   "automation": [],
-  "history": [],
   "labs": [
     {
       "id": 1,
@@ -1039,6 +1038,229 @@
           "icon": "backup"
         }
       ]
+    }
+  ]
+}
+  "history": [
+    {
+      "id": 1,
+      "name": "Temperature returned to normal",
+      "description": "Temperature sensor TH-04 stabilized after the alert was resolved.",
+      "occurredAt": "2026-05-14T08:47:00Z",
+      "lab": "Lab A - Biochemistry Wing",
+      "eventType": "Alert resolved",
+      "severity": "Low",
+      "status": "Resolved"
+    },
+    {
+      "id": 2,
+      "name": "High temperature detected",
+      "description": "Temperature exceeded threshold of 38C. Sensor TH-04 recorded 41.2C.",
+      "occurredAt": "2026-05-14T08:32:00Z",
+      "lab": "Lab A - Biochemistry Wing",
+      "eventType": "Alert",
+      "severity": "Critical",
+      "status": "Active"
+    },
+    {
+      "id": 3,
+      "name": "Ventilation activated automatically",
+      "description": "Automated ventilation started to reduce temperature in cabinet C3.",
+      "occurredAt": "2026-05-14T08:33:20Z",
+      "lab": "Lab A - Biochemistry Wing",
+      "eventType": "Automation",
+      "severity": "Medium",
+      "status": "Resolved"
+    },
+    {
+      "id": 4,
+      "name": "User updated laboratory settings",
+      "description": "Thresholds updated for CO2 sensors. New threshold set to 600 ppm.",
+      "occurredAt": "2026-05-14T07:30:00Z",
+      "lab": "Lab B - Molecular Research",
+      "eventType": "User action",
+      "severity": "Low",
+      "status": "Resolved"
+    },
+    {
+      "id": 5,
+      "name": "System uptime check",
+      "description": "Daily uptime check completed successfully.",
+      "occurredAt": "2026-05-13T22:10:00Z",
+      "lab": "Lab C - Diagnostics",
+      "eventType": "System",
+      "severity": "Low",
+      "status": "Resolved"
+    },
+    {
+      "id": 6,
+      "name": "Humidity spike detected",
+      "description": "Humidity rose to 70% in storage room S2.",
+      "occurredAt": "2026-05-13T17:05:00Z",
+      "lab": "Lab C - Diagnostics",
+      "eventType": "Alert",
+      "severity": "Warning",
+      "status": "Active"
+    },
+    {
+      "id": 7,
+      "name": "Calibration cycle completed",
+      "description": "Sensor calibration cycle finished with no issues.",
+      "occurredAt": "2026-05-12T15:20:00Z",
+      "lab": "Lab D - Analytical Chemistry",
+      "eventType": "Maintenance",
+      "severity": "Low",
+      "status": "Resolved"
+    },
+    {
+      "id": 8,
+      "name": "Power fluctuation detected",
+      "description": "Power fluctuation detected in freezer unit F1.",
+      "occurredAt": "2026-05-12T12:45:00Z",
+      "lab": "Lab B - Molecular Research",
+      "eventType": "Alert",
+      "severity": "Warning",
+      "status": "Resolved"
+    },
+    {
+      "id": 9,
+      "name": "Inventory audit logged",
+      "description": "Inventory audit completed for cold storage area.",
+      "occurredAt": "2026-05-11T10:15:00Z",
+      "lab": "Lab A - Biochemistry Wing",
+      "eventType": "User action",
+      "severity": "Low",
+      "status": "Resolved"
+    },
+    {
+      "id": 10,
+      "name": "Sensor offline",
+      "description": "Pressure sensor P-09 lost connection for 4 minutes.",
+      "occurredAt": "2026-05-10T21:05:00Z",
+      "lab": "Lab D - Analytical Chemistry",
+      "eventType": "Alert",
+      "severity": "Critical",
+      "status": "Resolved"
+    }
+  ],
+  "general-settings": [
+    {
+      "id": 1,
+      "key": "timezone",
+      "value": "America/Lima",
+      "category": "Regional",
+      "description": "Default timezone for all laboratory environments"
+    },
+    {
+      "id": 2,
+      "key": "temperature_unit",
+      "value": "Celsius",
+      "category": "Units",
+      "description": "Default unit for temperature measurements"
+    },
+    {
+      "id": 3,
+      "key": "date_format",
+      "value": "DD/MM/YYYY",
+      "category": "Regional",
+      "description": "Date display format across the platform"
+    }
+  ],
+  "user-profiles": [
+    {
+      "id": 1,
+      "fullName": "John Doe",
+      "role": "Senior Lab Manager",
+      "email": "john.doe@safelab.io",
+      "avatarUrl": "https://ui-avatars.com/api/?name=John+Doe&background=1976d2&color=fff&size=128"
+    }
+  ],
+  "sensor-configurations": [
+    {
+      "id": 1,
+      "sensorName": "Temp sensor - Hood 3",
+      "type": "Model PT100",
+      "unit": "S/N: SN-88291-B",
+      "calibrationDate": "2026-05-10",
+      "isActive": true
+    },
+    {
+      "id": 2,
+      "sensorName": "Pressure Monitor - Airlock B",
+      "type": "Model PX-400 Differential",
+      "unit": "S/N: SN-11023-C",
+      "calibrationDate": "2025-01-01",
+      "isActive": true
+    },
+    {
+      "id": 3,
+      "sensorName": "Ambient Humidity - Cryo A",
+      "type": "Model Capacitive Polymer",
+      "unit": "S/N: SN-90042-H",
+      "calibrationDate": "2026-04-20",
+      "isActive": false
+    },
+    {
+      "id": 4,
+      "sensorName": "CO2 Level - Incubator 7",
+      "type": "Model NDIR Optical",
+      "unit": "S/N: SN-22441-I",
+      "calibrationDate": "2026-05-11",
+      "isActive": true
+    },
+    {
+      "id": 5,
+      "sensorName": "Ultra-Low Temp - Freezer 04",
+      "type": "Model Cryogenic RTD",
+      "unit": "S/N: SN-00122-F",
+      "calibrationDate": "2026-05-12",
+      "isActive": true
+    }
+  ],
+  "notification-preferences": [
+    {
+      "id": 1,
+      "channel": "Email",
+      "isEnabled": true,
+      "threshold": "Critical",
+      "description": "Send email alerts for critical threshold breaches"
+    },
+    {
+      "id": 2,
+      "channel": "SMS",
+      "isEnabled": false,
+      "threshold": "Warning",
+      "description": "Send SMS notifications for warning-level events"
+    },
+    {
+      "id": 3,
+      "channel": "In-App",
+      "isEnabled": true,
+      "threshold": "All",
+      "description": "Show in-app notifications for all alert levels"
+    }
+  ],
+  "security-accesses": [
+    {
+      "id": 1,
+      "permission": "View Dashboards",
+      "role": "Lab Technician",
+      "isGranted": true,
+      "lastAuditDate": "2026-05-10"
+    },
+    {
+      "id": 2,
+      "permission": "Manage Sensors",
+      "role": "Lab Manager",
+      "isGranted": true,
+      "lastAuditDate": "2026-05-08"
+    },
+    {
+      "id": 3,
+      "permission": "API Key Management",
+      "role": "Administrator",
+      "isGranted": true,
+      "lastAuditDate": "2026-05-12"
     }
   ]
 }
