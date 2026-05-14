@@ -1,0 +1,8 @@
+<app-card [borderColor]="borderColor()" padding="compact">
+  <div class="lab-header">
+    <span class="lab-name">{{ lab().name }}</span>
+    <app-status-badge [severity]="lab().status" />
+  </div>
+  <p class="lab-type">{{ lab().type }}</p>
+  <p class="lab-temp">{{ lab().getFormattedTemperature() }}</p>
+</app-card>

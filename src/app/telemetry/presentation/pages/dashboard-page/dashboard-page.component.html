@@ -1,0 +1,46 @@
+<div class="page-body">
+  @if (dashboardStore.stats(); as stats) {
+
+  <div class="stats-grid">
+    <app-stat-card label="Total Laboratories" [value]="'' + stats.totalLaboratories"
+      accentColor="var(--mat-sys-primary)">
+      <mat-icon>science</mat-icon>
+    </app-stat-card>
+    <app-stat-card label="Active Alerts" [value]="'' + stats.activeAlerts" accentColor="var(--mat-sys-error)">
+      <mat-icon>warning</mat-icon>
+    </app-stat-card>
+    <app-stat-card label="Systems Health" [value]="stats.getHealthPercentage()" accentColor="var(--success-color)"
+      [showProgress]="true" [progressValue]="stats.systemsHealth">
+      <mat-icon>favorite</mat-icon>
+    </app-stat-card>
+    <app-stat-card label="Upcoming Maintenance" [value]="'' + stats.upcomingMaintenance"
+      accentColor="var(--mat-sys-tertiary)">
+      <mat-icon>bolt</mat-icon>
+    </app-stat-card>
+  </div>
+  }
+
+
+  <div class="content-row">
+    <div class="chart-col">
+      <app-temperature-chart [readings]="dashboardStore.temperatureTrends()"
+        [selectedPeriod]="dashboardStore.selectedPeriod()" (periodChanged)="onPeriodChange($event)" />
+    </div>
+    <div class="alerts-col">
+      <app-recent-alerts [alerts]="dashboardStore.recentAlerts()" />
+    </div>
+  </div>
+
+
+  <app-card>
+    <div class="labs-header">
+      <h2 class="labs-title">Laboratories</h2>
+      <a class="labs-view-all" href="javascript:void(0)">View All</a>
+    </div>
+    <div class="labs-grid">
+      @for (lab of dashboardStore.laboratories(); track lab.id) {
+      <app-laboratory-card [lab]="lab" />
+      }
+    </div>
+  </app-card>
+</div>

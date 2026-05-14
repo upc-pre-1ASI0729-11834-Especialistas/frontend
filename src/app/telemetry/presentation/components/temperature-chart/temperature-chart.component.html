@@ -1,0 +1,20 @@
+<app-card padding="none">
+  <div class="chart-header">
+    <div class="chart-title-group">
+      <h3 class="chart-title">Temperature Trends</h3>
+      <p class="chart-subtitle">Average across all active zones</p>
+    </div>
+    <mat-button-toggle-group [value]="selectedPeriod()" (change)="onPeriodClick($event.value)" appearance="standard">
+      @for (period of periods; track period) {
+      <mat-button-toggle [value]="period">{{ period }}</mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+  </div>
+
+  <div class="chart-body">
+    <apx-chart [series]="chartOptions().series!" [chart]="chartOptions().chart!" [xaxis]="chartOptions().xaxis!"
+      [yaxis]="chartOptions().yaxis!" [stroke]="chartOptions().stroke!" [dataLabels]="chartOptions().dataLabels!"
+      [grid]="chartOptions().grid!" [colors]="chartOptions().colors!" [fill]="chartOptions().fill!"
+      [tooltip]="chartOptions().tooltip!" [legend]="chartOptions().legend!"></apx-chart>
+  </div>
+</app-card>

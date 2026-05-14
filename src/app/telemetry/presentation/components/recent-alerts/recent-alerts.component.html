@@ -1,0 +1,29 @@
+<app-card class="alerts-outer-card">
+  <div class="alerts-header">
+    <h3 class="alerts-title">Recent Alerts</h3>
+    <a class="alerts-view-all" href="javascript:void(0)">View All</a>
+  </div>
+
+  <div class="alerts-list">
+    @for (alert of alerts(); track alert.id) {
+    <div class="alert-row">
+      
+      <app-card class="alert-card-wrap" [borderColor]="getAlertBorderColor(alert)" [bgColor]="getAlertBgColor(alert)"
+        padding="compact">
+        <div class="alert-grid">
+          <span class="alert-dot" [class.critical]="alert.isCritical()" [class.warning]="alert.isWarning()"
+            [class.resolved]="alert.isResolved()"></span>
+          <div class="alert-content">
+            <div class="alert-meta">
+              <app-status-badge [severity]="alert.severity" [showDot]="false" [strong]="true" />
+              <span class="alert-time">{{ alert.timeAgo }}</span>
+            </div>
+            <p class="alert-lab">{{ alert.labName }}: {{ alert.title }}</p>
+            <p class="alert-desc">{{ alert.description }}</p>
+          </div>
+        </div>
+      </app-card>
+    </div>
+    }
+  </div>
+</app-card>
