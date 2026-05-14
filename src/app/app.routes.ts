@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Layout } from './shared/presentation/layout/layout';
 import { AlertsPage } from './alerts/presentation/components/alerts-page/alerts-page';
+import { HistoryPage } from './history/presentation/views/history-page/history-page';
 import { SettingsPageComponent } from './automation/presentation/pages/settings-page/settings-page.component';
 import { SensorConfigurationPageComponent } from './automation/presentation/pages/sensor-configuration-page/sensor-configuration-page.component';
 import { AlertsNotificationsPageComponent } from './automation/presentation/pages/alerts-notifications-page/alerts-notifications-page.component';
@@ -37,7 +38,7 @@ export const routes: Routes = [
       },
       {
         path: 'history',
-        component: AlertsPage,
+        component: HistoryPage,
         data: {
           title: 'History',
           subtitle: 'View system activity and logs'
