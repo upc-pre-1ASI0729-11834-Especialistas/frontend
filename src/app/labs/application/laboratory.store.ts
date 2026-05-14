@@ -1,4 +1,4 @@
-﻿import { inject, Injectable, signal, computed, DestroyRef } from '@angular/core';
+import { inject, Injectable, signal, computed, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Laboratory, LaboratoryType, GasSensitivity, AlertEscalation, SensorConfig, SafetyThresholds, NotificationPreferences } from '../domain/model/laboratory.entity';
 import { LaboratoryApi } from '../infrastructure/laboratory-api';
@@ -24,13 +24,13 @@ export class LaboratoryStore {
   private readonly api = inject(LaboratoryApi);
   private readonly destroyRef = inject(DestroyRef);
 
-  
+
   private readonly laboratoriesSignal = signal<Laboratory[]>([]);
   private readonly selectedLaboratorySignal = signal<Laboratory | null>(null);
   private readonly loadingSignal = signal<boolean>(false);
   private readonly errorSignal = signal<string | null>(null);
 
-  
+
   private readonly totalCountSignal = signal<number>(0);
   private readonly currentPageSignal = signal<number>(1);
   private readonly pageSizeSignal = signal<number>(6);
@@ -40,7 +40,7 @@ export class LaboratoryStore {
   private readonly statusFilterSignal = signal<string>('All');
   private readonly locationFilterSignal = signal<string>('All');
 
-  
+
   private readonly locationsSignal = signal<string[]>([]);
   private readonly statusCountsSignal = signal<{ operational: number; warning: number; critical: number }>({
     operational: 0,
@@ -48,14 +48,14 @@ export class LaboratoryStore {
     critical: 0,
   });
 
-  
+
   private readonly activeTabSignal = signal<string>('systems');
 
-  
+
   private readonly creationSuccessSignal = signal<boolean>(false);
   private readonly lastCreatedLabSignal = signal<Laboratory | null>(null);
 
-  
+
   readonly laboratories = this.laboratoriesSignal.asReadonly();
   readonly selectedLaboratory = this.selectedLaboratorySignal.asReadonly();
   readonly loading = this.loadingSignal.asReadonly();
@@ -77,7 +77,7 @@ export class LaboratoryStore {
   readonly creationSuccess = this.creationSuccessSignal.asReadonly();
   readonly lastCreatedLab = this.lastCreatedLabSignal.asReadonly();
 
-  
+
   readonly showingFrom = computed(() => {
     const total = this.totalCountSignal();
     if (total === 0) return 0;
@@ -109,7 +109,7 @@ export class LaboratoryStore {
     return pages;
   });
 
-  
+
   readonly labTypes: LaboratoryType[] = [
     'Biological Safety', 'Chemical Synthesis', 'Cryogenic Storage',
     'Clean Room ISO 5', 'Material Science', 'Analytical',
@@ -126,25 +126,42 @@ export class LaboratoryStore {
     this.loadLaboratories();
   }
 
-  
+
   loadLaboratories(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
 
-    this.api.getPaginated(
-      this.currentPageSignal(),
-      this.pageSizeSignal(),
-      this.statusFilterSignal(),
-      this.locationFilterSignal(),
-      this.searchQuerySignal()
-    ).pipe(
+    this.api.getAll().pipe(
       takeUntilDestroyed(this.destroyRef),
       finalize(() => this.loadingSignal.set(false))
     ).subscribe({
-      next: (response) => {
-        this.laboratoriesSignal.set(response.data);
-        this.totalCountSignal.set(response.total);
-        this.totalPagesSignal.set(response.totalPages);
+      next: (allLabs) => {
+        const status = this.statusFilterSignal();
+        const location = this.locationFilterSignal();
+        const search = this.searchQuerySignal().toLowerCase();
+
+        let filtered = allLabs;
+
+        if (status && status !== 'All') {
+          filtered = filtered.filter(l => l.overallStatus === status);
+        }
+        if (location && location !== 'All') {
+          filtered = filtered.filter(l => l.building === location);
+        }
+        if (search) {
+          filtered = filtered.filter(l => l.name.toLowerCase().includes(search));
+        }
+
+        this.totalCountSignal.set(filtered.length);
+
+        const page = this.currentPageSignal();
+        const limit = this.pageSizeSignal();
+        this.totalPagesSignal.set(Math.ceil(filtered.length / limit) || 1);
+
+        const start = (page - 1) * limit;
+        const end = start + limit;
+
+        this.laboratoriesSignal.set(filtered.slice(start, end));
       },
       error: (err) => this.errorSignal.set(err.message)
     });
@@ -224,7 +241,7 @@ export class LaboratoryStore {
       next: (created) => {
         this.lastCreatedLabSignal.set(created);
         this.creationSuccessSignal.set(true);
-        this.loadLaboratories(); 
+        this.loadLaboratories();
       },
       error: (err) => this.errorSignal.set(err.message)
     });
