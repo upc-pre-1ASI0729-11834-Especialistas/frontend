@@ -1,0 +1,27 @@
+﻿<mat-card appearance="outlined" class="profile-card">
+  <mat-card-content class="profile-content">
+
+    <div class="avatar-section">
+      <div class="avatar-wrapper">
+        <img [src]="profile().avatarUrl" [alt]="profile().fullName" class="avatar-img" />
+        <div class="avatar-edit-badge">
+          <mat-icon>edit</mat-icon>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="profile-name">{{ profile().fullName }}</h3>
+    <p class="profile-role">{{ profile().role }}</p>
+
+    <p class="profile-description">
+      Manage your personal identity, contact information, and professional credentials.
+    </p>
+
+    <div class="profile-action">
+      <button mat-stroked-button color="primary" (click)="onEditProfile()">
+        Edit Profile
+      </button>
+    </div>
+
+  </mat-card-content>
+</mat-card>

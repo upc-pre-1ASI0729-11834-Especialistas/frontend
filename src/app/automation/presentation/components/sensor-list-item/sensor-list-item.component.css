@@ -1,0 +1,127 @@
+﻿:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.sensor-item-card {
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-sm);
+  transition: box-shadow var(--transition-normal);
+}
+
+.sensor-item-card:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.sensor-content {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  gap: var(--spacing-lg);
+}
+
+.sensor-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--border-radius-md);
+  background-color: rgba(25, 118, 210, 0.08); /* Light primary */
+  flex-shrink: 0;
+}
+
+.sensor-icon mat-icon {
+  color: var(--primary-color);
+}
+
+.needs-calibration-icon {
+  background-color: rgba(211, 47, 47, 0.08); /* Light error/warning */
+}
+
+.needs-calibration-icon mat-icon {
+  color: var(--error-color);
+}
+
+.sensor-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sensor-name {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 4px 0;
+}
+
+.sensor-details {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.sensor-status-badge {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+  min-width: 140px;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.status-indicator.active {
+  background-color: var(--success-color);
+}
+
+.status-indicator.inactive {
+  background-color: var(--border-color);
+}
+
+.status-warning-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #ed6c02; /* Warning orange */
+  border: 1px solid #ed6c02;
+  border-radius: 16px;
+  padding: 4px 12px;
+  font-size: var(--font-size-sm);
+}
+
+.status-warning-badge mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.sensor-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sensor-content {
+    flex-wrap: wrap;
+  }
+
+  .sensor-info {
+    min-width: 100%;
+    order: -1;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .sensor-status-badge {
+    flex: 1;
+  }
+}

@@ -1,0 +1,237 @@
+﻿:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.page-body {
+  padding: 24px 32px 40px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-section {
+  margin-bottom: var(--spacing-lg);
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+}
+
+.page-subtitle {
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Main Grid Layout */
+.main-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.password-card, .tfa-card {
+  border-radius: var(--border-radius-md);
+  background-color: var(--surface-color);
+  height: 100%;
+}
+
+.card-content {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 32px 0;
+}
+
+/* Password Form */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.form-field mat-form-field {
+  width: 100%;
+}
+
+::ng-deep .form-field .mdc-text-field--outlined {
+  --mdc-outlined-text-field-container-shape: 4px;
+  background-color: white;
+}
+
+::ng-deep .form-field .mat-mdc-form-field-infix {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  min-height: 48px;
+}
+
+.helper-text {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 32px 0 24px 0;
+}
+
+.actions-right {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+/* 2FA Card */
+.tfa-content {
+  align-items: center;
+  text-align: center;
+}
+
+.tfa-illustration {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  background-color: #e3f2fd;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 24px 0 32px 0;
+}
+
+.shield-icon mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: var(--primary-color);
+}
+
+.device-icon {
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 4px;
+  display: flex;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.device-icon mat-icon {
+  color: var(--primary-color);
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.tfa-description {
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.tfa-content .divider {
+  width: 100%;
+}
+
+.full-width-btn {
+  width: 100%;
+  border-width: 2px;
+  font-weight: 600;
+}
+
+/* Bottom Info Cards */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background-color: #f4f6fb;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 24px;
+}
+
+.info-icon-container {
+  width: 48px;
+  height: 48px;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.info-icon-container mat-icon {
+  color: var(--primary-color);
+}
+
+.info-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-title {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 4px 0;
+}
+
+.info-desc {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}

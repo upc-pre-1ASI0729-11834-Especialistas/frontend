@@ -1,0 +1,109 @@
+﻿<div class="page-body">
+
+  <div class="header-section">
+    <h1 class="page-title">Security & Access</h1>
+    <p class="page-subtitle">Manage your account credentials and security preferences.</p>
+  </div>
+
+  <div class="main-grid">
+
+    <!-- Change Password Card -->
+    <mat-card appearance="outlined" class="password-card">
+      <mat-card-content class="card-content">
+        <h2 class="card-title">Change Password</h2>
+
+        <div class="form-container">
+          <div class="form-field">
+            <label class="field-label">Current Password</label>
+            <mat-form-field appearance="outline" subscriptSizing="dynamic">
+              <input matInput type="password" value="********">
+            </mat-form-field>
+          </div>
+
+          <div class="form-field">
+            <label class="field-label">New Password</label>
+            <mat-form-field appearance="outline" subscriptSizing="dynamic">
+              <input matInput type="password" value="********">
+            </mat-form-field>
+            <div class="helper-text">Password must be 8+ characters</div>
+          </div>
+
+          <div class="form-field">
+            <label class="field-label">Confirm New Password</label>
+            <mat-form-field appearance="outline" subscriptSizing="dynamic">
+              <input matInput type="password" value="********">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="actions-right">
+          <button mat-flat-button color="primary">Update Password</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- 2FA Card -->
+    <mat-card appearance="outlined" class="tfa-card">
+      <mat-card-content class="card-content tfa-content">
+        <h2 class="card-title">Two-Factor Authentication (2FA)</h2>
+
+        <div class="tfa-illustration">
+          <div class="shield-icon">
+            <mat-icon>security</mat-icon>
+          </div>
+          <div class="device-icon">
+            <mat-icon>smartphone</mat-icon>
+          </div>
+        </div>
+
+        <p class="tfa-description">
+          Add an extra layer of security to your account by requiring more than just a password to log in.
+        </p>
+
+        <div class="spacer"></div>
+        <div class="divider"></div>
+
+        <button mat-stroked-button color="primary" class="full-width-btn">Enable 2FA</button>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
+  <!-- Bottom Info Cards -->
+  <div class="info-grid">
+
+    <div class="info-card">
+      <div class="info-icon-container">
+        <mat-icon color="primary">history</mat-icon>
+      </div>
+      <div class="info-text">
+        <h3 class="info-title">Login Activity</h3>
+        <p class="info-desc">Last login: 2 hours ago from Zurich, CH</p>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon-container">
+        <mat-icon color="primary">devices</mat-icon>
+      </div>
+      <div class="info-text">
+        <h3 class="info-title">Active Sessions</h3>
+        <p class="info-desc">2 devices currently connected</p>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon-container">
+        <mat-icon color="primary">verified_user</mat-icon>
+      </div>
+      <div class="info-text">
+        <h3 class="info-title">Account Status</h3>
+        <p class="info-desc">Verified Lab Technician (Tier 1)</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
