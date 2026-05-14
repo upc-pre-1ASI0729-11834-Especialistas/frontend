@@ -20,6 +20,39 @@
   gap: 28px;
 }
 
+.page-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--mat-sys-body-medium-size);
+}
+
+.breadcrumb-link {
+  color: var(--mat-sys-primary);
+  font-weight: var(--mat-sys-title-medium-weight);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.breadcrumb-link:hover { color: var(--mat-sys-primary); }
+
+.breadcrumb-sep {
+  font-size: var(--mat-sys-title-large-size);
+  width: 18px;
+  height: 18px;
+  color: var(--mat-sys-outline-variant);
+}
+
+.breadcrumb-current { color: var(--mat-sys-on-surface-variant); }
+
 
 @media (max-width: 900px) {
   .page-body { padding: 20px 20px 36px; gap: 22px; }

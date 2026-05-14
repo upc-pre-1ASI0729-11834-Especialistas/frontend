@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { LaboratoryStore, LaboratoryFormData } from '../../../application/laboratory.store';
 import { Laboratory, LaboratoryType, GasSensitivity, AlertEscalation, SensorConfig, SafetyThresholds, NotificationPreferences } from '../../../domain/model/laboratory.entity';
@@ -16,6 +16,9 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
   selector: 'app-add-laboratory-page',
   imports: [
     FormsModule,
+    RouterLink,
+    MatButton,
+    MatIcon,
     LabGeneralInfoComponent,
     LabSensorsConfigComponent,
     LabThresholdsConfigComponent,
