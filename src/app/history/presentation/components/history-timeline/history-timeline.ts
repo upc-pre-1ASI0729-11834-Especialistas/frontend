@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 import { HistoryRecord } from '../../../domain/model/history-record.entity';
 
 interface HistoryGroup {
@@ -13,7 +14,7 @@ interface HistoryGroup {
 @Component({
   selector: 'app-history-timeline',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatChipsModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatChipsModule, MatIconModule],
   templateUrl: './history-timeline.html',
   styleUrl: './history-timeline.css'
 })

@@ -6,56 +6,134 @@
 } @else if (laboratoryStore.selectedLaboratory(); as lab) {
 <div class="page-body">
 
+  <!-- BREADCRUMB -->
   <nav class="breadcrumb">
-    <a routerLink="/laboratories" class="breadcrumb-link">Laboratories</a>
+    <a routerLink="/laboratories" class="breadcrumb-link">LABORATORIES</a>
     <mat-icon class="breadcrumb-sep">chevron_right</mat-icon>
-    <span class="breadcrumb-current">{{ lab.name }}</span>
+    <span class="breadcrumb-current">{{ lab.name.toUpperCase() }}</span>
   </nav>
 
-
+  <!-- HEADER -->
   <app-laboratory-header [lab]="lab" />
 
+  <!-- STATS ROW -->
+  <app-laboratory-stats [lab]="lab" />
 
+  <!-- INCIDENT BANNER -->
+  @if ((lab.isCritical() || lab.isWarning()) && lab.recentAlerts.length) {
+  <div class="incident-banner" [class.incident-banner--critical]="lab.isCritical()">
+    <div class="incident-banner-left">
+      <mat-icon class="incident-icon">warning</mat-icon>
+      <div class="incident-text">
+        <strong class="incident-title">Active Incident: {{ lab.recentAlerts[0].title }}</strong>
+        <span class="incident-sub">{{ lab.recentAlerts[0].source }} · Started {{ lab.recentAlerts[0].timeAgo }}</span>
+      </div>
+    </div>
+    <a routerLink="/alerts/incident" class="incident-link">
+      View Incident <mat-icon class="link-arrow">arrow_forward</mat-icon>
+    </a>
+  </div>
+  }
+
+  <!-- TABS -->
   <mat-tab-group (selectedIndexChange)="onTabChange($event)" animationDuration="200ms">
     @for (tab of tabs; track tab) {
     <mat-tab [label]="tab" />
     }
   </mat-tab-group>
 
+  <!-- MAIN GRID -->
+  <div class="main-grid">
 
-  <app-laboratory-stats [lab]="lab" />
+    <!-- COLUMNA IZQUIERDA -->
+    <div class="left-col">
 
-
-  <div class="metrics-alerts-row">
-    <div class="metrics-section">
+      <!-- Real-time Metrics -->
       <div class="section-header">
         <h3 class="section-title">Real-time Metrics</h3>
-        <span class="live-indicator">
-          <span class="live-dot"></span> Live data
-        </span>
+        <span class="live-indicator"><span class="live-dot"></span> Live data</span>
       </div>
       <div class="metrics-grid">
         @for (metric of lab.metrics; track metric.name) {
         <app-metric-card [metric]="metric" />
         }
       </div>
+
+      <!-- Activity + Automations -->
+      <div class="bottom-row">
+        <app-laboratory-activity [activities]="lab.recentActivities" />
+        <app-laboratory-schedules [schedules]="lab.schedules" />
+      </div>
+
     </div>
 
+    <!-- SIDEBAR DERECHA -->
+    <div class="right-col">
 
-    <div class="alerts-section">
-      <app-laboratory-alerts [alerts]="lab.recentAlerts" />
+      <!-- Next Scheduled Maintenance -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          <mat-icon class="sidebar-icon">build</mat-icon>
+          <h4 class="sidebar-card-title">Next Scheduled Maintenance</h4>
+        </div>
+        <div class="sidebar-divider"></div>
+        <div class="maintenance-body">
+          <span class="maintenance-label">Equipment: {{ lab.labCode }}</span>
+          <div class="maintenance-date-row">
+            <strong class="maintenance-date">{{ lab.getFormattedMaintenance() }}</strong>
+            <app-status-badge [severity]="lab.isMaintenanceUrgent() ? 'warning' : 'info'"
+              [label]="lab.getMaintenanceBadgeLabel().toUpperCase()" [showDot]="false" />
+          </div>
+          <span class="maintenance-sub">In {{ lab.maintenanceDaysLeft }} days</span>
+        </div>
+      </div>
+
+      <!-- Add Manual Observation -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          <mat-icon class="sidebar-icon">edit_note</mat-icon>
+          <h4 class="sidebar-card-title">Add Manual Observation</h4>
+        </div>
+        <div class="sidebar-divider"></div>
+        <div class="observation-body">
+          <textarea class="obs-textarea" placeholder="Enter observation details..." rows="4"
+            [(ngModel)]="observationText"></textarea>
+          <select class="obs-select">
+            <option>Laboratory log</option>
+            <option>Maintenance log</option>
+            <option>Incident log</option>
+          </select>
+          <button class="btn-save-obs" [disabled]="!observationText.trim()" (click)="saveObservation()">
+            Save Observation
+          </button>
+        </div>
+      </div>
+
+      <!-- Recent Logs -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          <mat-icon class="sidebar-icon">history</mat-icon>
+          <h4 class="sidebar-card-title">Recent Logs</h4>
+        </div>
+        <div class="sidebar-divider"></div>
+        <div class="logs-list">
+          @for (activity of lab.recentActivities.slice(0, 3); track activity.id) {
+          <div class="log-item">
+            <div class="log-avatar">{{ activity.title.charAt(0).toUpperCase() }}</div>
+            <div class="log-content">
+              <div class="log-header-row">
+                <span class="log-author">{{ activity.title }}</span>
+                <span class="log-time">{{ activity.timestamp }}</span>
+              </div>
+              <p class="log-desc">{{ activity.description }}</p>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+
     </div>
   </div>
 
-
-  <div class="bottom-row">
-    <div class="activity-section">
-      <app-laboratory-activity [activities]="lab.recentActivities" />
-    </div>
-
-    <div class="schedules-section">
-      <app-laboratory-schedules [schedules]="lab.schedules" />
-    </div>
-  </div>
 </div>
 }

@@ -1,183 +1,178 @@
 <mat-drawer-container class="drawer-container">
   <mat-drawer-content>
     <div class="history-page">
-      <section class="summary-cards">
-        <mat-card appearance="outlined" class="summary-card">
-          <mat-card-content>
-            <div class="summary-card-header">
-              <h2>{{ totalEvents() }}</h2>
-              <span class="summary-icon" aria-hidden="true">
-                <mat-icon>insights</mat-icon>
-              </span>
-            </div>
-            <p>Total events</p>
-          </mat-card-content>
-        </mat-card>
-        <mat-card appearance="outlined" class="summary-card">
-          <mat-card-content>
-            <div class="summary-card-header">
-              <h2>{{ resolvedEvents() }}</h2>
-              <span class="summary-icon" aria-hidden="true">
-                <mat-icon>check_circle</mat-icon>
-              </span>
-            </div>
-            <p>Resolved</p>
-          </mat-card-content>
-        </mat-card>
-        <mat-card appearance="outlined" class="summary-card">
-          <mat-card-content>
-            <div class="summary-card-header">
-              <h2>{{ criticalEvents() }}</h2>
-              <span class="summary-icon summary-icon-warn" aria-hidden="true">
-                <mat-icon>warning</mat-icon>
-              </span>
-            </div>
-            <p>Critical</p>
-          </mat-card-content>
-        </mat-card>
-        <mat-card appearance="outlined" class="summary-card">
-          <mat-card-content>
-            <div class="summary-card-header">
-              <h2>{{ activeEvents() }}</h2>
-              <span class="summary-icon summary-icon-accent" aria-hidden="true">
-                <mat-icon>bolt</mat-icon>
-              </span>
-            </div>
-            <p>Active</p>
-          </mat-card-content>
-        </mat-card>
-      </section>
 
-      <section class="filters-bar">
-        <mat-form-field appearance="outline">
-          <mat-label>Search by name</mat-label>
-          <mat-icon matPrefix>search</mat-icon>
-          <input
-            matInput
-            placeholder="Search events"
-            [value]="searchQuery()"
-            (input)="searchQuery.set(($any($event.target).value || '').trim())"
-          />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Date range</mat-label>
-          <mat-icon matPrefix>calendar_today</mat-icon>
-          <mat-date-range-input [formGroup]="dateRange" [rangePicker]="picker">
-            <input matStartDate formControlName="start" placeholder="Start date" />
-            <input matEndDate formControlName="end" placeholder="End date" />
-          </mat-date-range-input>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Lab</mat-label>
-          <mat-select [value]="selectedLab()" (selectionChange)="selectedLab.set($event.value)">
-            <mat-option value="">All labs</mat-option>
-            @for (lab of labs(); track lab) {
-              <mat-option [value]="lab">{{ lab }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Event type</mat-label>
-          <mat-select [value]="selectedEventType()" (selectionChange)="selectedEventType.set($event.value)">
-            <mat-option value="">All types</mat-option>
-            @for (eventType of eventTypes(); track eventType) {
-              <mat-option [value]="eventType">{{ eventType }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Severity</mat-label>
-          <mat-select [value]="selectedSeverity()" (selectionChange)="selectedSeverity.set($event.value)">
-            <mat-option value="">All severities</mat-option>
-            @for (severity of severities(); track severity) {
-              <mat-option [value]="severity">{{ severity }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <div class="filters-actions">
-          <button mat-button color="primary" (click)="clearFilters()">
-            Clear filters
-          </button>
+      <!-- ① PAGE HEADER -->
+      <div class="page-header">
+        <div class="page-header-left">
+          <h1>History &amp; Reports</h1>
+          <p class="shift-info">
+            <mat-icon class="shift-info-icon">schedule</mat-icon>
+            Current shift: 8:00 AM – 2:00 PM · Manuel Sánchez · 6h 14m active
+          </p>
         </div>
-      </section>
-
-      <section class="view-toggle">
-        <div class="view-buttons">
-          <button mat-flat-button color="primary">Timeline view</button>
-          <button mat-stroked-button (click)="openPlaceholder('Table view')">Table view</button>
-        </div>
-        <button mat-stroked-button (click)="openPlaceholder('Export')">
-          Export
+        <button class="shift-banner-btn" (click)="openPlaceholder('Generate Shift Report')">
+          <mat-icon>picture_as_pdf</mat-icon>
+          Generate Shift Report
         </button>
-      </section>
+      </div>
 
-      <section class="history-list">
-        <app-history-timeline
-          [records]="filteredHistory()"
-          (recordSelected)="openDrawer($event)"
-        ></app-history-timeline>
-      </section>
+      <!-- ② FILTER TABS + DATE + SEARCH -->
+      <div class="filters-top-bar">
+        <div class="filter-tabs">
+          <button class="filter-tab active">All events</button>
+          <button class="filter-tab">Incidents</button>
+          <button class="filter-tab">Resolutions</button>
+          <button class="filter-tab">Manual observations</button>
+          <button class="filter-tab">Automations</button>
+        </div>
+        <div class="filter-right">
+          <button class="date-btn">
+            <mat-icon>calendar_today</mat-icon>
+            Today · Jun 5, 2026
+          </button>
+          <div class="search-box">
+            <mat-icon>search</mat-icon>
+            <input placeholder="Search events..." [value]="searchQuery()"
+              (input)="searchQuery.set(($any($event.target).value || '').trim())" />
+          </div>
+        </div>
+      </div>
+
+      <!-- ③ TWO-COLUMN LAYOUT -->
+      <div class="two-col-layout">
+
+        <!-- LEFT: Shift Timeline -->
+        <section class="timeline-panel">
+          <h2 class="panel-title">
+            <mat-icon>show_chart</mat-icon>
+            Shift Timeline
+          </h2>
+          <app-history-timeline [records]="filteredHistory()" (recordSelected)="openDrawer($event)" />
+        </section>
+
+        <!-- RIGHT: Generate Shift Report panel -->
+        <aside class="report-panel">
+          <h2 class="panel-title">
+            <mat-icon>description</mat-icon>
+            Generate Shift Report
+          </h2>
+
+          <!-- Stats pills -->
+          <div class="stats-grid">
+            <div class="stat-pill stat-incidents">
+              <mat-icon>warning</mat-icon>
+              <span>{{ criticalEvents() + activeEvents() }} incidents</span>
+            </div>
+            <div class="stat-pill stat-resolved">
+              <mat-icon>check_circle</mat-icon>
+              <span>{{ resolvedEvents() }} resolved</span>
+            </div>
+            <div class="stat-pill stat-active">
+              <mat-icon>bolt</mat-icon>
+              <span>{{ activeEvents() }} active</span>
+            </div>
+            <div class="stat-pill stat-manual">
+              <mat-icon>edit_note</mat-icon>
+              <span>3 manual obs</span>
+            </div>
+          </div>
+
+          <!-- General shift notes -->
+          <div class="report-section">
+            <p class="report-section-label">
+              <mat-icon>notes</mat-icon>
+              General shift notes
+            </p>
+            <p class="report-section-hint">Summary of general operations and non-critical observations.</p>
+            <textarea class="report-textarea" placeholder="Enter notes here..."></textarea>
+          </div>
+
+          <!-- Handover note -->
+          <div class="handover-box">
+            <p class="handover-title">
+              <mat-icon>bookmark</mat-icon>
+              Handover note — for the next shift
+            </p>
+            <p class="handover-subtitle">Critical information for the incoming operator.</p>
+            <textarea class="report-textarea handover-textarea"
+              placeholder="Important details for next shift..."></textarea>
+            <p class="handover-notice">
+              <mat-icon>info</mat-icon>
+              This note will be visible to Jean Arizabal (next shift, 2:00 PM – 10:00 PM) upon login.
+            </p>
+          </div>
+
+          <!-- Actions -->
+          <div class="report-actions">
+            <button class="report-btn-secondary" (click)="openPlaceholder('Preview PDF')">
+              Preview PDF
+            </button>
+            <button class="report-btn-primary" (click)="openPlaceholder('Download PDF Report')">
+              <mat-icon>download</mat-icon>
+              Download PDF Report
+            </button>
+          </div>
+        </aside>
+
+      </div>
+
     </div>
   </mat-drawer-content>
 
+  <!-- DRAWER: detalles del evento -->
   <mat-drawer #drawer position="end" mode="over" class="history-drawer">
     <div class="drawer-header">
       <h2>Event details</h2>
-      <button mat-icon-button (click)="drawer.close()" aria-label="Close drawer">
+      <button mat-icon-button (click)="drawer.close()">
         <mat-icon>close</mat-icon>
       </button>
     </div>
 
     @if (selectedRecord; as record) {
+    <div style="padding: 16px 24px 0;">
       <mat-chip-set>
-        <mat-chip color="warn" selected>
-          {{ record.severity }}
-        </mat-chip>
-        <mat-chip color="primary" selected>
-          {{ record.status }}
-        </mat-chip>
+        <mat-chip color="warn" selected>{{ record.severity }}</mat-chip>
+        <mat-chip color="primary" selected>{{ record.status }}</mat-chip>
       </mat-chip-set>
+    </div>
 
-      <div class="drawer-section">
-        <p class="drawer-label">Name</p>
-        <h3>{{ record.name }}</h3>
-      </div>
+    <div class="drawer-section">
+      <p class="drawer-label">Name</p>
+      <h3>{{ record.name }}</h3>
+    </div>
 
-      <div class="drawer-section">
-        <p class="drawer-label">Date</p>
-        <p>{{ record.occurredAt | date: 'medium' }}</p>
-      </div>
+    <div class="drawer-section">
+      <p class="drawer-label">Date</p>
+      <p>{{ record.occurredAt | date: 'medium' }}</p>
+    </div>
 
-      <div class="drawer-section">
-        <p class="drawer-label">Lab</p>
-        <p>{{ record.lab }}</p>
-      </div>
+    <div class="drawer-section">
+      <p class="drawer-label">Lab</p>
+      <p>{{ record.lab }}</p>
+    </div>
 
-      <div class="drawer-section">
-        <p class="drawer-label">Type</p>
-        <p>{{ record.eventType }}</p>
-      </div>
+    <div class="drawer-section">
+      <p class="drawer-label">Type</p>
+      <p>{{ record.eventType }}</p>
+    </div>
 
-      <mat-divider></mat-divider>
+    <mat-divider style="margin: 16px 0;" />
 
-      <div class="drawer-section">
-        <p class="drawer-label">Description</p>
-        <p class="drawer-description">{{ record.description }}</p>
-      </div>
+    <div class="drawer-section">
+      <p class="drawer-label">Description</p>
+      <p class="drawer-description">{{ record.description }}</p>
+    </div>
 
-      <div class="drawer-actions">
-        <button mat-raised-button color="primary" (click)="openPlaceholder('Generate report')">
-          Generate report
-        </button>
-        <button mat-stroked-button disabled>View laboratory</button>
-      </div>
+    <div class="drawer-actions">
+      <button mat-raised-button color="primary" (click)="openPlaceholder('Generate report')">
+        <mat-icon>picture_as_pdf</mat-icon> Generate report
+      </button>
+      <button mat-stroked-button (click)="openPlaceholder('View laboratory')">
+        <mat-icon>science</mat-icon> View laboratory
+      </button>
+    </div>
     }
   </mat-drawer>
+
 </mat-drawer-container>

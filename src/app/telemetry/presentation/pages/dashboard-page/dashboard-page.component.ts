@@ -1,9 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { TemperatureChartComponent } from '../../components/temperature-chart/temperature-chart.component';
-import { RecentAlertsComponent } from '../../components/recent-alerts/recent-alerts.component';
 import { LaboratoryCardComponent } from '../../components/laboratory-card/laboratory-card.component';
 import { DashboardStore } from '../../../application/dashboard.store';
-import { CardComponent } from '../../../../shared/presentation/components/card/card.component';
 import { StatCardComponent } from '../../../../shared/presentation/components/stat-card/stat-card.component';
 
 import { MatIcon } from '@angular/material/icon';
@@ -11,10 +10,9 @@ import { MatIcon } from '@angular/material/icon';
 @Component({
   selector: 'app-dashboard-page',
   imports: [
+    RouterLink,
     StatCardComponent,
-    CardComponent,
     TemperatureChartComponent,
-    RecentAlertsComponent,
     LaboratoryCardComponent,
     MatIcon
   ],

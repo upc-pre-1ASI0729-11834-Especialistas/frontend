@@ -1,11 +1,12 @@
 import { Component, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { LabAlert } from '../../../../../domain/model/laboratory.entity';
 import { CardComponent } from '../../../../../../shared/presentation/components/card/card.component';
 import { StatusBadgeComponent } from '../../../../../../shared/presentation/components/status-badge/status-badge.component';
 
 @Component({
   selector: 'app-laboratory-alerts',
-  imports: [CardComponent, StatusBadgeComponent],
+  imports: [CardComponent, StatusBadgeComponent, RouterLink],
   templateUrl: './laboratory-alerts.component.html',
   styleUrl: './laboratory-alerts.component.css',
 })

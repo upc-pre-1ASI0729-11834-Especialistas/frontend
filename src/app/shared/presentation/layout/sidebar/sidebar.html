@@ -1,26 +1,66 @@
 <aside class="sidebar">
 
-  <div class="logo">
-    <img class="logo-asset" src="safelab-logo.png" alt="SafeLab Logo">
+  <!-- Logo -->
+  <div class="logo-area">
+    <div class="logo-icon">
+      <mat-icon>science</mat-icon>
+    </div>
+    <div class="logo-text">
+      <span class="logo-name">SafeLab</span>
+      <span class="logo-sub">Reliable Labs</span>
+    </div>
   </div>
 
+  <!-- Nav principal -->
   <nav class="nav-links">
-    @for (section of navSections; track section.title) {
-      <p class="options-title">{{ section.title }}</p>
-      @for (item of section.items; track item.route) {
-        <a
-          [routerLink]="item.route"
-          routerLinkActive="active">
-          {{ item.label }}
-        </a>
-      }
-    }
+    <p class="options-title">Main Menu</p>
+
+    <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+      <mat-icon class="nav-icon">dashboard</mat-icon>
+      <span>Dashboard</span>
+    </a>
+
+    <a routerLink="/laboratories" routerLinkActive="active" class="nav-item">
+      <mat-icon class="nav-icon">science</mat-icon>
+      <span>Laboratories</span>
+    </a>
+
+    <a routerLink="/alerts" routerLinkActive="active" class="nav-item">
+      <mat-icon class="nav-icon">notifications_active</mat-icon>
+      <span>Alerts</span>
+      <!-- Badge de alertas activas -->
+      <span class="alert-badge">2</span>
+    </a>
+
+    <a routerLink="/history" routerLinkActive="active" class="nav-item">
+      <mat-icon class="nav-icon">history</mat-icon>
+      <span>Reports</span>
+    </a>
+
+    <p class="options-title" style="margin-top:8px;">System</p>
+
+    <a routerLink="/settings" routerLinkActive="active" class="nav-item">
+      <mat-icon class="nav-icon">settings</mat-icon>
+      <span>Settings</span>
+    </a>
   </nav>
 
+  <!-- Status del sistema -->
+  <div class="system-status">
+    <span class="status-dot"></span>
+    <span class="status-text">System Active</span>
+  </div>
+
+  <!-- User panel -->
   <div class="user-panel">
-    <img alt="profile" class="user-photo" src="user-photo.png">
-    <p class="user-name">Dr. Alexander Vance</p>
-    <button class="logout-btn">Logout</button>
+    <div class="user-avatar">DC</div>
+    <div class="user-info">
+      <p class="user-name">Dr. Chen</p>
+      <p class="user-role">Lab Coordinator</p>
+    </div>
+    <button class="logout-btn" mat-icon-button>
+      <mat-icon>logout</mat-icon>
+    </button>
   </div>
 
 </aside>

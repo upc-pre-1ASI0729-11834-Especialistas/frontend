@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Layout } from './shared/presentation/layout/layout';
 import { AlertsPage } from './alerts/presentation/components/alerts-page/alerts-page';
+import { IncidentViewPage } from './alerts/presentation/pages/incident-view-page/incident-view-page';
 import { DashboardPageComponent } from './telemetry/presentation/pages/dashboard-page/dashboard-page.component';
 import { LaboratoriesPageComponent } from './labs/presentation/pages/laboratories-page/laboratories-page.component';
 import { AddLaboratoryPageComponent } from './labs/presentation/pages/add-laboratory-page/add-laboratory-page.component';
@@ -10,6 +11,7 @@ import { SettingsPageComponent } from './automation/presentation/pages/settings-
 import { SensorConfigurationPageComponent } from './automation/presentation/pages/sensor-configuration-page/sensor-configuration-page.component';
 import { AlertsNotificationsPageComponent } from './automation/presentation/pages/alerts-notifications-page/alerts-notifications-page.component';
 import { SecurityAccessPageComponent } from './automation/presentation/pages/security-access-page/security-access-page.component';
+import { ResolveIncidentPage } from './alerts/presentation/pages/resolve-incident-page/resolve-incident-page';
 
 export const routes: Routes = [
   {
@@ -70,6 +72,14 @@ export const routes: Routes = [
         }
       },
       {
+        path: 'alerts/incident',
+        component: IncidentViewPage,
+        data: {
+          title: 'Alerts',
+          subtitle: 'Active incidents and notifications'
+        }
+      },
+      {
         path: 'history',
         component: HistoryPage,
         data: {
@@ -115,6 +125,14 @@ export const routes: Routes = [
         data: {
           title: 'Settings',
           subtitle: 'Configure your Safelab workspace and personal preferences.'
+        }
+      },
+      {
+        path: 'alerts/incident/resolve',
+        component: ResolveIncidentPage,
+        data: {
+          title: 'Resolve Incident',
+          subtitle: 'Log resolution details for the active incident'
         }
       }
     ]

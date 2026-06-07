@@ -28,7 +28,7 @@ export class LaboratoriesPageComponent implements OnInit {
   viewMode: 'grid' | 'list' = 'grid';
 
   ngOnInit(): void {
-    
+
   }
 
   onSearchInput(event: Event): void {

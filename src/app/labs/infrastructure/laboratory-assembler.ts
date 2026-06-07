@@ -3,7 +3,7 @@ import { Laboratory, LaboratoryType, GasSensitivity, AlertEscalation } from '../
 import { LaboratoryResource, LaboratoryResponse } from './laboratory-response';
 
 export class LaboratoryAssembler implements BaseAssembler<Laboratory, LaboratoryResource, LaboratoryResponse> {
-  
+
   toEntityFromResource(resource: LaboratoryResource): Laboratory {
     return new Laboratory({
       id: resource.id,

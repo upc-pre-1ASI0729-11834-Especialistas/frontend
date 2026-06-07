@@ -1,0 +1,220 @@
+<div class="incident-view-container">
+  <!-- Top Navigation -->
+  <div class="top-nav">
+    <div class="nav-breadcrumbs">
+      <a routerLink="/dashboard" class="back-link"><mat-icon>arrow_back</mat-icon> Back to Dashboard</a>
+      <div class="breadcrumbs-text">
+        Dashboard <mat-icon>chevron_right</mat-icon> Alerts <mat-icon>chevron_right</mat-icon> <strong>Incident:
+          Refrigerator B2 — Temperature Exceeded</strong>
+      </div>
+    </div>
+    <div class="nav-time">
+      <mat-icon>schedule</mat-icon> Monday, 14 July 2025 <strong>08:59 AM</strong>
+    </div>
+  </div>
+
+  <!-- Page Title -->
+  <div class="page-title-row">
+    <h1 class="page-title"><span class="red-dot-large"></span> Active Incident</h1>
+    <span class="incident-id-pill">INCIDENT #4821</span>
+  </div>
+
+  <!-- Main Alert Banner -->
+  <div class="main-alert-banner">
+    <div class="banner-header">
+      <div class="banner-title-group">
+        <h2 class="banner-title">Temperature Threshold Exceeded</h2>
+        <span class="pill pill-critical">CRITICAL</span>
+        <span class="pill pill-active"><span class="red-dot-small"></span> ACTIVE</span>
+      </div>
+      <div class="banner-location">
+        <mat-icon>location_on</mat-icon> Building C - Level 1
+      </div>
+    </div>
+    <div class="banner-details">
+      <div class="detail-item">
+        <mat-icon>schedule</mat-icon> Started: <strong>38 minutes ago</strong> — 08:21 AM
+      </div>
+      <div class="detail-item">
+        <mat-icon>device_thermostat</mat-icon> Affected equipment: <strong>Refrigerator B2</strong> — Cryo Storage 01,
+        Building C, Level 1
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Grid -->
+  <div class="incident-grid">
+    <!-- Left Column -->
+    <div class="grid-left">
+      <!-- Card 1: Current Readings -->
+      <div class="card">
+        <h3 class="card-title">Current Readings</h3>
+        <div class="readings-content">
+          <div class="reading-main">
+            <div class="reading-label">CURRENT TEMPERATURE</div>
+            <div class="reading-value">9.4°C</div>
+          </div>
+          <div class="reading-stats">
+            <div class="stat-row">
+              <mat-icon class="icon-red">trending_up</mat-icon> <span class="stat-label">Threshold:</span> <span
+                class="stat-val text-red">8.0°C</span>
+            </div>
+            <div class="stat-row">
+              <mat-icon class="icon-orange">arrow_upward</mat-icon> <span class="stat-label">Exceeded by:</span> <span
+                class="stat-val text-orange">+1.4°C</span>
+            </div>
+            <div class="stat-row">
+              <mat-icon class="icon-gray">bolt</mat-icon> <span class="stat-label">Duration:</span> <span
+                class="stat-val">38 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-header">
+          <div class="chart-title">Temperature — Last 2 Hours</div>
+          <div class="sensor-pill">Sensor T-B2-01</div>
+        </div>
+        <div class="mock-chart">
+          <!-- Mock Chart Graphic Structure -->
+          <div class="chart-area" style="position: relative;">
+            <svg width="100%" height="120" viewBox="0 0 500 120" preserveAspectRatio="none" style="display:block;">
+              <rect x="0" y="80" width="500" height="40" fill="#f0fdf4" />
+              <line x1="0" y1="40" x2="500" y2="40" stroke="#dc2626" stroke-width="2" stroke-dasharray="4" />
+              <path d="M0 100 Q 50 100 100 105 T 200 95 T 300 40 T 400 20 L 500 25" fill="none" stroke="#2563eb"
+                stroke-width="3" />
+            </svg>
+            <span style="position:absolute; bottom:12px; left:8px; font-size:11px; color:#16a34a;">Normal range</span>
+            <span style="position:absolute; top:6px; right:8px; font-size:11px; color:#dc2626;">Threshold
+              exceeded</span>
+            <span style="position:absolute; top:28px; right:8px; font-size:11px; color:#dc2626;">8.0°C threshold</span>
+          </div>
+          <div class="chart-x-axis">
+            <span>06:21 AM</span>
+            <span>07:00 AM</span>
+            <span>07:30 AM</span>
+            <span>07:50 AM</span>
+            <span>08:09 AM</span>
+            <span>08:21 AM</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Sensor Information -->
+      <div class="card">
+        <h3 class="card-title">Sensor Information</h3>
+        <div class="sensor-grid">
+          <div class="sensor-item">
+            <span class="s-label">Sensor ID</span>
+            <span class="s-value"><strong>T-B2-01</strong></span>
+          </div>
+          <div class="sensor-item">
+            <span class="s-label">Location</span>
+            <span class="s-value"><strong>Cryo Storage 01, Zone 3</strong></span>
+          </div>
+          <div class="sensor-item">
+            <span class="s-label">Last Calibration</span>
+            <span class="s-value"><strong>April 28, 2026</strong></span>
+          </div>
+          <div class="sensor-item">
+            <span class="s-label">Signal Strength</span>
+            <span class="s-value text-green"><strong>98%</strong></span>
+          </div>
+          <div class="sensor-item">
+            <span class="s-label">Network Status</span>
+            <span class="s-value text-green"><strong>Online</strong></span>
+          </div>
+          <div class="sensor-item">
+            <span class="s-label">Sensor Type</span>
+            <span class="s-value"><strong>NTC Thermistor</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Automation Response -->
+      <div class="card">
+        <h3 class="card-title">Automation Response</h3>
+        <div class="automation-box">
+          <div class="auto-icon">
+            <mat-icon>bolt</mat-icon>
+          </div>
+          <div class="auto-content">
+            <div class="auto-header">
+              <h4 class="auto-title">Cooling Enhancement Rule</h4>
+              <span class="pill pill-running"><mat-icon>settings</mat-icon> Running</span>
+            </div>
+            <p class="auto-desc">Activated at 08:23 AM — HVAC cooling boost active for zone C1</p>
+            <p class="auto-subdesc">Description: Increases airflow and lowers setpoint by 2°C in affected zone until
+              temperature normalizes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="grid-right">
+      <!-- Actions Card -->
+      <div class="card actions-card">
+        <h3 class="card-title">Actions</h3>
+        <p class="card-subtitle">Take action on this incident</p>
+
+        <a routerLink="/alerts/incident/resolve" class="btn btn-primary btn-block">
+          <mat-icon>check_circle_outline</mat-icon> Mark as Resolved
+        </a>
+        <button class="btn btn-secondary btn-block" (click)="openEscalate()">
+          <mat-icon>people_outline</mat-icon> Escalate to Supervisor
+        </button>
+        <button class="btn btn-secondary btn-block">
+          <mat-icon>science</mat-icon> View Laboratory
+        </button>
+
+        <div class="info-box">
+          <mat-icon>info_outline</mat-icon>
+          <span>Resolving requires a note describing the corrective action taken.</span>
+        </div>
+      </div>
+
+      <!-- Timeline Card -->
+      <div class="card timeline-card">
+        <h3 class="card-title">Incident Timeline</h3>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="t-dot dot-red"></div>
+            <div class="t-content">
+              <div class="t-time">08:21 AM</div>
+              <div class="t-title text-red">Temperature exceeded 8°C threshold</div>
+              <div class="t-desc">Reading: 8.3°C — first breach detected</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="t-dot dot-blue-ring"></div>
+            <div class="t-content">
+              <div class="t-time">08:22 AM</div>
+              <div class="t-title text-blue">Alert generated and dispatched</div>
+              <div class="t-desc">Notification sent to lab coordinator on duty</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="t-dot dot-blue-ring"></div>
+            <div class="t-content">
+              <div class="t-time">08:23 AM</div>
+              <div class="t-title text-blue">Automation rule activated</div>
+              <div class="t-desc">Cooling Enhancement Rule triggered for zone C1</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="t-dot dot-orange"></div>
+            <div class="t-content">
+              <div class="t-time">Now — 08:59 AM</div>
+              <div class="t-title text-orange">Awaiting resolution</div>
+              <div class="t-desc">Incident remains active. Temperature at 9.4°C</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

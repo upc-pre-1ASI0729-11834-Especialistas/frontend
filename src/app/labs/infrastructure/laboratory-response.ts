@@ -7,6 +7,8 @@ export interface LabMetricResource {
   status: string;
   icon: string;
   sparkline: number[];
+  threshold?: number;
+  objectType?: string;
 }
 
 export interface LabAlertResource {
