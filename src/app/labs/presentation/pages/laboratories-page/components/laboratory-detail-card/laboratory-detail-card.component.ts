@@ -80,11 +80,12 @@ export class LaboratoryDetailCardComponent {
 
   metricDisplayValue(metric: LabMetric): string {
     const n = metric.name.toLowerCase();
+
     if (n.includes('air') || n.includes('aqi')) {
-      const numericStatus = ['good', 'normal', 'clear', 'excellent'].includes(metric.status.toLowerCase())
+      return ['good', 'normal', 'clear', 'excellent'].includes(metric.status.toLowerCase())
         ? metric.status : 'Elevated';
-      return numericStatus;
     }
+
     return `${metric.value}${metric.unit}`;
   }
 
