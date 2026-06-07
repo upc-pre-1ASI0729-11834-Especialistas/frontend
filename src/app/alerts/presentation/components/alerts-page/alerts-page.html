@@ -1,5 +1,5 @@
 <div class="alerts-container">
-  
+
   <div class="header-section">
     <div class="header-titles">
       <h1 class="page-title">Alerts</h1>
@@ -48,7 +48,7 @@
 
   <section class="alerts-list">
     @for (group of alertGroups; track group.severity) {
-      
+
       <div class="alert-group-header">
         <span class="group-dot" [ngClass]="group.colorClass">●</span>
         <span class="group-title" [ngClass]="group.colorClass">{{ group.severity }}</span>
@@ -58,11 +58,11 @@
       @for (alert of group.items; track alert.title) {
         <div class="alert-card">
           <div class="alert-indicator" [ngClass]="group.pillClass"></div>
-          
+
           <div class="alert-content-wrapper">
             <div class="alert-left-content">
               <div class="alert-pill" [ngClass]="group.pillClass">{{ group.severity }}</div>
-              
+
               <div class="alert-details">
                 <h3 class="alert-title">{{ alert.title }}</h3>
                 <div class="alert-meta">
@@ -79,11 +79,11 @@
 
             <div class="alert-actions">
               <div class="duration-pill">{{ alert.duration }}</div>
-              
+
               @if(group.severity === 'RESOLVED TODAY') {
                 <span class="resolved-by">{{ alert.resolvedBy }}</span>
               } @else {
-                <button class="btn-investigate" (click)="navigateToIncident(alert)">
+                <button class="btn-investigate" (click)="navigateToIncident()">
                   Investigate <mat-icon>arrow_forward</mat-icon>
                 </button>
               }

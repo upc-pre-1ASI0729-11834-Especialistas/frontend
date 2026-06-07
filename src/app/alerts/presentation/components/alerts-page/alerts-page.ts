@@ -135,7 +135,7 @@ export class AlertsPage {
     }
   ];
 
-  navigateToIncident(alert: Alert) {
+  navigateToIncident() {
     this.router.navigate(['/alerts/incident']);
   }
 }
