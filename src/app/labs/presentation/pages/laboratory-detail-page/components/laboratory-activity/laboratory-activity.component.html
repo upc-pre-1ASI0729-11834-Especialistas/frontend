@@ -1,45 +1,17 @@
-<app-card>
+<div class="activity-card">
   <div class="section-header">
     <h3 class="section-title">Recent Activity</h3>
-    <a class="section-link" href="javascript:void(0)">View full log</a>
+    <a class="section-link" routerLink="/history">View Full Log</a>
   </div>
   <div class="activity-list">
     @for (activity of activities(); track activity.id) {
     <div class="activity-item">
-      <app-icon-badge color="var(--mat-sys-primary)" size="md">
-        @switch (activity.icon) {
-        @case ('calibration') {
-        <mat-icon>bolt</mat-icon>
-        }
-        @case ('maintenance') {
-        <mat-icon>settings</mat-icon>
-        }
-        @case ('threshold') {
-        <mat-icon>rule</mat-icon>
-        }
-        @case ('supply') {
-        <mat-icon>inventory_2</mat-icon>
-        }
-        @case ('cleaning') {
-        <mat-icon>cleaning_services</mat-icon>
-        }
-        @case ('check') {
-        <mat-icon>fact_check</mat-icon>
-        }
-        @case ('install') {
-        <mat-icon>construction</mat-icon>
-        }
-        @default {
-        <mat-icon>event_note</mat-icon>
-        }
-        }
-      </app-icon-badge>
-      <div class="activity-content">
-        <span class="activity-title">{{ activity.title }}</span>
-        <p class="activity-desc">{{ activity.description }}</p>
+      <div class="timeline-col">
+        <span class="timeline-dot"></span>
+        <span class="timeline-time">{{ activity.timestamp }}</span>
       </div>
-      <span class="activity-time">{{ activity.timestamp }}</span>
+      <p class="activity-desc">{{ activity.title }}</p>
     </div>
     }
   </div>
-</app-card>
+</div>

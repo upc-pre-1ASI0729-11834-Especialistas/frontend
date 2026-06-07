@@ -52,6 +52,8 @@ export interface LabMetric {
   status: string;
   icon: string;
   sparkline: number[];
+  threshold?: number;
+  objectType?: string;
 }
 
 export interface LabAlert {
@@ -97,7 +99,7 @@ export class Laboratory implements BaseEntity {
   private _recentActivities: LabActivity[];
   private _schedules: LabSchedule[];
 
-  
+
   private _roomNumber?: string;
   private _description?: string;
   private _sensors?: SensorConfig;
@@ -152,7 +154,7 @@ export class Laboratory implements BaseEntity {
     this._notifications = data.notifications;
   }
 
-  
+
   get id(): number { return this._id; }
   set id(value: number) { this._id = value; }
 
@@ -219,7 +221,7 @@ export class Laboratory implements BaseEntity {
   get notifications(): NotificationPreferences | undefined { return this._notifications; }
   set notifications(value: NotificationPreferences | undefined) { this._notifications = value; }
 
-  
+
   isOperational(): boolean {
     return this._overallStatus.toLowerCase() === 'operational';
   }

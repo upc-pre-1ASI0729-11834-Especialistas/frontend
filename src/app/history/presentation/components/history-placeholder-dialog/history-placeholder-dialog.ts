@@ -15,6 +15,6 @@ interface PlaceholderDialogData {
   templateUrl: './history-placeholder-dialog.html'
 })
 export class HistoryPlaceholderDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) readonly data: PlaceholderDialogData) {}
+  constructor(@Inject(MAT_DIALOG_DATA) readonly data: PlaceholderDialogData) { }
 }
 

@@ -1,46 +1,237 @@
 <div class="page-body">
-  @if (dashboardStore.stats(); as stats) {
 
+  <!-- ① EMERGENCY BANNER — solo si hay alertas críticas -->
+  @if (dashboardStore.stats(); as stats) {
+  @if (stats.activeAlerts > 0) {
+  <div class="alert-banner">
+    <div class="alert-banner-left">
+      <div class="alert-banner-icon-wrap">
+        <mat-icon>warning_amber</mat-icon>
+      </div>
+      <div class="alert-banner-text-group">
+        <p class="alert-banner-text">
+          {{ stats.activeAlerts }} critical alert{{ stats.activeAlerts > 1 ? 's' : '' }} require immediate attention
+        </p>
+        <span class="alert-banner-subtext">Tap "View Alerts" to investigate and resolve</span>
+      </div>
+    </div>
+    <a routerLink="/alerts" class="alert-banner-btn">
+      <mat-icon>visibility</mat-icon>
+      View Alerts
+    </a>
+  </div>
+  }
+
+  <!-- ② KPI STATS ROW -->
   <div class="stats-grid">
-    <app-stat-card label="Total Laboratories" [value]="'' + stats.totalLaboratories"
-      accentColor="var(--mat-sys-primary)">
-      <mat-icon>science</mat-icon>
-    </app-stat-card>
-    <app-stat-card label="Active Alerts" [value]="'' + stats.activeAlerts" accentColor="var(--mat-sys-error)">
+    <app-stat-card label="Active Critical Alerts" [value]="'' + stats.activeAlerts" accentColor="#dc2626"
+      [routerLink]="['/alerts']" style="cursor:pointer">
       <mat-icon>warning</mat-icon>
     </app-stat-card>
-    <app-stat-card label="Systems Health" [value]="stats.getHealthPercentage()" accentColor="var(--success-color)"
-      [showProgress]="true" [progressValue]="stats.systemsHealth">
-      <mat-icon>favorite</mat-icon>
+
+    <app-stat-card label="Sensors Online" [value]="'14 / 15'" accentColor="#16a34a">
+      <mat-icon>sensors</mat-icon>
     </app-stat-card>
-    <app-stat-card label="Upcoming Maintenance" [value]="'' + stats.upcomingMaintenance"
-      accentColor="var(--mat-sys-tertiary)">
-      <mat-icon>bolt</mat-icon>
+
+    <app-stat-card label="Equipment in Range" [value]="'4 / 5'" accentColor="#d97706">
+      <mat-icon>device_thermostat</mat-icon>
+    </app-stat-card>
+
+    <app-stat-card label="Last Compliance Report" [value]="'Yesterday'" accentColor="#16a34a">
+      <mat-icon>verified</mat-icon>
     </app-stat-card>
   </div>
   }
 
-
+  <!-- ③ ACTIVE ALERTS + EQUIPMENT STATUS -->
   <div class="content-row">
-    <div class="chart-col">
-      <app-temperature-chart [readings]="dashboardStore.temperatureTrends()"
-        [selectedPeriod]="dashboardStore.selectedPeriod()" (periodChanged)="onPeriodChange($event)" />
+
+    <!-- Columna izquierda: Alertas activas -->
+    <div class="alerts-panel">
+      <div class="panel-header">
+        <div>
+          <h3 class="panel-title">Active Alerts</h3>
+          <p class="panel-subtitle">Sorted by severity — most critical first</p>
+        </div>
+        <a routerLink="/alerts" class="panel-view-all">
+          View all <mat-icon>arrow_forward</mat-icon>
+        </a>
+      </div>
+
+      <div class="alert-rows">
+        <!-- Critical -->
+        <a routerLink="/alerts/incident" class="alert-row critical">
+          <span class="alert-dot critical"></span>
+          <div class="alert-row-content">
+            <div class="alert-row-top">
+              <span class="severity-pill critical">Critical</span>
+              <span class="alert-row-time">8 min ago</span>
+            </div>
+            <div class="alert-row-title">Lab B — Freezer B2 temperature exceeded</div>
+            <div class="alert-row-lab">Temperature rose to −5°C (threshold: −18°C). Sample integrity at risk.</div>
+          </div>
+          <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
+        </a>
+
+        <a routerLink="/alerts/incident" class="alert-row critical">
+          <span class="alert-dot critical"></span>
+          <div class="alert-row-content">
+            <div class="alert-row-top">
+              <span class="severity-pill critical">Critical</span>
+              <span class="alert-row-time">22 min ago</span>
+            </div>
+            <div class="alert-row-title">Lab A — CO₂ Monitor above safe limit</div>
+            <div class="alert-row-lab">CO₂ at 1,850 ppm — exceeds regulatory limit of 1,000 ppm.</div>
+          </div>
+          <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
+        </a>
+
+        <a routerLink="/alerts" class="alert-row warning">
+          <span class="alert-dot warning"></span>
+          <div class="alert-row-content">
+            <div class="alert-row-top">
+              <span class="severity-pill warning">Warning</span>
+              <span class="alert-row-time">1 hr ago</span>
+            </div>
+            <div class="alert-row-title">Lab C — HVAC Unit 3 humidity high</div>
+            <div class="alert-row-lab">Humidity at 68% — above optimal 60% threshold.</div>
+          </div>
+          <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
+        </a>
+
+        <a routerLink="/alerts" class="alert-row resolved">
+          <span class="alert-dot resolved"></span>
+          <div class="alert-row-content">
+            <div class="alert-row-top">
+              <span class="severity-pill resolved">Resolved</span>
+              <span class="alert-row-time">3 hr ago</span>
+            </div>
+            <div class="alert-row-title">Lab A — Refrigerator A1 temperature spike</div>
+            <div class="alert-row-lab">Temperature briefly spiked; auto-recovery confirmed within range.</div>
+          </div>
+          <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
+        </a>
+      </div>
     </div>
-    <div class="alerts-col">
-      <app-recent-alerts [alerts]="dashboardStore.recentAlerts()" />
+
+    <!-- Columna derecha: Estado de equipos -->
+    <div class="equipment-panel">
+      <div class="panel-header">
+        <div>
+          <h3 class="panel-title">Equipment Status</h3>
+          <p class="panel-subtitle">Current temperature readings</p>
+        </div>
+        <a routerLink="/laboratories" class="panel-view-all">
+          All equipment <mat-icon>arrow_forward</mat-icon>
+        </a>
+      </div>
+
+      <div class="equipment-list">
+        <div class="equipment-row">
+          <div class="equipment-row-top">
+            <span class="equipment-name">Refrigerator A1</span>
+            <span class="equipment-temp ok">−3.2°C</span>
+          </div>
+          <div class="equipment-bar-wrap">
+            <div class="equipment-bar ok" style="width: 40%"></div>
+          </div>
+          <div class="equipment-bar-labels">
+            <span>−25°C</span>
+            <span class="equipment-status-label ok">In Range</span>
+            <span>0°C</span>
+          </div>
+        </div>
+
+        <div class="equipment-row">
+          <div class="equipment-row-top">
+            <span class="equipment-name">Freezer B2</span>
+            <span class="equipment-temp crit">−5.0°C</span>
+          </div>
+          <div class="equipment-bar-wrap">
+            <div class="equipment-bar crit" style="width: 85%"></div>
+          </div>
+          <div class="equipment-bar-labels">
+            <span>−25°C</span>
+            <span class="equipment-status-label crit">Out of Range</span>
+            <span>0°C</span>
+          </div>
+        </div>
+
+        <div class="equipment-row">
+          <div class="equipment-row-top">
+            <span class="equipment-name">Refrigerator C1</span>
+            <span class="equipment-temp ok">4.1°C</span>
+          </div>
+          <div class="equipment-bar-wrap">
+            <div class="equipment-bar ok" style="width: 52%"></div>
+          </div>
+          <div class="equipment-bar-labels">
+            <span>2°C</span>
+            <span class="equipment-status-label ok">In Range</span>
+            <span>8°C</span>
+          </div>
+        </div>
+
+        <div class="equipment-row">
+          <div class="equipment-row-top">
+            <span class="equipment-name">Incubator D1</span>
+            <span class="equipment-temp ok">37.0°C</span>
+          </div>
+          <div class="equipment-bar-wrap">
+            <div class="equipment-bar ok" style="width: 70%"></div>
+          </div>
+          <div class="equipment-bar-labels">
+            <span>35°C</span>
+            <span class="equipment-status-label ok">In Range</span>
+            <span>39°C</span>
+          </div>
+        </div>
+
+        <div class="equipment-row">
+          <div class="equipment-row-top">
+            <span class="equipment-name">HVAC Unit 3</span>
+            <span class="equipment-temp warn">21.4°C</span>
+          </div>
+          <div class="equipment-bar-wrap">
+            <div class="equipment-bar warn" style="width: 62%"></div>
+          </div>
+          <div class="equipment-bar-labels">
+            <span>18°C</span>
+            <span class="equipment-status-label warn">Monitor</span>
+            <span>24°C</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- ④ TEMPERATURE CHART (secundario) -->
+  <div class="chart-col">
+    <app-temperature-chart [readings]="dashboardStore.temperatureTrends()"
+      [selectedPeriod]="dashboardStore.selectedPeriod()" (periodChanged)="onPeriodChange($event)" />
+  </div>
 
-  <app-card>
+  <!-- ⑤ LABS PREVIEW -->
+  <div class="labs-section">
     <div class="labs-header">
       <h2 class="labs-title">Laboratories</h2>
-      <a class="labs-view-all" href="javascript:void(0)">View All</a>
+      <a class="labs-view-all" routerLink="/laboratories">
+        View All <mat-icon style="font-size:14px;width:14px;height:14px;">arrow_forward</mat-icon>
+      </a>
     </div>
     <div class="labs-grid">
       @for (lab of dashboardStore.laboratories(); track lab.id) {
-      <app-laboratory-card [lab]="lab" />
+      <a [routerLink]="['/laboratories', lab.id]" class="lab-card-wrapper">
+        <app-laboratory-card [lab]="lab" />
+      </a>
       }
     </div>
-  </app-card>
+  </div>
+
 </div>
+
+<!-- FAB: Cerrar turno -->
+<a routerLink="/history" class="shift-close-fab">
+  <mat-icon>summarize</mat-icon>
+  Generate Shift Report
+</a>
