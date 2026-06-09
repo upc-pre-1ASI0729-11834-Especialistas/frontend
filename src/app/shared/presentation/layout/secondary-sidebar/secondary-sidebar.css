@@ -96,7 +96,7 @@
   box-sizing: border-box;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1025px) {
   .secondary-sidebar {
     position: absolute;
     top: 0;
@@ -110,8 +110,8 @@
   }
 }
 
-/* Responsive: Transform to top tab bar on mobile/tablet viewports */
-@media (max-width: 768px) {
+/* Responsive: Transform to top tab bar when viewport is narrow */
+@media (max-width: 1024px) {
   .secondary-sidebar-layout {
     flex-direction: column;
   }

@@ -7,7 +7,19 @@
   height: fit-content;
   border-bottom: 1px solid #e5e7eb;
   display: flex;
+  align-items: center;
   padding: 8px 24px;
+  gap: 8px;
+}
+
+.hamburger-btn {
+  color: #475569 !important;
+  flex-shrink: 0;
+  margin-right: 4px;
+}
+
+.hamburger-btn:hover {
+  color: #2563eb !important;
 }
 
 .spacer {
@@ -33,4 +45,25 @@
 
 .search-field {
   width: 320px;
+}
+
+/* Mobile: hide search on very small screens, adjust title */
+@media (max-width: 768px) {
+  .topbar {
+    padding: 8px 12px;
+  }
+
+  .view-title {
+    font-size: 18px;
+  }
+
+  .search-field {
+    width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-field {
+    display: none;
+  }
 }

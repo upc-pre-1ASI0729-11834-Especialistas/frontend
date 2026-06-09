@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  platformProviderApiBaseUrl: 'https://fake-api-production-0033.up.railway.app',
+  platformProviderApiBaseUrl: 'http://localhost:3000',
   platformProviderAlertsEndpointPath: '/alerts',
 
   platformProviderTelemetryAlertsEndpointPath: '/telemetry-alerts',

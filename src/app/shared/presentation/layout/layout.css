@@ -22,10 +22,41 @@ mat-sidenav-content {
   overflow: auto;
 }
 
-@media (min-width: 769px) {
+/* Overlay backdrop when mobile sidebar is open */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 3;
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (min-width: 1025px) {
   mat-sidenav-content.with-secondary-sidebar app-topbar {
     margin-left: 240px;
     width: calc(100% - 240px);
     transition: margin-left 0.15s, width 0.15s;
+  }
+}
+
+/* Mobile: full-width content */
+@media (max-width: 768px) {
+  .app-sidenav {
+    width: 260px;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+  }
+
+  mat-sidenav-content.with-secondary-sidebar app-topbar {
+    margin-left: 0;
+    width: 100%;
   }
 }

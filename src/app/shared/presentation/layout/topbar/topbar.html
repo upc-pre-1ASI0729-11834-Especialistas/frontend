@@ -1,5 +1,15 @@
 <mat-toolbar class="topbar" color="primary">
 
+  @if (showHamburger) {
+    <button
+      mat-icon-button
+      class="hamburger-btn"
+      aria-label="Toggle sidebar"
+      (click)="hamburgerClick.emit()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  }
+
   <div class="view-info">
     <p class="view-title">{{ title }}</p>
     <p class="view-subtitle">{{ subtitle }}</p>
