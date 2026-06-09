@@ -1,0 +1,48 @@
+<mat-card appearance="outlined" class="users-card">
+  <mat-card-content class="card-content">
+
+    <div class="card-header">
+      <h2 class="card-title">Active Users</h2>
+      <span class="count-badge">{{ totalCount }} users</span>
+    </div>
+
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Role</th>
+          <th>Labs Access</th>
+          <th>Last Login</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of users; track user.id) {
+          <tr>
+            <td>
+              <div class="user-cell">
+                <app-user-avatar [initials]="user.avatarInitials" [color]="user.avatarColor"></app-user-avatar>
+                <div class="user-info">
+                  <span class="user-name">{{ user.fullName }}</span>
+                  <span class="user-email">{{ user.email }}</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <app-role-badge [role]="user.role"></app-role-badge>
+            </td>
+            <td class="labs-access">{{ user.labsAccess }}</td>
+            <td class="last-login">{{ user.lastLogin }}</td>
+            <td>
+              <div class="status-cell">
+                <span class="status-dot" [class.active]="user.status === 'Active'" [class.inactive]="user.status === 'Inactive'"></span>
+                <span class="status-text">{{ user.status }}</span>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+  </mat-card-content>
+</mat-card>

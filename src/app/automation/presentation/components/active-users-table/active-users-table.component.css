@@ -1,0 +1,150 @@
+.users-card {
+  border-radius: var(--border-radius-lg);
+  background-color: var(--surface-color);
+}
+
+.card-content {
+  padding: 28px 32px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.count-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  background-color: #f0f0f0;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* Table */
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table thead th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.users-table tbody tr {
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color var(--transition-fast);
+}
+
+.users-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.users-table tbody tr:hover {
+  background-color: #fafbfd;
+}
+
+.users-table tbody td {
+  padding: 16px;
+  vertical-align: middle;
+}
+
+/* User cell */
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.user-email {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* Other columns */
+.labs-access {
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+}
+
+.last-login {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+/* Status */
+.status-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-dot.active {
+  background-color: var(--success-color);
+}
+
+.status-dot.inactive {
+  background-color: var(--text-disabled);
+}
+
+.status-text {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-content {
+    padding: 16px;
+  }
+
+  .users-table thead {
+    display: none;
+  }
+
+  .users-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+  }
+
+  .users-table tbody td {
+    padding: 4px 0;
+  }
+}

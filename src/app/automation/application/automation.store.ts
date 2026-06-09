@@ -1,9 +1,12 @@
-﻿import { inject, Injectable, computed } from '@angular/core';
+import { inject, Injectable, computed } from '@angular/core';
 import { GeneralSettingStore } from './general-setting.store';
 import { UserProfileStore } from './user-profile.store';
 import { SensorConfigurationStore } from './sensor-configuration.store';
 import { NotificationPreferenceStore } from './notification-preference.store';
 import { SecurityAccessStore } from './security-acces.store';
+import { LabUserStore } from './lab-user.store';
+import { PendingInvitationStore } from './pending-invitation.store';
+import { RoleDefinitionStore } from './role-definition.store';
 
 @Injectable({ providedIn: 'root' })
 export class AutomationStore {
@@ -12,6 +15,9 @@ export class AutomationStore {
   private readonly sensorConfigurationStore = inject(SensorConfigurationStore);
   private readonly notificationPreferenceStore = inject(NotificationPreferenceStore);
   private readonly securityAccessStore = inject(SecurityAccessStore);
+  private readonly labUserStore = inject(LabUserStore);
+  private readonly pendingInvitationStore = inject(PendingInvitationStore);
+  private readonly roleDefinitionStore = inject(RoleDefinitionStore);
 
   // Delegate signals from individual stores
   readonly generalSettings = this.generalSettingStore.generalSettings;
@@ -20,6 +26,12 @@ export class AutomationStore {
   readonly sensorConfigurations = this.sensorConfigurationStore.sensorConfigurations;
   readonly notificationPreferences = this.notificationPreferenceStore.notificationPreferences;
   readonly securityAccesses = this.securityAccessStore.securityAccesses;
+  readonly labUsers = this.labUserStore.labUsers;
+  readonly labUsersCount = this.labUserStore.labUsersCount;
+  readonly activeUsersCount = this.labUserStore.activeUsersCount;
+  readonly pendingInvitations = this.pendingInvitationStore.pendingInvitations;
+  readonly pendingInvitationsCount = this.pendingInvitationStore.pendingInvitationsCount;
+  readonly roleDefinitions = this.roleDefinitionStore.roleDefinitions;
 
   // Combined loading signal
   readonly loading = computed(() =>
@@ -27,6 +39,9 @@ export class AutomationStore {
     this.userProfileStore.loading() ||
     this.sensorConfigurationStore.loading() ||
     this.notificationPreferenceStore.loading() ||
-    this.securityAccessStore.loading()
+    this.securityAccessStore.loading() ||
+    this.labUserStore.loading() ||
+    this.pendingInvitationStore.loading() ||
+    this.roleDefinitionStore.loading()
   );
 }

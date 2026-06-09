@@ -25,6 +25,11 @@ export class SettingsLayoutComponent {
       label: 'Seguridad',
       route: '/settings/security-access',
       icon: 'lock'
+    },
+    {
+      label: 'Usuarios',
+      route: '/settings/users-permissions',
+      icon: 'people'
     }
   ];
 }

@@ -1513,5 +1513,86 @@
       "isGranted": true,
       "lastAuditDate": "2026-05-12"
     }
+  ],
+  "lab-users": [
+    {
+      "id": 1,
+      "fullName": "Dr. Alexander Vance",
+      "email": "a.vance@safelab.org",
+      "role": "Lab Coordinator",
+      "labsAccess": "All labs",
+      "lastLogin": "Today, 08:41 AM",
+      "status": "Active",
+      "avatarInitials": "AV",
+      "avatarColor": "#7C4DFF"
+    },
+    {
+      "id": 2,
+      "fullName": "Jean Arizabal",
+      "email": "j.arizabal@safelab.org",
+      "role": "Supervisor",
+      "labsAccess": "All labs",
+      "lastLogin": "Today, 06:12 AM",
+      "status": "Active",
+      "avatarInitials": "JA",
+      "avatarColor": "#FF7043"
+    },
+    {
+      "id": 3,
+      "fullName": "Manuel Sánchez",
+      "email": "m.sanchez@safelab.org",
+      "role": "Lab Technician",
+      "labsAccess": "Lab 3B, Cryo Storage",
+      "lastLogin": "Yesterday",
+      "status": "Active",
+      "avatarInitials": "MS",
+      "avatarColor": "#26A69A"
+    },
+    {
+      "id": 4,
+      "fullName": "Sofia Torres",
+      "email": "s.torres@safelab.org",
+      "role": "Read Only",
+      "labsAccess": "Lab 3B only",
+      "lastLogin": "3 days ago",
+      "status": "Inactive",
+      "avatarInitials": "ST",
+      "avatarColor": "#78909C"
+    }
+  ],
+  "pending-invitations": [
+    {
+      "id": 1,
+      "email": "r.gomez@hospital.org",
+      "role": "Lab Technician",
+      "sentTimeAgo": "Sent 2 days ago"
+    }
+  ],
+  "role-definitions": [
+    {
+      "id": 1,
+      "name": "Lab Coordinator",
+      "description": "Full access to all laboratories, can manage users and configure sensors.",
+      "permissionsCount": 24
+    },
+    {
+      "id": 2,
+      "name": "Supervisor",
+      "description": "Can view all labs and approve critical actions. Cannot modify system settings.",
+      "permissionsCount": 18
+    },
+    {
+      "id": 3,
+      "name": "Lab Technician",
+      "description": "Access to assigned labs only. Can view data and acknowledge alerts.",
+      "permissionsCount": 12
+    },
+    {
+      "id": 4,
+      "name": "Read Only",
+      "description": "View-only access to assigned laboratories. No modification permissions.",
+      "permissionsCount": 6
+    }
   ]
 }
+

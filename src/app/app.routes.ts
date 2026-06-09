@@ -11,6 +11,7 @@ import { SettingsLayoutComponent } from './automation/presentation/pages/setting
 import { SensorConfigurationPageComponent } from './automation/presentation/pages/sensor-configuration-page/sensor-configuration-page.component';
 import { AlertsNotificationsPageComponent } from './automation/presentation/pages/alerts-notifications-page/alerts-notifications-page.component';
 import { SecurityAccessPageComponent } from './automation/presentation/pages/security-access-page/security-access-page.component';
+import { UsersPermissionsPageComponent } from './automation/presentation/pages/users-permissions-page/users-permissions-page.component';
 import { ResolveIncidentPage } from './alerts/presentation/pages/resolve-incident-page/resolve-incident-page';
 
 export const routes: Routes = [
@@ -126,6 +127,14 @@ export const routes: Routes = [
             data: {
               title: 'Security & Access',
               subtitle: 'Manage your account credentials and security preferences.'
+            }
+          },
+          {
+            path: 'users-permissions',
+            component: UsersPermissionsPageComponent,
+            data: {
+              title: 'Users & Permissions',
+              subtitle: 'Control who has access to SafeLab and what they can do.'
             }
           }
         ]
