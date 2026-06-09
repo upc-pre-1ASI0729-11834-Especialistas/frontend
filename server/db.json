@@ -1593,6 +1593,44 @@
       "description": "View-only access to assigned laboratories. No modification permissions.",
       "permissionsCount": 6
     }
+  ],
+  "equipment-thresholds": [
+    {
+      "id": 1,
+      "name": "Refrigerator B-01",
+      "lab": "Lab 3B",
+      "minThreshold": 2,
+      "maxThreshold": 8,
+      "warningAt": 7,
+      "unit": "°C",
+      "currentValue": 4.2,
+      "status": "normal",
+      "icon": "kitchen"
+    },
+    {
+      "id": 2,
+      "name": "Freezer F-10",
+      "lab": "Cryo Storage",
+      "minThreshold": -85,
+      "maxThreshold": -75,
+      "warningAt": -78,
+      "unit": "°C",
+      "currentValue": -80.2,
+      "status": "normal",
+      "icon": "ac_unit"
+    },
+    {
+      "id": 3,
+      "name": "Incubator I-04",
+      "lab": "Biochemistry",
+      "minThreshold": 35,
+      "maxThreshold": 39,
+      "warningAt": 38,
+      "unit": "°C",
+      "currentValue": 37.0,
+      "status": "normal",
+      "icon": "biotech"
+    }
   ]
 }
 

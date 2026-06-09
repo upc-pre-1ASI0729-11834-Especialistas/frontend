@@ -7,6 +7,7 @@ import { SecurityAccessStore } from './security-acces.store';
 import { LabUserStore } from './lab-user.store';
 import { PendingInvitationStore } from './pending-invitation.store';
 import { RoleDefinitionStore } from './role-definition.store';
+import { EquipmentThresholdStore } from './equipment-threshold.store';
 
 @Injectable({ providedIn: 'root' })
 export class AutomationStore {
@@ -18,6 +19,7 @@ export class AutomationStore {
   private readonly labUserStore = inject(LabUserStore);
   private readonly pendingInvitationStore = inject(PendingInvitationStore);
   private readonly roleDefinitionStore = inject(RoleDefinitionStore);
+  private readonly equipmentThresholdStore = inject(EquipmentThresholdStore);
 
   // Delegate signals from individual stores
   readonly generalSettings = this.generalSettingStore.generalSettings;
@@ -32,6 +34,7 @@ export class AutomationStore {
   readonly pendingInvitations = this.pendingInvitationStore.pendingInvitations;
   readonly pendingInvitationsCount = this.pendingInvitationStore.pendingInvitationsCount;
   readonly roleDefinitions = this.roleDefinitionStore.roleDefinitions;
+  readonly equipmentThresholds = this.equipmentThresholdStore.equipmentThresholds;
 
   // Combined loading signal
   readonly loading = computed(() =>
@@ -42,10 +45,25 @@ export class AutomationStore {
     this.securityAccessStore.loading() ||
     this.labUserStore.loading() ||
     this.pendingInvitationStore.loading() ||
-    this.roleDefinitionStore.loading()
+    this.roleDefinitionStore.loading() ||
+    this.equipmentThresholdStore.loading()
   );
 
   inviteUser(email: string, role: string) {
     return this.pendingInvitationStore.inviteUser(email, role);
+  }
+
+  updateEquipmentThreshold(id: number, data: {
+    minThreshold?: number;
+    maxThreshold?: number;
+    warningAt?: number;
+    name?: string;
+    icon?: string;
+    lab?: string;
+    unit?: string;
+    currentValue?: number;
+    status?: string;
+  }) {
+    return this.equipmentThresholdStore.updateEquipmentThreshold(id, data);
   }
 }

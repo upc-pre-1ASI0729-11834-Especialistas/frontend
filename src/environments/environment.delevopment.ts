@@ -21,4 +21,5 @@ export const environment = {
   platformProviderAutomationLabUsersEndpointPath: '/lab-users',
   platformProviderAutomationPendingInvitationsEndpointPath: '/pending-invitations',
   platformProviderAutomationRoleDefinitionsEndpointPath: '/role-definitions',
+  platformProviderAutomationEquipmentThresholdsEndpointPath: '/equipment-thresholds',
 };

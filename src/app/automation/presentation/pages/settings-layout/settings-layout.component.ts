@@ -17,6 +17,11 @@ export class SettingsLayoutComponent {
       icon: 'sensors'
     },
     {
+      label: 'Umbrales',
+      route: '/settings/threshold-configuration',
+      icon: 'thermostat'
+    },
+    {
       label: 'Alertas',
       route: '/settings/alerts-notifications',
       icon: 'notifications'

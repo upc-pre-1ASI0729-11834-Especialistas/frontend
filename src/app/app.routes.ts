@@ -13,6 +13,8 @@ import { AlertsNotificationsPageComponent } from './automation/presentation/page
 import { SecurityAccessPageComponent } from './automation/presentation/pages/security-access-page/security-access-page.component';
 import { UsersPermissionsPageComponent } from './automation/presentation/pages/users-permissions-page/users-permissions-page.component';
 import { ResolveIncidentPage } from './alerts/presentation/pages/resolve-incident-page/resolve-incident-page';
+import { ThresholdConfigurationPageComponent } from './automation/presentation/pages/threshold-configuration-page/threshold-configuration-page.component';
+
 
 export const routes: Routes = [
   {
@@ -140,6 +142,14 @@ export const routes: Routes = [
                 icon: 'person_add',
                 id: 'invite-user-action'
               }
+            }
+          },
+          {
+            path: 'threshold-configuration',
+            component: ThresholdConfigurationPageComponent,
+            data: {
+              title: 'Threshold Configuration',
+              subtitle: 'Define temperature and environmental limits for each equipment.'
             }
           }
         ]
