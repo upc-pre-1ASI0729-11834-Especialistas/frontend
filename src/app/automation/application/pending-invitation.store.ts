@@ -2,6 +2,8 @@ import { computed, DestroyRef, inject, Injectable, Signal, signal } from '@angul
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PendingInvitation } from '../domain/model/pending-invitation.entity';
 import { PendingInvitationsApi } from '../infrastructure/pending-invitation-api';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class PendingInvitationStore {
@@ -22,6 +24,28 @@ export class PendingInvitationStore {
 
   getPendingInvitationById(id: number | null | undefined): Signal<PendingInvitation | undefined> {
     return computed(() => id ? this.pendingInvitations().find(e => e.id === id) : undefined);
+  }
+
+  inviteUser(email: string, role: string): Observable<PendingInvitation> {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    const newInvitation = new PendingInvitation({
+      id: 0,
+      email,
+      role,
+      sentTimeAgo: 'Just now'
+    });
+    return this.pendingInvitationsApi.createPendingInvitation(newInvitation).pipe(
+      tap({
+        next: created => {
+          this.pendingInvitationsSignal.update(list => [...list, created]);
+          this.loadingSignal.set(false);
+        },
+        error: err => {
+          this.handleError(err, 'Failed to send invitation');
+        }
+      })
+    );
   }
 
   private loadPendingInvitations(): void {

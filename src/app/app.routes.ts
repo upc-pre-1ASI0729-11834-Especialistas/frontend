@@ -134,7 +134,12 @@ export const routes: Routes = [
             component: UsersPermissionsPageComponent,
             data: {
               title: 'Users & Permissions',
-              subtitle: 'Control who has access to SafeLab and what they can do.'
+              subtitle: 'Control who has access to SafeLab and what they can do.',
+              topbarAction: {
+                label: 'Invite User',
+                icon: 'person_add',
+                id: 'invite-user-action'
+              }
             }
           }
         ]

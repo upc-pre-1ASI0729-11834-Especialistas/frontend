@@ -17,4 +17,8 @@ export class PendingInvitationsApi extends BaseApi {
   getPendingInvitations(): Observable<PendingInvitation[]> {
     return this.pendingInvitationsEndpoint.getAll();
   }
+
+  createPendingInvitation(invitation: PendingInvitation): Observable<PendingInvitation> {
+    return this.pendingInvitationsEndpoint.create(invitation);
+  }
 }

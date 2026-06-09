@@ -44,4 +44,8 @@ export class AutomationStore {
     this.pendingInvitationStore.loading() ||
     this.roleDefinitionStore.loading()
   );
+
+  inviteUser(email: string, role: string) {
+    return this.pendingInvitationStore.inviteUser(email, role);
+  }
 }

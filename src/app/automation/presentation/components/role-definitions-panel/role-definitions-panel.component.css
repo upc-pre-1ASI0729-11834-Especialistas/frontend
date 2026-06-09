@@ -58,3 +58,9 @@
   line-height: 1.5;
   margin: 0;
 }
+
+@media (max-width: 768px) {
+  ::ng-deep .roles-panel .mat-expansion-panel-body {
+    padding: 0 16px 16px !important;
+  }
+}
