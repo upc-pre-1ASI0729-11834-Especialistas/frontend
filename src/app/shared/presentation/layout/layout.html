@@ -6,7 +6,7 @@
   </mat-sidenav>
 
   <!-- CONTENIDO -->
-  <mat-sidenav-content>
+  <mat-sidenav-content [class.with-secondary-sidebar]="hasSecondarySidebar">
     <app-topbar></app-topbar>
 
     <main class="content">

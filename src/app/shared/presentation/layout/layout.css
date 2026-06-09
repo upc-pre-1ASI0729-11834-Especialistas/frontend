@@ -8,6 +8,24 @@
   border-right: none;
 }
 
+mat-sidenav-content {
+  display: flex !important;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden !important;
+}
+
 .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   overflow: auto;
+}
+
+@media (min-width: 769px) {
+  mat-sidenav-content.with-secondary-sidebar app-topbar {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    transition: margin-left 0.15s, width 0.15s;
+  }
 }

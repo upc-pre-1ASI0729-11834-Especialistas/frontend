@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {Sidebar} from './sidebar/sidebar';
 import {Topbar} from './topbar/topbar';
-import {RouterModule} from '@angular/router';
+import {RouterModule, Router, NavigationEnd} from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-layout',
@@ -15,6 +16,20 @@ import { MatSidenavModule } from '@angular/material/sidenav';
   templateUrl: './layout.html',
   styleUrl: './layout.css',
 })
-export class Layout {
+export class Layout implements OnInit {
+  protected hasSecondarySidebar = false;
+  private readonly router = inject(Router);
 
+  ngOnInit() {
+    this.checkSidebar(this.router.url);
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.checkSidebar(this.router.url);
+      });
+  }
+
+  private checkSidebar(url: string) {
+    this.hasSecondarySidebar = url.startsWith('/settings');
+  }
 }

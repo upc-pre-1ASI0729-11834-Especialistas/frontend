@@ -16,7 +16,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   styleUrl: './topbar.css',
 })
 export class Topbar implements OnInit {
-   title = '';
+  title = '';
   subtitle = '';
 
   constructor(
@@ -25,23 +25,23 @@ export class Topbar implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.updateTitleAndSubtitle();
     this.router.events
       .pipe(
-        filter(event => event instanceof NavigationEnd),
-        map(() => {
-          let currentRoute = this.route;
-
-          // bajar hasta la ruta hija activa
-          while (currentRoute.firstChild) {
-            currentRoute = currentRoute.firstChild;
-          }
-
-          return currentRoute.snapshot.data;
-        })
+        filter(event => event instanceof NavigationEnd)
       )
-      .subscribe(data => {
-        this.title = data['title'] ?? '';
-        this.subtitle = data['subtitle'] ?? '';
+      .subscribe(() => {
+        this.updateTitleAndSubtitle();
       });
+  }
+
+  private updateTitleAndSubtitle() {
+    let currentRoute = this.route;
+    while (currentRoute.firstChild) {
+      currentRoute = currentRoute.firstChild;
+    }
+    const data = currentRoute.snapshot.data;
+    this.title = data['title'] ?? '';
+    this.subtitle = data['subtitle'] ?? '';
   }
 }

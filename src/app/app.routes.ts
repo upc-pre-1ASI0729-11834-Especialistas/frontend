@@ -7,7 +7,7 @@ import { LaboratoriesPageComponent } from './labs/presentation/pages/laboratorie
 import { AddLaboratoryPageComponent } from './labs/presentation/pages/add-laboratory-page/add-laboratory-page.component';
 import { LaboratoryDetailPageComponent } from './labs/presentation/pages/laboratory-detail-page/laboratory-detail-page.component';
 import { HistoryPage } from './history/presentation/views/history-page/history-page';
-import { SettingsPageComponent } from './automation/presentation/pages/settings-page/settings-page.component';
+import { SettingsLayoutComponent } from './automation/presentation/pages/settings-layout/settings-layout.component';
 import { SensorConfigurationPageComponent } from './automation/presentation/pages/sensor-configuration-page/sensor-configuration-page.component';
 import { AlertsNotificationsPageComponent } from './automation/presentation/pages/alerts-notifications-page/alerts-notifications-page.component';
 import { SecurityAccessPageComponent } from './automation/presentation/pages/security-access-page/security-access-page.component';
@@ -97,35 +97,38 @@ export const routes: Routes = [
       },
       {
         path: 'settings',
-        component: SettingsPageComponent,
-        data: {
-          title: 'Settings',
-          subtitle: 'Configure your Safelab workspace and personal preferences.'
-        }
-      },
-      {
-        path: 'settings/sensor-configuration',
-        component: SensorConfigurationPageComponent,
-        data: {
-          title: 'Settings',
-          subtitle: 'Configure your Safelab workspace and personal preferences.'
-        }
-      },
-      {
-        path: 'settings/alerts-notifications',
-        component: AlertsNotificationsPageComponent,
-        data: {
-          title: 'Settings',
-          subtitle: 'Configure your Safelab workspace and personal preferences.'
-        }
-      },
-      {
-        path: 'settings/security-access',
-        component: SecurityAccessPageComponent,
-        data: {
-          title: 'Settings',
-          subtitle: 'Configure your Safelab workspace and personal preferences.'
-        }
+        component: SettingsLayoutComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'sensor-configuration',
+            pathMatch: 'full'
+          },
+          {
+            path: 'sensor-configuration',
+            component: SensorConfigurationPageComponent,
+            data: {
+              title: 'Sensor Configuration',
+              subtitle: 'Calibrate and manage lab sensors for temperature, humidity, and atmospheric pressure monitoring.'
+            }
+          },
+          {
+            path: 'alerts-notifications',
+            component: AlertsNotificationsPageComponent,
+            data: {
+              title: 'Alerts & Notifications',
+              subtitle: 'Configure how and when you receive laboratory safety and status updates.'
+            }
+          },
+          {
+            path: 'security-access',
+            component: SecurityAccessPageComponent,
+            data: {
+              title: 'Security & Access',
+              subtitle: 'Manage your account credentials and security preferences.'
+            }
+          }
+        ]
       },
       {
         path: 'alerts/incident/resolve',
