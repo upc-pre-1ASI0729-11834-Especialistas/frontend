@@ -1627,10 +1627,99 @@
       "maxThreshold": 39,
       "warningAt": 38,
       "unit": "°C",
-      "currentValue": 37.0,
+      "currentValue": 37,
       "status": "normal",
       "icon": "biotech"
     }
+  ],
+  "automation-rules": [
+    {
+      "id": 1,
+      "name": "Temperature Critical Response",
+      "active": true,
+      "lastTriggered": "Triggered today at 08:23 AM",
+      "triggerMetric": "Temperature",
+      "triggerOperator": ">",
+      "triggerValue": 8,
+      "triggerUnit": "°C",
+      "triggerDuration": 5,
+      "scope": "all",
+      "specificLabId": null,
+      "actions": [
+        "activate_hvac",
+        "send_sms"
+      ],
+      "executionLimitMins": 60,
+      "autoResolve": true
+    },
+    {
+      "id": 2,
+      "name": "CO2 Safety Protocol",
+      "active": true,
+      "lastTriggered": "Never triggered",
+      "triggerMetric": "CO2",
+      "triggerOperator": ">",
+      "triggerValue": 1500,
+      "triggerUnit": "ppm",
+      "triggerDuration": 2,
+      "scope": "specific",
+      "specificLabId": 3,
+      "actions": [
+        "increase_ventilation",
+        "send_push"
+      ],
+      "executionLimitMins": 60,
+      "autoResolve": true
+    },
+    {
+      "id": 3,
+      "name": "Humidity Maintenance",
+      "active": true,
+      "lastTriggered": "Inactive",
+      "triggerMetric": "Humidity",
+      "triggerOperator": "<",
+      "triggerValue": 20,
+      "triggerUnit": "%",
+      "triggerDuration": 15,
+      "scope": "specific",
+      "specificLabId": 1,
+      "actions": [
+        "log_event"
+      ],
+      "executionLimitMins": 60,
+      "autoResolve": true
+    },
+    {
+      "id": 4,
+      "name": "Test Rule",
+      "active": true,
+      "lastTriggered": "Never triggered",
+      "triggerMetric": "Humidity",
+      "triggerOperator": ">",
+      "triggerValue": 12.5,
+      "triggerUnit": "%",
+      "triggerDuration": 5,
+      "scope": "all",
+      "specificLabId": null,
+      "actions": [],
+      "executionLimitMins": 60,
+      "autoResolve": true
+    },
+    {
+      "id": 5,
+      "name": "Test Rule After Fix",
+      "active": true,
+      "lastTriggered": "Never triggered",
+      "triggerMetric": "Temperature",
+      "triggerOperator": ">",
+      "triggerValue": 12.5,
+      "triggerUnit": "°C",
+      "triggerDuration": 5,
+      "scope": "all",
+      "specificLabId": null,
+      "actions": [],
+      "executionLimitMins": 60,
+      "autoResolve": true
+    }
   ]
 }
-

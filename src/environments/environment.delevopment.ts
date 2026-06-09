@@ -22,4 +22,5 @@ export const environment = {
   platformProviderAutomationPendingInvitationsEndpointPath: '/pending-invitations',
   platformProviderAutomationRoleDefinitionsEndpointPath: '/role-definitions',
   platformProviderAutomationEquipmentThresholdsEndpointPath: '/equipment-thresholds',
+  platformProviderAutomationAutomationRulesEndpointPath: '/automation-rules',
 };

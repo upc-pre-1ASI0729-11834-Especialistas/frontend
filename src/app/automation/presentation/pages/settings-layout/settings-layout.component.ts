@@ -35,6 +35,11 @@ export class SettingsLayoutComponent {
       label: 'Usuarios',
       route: '/settings/users-permissions',
       icon: 'people'
+    },
+    {
+      label: 'Automatización',
+      route: '/settings/automation-rules',
+      icon: 'settings_suggest'
     }
   ];
 }

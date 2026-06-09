@@ -1,0 +1,24 @@
+<div class="page-container">
+  <!-- Loading state -->
+  <div *ngIf="automationStore.loading()" class="loading-overlay">
+    <div class="spinner"></div>
+    <span class="loading-text">Loading automation rules...</span>
+  </div>
+
+  <!-- Rules list -->
+  <div *ngIf="!automationStore.loading()" class="rules-list">
+    <div *ngFor="let rule of automationStore.automationRules()" class="rule-item">
+      <app-automation-rule-card 
+        [rule]="rule" 
+        [labs]="labs()"
+        (toggleActive)="onToggleActive($event)">
+      </app-automation-rule-card>
+    </div>
+    
+    <div *ngIf="automationStore.automationRules().length === 0" class="empty-state">
+      <mat-icon class="empty-icon">settings_suggest</mat-icon>
+      <h3>No Automation Rules defined</h3>
+      <p>Click "+ Add Rule" in the top bar to create your first rule.</p>
+    </div>
+  </div>
+</div>

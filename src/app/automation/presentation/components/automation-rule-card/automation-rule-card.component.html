@@ -1,0 +1,53 @@
+<div class="rule-card" [class.inactive]="!rule.active">
+  <!-- Left accent bar -->
+  <div class="accent-bar" [class.active-accent]="rule.active"></div>
+  
+  <div class="card-content">
+    <!-- Header row: Icon, Name, Badge, Toggle -->
+    <div class="card-header">
+      <div class="header-left">
+        <div class="icon-container" [class.active-icon]="rule.active">
+          <mat-icon>{{ getIcon() }}</mat-icon>
+        </div>
+        <div class="title-section">
+          <h3 class="rule-title">{{ rule.name }}</h3>
+          <div class="badge-wrapper">
+            <span class="trigger-badge" 
+                  [class.badge-warning]="rule.active && rule.lastTriggered.includes('Triggered')" 
+                  [class.badge-inactive]="!rule.active || rule.lastTriggered.includes('Inactive') || rule.lastTriggered.includes('Never')">
+              <mat-icon class="badge-icon">schedule</mat-icon>
+              {{ rule.lastTriggered }}
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="header-right">
+        <mat-slide-toggle [checked]="rule.active" (change)="onToggleChange($event.checked)"></mat-slide-toggle>
+      </div>
+    </div>
+    
+    <!-- Body row: Trigger condition and Action -->
+    <div class="card-body">
+      <div class="condition-box trigger-box">
+        <span class="box-label">Trigger</span>
+        <div class="box-value highlight-when">
+          <span class="keyword">When:</span> {{ rule.triggerMetric }} {{ rule.triggerOperator }} {{ rule.triggerValue }}{{ rule.triggerUnit }} for > {{ rule.triggerDuration }} min
+        </div>
+      </div>
+      
+      <div class="condition-box action-box">
+        <span class="box-label">Action</span>
+        <div class="box-value highlight-then">
+          <span class="keyword">Then:</span> {{ getFormattedAction() }}
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer row: Scope -->
+    <div class="card-footer">
+      <mat-icon class="scope-icon">room</mat-icon>
+      <span class="scope-text">Applies to: {{ getLabName() }}</span>
+    </div>
+  </div>
+</div>

@@ -14,6 +14,7 @@ import { SecurityAccessPageComponent } from './automation/presentation/pages/sec
 import { UsersPermissionsPageComponent } from './automation/presentation/pages/users-permissions-page/users-permissions-page.component';
 import { ResolveIncidentPage } from './alerts/presentation/pages/resolve-incident-page/resolve-incident-page';
 import { ThresholdConfigurationPageComponent } from './automation/presentation/pages/threshold-configuration-page/threshold-configuration-page.component';
+import { AutomationRulesPageComponent } from './automation/presentation/pages/automation-rules-page/automation-rules-page.component';
 
 
 export const routes: Routes = [
@@ -150,6 +151,19 @@ export const routes: Routes = [
             data: {
               title: 'Threshold Configuration',
               subtitle: 'Define temperature and environmental limits for each equipment.'
+            }
+          },
+          {
+            path: 'automation-rules',
+            component: AutomationRulesPageComponent,
+            data: {
+              title: 'Automation Rules',
+              subtitle: 'Define how the system responds automatically to environmental events.',
+              topbarAction: {
+                label: 'Add Rule',
+                icon: 'add',
+                id: 'add-rule-action'
+              }
             }
           }
         ]

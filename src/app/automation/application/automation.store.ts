@@ -8,6 +8,7 @@ import { LabUserStore } from './lab-user.store';
 import { PendingInvitationStore } from './pending-invitation.store';
 import { RoleDefinitionStore } from './role-definition.store';
 import { EquipmentThresholdStore } from './equipment-threshold.store';
+import { AutomationRuleStore } from './automation-rule.store';
 
 @Injectable({ providedIn: 'root' })
 export class AutomationStore {
@@ -20,6 +21,7 @@ export class AutomationStore {
   private readonly pendingInvitationStore = inject(PendingInvitationStore);
   private readonly roleDefinitionStore = inject(RoleDefinitionStore);
   private readonly equipmentThresholdStore = inject(EquipmentThresholdStore);
+  private readonly automationRuleStore = inject(AutomationRuleStore);
 
   // Delegate signals from individual stores
   readonly generalSettings = this.generalSettingStore.generalSettings;
@@ -35,6 +37,7 @@ export class AutomationStore {
   readonly pendingInvitationsCount = this.pendingInvitationStore.pendingInvitationsCount;
   readonly roleDefinitions = this.roleDefinitionStore.roleDefinitions;
   readonly equipmentThresholds = this.equipmentThresholdStore.equipmentThresholds;
+  readonly automationRules = this.automationRuleStore.automationRules;
 
   // Combined loading signal
   readonly loading = computed(() =>
@@ -46,7 +49,8 @@ export class AutomationStore {
     this.labUserStore.loading() ||
     this.pendingInvitationStore.loading() ||
     this.roleDefinitionStore.loading() ||
-    this.equipmentThresholdStore.loading()
+    this.equipmentThresholdStore.loading() ||
+    this.automationRuleStore.loading()
   );
 
   inviteUser(email: string, role: string) {
@@ -65,5 +69,41 @@ export class AutomationStore {
     status?: string;
   }) {
     return this.equipmentThresholdStore.updateEquipmentThreshold(id, data);
+  }
+
+  createAutomationRule(data: {
+    name: string;
+    active: boolean;
+    lastTriggered: string;
+    triggerMetric: string;
+    triggerOperator: string;
+    triggerValue: number;
+    triggerUnit: string;
+    triggerDuration: number;
+    scope: 'all' | 'specific';
+    specificLabId: number | null;
+    actions: string[];
+    executionLimitMins: number;
+    autoResolve: boolean;
+  }) {
+    return this.automationRuleStore.createAutomationRule(data);
+  }
+
+  updateAutomationRule(id: number, data: Partial<{
+    name: string;
+    active: boolean;
+    lastTriggered: string;
+    triggerMetric: string;
+    triggerOperator: string;
+    triggerValue: number;
+    triggerUnit: string;
+    triggerDuration: number;
+    scope: 'all' | 'specific';
+    specificLabId: number | null;
+    actions: string[];
+    executionLimitMins: number;
+    autoResolve: boolean;
+  }>) {
+    return this.automationRuleStore.updateAutomationRule(id, data);
   }
 }
