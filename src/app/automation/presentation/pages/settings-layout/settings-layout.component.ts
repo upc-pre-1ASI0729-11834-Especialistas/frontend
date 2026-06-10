@@ -12,37 +12,37 @@ import { SecondarySidebarComponent, SecondarySidebarItem } from '../../../../sha
 export class SettingsLayoutComponent {
   readonly settingsSidebarItems: SecondarySidebarItem[] = [
     {
-      label: 'Perfil',
+      label: 'Profile',
       route: '/settings/profile-identity',
       icon: 'badge'
     },
     {
-      label: 'Sensores',
+      label: 'Sensors',
       route: '/settings/sensor-configuration',
       icon: 'sensors'
     },
     {
-      label: 'Umbrales',
+      label: 'Thresholds',
       route: '/settings/threshold-configuration',
       icon: 'thermostat'
     },
     {
-      label: 'Alertas',
+      label: 'Alerts',
       route: '/settings/alerts-notifications',
       icon: 'notifications'
     },
     {
-      label: 'Seguridad',
+      label: 'Security',
       route: '/settings/security-access',
       icon: 'lock'
     },
     {
-      label: 'Usuarios',
+      label: 'Users',
       route: '/settings/users-permissions',
       icon: 'people'
     },
     {
-      label: 'Automatización',
+      label: 'Automation',
       route: '/settings/automation-rules',
       icon: 'settings_suggest'
     }

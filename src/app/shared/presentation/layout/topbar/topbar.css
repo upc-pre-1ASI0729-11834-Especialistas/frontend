@@ -29,22 +29,30 @@
 .view-info {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  flex-shrink: 1;
 }
 
 .view-title {
   font-size: 22px;
   font-weight: bold;
   margin: 0;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .view-subtitle {
   font-size: 12px;
   color: #94a3b8;
   margin: 0;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .search-field {
-  width: 320px;
+  width: 100%;
+  max-width: 320px;
+  min-width: 140px;
 }
 
 /* Mobile: hide search on very small screens, adjust title */
@@ -57,8 +65,12 @@
     font-size: 18px;
   }
 
+  .view-subtitle {
+    font-size: 11px;
+  }
+
   .search-field {
-    width: 180px;
+    max-width: 180px;
   }
 }
 
@@ -92,21 +104,32 @@
 }
 
 .topbar-action-btn mat-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   margin: 0 !important;
   font-size: 20px !important;
   width: 20px !important;
   height: 20px !important;
+  line-height: 20px !important;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .topbar-action-btn {
     min-width: 40px !important;
     width: 40px !important;
+    height: 40px !important;
     padding: 0 !important;
     border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .topbar-action-btn ::ng-deep .mdc-button__label {
+    display: contents !important;
   }
   .topbar-action-btn .btn-label {
-    display: none;
+    display: none !important;
   }
   .topbar-action-btn mat-icon {
     margin: 0 !important;
