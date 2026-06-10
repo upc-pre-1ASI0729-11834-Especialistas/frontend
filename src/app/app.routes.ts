@@ -15,6 +15,7 @@ import { UsersPermissionsPageComponent } from './automation/presentation/pages/u
 import { ResolveIncidentPage } from './alerts/presentation/pages/resolve-incident-page/resolve-incident-page';
 import { ThresholdConfigurationPageComponent } from './automation/presentation/pages/threshold-configuration-page/threshold-configuration-page.component';
 import { AutomationRulesPageComponent } from './automation/presentation/pages/automation-rules-page/automation-rules-page.component';
+import { ProfileIdentityPageComponent } from './automation/presentation/pages/profile-identity-page/profile-identity-page.component';
 
 
 export const routes: Routes = [
@@ -114,6 +115,14 @@ export const routes: Routes = [
             data: {
               title: 'Sensor Configuration',
               subtitle: 'Calibrate and manage lab sensors for temperature, humidity, and atmospheric pressure monitoring.'
+            }
+          },
+          {
+            path: 'profile-identity',
+            component: ProfileIdentityPageComponent,
+            data: {
+              title: 'Profile & Identity',
+              subtitle: 'Manage your personal information and professional credentials.'
             }
           },
           {

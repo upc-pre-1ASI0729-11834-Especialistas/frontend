@@ -1420,10 +1420,18 @@
   "user-profiles": [
     {
       "id": 1,
-      "fullName": "John Doe",
-      "role": "Senior Lab Manager",
-      "email": "john.doe@safelab.io",
-      "avatarUrl": "https://ui-avatars.com/api/?name=John+Doe&background=1976d2&color=fff&size=128"
+      "fullName": "Dr. Alexander Vance",
+      "role": "Lab Coordinator",
+      "email": "a.vance@safelab.org",
+      "avatarUrl": "https://ui-avatars.com/api/?name=Dr.+Alexander+Vance&background=7C4DFF&color=fff&size=128",
+      "phoneNumber": "+1 (555) 019-2834",
+      "professionalTitle": "Lead Environmental Analyst",
+      "employeeId": "EMP-8924-SLX",
+      "systemState": "Active — Verified",
+      "accessTier": "Lab Coordinator (Tier 1)",
+      "defaultStartShift": "08:00 AM",
+      "shiftDuration": "8 Hours",
+      "autoGenerateShiftReport": true
     }
   ],
   "sensor-configurations": [

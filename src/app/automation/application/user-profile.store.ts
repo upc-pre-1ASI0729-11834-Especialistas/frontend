@@ -1,5 +1,6 @@
-﻿import { computed, DestroyRef, inject, Injectable, Signal, signal } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, Signal, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Observable, tap } from 'rxjs';
 import { UserProfile } from '../domain/model/user-profile.entity';
 import { UserProfilesApi } from '../infrastructure/user-profile-api';
 
@@ -23,6 +24,23 @@ export class UserProfileStore {
 
   getUserProfileById(id: number | null | undefined): Signal<UserProfile | undefined> {
     return computed(() => id ? this.userProfiles().find(e => e.id === id) : undefined);
+  }
+
+  updateUserProfile(id: number, userProfile: UserProfile): Observable<UserProfile> {
+    this.loadingSignal.set(true);
+    return this.userProfilesApi.updateUserProfile(id, userProfile).pipe(
+      tap({
+        next: saved => {
+          this.userProfilesSignal.update(list =>
+            list.map(item => item.id === id ? saved : item)
+          );
+          this.loadingSignal.set(false);
+        },
+        error: err => {
+          this.handleError(err, 'Failed to update user profile');
+        }
+      })
+    );
   }
 
   private loadUserProfiles(): void {

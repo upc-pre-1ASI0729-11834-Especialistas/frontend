@@ -12,6 +12,11 @@ import { SecondarySidebarComponent, SecondarySidebarItem } from '../../../../sha
 export class SettingsLayoutComponent {
   readonly settingsSidebarItems: SecondarySidebarItem[] = [
     {
+      label: 'Perfil',
+      route: '/settings/profile-identity',
+      icon: 'badge'
+    },
+    {
       label: 'Sensores',
       route: '/settings/sensor-configuration',
       icon: 'sensors'

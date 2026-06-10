@@ -9,6 +9,7 @@ import { PendingInvitationStore } from './pending-invitation.store';
 import { RoleDefinitionStore } from './role-definition.store';
 import { EquipmentThresholdStore } from './equipment-threshold.store';
 import { AutomationRuleStore } from './automation-rule.store';
+import { UserProfile } from '../domain/model/user-profile.entity';
 
 @Injectable({ providedIn: 'root' })
 export class AutomationStore {
@@ -105,5 +106,9 @@ export class AutomationStore {
     autoResolve: boolean;
   }>) {
     return this.automationRuleStore.updateAutomationRule(id, data);
+  }
+
+  updateUserProfile(id: number, userProfile: UserProfile) {
+    return this.userProfileStore.updateUserProfile(id, userProfile);
   }
 }
