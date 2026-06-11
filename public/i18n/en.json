@@ -18,6 +18,7 @@
     },
     "user": {
       "logout": "Logout"
+      ,"role": "Lab Coordinator"
     }
   },
   "topbar": {
@@ -72,8 +73,10 @@
       "critical": "Critical Alerts",
       "warning": "Warning Alerts",
       "informational": "Informational",
-      "resolvedToday": "Resolved Today"
+      "resolvedToday": "Resolved Today",
+      "alerts": "alerts"
     },
+    "total": "{{count}} alerts total",
     "button": {
       "investigate": "Investigate"
     }
@@ -93,6 +96,23 @@
       "labs": "labs",
       "prev": "Prev",
       "next": "Next"
+    },
+    "add": "Add Laboratory",
+    "filters": {
+      "status": "Status",
+      "location": "Location"
+    },
+    "status": {
+      "all": "All",
+      "ok": "OK",
+      "warning": "Warning",
+      "critical": "Critical"
+    },
+    "location": {
+      "building-a": "Building A",
+      "building-b": "Building B",
+      "building-c": "Building C",
+      "building-d": "Building D"
     }
   },
   "history": {
@@ -181,6 +201,19 @@
       "inactive": "Inactive",
       "pending": "Pending",
       "resolved": "Resolved"
+    }
+  },
+  "automation": {
+    "activeUsers": {
+      "title": "Active Users",
+      "usersCount": "{{count}} users",
+      "columns": {
+        "user": "User",
+        "role": "Role",
+        "labsAccess": "Labs Access",
+        "lastLogin": "Last Login",
+        "status": "Status"
+      }
     }
   }
 }

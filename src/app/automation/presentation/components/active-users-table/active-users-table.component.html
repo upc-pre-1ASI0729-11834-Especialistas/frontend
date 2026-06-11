@@ -2,19 +2,21 @@
   <mat-card-content class="card-content">
 
     <div class="card-header">
-      <h2 class="card-title">Active Users</h2>
-      <span class="count-badge">{{ totalCount }} users</span>
+      <h2 class="card-title">{{ 'automation.activeUsers.title' | translate }}</h2>
+      <span class="count-badge">
+        {{ 'automation.activeUsers.usersCount' | translate:{ count: totalCount } }}
+      </span>
     </div>
 
     <div class="table-container">
       <table class="users-table">
         <thead>
           <tr>
-            <th>User</th>
-            <th>Role</th>
-            <th>Labs Access</th>
-            <th>Last Login</th>
-            <th>Status</th>
+            <th>{{ 'automation.activeUsers.columns.user' | translate }}</th>
+            <th>{{ 'automation.activeUsers.columns.role' | translate }}</th>
+            <th>{{ 'automation.activeUsers.columns.labsAccess' | translate }}</th>
+            <th>{{ 'automation.activeUsers.columns.lastLogin' | translate }}</th>
+            <th>{{ 'automation.activeUsers.columns.status' | translate }}</th>
           </tr>
         </thead>
         <tbody>
@@ -37,7 +39,13 @@
               <td>
                 <div class="status-cell">
                   <span class="status-dot" [class.active]="user.status === 'Active'" [class.inactive]="user.status === 'Inactive'"></span>
-                  <span class="status-text">{{ user.status }}</span>
+                  <span class="status-text">
+                    {{
+                      user.status === 'Active'
+                        ? ('common.status.active' | translate)
+                        : ('common.status.inactive' | translate)
+                    }}
+                  </span>
                 </div>
               </td>
             </tr>

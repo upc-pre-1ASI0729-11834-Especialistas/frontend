@@ -20,7 +20,8 @@ interface Alert {
 }
 
 interface AlertGroup {
-  severity: 'CRITICAL' | 'WARNING' | 'RESOLVED TODAY';
+  // severity code used for logic; display labels are translated in template
+  severity: 'critical' | 'warning' | 'resolvedToday';
   count: number;
   colorClass: string;
   pillClass: string;
@@ -46,15 +47,15 @@ export class AlertsPage {
   private router = inject(Router);
 
   summaryCards = [
-    { title: 'Critical', subtitle: 'alerts', value: 3, class: 'card-critical' },
-    { title: 'Warning', subtitle: 'alerts', value: 5, class: 'card-warning' },
-    { title: 'Informational', subtitle: 'alerts', value: 12, class: 'card-info' },
-    { title: 'Resolved Today', subtitle: 'alerts', value: 24, class: 'card-resolved' }
+    { title: 'alerts.summary.critical', subtitle: 'alerts.summary.alerts', value: 3, class: 'card-critical' },
+    { title: 'alerts.summary.warning', subtitle: 'alerts.summary.alerts', value: 5, class: 'card-warning' },
+    { title: 'alerts.summary.informational', subtitle: 'alerts.summary.alerts', value: 12, class: 'card-info' },
+    { title: 'alerts.summary.resolvedToday', subtitle: 'alerts.summary.alerts', value: 24, class: 'card-resolved' }
   ];
 
   alertGroups: AlertGroup[] = [
     {
-      severity: 'CRITICAL',
+      severity: 'critical',
       count: 3,
       colorClass: 'text-red',
       pillClass: 'pill-critical',
@@ -86,7 +87,7 @@ export class AlertsPage {
       ]
     },
     {
-      severity: 'WARNING',
+      severity: 'warning',
       count: 5,
       colorClass: 'text-orange',
       pillClass: 'pill-warning',
@@ -110,7 +111,7 @@ export class AlertsPage {
       ]
     },
     {
-      severity: 'RESOLVED TODAY',
+      severity: 'resolvedToday',
       count: 24,
       colorClass: 'text-green',
       pillClass: 'pill-resolved',
@@ -139,5 +140,11 @@ export class AlertsPage {
 
   navigateToIncident() {
     this.router.navigate(['/alerts/incident']);
+  }
+
+  currentTime = new Date();
+
+  get totalAlerts(): number {
+    return this.alertGroups.reduce((sum, g) => sum + g.count, 0);
   }
 }

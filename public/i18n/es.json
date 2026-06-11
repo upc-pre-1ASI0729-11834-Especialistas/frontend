@@ -18,6 +18,7 @@
     },
     "user": {
       "logout": "Cerrar Sesión"
+      ,"role": "Coordinador de Laboratorio"
     }
   },
   "topbar": {
@@ -72,8 +73,10 @@
       "critical": "Alertas Críticas",
       "warning": "Alertas de Advertencia",
       "informational": "Informativo",
-      "resolvedToday": "Resueltos Hoy"
+      "resolvedToday": "Resueltos Hoy",
+      "alerts": "alertas"
     },
+    "total": "{{count}} alertas en total",
     "button": {
       "investigate": "Investigar"
     }
@@ -93,6 +96,23 @@
       "labs": "laboratorios",
       "prev": "Anterior",
       "next": "Siguiente"
+    },
+    "add": "Añadir Laboratorio",
+    "filters": {
+      "status": "Estado",
+      "location": "Ubicación"
+    },
+    "status": {
+      "all": "Todos",
+      "ok": "OK",
+      "warning": "Advertencia",
+      "critical": "Crítico"
+    },
+    "location": {
+      "building-a": "Edificio A",
+      "building-b": "Edificio B",
+      "building-c": "Edificio C",
+      "building-d": "Edificio D"
     }
   },
   "history": {
@@ -181,6 +201,19 @@
       "inactive": "Inactivo",
       "pending": "Pendiente",
       "resolved": "Resuelto"
+    }
+  },
+  "automation": {
+    "activeUsers": {
+      "title": "Usuarios Activos",
+      "usersCount": "{{count}} usuarios",
+      "columns": {
+        "user": "Usuario",
+        "role": "Rol",
+        "labsAccess": "Acceso a Laboratorios",
+        "lastLogin": "Último Inicio de Sesión",
+        "status": "Estado"
+      }
     }
   }
 }

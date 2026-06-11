@@ -1,9 +1,12 @@
 <div class="page-body">
 
-  <app-laboratories-toolbar [totalCount]="laboratoryStore.totalCount()" [locations]="laboratoryStore.locations()"
-    [viewMode]="viewMode" (statusChange)="onStatusChange($event)" (locationChange)="onLocationChange($event)"
+  <app-laboratories-toolbar
+    [totalCount]="laboratoryStore.totalCount()"
+    [locations]="laboratoryStore.locations()"
+    [viewMode]="viewMode"
+    (statusChange)="onStatusChange($event)"
+    (locationChange)="onLocationChange($event)"
     (viewModeChange)="viewMode = $event" />
-
 
   @if (laboratoryStore.loading()) {
   <div class="loading-state">

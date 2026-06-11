@@ -55,12 +55,6 @@
   min-width: 140px;
 }
 
-.language-switcher-wrapper {
-  display: flex;
-  align-items: center;
-}
-
-/* Mobile: hide search on very small screens, adjust title */
 @media (max-width: 768px) {
   .topbar {
     padding: 8px 12px;

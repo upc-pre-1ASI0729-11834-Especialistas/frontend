@@ -31,7 +31,7 @@
     </button>
   } @else {
     <mat-form-field appearance="outline" class="search-field">
-      <input matInput placeholder="Search labs or alerts...">
+      <input matInput [placeholder]="'topbar.search' | translate">
     </mat-form-field>
   }
 
