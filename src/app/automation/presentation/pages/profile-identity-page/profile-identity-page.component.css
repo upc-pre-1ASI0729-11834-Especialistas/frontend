@@ -1,0 +1,326 @@
+.profile-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 32px 40px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 16px;
+  }
+}
+.profile-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-lg);
+  align-items: start;
+}
+
+.profile-card {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  background-color: var(--surface-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: var(--spacing-lg);
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.header-blue {
+  color: var(--primary-color);
+}
+
+.header-status {
+  color: var(--success-color);
+}
+
+.header-pref {
+  color: var(--primary-color);
+}
+
+.profile-card mat-card-title {
+  font-size: var(--font-size-lg) !important;
+  font-weight: 600 !important;
+  color: var(--text-primary);
+  margin: 0 !important;
+}
+
+.card-content {
+  padding: var(--spacing-lg);
+}
+
+.form-row {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.form-row:last-of-type {
+  margin-bottom: 0;
+}
+
+.form-field {
+  flex: 1;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.readonly-field ::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: var(--background-color) !important;
+}
+
+.lock-icon {
+  color: var(--text-disabled);
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-color);
+  padding-top: var(--spacing-md);
+}
+
+.btn-save {
+  padding: 0 var(--spacing-lg) !important;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  font-weight: 500;
+  border-radius: var(--border-radius-md);
+}
+
+.btn-save:hover {
+  background-color: var(--primary-dark) !important;
+}
+
+.btn-save[disabled] {
+  opacity: 0.6;
+  background-color: var(--text-disabled) !important;
+}
+
+/* Photo Card Styles */
+.photo-card {
+  padding: var(--spacing-xl) var(--spacing-lg);
+}
+
+.photo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+}
+
+.avatar-large {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  background-color: rgba(25, 118, 210, 0.1);
+}
+
+.avatar-text {
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.photo-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  width: 100%;
+}
+
+.btn-link {
+  color: var(--primary-color) !important;
+  font-size: var(--font-size-sm) !important;
+  padding: 0 var(--spacing-xs) !important;
+  min-width: unset !important;
+  font-weight: 500 !important;
+}
+
+.btn-link.text-danger {
+  color: var(--error-color) !important;
+}
+
+.divider {
+  color: var(--border-color);
+  user-select: none;
+}
+
+/* Status Card Styles */
+.status-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.status-item:last-of-type {
+  border-bottom: none;
+}
+
+.status-label {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.status-value {
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+}
+
+.font-semibold {
+  font-weight: 500;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: 9999px;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+.success-badge {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: var(--success-color);
+  border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--success-color);
+}
+
+.status-footer {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-sm);
+}
+
+.action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--primary-color);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.link-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+/* Preference Styles */
+.preference-row {
+  margin-bottom: var(--spacing-sm);
+}
+
+.toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+  border-top: 1px dashed var(--border-color);
+}
+
+.toggle-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.toggle-title {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.toggle-subtitle {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/* Loading Overlay */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  z-index: 10;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--primary-color);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsiveness */
+@media (max-width: 992px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}

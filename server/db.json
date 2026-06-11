@@ -1420,10 +1420,18 @@
   "user-profiles": [
     {
       "id": 1,
-      "fullName": "John Doe",
-      "role": "Senior Lab Manager",
-      "email": "john.doe@safelab.io",
-      "avatarUrl": "https://ui-avatars.com/api/?name=John+Doe&background=1976d2&color=fff&size=128"
+      "fullName": "Dr. Alexander Vance",
+      "role": "Lab Coordinator",
+      "email": "a.vance@safelab.org",
+      "avatarUrl": "https://ui-avatars.com/api/?name=Dr.+Alexander+Vance&background=7C4DFF&color=fff&size=128",
+      "phoneNumber": "+1 (555) 019-2834",
+      "professionalTitle": "Lead Environmental Analyst",
+      "employeeId": "EMP-8924-SLX",
+      "systemState": "Active — Verified",
+      "accessTier": "Lab Coordinator (Tier 1)",
+      "defaultStartShift": "08:00 AM",
+      "shiftDuration": "8 Hours",
+      "autoGenerateShiftReport": true
     }
   ],
   "sensor-configurations": [
@@ -1512,6 +1520,214 @@
       "role": "Administrator",
       "isGranted": true,
       "lastAuditDate": "2026-05-12"
+    }
+  ],
+  "lab-users": [
+    {
+      "id": 1,
+      "fullName": "Dr. Alexander Vance",
+      "email": "a.vance@safelab.org",
+      "role": "Lab Coordinator",
+      "labsAccess": "All labs",
+      "lastLogin": "Today, 08:41 AM",
+      "status": "Active",
+      "avatarInitials": "AV",
+      "avatarColor": "#7C4DFF"
+    },
+    {
+      "id": 2,
+      "fullName": "Jean Arizabal",
+      "email": "j.arizabal@safelab.org",
+      "role": "Supervisor",
+      "labsAccess": "All labs",
+      "lastLogin": "Today, 06:12 AM",
+      "status": "Active",
+      "avatarInitials": "JA",
+      "avatarColor": "#FF7043"
+    },
+    {
+      "id": 3,
+      "fullName": "Manuel Sánchez",
+      "email": "m.sanchez@safelab.org",
+      "role": "Lab Technician",
+      "labsAccess": "Lab 3B, Cryo Storage",
+      "lastLogin": "Yesterday",
+      "status": "Active",
+      "avatarInitials": "MS",
+      "avatarColor": "#26A69A"
+    },
+    {
+      "id": 4,
+      "fullName": "Sofia Torres",
+      "email": "s.torres@safelab.org",
+      "role": "Read Only",
+      "labsAccess": "Lab 3B only",
+      "lastLogin": "3 days ago",
+      "status": "Inactive",
+      "avatarInitials": "ST",
+      "avatarColor": "#78909C"
+    }
+  ],
+  "pending-invitations": [
+    {
+      "id": 1,
+      "email": "r.gomez@hospital.org",
+      "role": "Lab Technician",
+      "sentTimeAgo": "Sent 2 days ago"
+    }
+  ],
+  "role-definitions": [
+    {
+      "id": 1,
+      "name": "Lab Coordinator",
+      "description": "Full access to all laboratories, can manage users and configure sensors.",
+      "permissionsCount": 24
+    },
+    {
+      "id": 2,
+      "name": "Supervisor",
+      "description": "Can view all labs and approve critical actions. Cannot modify system settings.",
+      "permissionsCount": 18
+    },
+    {
+      "id": 3,
+      "name": "Lab Technician",
+      "description": "Access to assigned labs only. Can view data and acknowledge alerts.",
+      "permissionsCount": 12
+    },
+    {
+      "id": 4,
+      "name": "Read Only",
+      "description": "View-only access to assigned laboratories. No modification permissions.",
+      "permissionsCount": 6
+    }
+  ],
+  "equipment-thresholds": [
+    {
+      "id": 1,
+      "name": "Refrigerator B-01",
+      "lab": "Lab 3B",
+      "minThreshold": 2,
+      "maxThreshold": 8,
+      "warningAt": 7,
+      "unit": "°C",
+      "currentValue": 4.2,
+      "status": "normal",
+      "icon": "kitchen"
+    },
+    {
+      "id": 2,
+      "name": "Freezer F-10",
+      "lab": "Cryo Storage",
+      "minThreshold": -85,
+      "maxThreshold": -75,
+      "warningAt": -78,
+      "unit": "°C",
+      "currentValue": -80.2,
+      "status": "normal",
+      "icon": "ac_unit"
+    },
+    {
+      "id": 3,
+      "name": "Incubator I-04",
+      "lab": "Biochemistry",
+      "minThreshold": 35,
+      "maxThreshold": 39,
+      "warningAt": 38,
+      "unit": "°C",
+      "currentValue": 37,
+      "status": "normal",
+      "icon": "biotech"
+    }
+  ],
+  "automation-rules": [
+    {
+      "id": 1,
+      "name": "Temperature Critical Response",
+      "active": true,
+      "lastTriggered": "Triggered today at 08:23 AM",
+      "triggerMetric": "Temperature",
+      "triggerOperator": ">",
+      "triggerValue": 8,
+      "triggerUnit": "°C",
+      "triggerDuration": 5,
+      "scope": "all",
+      "specificLabId": null,
+      "actions": [
+        "activate_hvac",
+        "send_sms"
+      ],
+      "executionLimitMins": 60,
+      "autoResolve": true
+    },
+    {
+      "id": 2,
+      "name": "CO2 Safety Protocol",
+      "active": true,
+      "lastTriggered": "Never triggered",
+      "triggerMetric": "CO2",
+      "triggerOperator": ">",
+      "triggerValue": 1500,
+      "triggerUnit": "ppm",
+      "triggerDuration": 2,
+      "scope": "specific",
+      "specificLabId": 3,
+      "actions": [
+        "increase_ventilation",
+        "send_push"
+      ],
+      "executionLimitMins": 60,
+      "autoResolve": true
+    },
+    {
+      "id": 3,
+      "name": "Humidity Maintenance",
+      "active": true,
+      "lastTriggered": "Inactive",
+      "triggerMetric": "Humidity",
+      "triggerOperator": "<",
+      "triggerValue": 20,
+      "triggerUnit": "%",
+      "triggerDuration": 15,
+      "scope": "specific",
+      "specificLabId": 1,
+      "actions": [
+        "log_event"
+      ],
+      "executionLimitMins": 60,
+      "autoResolve": true
+    },
+    {
+      "id": 4,
+      "name": "Test Rule",
+      "active": true,
+      "lastTriggered": "Never triggered",
+      "triggerMetric": "Humidity",
+      "triggerOperator": ">",
+      "triggerValue": 12.5,
+      "triggerUnit": "%",
+      "triggerDuration": 5,
+      "scope": "all",
+      "specificLabId": null,
+      "actions": [],
+      "executionLimitMins": 60,
+      "autoResolve": true
+    },
+    {
+      "id": 5,
+      "name": "Test Rule After Fix",
+      "active": true,
+      "lastTriggered": "Never triggered",
+      "triggerMetric": "Temperature",
+      "triggerOperator": ">",
+      "triggerValue": 12.5,
+      "triggerUnit": "°C",
+      "triggerDuration": 5,
+      "scope": "all",
+      "specificLabId": null,
+      "actions": [],
+      "executionLimitMins": 60,
+      "autoResolve": true
     }
   ]
 }

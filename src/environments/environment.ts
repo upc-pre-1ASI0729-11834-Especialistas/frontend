@@ -17,4 +17,10 @@ export const environment = {
   platformProviderAutomationSensorConfigurationsEndpointPath: '/sensor-configurations',
   platformProviderAutomationNotificationPreferencesEndpointPath: '/notification-preferences',
   platformProviderAutomationSecurityAccessesEndpointPath: '/security-accesses',
+
+  platformProviderAutomationLabUsersEndpointPath: '/lab-users',
+  platformProviderAutomationPendingInvitationsEndpointPath: '/pending-invitations',
+  platformProviderAutomationRoleDefinitionsEndpointPath: '/role-definitions',
+  platformProviderAutomationEquipmentThresholdsEndpointPath: '/equipment-thresholds',
+  platformProviderAutomationAutomationRulesEndpointPath: '/automation-rules',
 };
