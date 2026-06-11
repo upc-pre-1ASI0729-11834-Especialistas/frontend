@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  platformProviderApiBaseUrl: 'https://fake-api-production-0033.up.railway.app',
+  platformProviderApiBaseUrl: 'http://localhost:3000',
   platformProviderAlertsEndpointPath: '/alerts',
 
   platformProviderTelemetryAlertsEndpointPath: '/telemetry-alerts',
@@ -17,4 +17,10 @@ export const environment = {
   platformProviderAutomationSensorConfigurationsEndpointPath: '/sensor-configurations',
   platformProviderAutomationNotificationPreferencesEndpointPath: '/notification-preferences',
   platformProviderAutomationSecurityAccessesEndpointPath: '/security-accesses',
+
+  platformProviderAutomationLabUsersEndpointPath: '/lab-users',
+  platformProviderAutomationPendingInvitationsEndpointPath: '/pending-invitations',
+  platformProviderAutomationRoleDefinitionsEndpointPath: '/role-definitions',
+  platformProviderAutomationEquipmentThresholdsEndpointPath: '/equipment-thresholds',
+  platformProviderAutomationAutomationRulesEndpointPath: '/automation-rules',
 };

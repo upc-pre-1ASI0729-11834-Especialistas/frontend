@@ -1,13 +1,23 @@
 <mat-sidenav-container class="app-container">
 
+  <!-- Overlay for mobile when sidebar is open -->
+  @if (isMobile && sidenavOpened) {
+    <div class="sidebar-overlay" (click)="closeSidenav()"></div>
+  }
+
   <!-- SIDEBAR -->
-  <mat-sidenav mode="side" opened class="app-sidenav">
+  <mat-sidenav
+    #sidenav
+    [mode]="isMobile ? 'over' : 'side'"
+    [opened]="sidenavOpened"
+    class="app-sidenav"
+    (closedStart)="onSidenavClosed()">
     <app-sidebar></app-sidebar>
   </mat-sidenav>
 
   <!-- CONTENIDO -->
-  <mat-sidenav-content>
-    <app-topbar></app-topbar>
+  <mat-sidenav-content [class.with-secondary-sidebar]="hasSecondarySidebar">
+    <app-topbar [showHamburger]="isMobile" (hamburgerClick)="toggleSidenav()"></app-topbar>
 
     <main class="content">
       <router-outlet></router-outlet>

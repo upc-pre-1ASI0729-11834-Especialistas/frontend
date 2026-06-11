@@ -1,0 +1,164 @@
+<div class="drawer-container">
+  <!-- Header -->
+  <div class="drawer-header">
+    <div class="header-title">
+      <mat-icon class="title-icon">add_circle_outline</mat-icon>
+      <h2>Create New Rule</h2>
+    </div>
+    <button mat-icon-button (click)="onCancel()" class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Scrollable Form Content -->
+  <div class="drawer-body">
+    <form [formGroup]="ruleForm" (ngSubmit)="onSubmit()" class="form-content">
+      
+      <!-- Section 1: TRIGGER CONDITION -->
+      <div class="form-section">
+        <h3 class="section-title">1. TRIGGER CONDITION</h3>
+        
+        <div class="field-group">
+          <label class="field-label">Rule Name</label>
+          <mat-form-field appearance="outline" class="full-width">
+            <input matInput formControlName="name" placeholder="e.g., Night Shift Temp Drop">
+            <mat-error *ngIf="ruleForm.get('name')?.hasError('required')">
+              Rule name is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Shaded trigger card as per mockup -->
+        <div class="trigger-card">
+          <!-- Row 1: When [Metric] [Operator] -->
+          <div class="trigger-row">
+            <span class="trigger-label">When</span>
+            <mat-form-field appearance="outline" class="metric-select-field">
+              <mat-select formControlName="triggerMetric">
+                <mat-option value="Temperature">Temperature</mat-option>
+                <mat-option value="Humidity">Humidity</mat-option>
+                <mat-option value="CO2">CO2</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="operator-select-field">
+              <mat-select formControlName="triggerOperator">
+                <mat-option value=">">&gt;</mat-option>
+                <mat-option value="<">&lt;</mat-option>
+                <mat-option value=">=">&gt;=</mat-option>
+                <mat-option value="<=">&lt;=</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Row 2: [Value] Unit -->
+          <div class="trigger-row">
+            <mat-form-field appearance="outline" class="value-input-field">
+              <input matInput type="number" step="0.1" formControlName="triggerValue" placeholder="e.g. 8.0">
+            </mat-form-field>
+            <span class="unit-text">{{ unitSuffix }}</span>
+          </div>
+
+          <!-- Row 3: for more than [Duration] minutes -->
+          <div class="trigger-row">
+            <span class="inline-text">for more than</span>
+            <mat-form-field appearance="outline" class="duration-input-field">
+              <input matInput type="number" formControlName="triggerDuration" min="0">
+            </mat-form-field>
+            <span class="inline-text">minutes.</span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Scope</label>
+          <mat-radio-group formControlName="scope" class="scope-radio-group">
+            <mat-radio-button value="all" color="primary">All labs</mat-radio-button>
+            <mat-radio-button value="specific" color="primary">Specific lab</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <!-- Conditional Lab Selection -->
+        <div class="field-group" *ngIf="ruleForm.get('scope')?.value === 'specific'">
+          <label class="field-label">Select Laboratory</label>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-select formControlName="specificLabId">
+              <mat-option *ngFor="let lab of data.labs" [value]="lab.id">
+                {{ lab.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="ruleForm.get('specificLabId')?.hasError('required')">
+              Please choose a laboratory
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Section 2: AUTOMATED ACTIONS -->
+      <div class="form-section">
+        <h3 class="section-title">2. AUTOMATED ACTIONS</h3>
+        
+        <div class="action-checkbox-list">
+          <div class="action-item">
+            <mat-checkbox formControlName="actionHvac" color="primary">
+              <div class="checkbox-label-content">
+                <span class="checkbox-title">Activate HVAC cooling/heating</span>
+                <span class="checkbox-subtext">System attempts to self-correct environment</span>
+              </div>
+            </mat-checkbox>
+          </div>
+
+          <div class="action-item">
+            <mat-checkbox formControlName="actionPush" color="primary">
+              <div class="checkbox-label-content">
+                <span class="checkbox-title">Send Push Notification</span>
+                <span class="checkbox-subtext">Alert active users in the app</span>
+              </div>
+            </mat-checkbox>
+          </div>
+
+          <div class="action-item">
+            <mat-checkbox formControlName="actionSms" color="primary">
+              <div class="checkbox-label-content">
+                <span class="checkbox-title">Send SMS</span>
+                <span class="checkbox-subtext">Page the on-call coordinator directly</span>
+              </div>
+            </mat-checkbox>
+          </div>
+
+          <div class="action-item">
+            <mat-checkbox formControlName="actionLog" color="primary">
+              <div class="checkbox-label-content">
+                <span class="checkbox-title">Log event only</span>
+                <span class="checkbox-subtext">Record in history without alerts</span>
+              </div>
+            </mat-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: EXECUTION LIMITS -->
+      <div class="form-section">
+        <h3 class="section-title">3. EXECUTION LIMITS</h3>
+        
+        <div class="limit-row">
+          <span class="inline-text">Do not trigger more than once every</span>
+          <mat-form-field appearance="outline" class="limit-input-field">
+            <input matInput type="number" formControlName="executionLimitMins" min="1">
+          </mat-form-field>
+          <span class="inline-text">mins.</span>
+        </div>
+
+        <div class="toggle-row">
+          <span class="toggle-label">Auto-resolve when condition clears</span>
+          <mat-slide-toggle formControlName="autoResolve" color="primary"></mat-slide-toggle>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Footer Actions -->
+  <div class="drawer-footer">
+    <button mat-button (click)="onCancel()" class="btn-cancel">Cancel</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="!ruleForm.valid" class="btn-save">Save Rule</button>
+  </div>
+</div>

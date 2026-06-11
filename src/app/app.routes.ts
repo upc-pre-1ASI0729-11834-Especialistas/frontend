@@ -7,11 +7,16 @@ import { LaboratoriesPageComponent } from './labs/presentation/pages/laboratorie
 import { AddLaboratoryPageComponent } from './labs/presentation/pages/add-laboratory-page/add-laboratory-page.component';
 import { LaboratoryDetailPageComponent } from './labs/presentation/pages/laboratory-detail-page/laboratory-detail-page.component';
 import { HistoryPage } from './history/presentation/views/history-page/history-page';
-import { SettingsPageComponent } from './automation/presentation/pages/settings-page/settings-page.component';
+import { SettingsLayoutComponent } from './automation/presentation/pages/settings-layout/settings-layout.component';
 import { SensorConfigurationPageComponent } from './automation/presentation/pages/sensor-configuration-page/sensor-configuration-page.component';
 import { AlertsNotificationsPageComponent } from './automation/presentation/pages/alerts-notifications-page/alerts-notifications-page.component';
 import { SecurityAccessPageComponent } from './automation/presentation/pages/security-access-page/security-access-page.component';
+import { UsersPermissionsPageComponent } from './automation/presentation/pages/users-permissions-page/users-permissions-page.component';
 import { ResolveIncidentPage } from './alerts/presentation/pages/resolve-incident-page/resolve-incident-page';
+import { ThresholdConfigurationPageComponent } from './automation/presentation/pages/threshold-configuration-page/threshold-configuration-page.component';
+import { AutomationRulesPageComponent } from './automation/presentation/pages/automation-rules-page/automation-rules-page.component';
+import { ProfileIdentityPageComponent } from './automation/presentation/pages/profile-identity-page/profile-identity-page.component';
+
 
 export const routes: Routes = [
   {
@@ -97,35 +102,80 @@ export const routes: Routes = [
       },
       {
         path: 'settings',
-        component: SettingsPageComponent,
-        data: {
-          title: 'Settings',
-          subtitle: 'Configure your Safelab workspace and personal preferences.'
-        }
-      },
-      {
-        path: 'settings/sensor-configuration',
-        component: SensorConfigurationPageComponent,
-        data: {
-          title: 'Settings',
-          subtitle: 'Configure your Safelab workspace and personal preferences.'
-        }
-      },
-      {
-        path: 'settings/alerts-notifications',
-        component: AlertsNotificationsPageComponent,
-        data: {
-          title: 'Settings',
-          subtitle: 'Configure your Safelab workspace and personal preferences.'
-        }
-      },
-      {
-        path: 'settings/security-access',
-        component: SecurityAccessPageComponent,
-        data: {
-          title: 'Settings',
-          subtitle: 'Configure your Safelab workspace and personal preferences.'
-        }
+        component: SettingsLayoutComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'sensor-configuration',
+            pathMatch: 'full'
+          },
+          {
+            path: 'sensor-configuration',
+            component: SensorConfigurationPageComponent,
+            data: {
+              title: 'Sensor Configuration',
+              subtitle: 'Calibrate and manage lab sensors for temperature, humidity, and atmospheric pressure monitoring.'
+            }
+          },
+          {
+            path: 'profile-identity',
+            component: ProfileIdentityPageComponent,
+            data: {
+              title: 'Profile & Identity',
+              subtitle: 'Manage your personal information and professional credentials.'
+            }
+          },
+          {
+            path: 'alerts-notifications',
+            component: AlertsNotificationsPageComponent,
+            data: {
+              title: 'Alerts & Notifications',
+              subtitle: 'Configure how and when you receive laboratory safety and status updates.'
+            }
+          },
+          {
+            path: 'security-access',
+            component: SecurityAccessPageComponent,
+            data: {
+              title: 'Security & Access',
+              subtitle: 'Manage your account credentials and security preferences.'
+            }
+          },
+          {
+            path: 'users-permissions',
+            component: UsersPermissionsPageComponent,
+            data: {
+              title: 'Users & Permissions',
+              subtitle: 'Control who has access to SafeLab and what they can do.',
+              topbarAction: {
+                label: 'Invite User',
+                icon: 'person_add',
+                id: 'invite-user-action'
+              }
+            }
+          },
+          {
+            path: 'threshold-configuration',
+            component: ThresholdConfigurationPageComponent,
+            data: {
+              title: 'Threshold Configuration',
+              subtitle: 'Define temperature and environmental limits for each equipment.'
+            }
+          },
+          {
+            path: 'automation-rules',
+            component: AutomationRulesPageComponent,
+            data: {
+              title: 'Automation Rules',
+              subtitle: 'Define how the system responds automatically to environmental events.',
+              topbarAction: {
+                label: 'Add Rule',
+                icon: 'add',
+                id: 'add-rule-action'
+              }
+            }
+          }
+        ]
       },
       {
         path: 'alerts/incident/resolve',

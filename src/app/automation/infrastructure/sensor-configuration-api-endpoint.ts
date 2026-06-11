@@ -1,6 +1,6 @@
-﻿import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BaseApiEndpoint } from '../../shared/infrastructure/base-api-endpoint';
-import { environment } from '../../../environments/environment.delevopment';
+import { environment } from '../../../environments/environment';
 import { SensorConfiguration } from '../domain/model/sensor-configuration.entity';
 import { SensorConfigurationResource, SensorConfigurationsResponse } from './sensor-configuration-response';
 import { SensorConfigurationAssembler } from './sensor-configuration-assembler';
