@@ -10,7 +10,10 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideTranslateService({
       loader: provideTranslateHttpLoader({prefix: './i18n/', suffix: '.json'}),
-      fallbackLang: 'en'
+      fallbackLang: 'en',
+      defaultLanguage: 'en'
     })
   ]
 };
+
+

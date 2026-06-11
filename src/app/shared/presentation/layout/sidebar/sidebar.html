@@ -6,49 +6,49 @@
       <mat-icon>science</mat-icon>
     </div>
     <div class="logo-text">
-      <span class="logo-name">SafeLab</span>
-      <span class="logo-sub">Reliable Labs</span>
+      <span class="logo-name">{{ 'sidebar.logo.name' | translate }}</span>
+      <span class="logo-sub">{{ 'sidebar.logo.subtext' | translate }}</span>
     </div>
   </div>
 
   <!-- Nav principal -->
   <nav class="nav-links">
-    <p class="options-title">Main Menu</p>
+    <p class="options-title">{{ 'sidebar.menu.main' | translate }}</p>
 
     <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
       <mat-icon class="nav-icon">dashboard</mat-icon>
-      <span>Dashboard</span>
+      <span>{{ 'sidebar.menu.dashboard' | translate }}</span>
     </a>
 
     <a routerLink="/laboratories" routerLinkActive="active" class="nav-item">
       <mat-icon class="nav-icon">science</mat-icon>
-      <span>Laboratories</span>
+      <span>{{ 'sidebar.menu.laboratories' | translate }}</span>
     </a>
 
     <a routerLink="/alerts" routerLinkActive="active" class="nav-item">
       <mat-icon class="nav-icon">notifications_active</mat-icon>
-      <span>Alerts</span>
+      <span>{{ 'sidebar.menu.alerts' | translate }}</span>
       <!-- Badge de alertas activas -->
       <span class="alert-badge">2</span>
     </a>
 
     <a routerLink="/history" routerLinkActive="active" class="nav-item">
       <mat-icon class="nav-icon">history</mat-icon>
-      <span>Reports</span>
+      <span>{{ 'sidebar.menu.reports' | translate }}</span>
     </a>
 
-    <p class="options-title" style="margin-top:8px;">System</p>
+    <p class="options-title" style="margin-top:8px;">{{ 'sidebar.menu.system' | translate }}</p>
 
     <a routerLink="/settings" routerLinkActive="active" class="nav-item">
       <mat-icon class="nav-icon">settings</mat-icon>
-      <span>Settings</span>
+      <span>{{ 'sidebar.menu.settings' | translate }}</span>
     </a>
   </nav>
 
   <!-- Status del sistema -->
   <div class="system-status">
     <span class="status-dot"></span>
-    <span class="status-text">System Active</span>
+    <span class="status-text">{{ 'sidebar.status.systemActive' | translate }}</span>
   </div>
 
   <!-- User panel -->
@@ -58,7 +58,7 @@
       <p class="user-name">Dr. Chen</p>
       <p class="user-role">Lab Coordinator</p>
     </div>
-    <button class="logout-btn" mat-icon-button>
+    <button class="logout-btn" mat-icon-button [title]="'sidebar.user.logout' | translate">
       <mat-icon>logout</mat-icon>
     </button>
   </div>

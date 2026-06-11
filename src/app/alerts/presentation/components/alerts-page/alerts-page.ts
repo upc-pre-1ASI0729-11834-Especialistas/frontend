@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 interface Alert {
   title: string;
@@ -35,7 +36,8 @@ interface AlertGroup {
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    TranslateModule
   ],
   templateUrl: './alerts-page.html',
   styleUrl: './alerts-page.css',

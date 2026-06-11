@@ -8,6 +8,7 @@
   border-bottom: 1px solid #e5e7eb;
   display: flex;
   padding: 8px 24px;
+  gap: 16px;
 }
 
 .spacer {
@@ -34,3 +35,10 @@
 .search-field {
   width: 320px;
 }
+
+.language-switcher-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+

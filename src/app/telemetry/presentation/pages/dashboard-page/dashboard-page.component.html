@@ -10,34 +10,34 @@
       </div>
       <div class="alert-banner-text-group">
         <p class="alert-banner-text">
-          {{ stats.activeAlerts }} critical alert{{ stats.activeAlerts > 1 ? 's' : '' }} require immediate attention
+          {{ stats.activeAlerts }} {{ stats.activeAlerts > 1 ? ('dashboard.alert.bannerPlural' | translate) : ('dashboard.alert.banner' | translate) }}
         </p>
-        <span class="alert-banner-subtext">Tap "View Alerts" to investigate and resolve</span>
+        <span class="alert-banner-subtext">{{ 'dashboard.alert.bannerSubtext' | translate }}</span>
       </div>
     </div>
     <a routerLink="/alerts" class="alert-banner-btn">
       <mat-icon>visibility</mat-icon>
-      View Alerts
+      {{ 'dashboard.alert.viewAlerts' | translate }}
     </a>
   </div>
   }
 
   <!-- ② KPI STATS ROW -->
   <div class="stats-grid">
-    <app-stat-card label="Active Critical Alerts" [value]="'' + stats.activeAlerts" accentColor="#dc2626"
+    <app-stat-card [label]="'dashboard.stats.activeCriticalAlerts' | translate" [value]="'' + stats.activeAlerts" accentColor="#dc2626"
       [routerLink]="['/alerts']" style="cursor:pointer">
       <mat-icon>warning</mat-icon>
     </app-stat-card>
 
-    <app-stat-card label="Sensors Online" [value]="'14 / 15'" accentColor="#16a34a">
+    <app-stat-card [label]="'dashboard.stats.sensorsOnline' | translate" [value]="'14 / 15'" accentColor="#16a34a">
       <mat-icon>sensors</mat-icon>
     </app-stat-card>
 
-    <app-stat-card label="Equipment in Range" [value]="'4 / 5'" accentColor="#d97706">
+    <app-stat-card [label]="'dashboard.stats.equipmentInRange' | translate" [value]="'4 / 5'" accentColor="#d97706">
       <mat-icon>device_thermostat</mat-icon>
     </app-stat-card>
 
-    <app-stat-card label="Last Compliance Report" [value]="'Yesterday'" accentColor="#16a34a">
+    <app-stat-card [label]="'dashboard.stats.lastComplianceReport' | translate" [value]="'Yesterday'" accentColor="#16a34a">
       <mat-icon>verified</mat-icon>
     </app-stat-card>
   </div>
@@ -50,67 +50,67 @@
     <div class="alerts-panel">
       <div class="panel-header">
         <div>
-          <h3 class="panel-title">Active Alerts</h3>
-          <p class="panel-subtitle">Sorted by severity — most critical first</p>
+          <h3 class="panel-title">{{ 'dashboard.panel.activeAlerts' | translate }}</h3>
+          <p class="panel-subtitle">{{ 'dashboard.panel.activeAlertsSubtitle' | translate }}</p>
         </div>
         <a routerLink="/alerts" class="panel-view-all">
-          View all <mat-icon>arrow_forward</mat-icon>
+          {{ 'dashboard.panel.viewAll' | translate }} <mat-icon>arrow_forward</mat-icon>
         </a>
       </div>
 
       <div class="alert-rows">
-        <!-- Critical -->
-        <a routerLink="/alerts/incident" class="alert-row critical">
-          <span class="alert-dot critical"></span>
-          <div class="alert-row-content">
-            <div class="alert-row-top">
-              <span class="severity-pill critical">Critical</span>
-              <span class="alert-row-time">8 min ago</span>
-            </div>
-            <div class="alert-row-title">Lab B — Freezer B2 temperature exceeded</div>
-            <div class="alert-row-lab">Temperature rose to −5°C (threshold: −18°C). Sample integrity at risk.</div>
-          </div>
-          <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
-        </a>
+         <!-- Critical -->
+         <a routerLink="/alerts/incident" class="alert-row critical">
+           <span class="alert-dot critical"></span>
+           <div class="alert-row-content">
+             <div class="alert-row-top">
+               <span class="severity-pill critical">{{ 'dashboard.severity.critical' | translate }}</span>
+               <span class="alert-row-time">8 min ago</span>
+             </div>
+             <div class="alert-row-title">Lab B — Freezer B2 temperature exceeded</div>
+             <div class="alert-row-lab">Temperature rose to −5°C (threshold: −18°C). Sample integrity at risk.</div>
+           </div>
+           <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
+         </a>
 
-        <a routerLink="/alerts/incident" class="alert-row critical">
-          <span class="alert-dot critical"></span>
-          <div class="alert-row-content">
-            <div class="alert-row-top">
-              <span class="severity-pill critical">Critical</span>
-              <span class="alert-row-time">22 min ago</span>
-            </div>
-            <div class="alert-row-title">Lab A — CO₂ Monitor above safe limit</div>
-            <div class="alert-row-lab">CO₂ at 1,850 ppm — exceeds regulatory limit of 1,000 ppm.</div>
-          </div>
-          <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
-        </a>
+         <a routerLink="/alerts/incident" class="alert-row critical">
+           <span class="alert-dot critical"></span>
+           <div class="alert-row-content">
+             <div class="alert-row-top">
+               <span class="severity-pill critical">{{ 'dashboard.severity.critical' | translate }}</span>
+               <span class="alert-row-time">22 min ago</span>
+             </div>
+             <div class="alert-row-title">Lab A — CO₂ Monitor above safe limit</div>
+             <div class="alert-row-lab">CO₂ at 1,850 ppm — exceeds regulatory limit of 1,000 ppm.</div>
+           </div>
+           <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
+         </a>
 
-        <a routerLink="/alerts" class="alert-row warning">
-          <span class="alert-dot warning"></span>
-          <div class="alert-row-content">
-            <div class="alert-row-top">
-              <span class="severity-pill warning">Warning</span>
-              <span class="alert-row-time">1 hr ago</span>
-            </div>
-            <div class="alert-row-title">Lab C — HVAC Unit 3 humidity high</div>
-            <div class="alert-row-lab">Humidity at 68% — above optimal 60% threshold.</div>
-          </div>
-          <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
-        </a>
+         <a routerLink="/alerts" class="alert-row warning">
+           <span class="alert-dot warning"></span>
+           <div class="alert-row-content">
+             <div class="alert-row-top">
+               <span class="severity-pill warning">{{ 'dashboard.severity.warning' | translate }}</span>
+               <span class="alert-row-time">1 hr ago</span>
+             </div>
+             <div class="alert-row-title">Lab C — HVAC Unit 3 humidity high</div>
+             <div class="alert-row-lab">Humidity at 68% — above optimal 60% threshold.</div>
+           </div>
+           <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
+         </a>
 
-        <a routerLink="/alerts" class="alert-row resolved">
-          <span class="alert-dot resolved"></span>
-          <div class="alert-row-content">
-            <div class="alert-row-top">
-              <span class="severity-pill resolved">Resolved</span>
-              <span class="alert-row-time">3 hr ago</span>
-            </div>
-            <div class="alert-row-title">Lab A — Refrigerator A1 temperature spike</div>
-            <div class="alert-row-lab">Temperature briefly spiked; auto-recovery confirmed within range.</div>
-          </div>
-          <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
-        </a>
+         <a routerLink="/alerts" class="alert-row resolved">
+           <span class="alert-dot resolved"></span>
+           <div class="alert-row-content">
+             <div class="alert-row-top">
+               <span class="severity-pill resolved">{{ 'dashboard.severity.resolved' | translate }}</span>
+               <span class="alert-row-time">3 hr ago</span>
+             </div>
+             <div class="alert-row-title">Lab A — Refrigerator A1 temperature spike</div>
+             <div class="alert-row-lab">Temperature briefly spiked; auto-recovery confirmed within range.</div>
+           </div>
+           <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
+         </a>
       </div>
     </div>
 
@@ -118,11 +118,11 @@
     <div class="equipment-panel">
       <div class="panel-header">
         <div>
-          <h3 class="panel-title">Equipment Status</h3>
-          <p class="panel-subtitle">Current temperature readings</p>
+          <h3 class="panel-title">{{ 'dashboard.panel.equipmentStatus' | translate }}</h3>
+          <p class="panel-subtitle">{{ 'dashboard.panel.equipmentStatusSubtitle' | translate }}</p>
         </div>
         <a routerLink="/laboratories" class="panel-view-all">
-          All equipment <mat-icon>arrow_forward</mat-icon>
+          {{ 'dashboard.panel.allEquipment' | translate }} <mat-icon>arrow_forward</mat-icon>
         </a>
       </div>
 
@@ -137,7 +137,7 @@
           </div>
           <div class="equipment-bar-labels">
             <span>−25°C</span>
-            <span class="equipment-status-label ok">In Range</span>
+            <span class="equipment-status-label ok">{{ 'dashboard.status.inRange' | translate }}</span>
             <span>0°C</span>
           </div>
         </div>
@@ -152,7 +152,7 @@
           </div>
           <div class="equipment-bar-labels">
             <span>−25°C</span>
-            <span class="equipment-status-label crit">Out of Range</span>
+            <span class="equipment-status-label crit">{{ 'dashboard.status.outOfRange' | translate }}</span>
             <span>0°C</span>
           </div>
         </div>
@@ -167,7 +167,7 @@
           </div>
           <div class="equipment-bar-labels">
             <span>2°C</span>
-            <span class="equipment-status-label ok">In Range</span>
+            <span class="equipment-status-label ok">{{ 'dashboard.status.inRange' | translate }}</span>
             <span>8°C</span>
           </div>
         </div>
@@ -182,7 +182,7 @@
           </div>
           <div class="equipment-bar-labels">
             <span>35°C</span>
-            <span class="equipment-status-label ok">In Range</span>
+            <span class="equipment-status-label ok">{{ 'dashboard.status.inRange' | translate }}</span>
             <span>39°C</span>
           </div>
         </div>
@@ -197,7 +197,7 @@
           </div>
           <div class="equipment-bar-labels">
             <span>18°C</span>
-            <span class="equipment-status-label warn">Monitor</span>
+            <span class="equipment-status-label warn">{{ 'dashboard.status.monitor' | translate }}</span>
             <span>24°C</span>
           </div>
         </div>
@@ -214,9 +214,9 @@
   <!-- ⑤ LABS PREVIEW -->
   <div class="labs-section">
     <div class="labs-header">
-      <h2 class="labs-title">Laboratories</h2>
+      <h2 class="labs-title">{{ 'dashboard.laboratories' | translate }}</h2>
       <a class="labs-view-all" routerLink="/laboratories">
-        View All <mat-icon style="font-size:14px;width:14px;height:14px;">arrow_forward</mat-icon>
+        {{ 'dashboard.panel.viewAll' | translate }} <mat-icon style="font-size:14px;width:14px;height:14px;">arrow_forward</mat-icon>
       </a>
     </div>
     <div class="labs-grid">
@@ -230,8 +230,7 @@
 
 </div>
 
-<!-- FAB: Cerrar turno -->
 <a routerLink="/history" class="shift-close-fab">
   <mat-icon>summarize</mat-icon>
-  Generate Shift Report
+  {{ 'dashboard.fab' | translate }}
 </a>

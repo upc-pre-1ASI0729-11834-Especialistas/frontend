@@ -4,6 +4,7 @@ import { TemperatureChartComponent } from '../../components/temperature-chart/te
 import { LaboratoryCardComponent } from '../../components/laboratory-card/laboratory-card.component';
 import { DashboardStore } from '../../../application/dashboard.store';
 import { StatCardComponent } from '../../../../shared/presentation/components/stat-card/stat-card.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { MatIcon } from '@angular/material/icon';
 
@@ -14,7 +15,8 @@ import { MatIcon } from '@angular/material/icon';
     StatCardComponent,
     TemperatureChartComponent,
     LaboratoryCardComponent,
-    MatIcon
+    MatIcon,
+    TranslateModule
   ],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.css',

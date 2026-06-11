@@ -7,6 +7,7 @@ import { LaboratoryStore } from '../../../application/laboratory.store';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { CardComponent } from '../../../../shared/presentation/components/card/card.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-laboratories-page',
@@ -18,6 +19,7 @@ import { CardComponent } from '../../../../shared/presentation/components/card/c
     LaboratoriesPaginationComponent,
     MatIcon,
     MatProgressSpinner,
+    TranslateModule
   ],
   templateUrl: './laboratories-page.component.html',
   styleUrl: './laboratories-page.component.css',

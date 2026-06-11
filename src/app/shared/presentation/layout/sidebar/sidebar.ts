@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 interface NavItem {
   label: string;
@@ -15,7 +16,12 @@ interface NavSection {
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterModule, MatIconModule, MatButtonModule],
+  imports: [
+    RouterModule,
+    MatIconModule,
+    MatButtonModule,
+    TranslateModule
+  ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })

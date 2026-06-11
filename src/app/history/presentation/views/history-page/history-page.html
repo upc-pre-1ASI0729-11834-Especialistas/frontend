@@ -5,35 +5,35 @@
       <!-- ① PAGE HEADER -->
       <div class="page-header">
         <div class="page-header-left">
-          <h1>History &amp; Reports</h1>
+          <h1>{{ 'history.title' | translate }}</h1>
           <p class="shift-info">
             <mat-icon class="shift-info-icon">schedule</mat-icon>
-            Current shift: 8:00 AM – 2:00 PM · Manuel Sánchez · 6h 14m active
+            {{ 'history.shift.current' | translate }}: 8:00 AM – 2:00 PM · Manuel Sánchez · 6h 14m {{ 'history.shift.active' | translate }}
           </p>
         </div>
         <button class="shift-banner-btn" (click)="openPlaceholder('Generate Shift Report')">
           <mat-icon>picture_as_pdf</mat-icon>
-          Generate Shift Report
+          {{ 'history.button.generateReport' | translate }}
         </button>
       </div>
 
       <!-- ② FILTER TABS + DATE + SEARCH -->
       <div class="filters-top-bar">
         <div class="filter-tabs">
-          <button class="filter-tab active">All events</button>
-          <button class="filter-tab">Incidents</button>
-          <button class="filter-tab">Resolutions</button>
-          <button class="filter-tab">Manual observations</button>
-          <button class="filter-tab">Automations</button>
+          <button class="filter-tab active">{{ 'history.tabs.allEvents' | translate }}</button>
+          <button class="filter-tab">{{ 'history.tabs.incidents' | translate }}</button>
+          <button class="filter-tab">{{ 'history.tabs.resolutions' | translate }}</button>
+          <button class="filter-tab">{{ 'history.tabs.manualObservations' | translate }}</button>
+          <button class="filter-tab">{{ 'history.tabs.automations' | translate }}</button>
         </div>
         <div class="filter-right">
           <button class="date-btn">
             <mat-icon>calendar_today</mat-icon>
-            Today · Jun 5, 2026
+            {{ 'history.filter.today' | translate }} · Jun 5, 2026
           </button>
           <div class="search-box">
             <mat-icon>search</mat-icon>
-            <input placeholder="Search events..." [value]="searchQuery()"
+            <input [placeholder]="'history.filter.searchPlaceholder' | translate" [value]="searchQuery()"
               (input)="searchQuery.set(($any($event.target).value || '').trim())" />
           </div>
         </div>
@@ -46,7 +46,7 @@
         <section class="timeline-panel">
           <h2 class="panel-title">
             <mat-icon>show_chart</mat-icon>
-            Shift Timeline
+            {{ 'history.panel.timeline' | translate }}
           </h2>
           <app-history-timeline [records]="filteredHistory()" (recordSelected)="openDrawer($event)" />
         </section>
@@ -55,26 +55,26 @@
         <aside class="report-panel">
           <h2 class="panel-title">
             <mat-icon>description</mat-icon>
-            Generate Shift Report
+            {{ 'history.panel.report' | translate }}
           </h2>
 
           <!-- Stats pills -->
           <div class="stats-grid">
             <div class="stat-pill stat-incidents">
               <mat-icon>warning</mat-icon>
-              <span>{{ criticalEvents() + activeEvents() }} incidents</span>
+              <span>{{ criticalEvents() + activeEvents() }} {{ 'history.stats.incidents' | translate }}</span>
             </div>
             <div class="stat-pill stat-resolved">
               <mat-icon>check_circle</mat-icon>
-              <span>{{ resolvedEvents() }} resolved</span>
+              <span>{{ resolvedEvents() }} {{ 'history.stats.resolved' | translate }}</span>
             </div>
             <div class="stat-pill stat-active">
               <mat-icon>bolt</mat-icon>
-              <span>{{ activeEvents() }} active</span>
+              <span>{{ activeEvents() }} {{ 'history.stats.active' | translate }}</span>
             </div>
             <div class="stat-pill stat-manual">
               <mat-icon>edit_note</mat-icon>
-              <span>3 manual obs</span>
+              <span>3 {{ 'history.stats.manualObs' | translate }}</span>
             </div>
           </div>
 
@@ -82,21 +82,21 @@
           <div class="report-section">
             <p class="report-section-label">
               <mat-icon>notes</mat-icon>
-              General shift notes
+              {{ 'history.notes.general' | translate }}
             </p>
-            <p class="report-section-hint">Summary of general operations and non-critical observations.</p>
-            <textarea class="report-textarea" placeholder="Enter notes here..."></textarea>
+            <p class="report-section-hint">{{ 'history.notes.generalHint' | translate }}</p>
+            <textarea class="report-textarea" [placeholder]="'history.notes.placeholder' | translate"></textarea>
           </div>
 
           <!-- Handover note -->
           <div class="handover-box">
             <p class="handover-title">
               <mat-icon>bookmark</mat-icon>
-              Handover note — for the next shift
+              {{ 'history.notes.handover' | translate }}
             </p>
-            <p class="handover-subtitle">Critical information for the incoming operator.</p>
+            <p class="handover-subtitle">{{ 'history.notes.handoverSubtitle' | translate }}</p>
             <textarea class="report-textarea handover-textarea"
-              placeholder="Important details for next shift..."></textarea>
+              [placeholder]="'history.notes.handoverPlaceholder' | translate"></textarea>
             <p class="handover-notice">
               <mat-icon>info</mat-icon>
               This note will be visible to Jean Arizabal (next shift, 2:00 PM – 10:00 PM) upon login.

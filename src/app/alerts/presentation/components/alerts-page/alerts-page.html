@@ -2,8 +2,8 @@
 
   <div class="header-section">
     <div class="header-titles">
-      <h1 class="page-title">Alerts</h1>
-      <p class="page-subtitle">Active incidents and notifications</p>
+      <h1 class="page-title">{{ 'alerts.title' | translate }}</h1>
+      <p class="page-subtitle">{{ 'alerts.subtitle' | translate }}</p>
     </div>
     <div class="header-time">
       <mat-icon>schedule</mat-icon> Monday, 14 July 2025 <strong>08:59 AM</strong>
@@ -26,19 +26,19 @@
     <div class="filters-left">
       <div class="search-box">
         <mat-icon>search</mat-icon>
-        <input type="text" placeholder="Search alerts...">
+        <input type="text" [placeholder]="'alerts.searchPlaceholder' | translate">
       </div>
 
       <div class="dropdown">
-        <span>Severity</span> <mat-icon>expand_more</mat-icon>
+        <span>{{ 'alerts.filters.severity' | translate }}</span> <mat-icon>expand_more</mat-icon>
       </div>
 
       <div class="dropdown">
-        <span>Laboratory</span> <mat-icon>expand_more</mat-icon>
+        <span>{{ 'alerts.filters.laboratory' | translate }}</span> <mat-icon>expand_more</mat-icon>
       </div>
 
       <div class="dropdown">
-        <span>Status</span> <mat-icon>expand_more</mat-icon>
+        <span>{{ 'alerts.filters.status' | translate }}</span> <mat-icon>expand_more</mat-icon>
       </div>
     </div>
     <div class="filters-right">
@@ -84,7 +84,7 @@
                 <span class="resolved-by">{{ alert.resolvedBy }}</span>
               } @else {
                 <button class="btn-investigate" (click)="navigateToIncident()">
-                  Investigate <mat-icon>arrow_forward</mat-icon>
+                  {{ 'alerts.button.investigate' | translate }} <mat-icon>arrow_forward</mat-icon>
                 </button>
               }
             </div>
