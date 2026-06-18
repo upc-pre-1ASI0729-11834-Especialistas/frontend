@@ -8,7 +8,8 @@
           <h1>{{ 'history.title' | translate }}</h1>
           <p class="shift-info">
             <mat-icon class="shift-info-icon">schedule</mat-icon>
-            {{ 'history.shift.current' | translate }}: 8:00 AM – 2:00 PM · Manuel Sánchez · 6h 14m {{ 'history.shift.active' | translate }}
+            {{ 'history.shift.current' | translate }}: 8:00 AM – 2:00 PM · Manuel Sánchez · 6h 14m {{
+            'history.shift.active' | translate }}
           </p>
         </div>
         <button class="shift-banner-btn" (click)="openPlaceholder('Generate Shift Report')">
@@ -20,11 +21,17 @@
       <!-- ② FILTER TABS + DATE + SEARCH -->
       <div class="filters-top-bar">
         <div class="filter-tabs">
-          <button class="filter-tab" [class.active]="selectedTab() === 'All events'" (click)="selectedTab.set('All events')">{{ 'history.tabs.allEvents' | translate }}</button>
-          <button class="filter-tab" [class.active]="selectedTab() === 'Incidents'" (click)="selectedTab.set('Incidents')">{{ 'history.tabs.incidents' | translate }}</button>
-          <button class="filter-tab" [class.active]="selectedTab() === 'Resolutions'" (click)="selectedTab.set('Resolutions')">{{ 'history.tabs.resolutions' | translate }}</button>
-          <button class="filter-tab" [class.active]="selectedTab() === 'Manual observations'" (click)="selectedTab.set('Manual observations')">{{ 'history.tabs.manualObservations' | translate }}</button>
-          <button class="filter-tab" [class.active]="selectedTab() === 'Automations'" (click)="selectedTab.set('Automations')">{{ 'history.tabs.automations' | translate }}</button>
+          <button class="filter-tab" [class.active]="selectedTab() === 'All events'"
+            (click)="selectedTab.set('All events')">{{ 'history.tabs.allEvents' | translate }}</button>
+          <button class="filter-tab" [class.active]="selectedTab() === 'Incidents'"
+            (click)="selectedTab.set('Incidents')">{{ 'history.tabs.incidents' | translate }}</button>
+          <button class="filter-tab" [class.active]="selectedTab() === 'Resolutions'"
+            (click)="selectedTab.set('Resolutions')">{{ 'history.tabs.resolutions' | translate }}</button>
+          <button class="filter-tab" [class.active]="selectedTab() === 'Manual observations'"
+            (click)="selectedTab.set('Manual observations')">{{ 'history.tabs.manualObservations' | translate
+            }}</button>
+          <button class="filter-tab" [class.active]="selectedTab() === 'Automations'"
+            (click)="selectedTab.set('Automations')">{{ 'history.tabs.automations' | translate }}</button>
         </div>
         <div class="filter-right">
           <button class="date-btn">
@@ -85,7 +92,8 @@
               {{ 'history.notes.general' | translate }}
             </p>
             <p class="report-section-hint">{{ 'history.notes.generalHint' | translate }}</p>
-            <textarea class="report-textarea" [(ngModel)]="shiftNotes" [placeholder]="'history.notes.placeholder' | translate"></textarea>
+            <textarea class="report-textarea" [(ngModel)]="shiftNotes"
+              [placeholder]="'history.notes.placeholder' | translate"></textarea>
           </div>
 
           <!-- Handover note -->
@@ -99,7 +107,7 @@
               [placeholder]="'history.notes.handoverPlaceholder' | translate"></textarea>
             <p class="handover-notice">
               <mat-icon>info</mat-icon>
-              This note will be visible to Jean Arizabal (next shift, 2:00 PM – 10:00 PM) upon login.
+              This note will be visible to Jean Arizabal (next shift, 2:00 PM - 10:00 PM) upon login.
             </p>
           </div>
 
