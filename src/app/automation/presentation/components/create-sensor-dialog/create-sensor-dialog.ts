@@ -10,6 +10,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { SensorConfiguration } from '../../../domain/model/sensor-configuration.entity';
+import { LaboratoryStore } from '../../../../telemetry/application/laboratory.store';
 
 @Component({
   selector: 'app-create-sensor-dialog',
@@ -32,12 +33,14 @@ import { SensorConfiguration } from '../../../domain/model/sensor-configuration.
 export class CreateSensorDialog implements OnInit {
   private readonly fb = inject(FormBuilder);
   readonly dialogRef = inject(MatDialogRef<CreateSensorDialog>);
+  protected readonly laboratoryStore = inject(LaboratoryStore);
 
   readonly sensorForm: FormGroup = this.fb.group({
     sensorName: ['', Validators.required],
     type: ['', Validators.required],
     unit: ['', Validators.required],
-    isActive: [true]
+    isActive: [true],
+    laboratoryId: [null, Validators.required]
   });
 
   isEditMode = false;
@@ -53,7 +56,8 @@ export class CreateSensorDialog implements OnInit {
         sensorName: this.data.sensor.sensorName,
         type: this.data.sensor.type,
         unit: this.data.sensor.unit,
-        isActive: this.data.sensor.isActive
+        isActive: this.data.sensor.isActive,
+        laboratoryId: this.data.sensor.laboratoryId || null
       });
     }
   }

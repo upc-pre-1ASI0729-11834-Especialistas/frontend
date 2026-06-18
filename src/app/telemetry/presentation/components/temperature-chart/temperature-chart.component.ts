@@ -1,7 +1,10 @@
-import { Component, input, output, computed } from '@angular/core';
+import { Component, input, output, computed, inject, signal, effect } from '@angular/core';
 import { TemperatureReading } from '../../../domain/model/temperature-reading.entity';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { LaboratoryStore } from '../../../application/laboratory.store';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -33,7 +36,7 @@ export type ChartOptions = {
 
 @Component({
   selector: 'app-temperature-chart',
-  imports: [CardComponent, MatButtonToggleGroup, MatButtonToggle, NgApexchartsModule, MatIcon],
+  imports: [CardComponent, MatButtonToggleGroup, MatButtonToggle, NgApexchartsModule, MatIcon, MatSelectModule, MatFormFieldModule],
   templateUrl: './temperature-chart.component.html',
   styleUrl: './temperature-chart.component.css',
 })
@@ -44,20 +47,76 @@ export class TemperatureChartComponent {
 
   periods = ['24h', '7d', '30d'];
 
+  protected readonly laboratoryStore = inject(LaboratoryStore);
+  selectedLabIds = signal<number[]>([]);
+  private initialized = false;
+
+  constructor() {
+    effect(() => {
+      const labs = this.laboratoryStore.laboratories();
+      if (labs.length > 0 && !this.initialized) {
+        this.initialized = true;
+        const stored = localStorage.getItem('safelab_monitored_labs');
+        if (stored) {
+          try {
+            const ids = JSON.parse(stored) as number[];
+            const validIds = ids.filter(id => labs.some(l => l.id === id));
+            if (validIds.length > 0) {
+              this.selectedLabIds.set(validIds);
+              return;
+            }
+          } catch (e) {
+            // ignore
+          }
+        }
+        
+        if (labs.length <= 3) {
+          this.selectedLabIds.set(labs.map(l => l.id));
+        } else {
+          this.selectedLabIds.set(labs.slice(0, 2).map(l => l.id));
+        }
+      }
+    });
+  }
+
+  onLabSelectionChange(ids: number[]): void {
+    this.selectedLabIds.set(ids);
+    localStorage.setItem('safelab_monitored_labs', JSON.stringify(ids));
+  }
+
   chartOptions = computed<Partial<ChartOptions>>(() => {
     const data = this.readings();
+    const allLabs = this.laboratoryStore.laboratories();
+    const selectedIds = this.selectedLabIds();
+
+    const series = allLabs
+      .filter(lab => selectedIds.includes(lab.id))
+      .map((lab) => {
+        return {
+          name: lab.name,
+          data: data.map(r => {
+            const valMap = r.values;
+            if (valMap && valMap[lab.id.toString()] !== undefined) {
+              return valMap[lab.id.toString()];
+            }
+            return 20.0;
+          })
+        };
+      });
+
+    const colorPalette = [
+      'var(--mat-sys-primary)',
+      'var(--mat-sys-tertiary)',
+      'var(--mat-sys-error)',
+      '#10B981',
+      '#F59E0B',
+      '#6366F1'
+    ];
+    const colors = series.map((_, i) => colorPalette[i % colorPalette.length]);
 
     return {
-      series: [
-        {
-          name: 'Lab 01',
-          data: data.map(r => r.lab01Value)
-        },
-        {
-          name: 'Lab 02',
-          data: data.map(r => r.lab02Value)
-        }
-      ],
+      series,
+      colors,
       chart: {
         type: 'area',
         height: '100%',
@@ -77,7 +136,6 @@ export class TemperatureChartComponent {
         hover: { filter: { type: 'none' } },
         active: { filter: { type: 'none' } }
       },
-      colors: ['var(--mat-sys-primary)', 'var(--mat-sys-tertiary)'],
       fill: {
         type: 'gradient',
         gradient: {

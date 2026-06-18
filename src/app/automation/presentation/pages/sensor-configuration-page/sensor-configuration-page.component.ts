@@ -140,7 +140,8 @@ export class SensorConfigurationPageComponent {
             type: result.type,
             unit: result.unit,
             calibrationDate: sensor.calibrationDate,
-            isActive: result.isActive
+            isActive: result.isActive,
+            laboratoryId: result.laboratoryId
           });
           this.automationStore.updateSensorConfiguration(sensor.id, updated).subscribe();
         } else {
@@ -150,7 +151,8 @@ export class SensorConfigurationPageComponent {
             type: result.type,
             unit: result.unit,
             calibrationDate: '',
-            isActive: result.isActive
+            isActive: result.isActive,
+            laboratoryId: result.laboratoryId
           });
           this.automationStore.createSensorConfiguration(newSensor).subscribe();
         }

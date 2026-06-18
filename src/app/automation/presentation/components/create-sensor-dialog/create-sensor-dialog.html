@@ -43,20 +43,36 @@
       }
     </div>
 
-    <!-- Serial Number / Unit -->
+    <!-- Serial Number / MAC Address -->
     <div class="form-group">
-      <label class="form-label">Serial Number / Unit Context</label>
+      <label class="form-label">Serial Number / MAC Address</label>
       <div class="input-with-icon" [class.error]="sensorForm.get('unit')?.invalid && sensorForm.get('unit')?.touched">
         <mat-icon class="input-icon">tag</mat-icon>
         <input
           type="text"
           formControlName="unit"
-          placeholder="e.g. S/N: SN-88291-B"
+          placeholder="e.g. MAC-A1-B2-C3 o SN-88291-B"
           class="custom-input"
           required>
       </div>
       @if (sensorForm.get('unit')?.invalid && sensorForm.get('unit')?.touched) {
-        <span class="error-text">Serial number / unit context is required</span>
+        <span class="error-text">Serial number / MAC address is required</span>
+      }
+    </div>
+
+    <!-- Associated Laboratory -->
+    <div class="form-group">
+      <label class="form-label">Associated Laboratory</label>
+      <div class="input-with-icon" [class.error]="sensorForm.get('laboratoryId')?.invalid && sensorForm.get('laboratoryId')?.touched">
+        <mat-icon class="input-icon">business</mat-icon>
+        <mat-select formControlName="laboratoryId" placeholder="Select Laboratory" class="custom-select-control">
+          @for (lab of laboratoryStore.laboratories(); track lab.id) {
+            <mat-option [value]="lab.id">{{ lab.name }}</mat-option>
+          }
+        </mat-select>
+      </div>
+      @if (sensorForm.get('laboratoryId')?.invalid && sensorForm.get('laboratoryId')?.touched) {
+        <span class="error-text">Laboratory association is required</span>
       }
     </div>
 
@@ -66,6 +82,14 @@
         Sensor is Active
       </mat-slide-toggle>
     </div>
+
+    <!-- Note -->
+    @if (!isEditMode) {
+      <div class="form-note">
+        <mat-icon class="info-icon">info</mat-icon>
+        <p class="note-text">Dispositivo registrado con éxito. El sensor se mantendrá como 'Inactivo' hasta que el hardware físico se encienda y realice su primera conexión.</p>
+      </div>
+    }
   </div>
 
   <!-- Footer Actions -->

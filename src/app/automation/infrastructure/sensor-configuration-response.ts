@@ -1,4 +1,4 @@
-﻿import { BaseResource, BaseResponse } from '../../shared/infrastructure/base-response';
+import { BaseResource, BaseResponse } from '../../shared/infrastructure/base-response';
 
 export interface SensorConfigurationResource extends BaseResource {
   id: number;
@@ -7,6 +7,10 @@ export interface SensorConfigurationResource extends BaseResource {
   unit: string;
   calibrationDate: string;
   isActive: boolean;
+  status?: string;
+  lastConnected?: string;
+  laboratoryId?: number;
+  laboratoryName?: string;
 }
 
 export interface SensorConfigurationsResponse extends BaseResponse {

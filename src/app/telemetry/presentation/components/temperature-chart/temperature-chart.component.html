@@ -4,11 +4,24 @@
       <h3 class="chart-title">Temperature Trends</h3>
       <p class="chart-subtitle">Average across all active zones</p>
     </div>
-    <mat-button-toggle-group [value]="selectedPeriod()" (change)="onPeriodClick($event.value)" appearance="standard">
-      @for (period of periods; track period) {
-      <mat-button-toggle [value]="period">{{ period }}</mat-button-toggle>
+    <div class="chart-actions">
+      @if (laboratoryStore.laboratories().length > 0) {
+        <mat-form-field appearance="outline" class="lab-filter-select">
+          <mat-label>Filter Laboratories</mat-label>
+          <mat-select [value]="selectedLabIds()" (selectionChange)="onLabSelectionChange($event.value)" multiple>
+            @for (lab of laboratoryStore.laboratories(); track lab.id) {
+              <mat-option [value]="lab.id">{{ lab.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
       }
-    </mat-button-toggle-group>
+
+      <mat-button-toggle-group [value]="selectedPeriod()" (change)="onPeriodClick($event.value)" appearance="standard">
+        @for (period of periods; track period) {
+        <mat-button-toggle [value]="period">{{ period }}</mat-button-toggle>
+        }
+      </mat-button-toggle-group>
+    </div>
   </div>
 
   <div class="chart-body">

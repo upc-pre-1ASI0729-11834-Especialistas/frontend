@@ -23,4 +23,5 @@ export const environment = {
   platformProviderAutomationRoleDefinitionsEndpointPath: '/api/v1/role-definitions',
   platformProviderAutomationEquipmentThresholdsEndpointPath: '/api/v1/equipment-thresholds',
   platformProviderAutomationAutomationRulesEndpointPath: '/api/v1/automation-rules',
+  platformProviderSystemStatusEndpointPath: '/api/v1/system/status',
 };
