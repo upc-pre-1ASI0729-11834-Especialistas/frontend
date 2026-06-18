@@ -7,6 +7,7 @@ export const environment = {
   platformProviderTelemetryLaboratoriesEndpointPath: '/telemetry-laboratories',
   platformProviderTelemetryStatsEndpointPath: '/telemetry-stats',
   platformProviderTelemetryTemperatureReadingsEndpointPath: '/telemetry-temperature-readings',
+  platformProviderTelemetryMetricTypesEndpointPath: '/api/v1/metric-types',
 
   platformProviderLabsEndpointPath: '/labs',
 

@@ -1,7 +1,7 @@
 <app-card padding="none">
   <div class="chart-header">
     <div class="chart-title-group">
-      <h3 class="chart-title">Temperature Trends</h3>
+      <h3 class="chart-title">{{ metricType()?.displayName || 'Metric' }} Trends</h3>
       <p class="chart-subtitle">Average across all active zones</p>
     </div>
     <div class="chart-actions">
@@ -33,7 +33,7 @@
     } @else {
     <div class="no-data-state">
       <mat-icon class="no-data-icon">trending_flat</mat-icon>
-      <p class="no-data-text">No temperature trends available</p>
+      <p class="no-data-text">No {{ metricType()?.displayName || 'metric' }} trends available</p>
     </div>
     }
   </div>

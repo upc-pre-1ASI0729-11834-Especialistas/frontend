@@ -9,6 +9,7 @@ export class TemperatureReadingStore {
   private readonly errorSignal = signal<string | null>(null);
   private readonly loadingSignal = signal<boolean>(false);
   private readonly periodSignal = signal<string>('30d');
+  private readonly metricKeySignal = signal<string>('temperature');
   private readonly destroyRef = inject(DestroyRef);
 
   readonly readings = computed(() => {
@@ -18,6 +19,7 @@ export class TemperatureReadingStore {
   readonly error = this.errorSignal.asReadonly();
   readonly loading = this.loadingSignal.asReadonly();
   readonly selectedPeriod = this.periodSignal.asReadonly();
+  readonly selectedMetricKey = this.metricKeySignal.asReadonly();
 
   constructor(private readonly temperatureApi: TemperatureReadingApi) {
     this.loadReadings();
@@ -28,16 +30,21 @@ export class TemperatureReadingStore {
     this.loadReadings();
   }
 
+  setMetricKey(metricKey: string): void {
+    this.metricKeySignal.set(metricKey);
+    this.loadReadings();
+  }
+
   private loadReadings(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
-    this.temperatureApi.getReadings().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+    this.temperatureApi.getReadingsByMetric(this.metricKeySignal()).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: readings => {
         this.rawReadingsSignal.set(readings);
         this.loadingSignal.set(false);
       },
       error: err => {
-        this.errorSignal.set(this.formatError(err, 'Failed to load temperature readings'));
+        this.errorSignal.set(this.formatError(err, `Failed to load ${this.metricKeySignal()} readings`));
         this.loadingSignal.set(false);
       }
     });

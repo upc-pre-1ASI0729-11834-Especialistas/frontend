@@ -4,9 +4,13 @@ import { TitleCasePipe } from '@angular/common';
 import { TemperatureChartComponent } from '../../components/temperature-chart/temperature-chart.component';
 import { LaboratoryCardComponent } from '../../components/laboratory-card/laboratory-card.component';
 import { DashboardStore } from '../../../application/dashboard.store';
+import { MetricTypeStore } from '../../../application/metric-type.store';
+import { TemperatureReadingStore } from '../../../application/temperature-reading.store';
 import { StatCardComponent } from '../../../../shared/presentation/components/stat-card/stat-card.component';
 import { AutomationStore } from '../../../../automation/application/automation.store';
 import { HistoryStore } from '../../../../history/application/history.store';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MatIcon } from '@angular/material/icon';
 
@@ -18,15 +22,30 @@ import { MatIcon } from '@angular/material/icon';
     TemperatureChartComponent,
     LaboratoryCardComponent,
     MatIcon,
-    TitleCasePipe
+    TitleCasePipe,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.css',
 })
 export class DashboardPageComponent implements OnInit {
   protected readonly dashboardStore = inject(DashboardStore);
+  protected readonly metricTypeStore = inject(MetricTypeStore);
+  private readonly temperatureStore = inject(TemperatureReadingStore);
   private readonly automationStore = inject(AutomationStore);
   private readonly historyStore = inject(HistoryStore);
+
+  readonly selectedMetricKey = this.temperatureStore.selectedMetricKey;
+
+  readonly currentMetricType = computed(() => {
+    const key = this.selectedMetricKey();
+    return this.metricTypeStore.activeMetricTypes().find(t => t.key === key);
+  });
+
+  onMetricChange(key: string): void {
+    this.temperatureStore.setMetricKey(key);
+  }
 
   readonly sensorsOnlineText = computed(() => {
     const configs = this.automationStore.sensorConfigurations();

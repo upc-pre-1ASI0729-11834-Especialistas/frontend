@@ -114,9 +114,21 @@
     </div>
   </div>
 
-  <!-- ④ TEMPERATURE CHART (secundario) -->
+  <!-- ④ TEMPERATURE CHART -->
   <div class="chart-col">
+    <div class="chart-selector-row" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 16px;">
+      <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--mat-sys-on-surface);">Environmental Metrics</h3>
+      <mat-form-field appearance="outline" style="width: 200px; margin-bottom: -1.25em;">
+        <mat-label>Select Metric</mat-label>
+        <mat-select [value]="selectedMetricKey()" (selectionChange)="onMetricChange($event.value)">
+          @for (type of metricTypeStore.activeMetricTypes(); track type.id) {
+            <mat-option [value]="type.key">{{ type.displayName }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
     <app-temperature-chart [readings]="dashboardStore.temperatureTrends()"
+      [metricType]="currentMetricType()"
       [selectedPeriod]="dashboardStore.selectedPeriod()" (periodChanged)="onPeriodChange($event)" />
   </div>
 
