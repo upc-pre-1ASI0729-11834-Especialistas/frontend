@@ -3,7 +3,8 @@ import { BaseResource, BaseResponse } from '../../shared/infrastructure/base-res
 export interface TemperatureReadingResource extends BaseResource {
   id: number;
   date: string;
-  values: { [labId: string]: number };
+  lab01Value: number;
+  lab02Value: number;
 }
 
 export interface TemperatureReadingResponse extends BaseResponse {

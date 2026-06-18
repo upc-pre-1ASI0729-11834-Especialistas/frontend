@@ -1,10 +1,3 @@
-.schedules-card {
-  background: var(--mat-sys-surface);
-  border: 1px solid var(--mat-sys-outline-variant);
-  border-radius: 12px;
-  padding: 18px 20px;
-}
-
 .section-header {
   display: flex;
   align-items: center;
@@ -13,8 +6,8 @@
 }
 
 .section-title {
-  font-size: var(--mat-sys-title-medium-size, 16px);
-  font-weight: 600;
+  font-size: var(--mat-sys-title-large-size);
+  font-weight: var(--mat-sys-title-large-weight);
   color: var(--mat-sys-on-surface);
   margin: 0;
 }
@@ -22,12 +15,14 @@
 .section-link {
   font-size: var(--mat-sys-label-medium-size);
   color: var(--mat-sys-primary);
-  font-weight: 600;
+  font-weight: var(--mat-sys-title-large-weight);
   text-decoration: none;
-  transition: opacity .2s;
+  transition: color .2s;
 }
 
-.section-link:hover { opacity: 0.75; }
+.section-link:hover {
+  color: var(--mat-sys-primary);
+}
 
 .schedules-list {
   display: flex;
@@ -38,7 +33,6 @@
 .schedule-item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
   padding: 14px 0;
   border-bottom: 1px solid var(--mat-sys-outline-variant);
@@ -46,45 +40,38 @@
 
 .schedule-item:last-child {
   border-bottom: none;
-  padding-bottom: 0;
 }
 
 .schedule-info {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  flex: 1;
   min-width: 0;
 }
 
 .schedule-name {
   font-size: var(--mat-sys-body-medium-size);
-  font-weight: 600;
+  font-weight: var(--mat-sys-title-large-weight);
   color: var(--mat-sys-on-surface);
 }
 
-.schedule-status {
+.schedule-time {
   font-size: var(--mat-sys-label-medium-size);
   color: var(--mat-sys-on-surface-variant);
 }
 
-.schedule-status.status--running {
-  color: #22c55e;
-}
-
-/* Toggle switch */
 .toggle {
   width: 44px;
   height: 24px;
-  border-radius: 100px;
+  border-radius: var(--mat-sys-corner-medium);
   background: var(--mat-sys-outline-variant);
   position: relative;
   cursor: pointer;
-  transition: background .25s;
+  transition: background .2s;
   flex-shrink: 0;
 }
 
-.toggle--active {
+.toggle.active {
   background: var(--mat-sys-primary);
 }
 
@@ -95,11 +82,11 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: white;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
-  transition: transform .25s;
+  background: var(--mat-sys-surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+  transition: transform .2s;
 }
 
-.toggle--active .toggle-thumb {
+.toggle.active .toggle-thumb {
   transform: translateX(20px);
 }

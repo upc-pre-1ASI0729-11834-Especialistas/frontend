@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+﻿import { HttpClient } from '@angular/common/http';
 import { BaseApiEndpoint } from '../../shared/infrastructure/base-api-endpoint';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.delevopment';
 import { NotificationPreference } from '../domain/model/notification-preference.entity';
 import { NotificationPreferenceResource, NotificationPreferencesResponse } from './notification-preference-response';
 import { NotificationPreferenceAssembler } from './notification-preference-assembler';

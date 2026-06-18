@@ -1,40 +1,20 @@
 <app-card padding="none">
   <div class="chart-header">
     <div class="chart-title-group">
-      <h3 class="chart-title">{{ metricType()?.displayName || 'Metric' }} Trends</h3>
+      <h3 class="chart-title">Temperature Trends</h3>
       <p class="chart-subtitle">Average across all active zones</p>
     </div>
-    <div class="chart-actions">
-      @if (laboratoryStore.laboratories().length > 0) {
-        <mat-form-field appearance="outline" class="lab-filter-select">
-          <mat-label>Filter Laboratories</mat-label>
-          <mat-select [value]="selectedLabIds()" (selectionChange)="onLabSelectionChange($event.value)" multiple>
-            @for (lab of laboratoryStore.laboratories(); track lab.id) {
-              <mat-option [value]="lab.id">{{ lab.name }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+    <mat-button-toggle-group [value]="selectedPeriod()" (change)="onPeriodClick($event.value)" appearance="standard">
+      @for (period of periods; track period) {
+      <mat-button-toggle [value]="period">{{ period }}</mat-button-toggle>
       }
-
-      <mat-button-toggle-group [value]="selectedPeriod()" (change)="onPeriodClick($event.value)" appearance="standard">
-        @for (period of periods; track period) {
-        <mat-button-toggle [value]="period">{{ period }}</mat-button-toggle>
-        }
-      </mat-button-toggle-group>
-    </div>
+    </mat-button-toggle-group>
   </div>
 
   <div class="chart-body">
-    @if (readings().length > 0) {
     <apx-chart [series]="chartOptions().series!" [chart]="chartOptions().chart!" [xaxis]="chartOptions().xaxis!"
       [yaxis]="chartOptions().yaxis!" [stroke]="chartOptions().stroke!" [dataLabels]="chartOptions().dataLabels!"
       [grid]="chartOptions().grid!" [colors]="chartOptions().colors!" [fill]="chartOptions().fill!"
       [tooltip]="chartOptions().tooltip!" [legend]="chartOptions().legend!"></apx-chart>
-    } @else {
-    <div class="no-data-state">
-      <mat-icon class="no-data-icon">trending_flat</mat-icon>
-      <p class="no-data-text">No {{ metricType()?.displayName || 'metric' }} trends available</p>
-    </div>
-    }
   </div>
 </app-card>

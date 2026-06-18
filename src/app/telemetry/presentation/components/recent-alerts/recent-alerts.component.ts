@@ -1,12 +1,11 @@
 import { Component, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { Alert } from '../../../domain/model/alert.entity';
 import { CardComponent } from '../../../../shared/presentation/components/card/card.component';
 import { StatusBadgeComponent } from '../../../../shared/presentation/components/status-badge/status-badge.component';
 
 @Component({
   selector: 'app-recent-alerts',
-  imports: [StatusBadgeComponent, CardComponent, RouterLink],
+  imports: [StatusBadgeComponent, CardComponent],
   templateUrl: './recent-alerts.component.html',
   styleUrl: './recent-alerts.component.css',
 })

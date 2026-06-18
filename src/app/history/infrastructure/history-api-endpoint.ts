@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { HistoryRecord } from '../domain/model/history-record.entity';
 import { HistoryRecordResource, HistoryResponse } from './history-response';
 import { HistoryAssembler } from './history-assembler';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.delevopment';
 
 const historyEndpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderHistoryEndpointPath}`;
 

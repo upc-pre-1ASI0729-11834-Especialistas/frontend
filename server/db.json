@@ -6,12 +6,6 @@
       "description": "Sensor T-01 detected abnormal temperature levels.",
       "severity": "Critical",
       "status": "Active",
-      "createdAt": "2026-06-18T10:00:00Z",
-      "laboratoryId": 1,
-      "labName": "Bio-Safety Lab 04",
-      "labLocation": "Building A, Floor 3",
-      "sensorId": 1,
-      "sensorName": "T-01",
       "metrics": [
         {
           "id": 1,
@@ -41,12 +35,6 @@
       "description": "Humidity sensor detected low humidity.",
       "severity": "Warning",
       "status": "Active",
-      "createdAt": "2026-06-18T11:00:00Z",
-      "laboratoryId": 2,
-      "labName": "Chemical Storage Room",
-      "labLocation": "Building B, Floor 1",
-      "sensorId": 2,
-      "sensorName": "H-02",
       "metrics": [
         {
           "id": 1,
@@ -76,12 +64,6 @@
       "description": "An unknown element was detected in the system.",
       "severity": "Warning",
       "status": "Active",
-      "createdAt": "2026-06-18T12:00:00Z",
-      "laboratoryId": 3,
-      "labName": "Clean Room Suite",
-      "labLocation": "Building C, Floor 2",
-      "sensorId": 3,
-      "sensorName": "U-03",
       "metrics": [
         {
           "id": 1,
@@ -181,589 +163,186 @@
   "telemetry-temperature-readings": [
     {
       "id": 1,
-      "date": "2026-04-06 12:00:00",
-      "values": {
-        "1": 19.9,
-        "2": 18.3,
-        "3": 18.1,
-        "4": 13.4,
-        "5": 2
-      }
+      "date": "2026-04-07",
+      "lab01Value": 20.8,
+      "lab02Value": 18.4
     },
     {
       "id": 2,
-      "date": "2026-04-07 12:00:00",
-      "values": {
-        "1": 20.7,
-        "2": 18.1,
-        "3": 18.5,
-        "4": 13.3,
-        "5": 2
-      }
+      "date": "2026-04-08",
+      "lab01Value": 20.5,
+      "lab02Value": 17.8
     },
     {
       "id": 3,
-      "date": "2026-04-08 12:00:00",
-      "values": {
-        "1": 21.4,
-        "2": 17.7,
-        "3": 18.7,
-        "4": 13.2,
-        "5": 2.2
-      }
+      "date": "2026-04-09",
+      "lab01Value": 20.7,
+      "lab02Value": 17.5
     },
     {
       "id": 4,
-      "date": "2026-04-09 12:00:00",
-      "values": {
-        "1": 21.6,
-        "2": 17.6,
-        "3": 18.9,
-        "4": 13.1,
-        "5": 2.3
-      }
+      "date": "2026-04-10",
+      "lab01Value": 19.9,
+      "lab02Value": 17
     },
     {
       "id": 5,
-      "date": "2026-04-10 12:00:00",
-      "values": {
-        "1": 21.2,
-        "2": 16.9,
-        "3": 18.8,
-        "4": 13,
-        "5": 2.3
-      }
+      "date": "2026-04-11",
+      "lab01Value": 19.2,
+      "lab02Value": 16.6
     },
     {
       "id": 6,
-      "date": "2026-04-11 12:00:00",
-      "values": {
-        "1": 20.8,
-        "2": 16.3,
-        "3": 18.8,
-        "4": 12.7,
-        "5": 2.4
-      }
+      "date": "2026-04-12",
+      "lab01Value": 18.7,
+      "lab02Value": 16.4
     },
     {
       "id": 7,
-      "date": "2026-04-12 12:00:00",
-      "values": {
-        "1": 20.1,
-        "2": 16.3,
-        "3": 18.9,
-        "4": 12.5,
-        "5": 2.4
-      }
+      "date": "2026-04-13",
+      "lab01Value": 18.1,
+      "lab02Value": 16.4
     },
     {
       "id": 8,
-      "date": "2026-04-13 12:00:00",
-      "values": {
-        "1": 19.4,
-        "2": 15.8,
-        "3": 18.7,
-        "4": 12.4,
-        "5": 2.6
-      }
+      "date": "2026-04-14",
+      "lab01Value": 17.7,
+      "lab02Value": 16.9
     },
     {
       "id": 9,
-      "date": "2026-04-14 12:00:00",
-      "values": {
-        "1": 18.8,
-        "2": 15.8,
-        "3": 18.5,
-        "4": 12.1,
-        "5": 2.4
-      }
+      "date": "2026-04-15",
+      "lab01Value": 17.9,
+      "lab02Value": 17.2
     },
     {
       "id": 10,
-      "date": "2026-04-15 12:00:00",
-      "values": {
-        "1": 18.4,
-        "2": 15.9,
-        "3": 18.1,
-        "4": 12,
-        "5": 2.4
-      }
+      "date": "2026-04-16",
+      "lab01Value": 18.4,
+      "lab02Value": 17.3
     },
     {
       "id": 11,
-      "date": "2026-04-16 12:00:00",
-      "values": {
-        "1": 18.5,
-        "2": 16.1,
-        "3": 17.8,
-        "4": 11.8,
-        "5": 2.4
-      }
+      "date": "2026-04-17",
+      "lab01Value": 18.9,
+      "lab02Value": 18
     },
     {
       "id": 12,
-      "date": "2026-04-17 12:00:00",
-      "values": {
-        "1": 18.8,
-        "2": 16.8,
-        "3": 17.6,
-        "4": 11.7,
-        "5": 2.4
-      }
+      "date": "2026-04-18",
+      "lab01Value": 19.8,
+      "lab02Value": 18.5
     },
     {
       "id": 13,
-      "date": "2026-04-18 12:00:00",
-      "values": {
-        "1": 19.5,
-        "2": 17.1,
-        "3": 17.3,
-        "4": 11.8,
-        "5": 2.3
-      }
+      "date": "2026-04-19",
+      "lab01Value": 20.4,
+      "lab02Value": 18.7
     },
     {
       "id": 14,
-      "date": "2026-04-19 12:00:00",
-      "values": {
-        "1": 20.2,
-        "2": 17.7,
-        "3": 17.1,
-        "4": 11.6,
-        "5": 2.3
-      }
+      "date": "2026-04-20",
+      "lab01Value": 20.6,
+      "lab02Value": 18.8
     },
     {
       "id": 15,
-      "date": "2026-04-20 12:00:00",
-      "values": {
-        "1": 21,
-        "2": 17.8,
-        "3": 17.1,
-        "4": 11.7,
-        "5": 2.2
-      }
+      "date": "2026-04-21",
+      "lab01Value": 20.7,
+      "lab02Value": 18.8
     },
     {
       "id": 16,
-      "date": "2026-04-21 12:00:00",
-      "values": {
-        "1": 21.2,
-        "2": 18.2,
-        "3": 17.2,
-        "4": 11.8,
-        "5": 2.1
-      }
+      "date": "2026-04-22",
+      "lab01Value": 20.1,
+      "lab02Value": 18.6
     },
     {
       "id": 17,
-      "date": "2026-04-22 12:00:00",
-      "values": {
-        "1": 21.6,
-        "2": 18.1,
-        "3": 17.3,
-        "4": 12,
-        "5": 1.9
-      }
+      "date": "2026-04-23",
+      "lab01Value": 19.8,
+      "lab02Value": 18.2
     },
     {
       "id": 18,
-      "date": "2026-04-23 12:00:00",
-      "values": {
-        "1": 21.3,
-        "2": 18,
-        "3": 17.4,
-        "4": 12.2,
-        "5": 1.9
-      }
+      "date": "2026-04-24",
+      "lab01Value": 18.6,
+      "lab02Value": 17.7
     },
     {
       "id": 19,
-      "date": "2026-04-24 12:00:00",
-      "values": {
-        "1": 20.6,
-        "2": 17.5,
-        "3": 17.6,
-        "4": 12.4,
-        "5": 1.8
-      }
+      "date": "2026-04-25",
+      "lab01Value": 18.4,
+      "lab02Value": 17.4
     },
     {
       "id": 20,
-      "date": "2026-04-25 12:00:00",
-      "values": {
-        "1": 19.9,
-        "2": 17.3,
-        "3": 18.2,
-        "4": 12.5,
-        "5": 1.8
-      }
+      "date": "2026-04-26",
+      "lab01Value": 18,
+      "lab02Value": 16.9
     },
     {
       "id": 21,
-      "date": "2026-04-26 12:00:00",
-      "values": {
-        "1": 19.4,
-        "2": 16.9,
-        "3": 18.4,
-        "4": 12.6,
-        "5": 1.6
-      }
+      "date": "2026-04-27",
+      "lab01Value": 17.7,
+      "lab02Value": 16.7
     },
     {
       "id": 22,
-      "date": "2026-04-27 12:00:00",
-      "values": {
-        "1": 18.7,
-        "2": 16.2,
-        "3": 18.6,
-        "4": 12.9,
-        "5": 1.7
-      }
+      "date": "2026-04-28",
+      "lab01Value": 18,
+      "lab02Value": 16.4
     },
     {
       "id": 23,
-      "date": "2026-04-28 12:00:00",
-      "values": {
-        "1": 18.4,
-        "2": 15.9,
-        "3": 18.8,
-        "4": 13.1,
-        "5": 1.6
-      }
+      "date": "2026-04-29",
+      "lab01Value": 18.8,
+      "lab02Value": 16.4
     },
     {
       "id": 24,
-      "date": "2026-04-29 12:00:00",
-      "values": {
-        "1": 18.8,
-        "2": 15.7,
-        "3": 18.9,
-        "4": 13.3,
-        "5": 1.5
-      }
+      "date": "2026-04-30",
+      "lab01Value": 19.5,
+      "lab02Value": 16.8
     },
     {
       "id": 25,
-      "date": "2026-04-30 12:00:00",
-      "values": {
-        "1": 19.2,
-        "2": 15.9,
-        "3": 18.9,
-        "4": 13.2,
-        "5": 1.6
-      }
+      "date": "2026-05-01",
+      "lab01Value": 20.3,
+      "lab02Value": 17
     },
     {
       "id": 26,
-      "date": "2026-05-01 12:00:00",
-      "values": {
-        "1": 19.8,
-        "2": 15.9,
-        "3": 18.8,
-        "4": 13.2,
-        "5": 1.6
-      }
+      "date": "2026-05-02",
+      "lab01Value": 20.6,
+      "lab02Value": 17.8
     },
     {
       "id": 27,
-      "date": "2026-05-02 12:00:00",
-      "values": {
-        "1": 20.5,
-        "2": 16.3,
-        "3": 18.7,
-        "4": 13.2,
-        "5": 1.5
-      }
+      "date": "2026-05-03",
+      "lab01Value": 20.9,
+      "lab02Value": 18.2
     },
     {
       "id": 28,
-      "date": "2026-05-03 12:00:00",
-      "values": {
-        "1": 21.3,
-        "2": 17,
-        "3": 18.4,
-        "4": 13.2,
-        "5": 1.6
-      }
+      "date": "2026-05-04",
+      "lab01Value": 20.7,
+      "lab02Value": 18.7
     },
     {
       "id": 29,
-      "date": "2026-05-04 12:00:00",
-      "values": {
-        "1": 21.4,
-        "2": 17.4,
-        "3": 18,
-        "4": 13.1,
-        "5": 1.8
-      }
+      "date": "2026-05-05",
+      "lab01Value": 20.2,
+      "lab02Value": 18.7
     },
     {
       "id": 30,
-      "date": "2026-05-05 13:00:00",
-      "values": {
-        "1": 19.4,
-        "2": 18.6,
-        "3": 18.5,
-        "4": 13.2,
-        "5": 2.2
-      }
-    },
-    {
-      "id": 31,
-      "date": "2026-05-05 14:00:00",
-      "values": {
-        "1": 19.7,
-        "2": 18.6,
-        "3": 18.6,
-        "4": 13.2,
-        "5": 2.2
-      }
-    },
-    {
-      "id": 32,
-      "date": "2026-05-05 15:00:00",
-      "values": {
-        "1": 20.1,
-        "2": 18.6,
-        "3": 18.7,
-        "4": 13.2,
-        "5": 2.2
-      }
-    },
-    {
-      "id": 33,
-      "date": "2026-05-05 16:00:00",
-      "values": {
-        "1": 20.2,
-        "2": 18.5,
-        "3": 18.8,
-        "4": 13.1,
-        "5": 2.3
-      }
-    },
-    {
-      "id": 34,
-      "date": "2026-05-05 17:00:00",
-      "values": {
-        "1": 20.3,
-        "2": 18.4,
-        "3": 18.8,
-        "4": 13.1,
-        "5": 2.3
-      }
-    },
-    {
-      "id": 35,
-      "date": "2026-05-05 18:00:00",
-      "values": {
-        "1": 20.3,
-        "2": 18.3,
-        "3": 18.8,
-        "4": 13.1,
-        "5": 2.4
-      }
-    },
-    {
-      "id": 36,
-      "date": "2026-05-05 19:00:00",
-      "values": {
-        "1": 20.2,
-        "2": 18.1,
-        "3": 19,
-        "4": 13,
-        "5": 2.4
-      }
-    },
-    {
-      "id": 37,
-      "date": "2026-05-05 20:00:00",
-      "values": {
-        "1": 20.1,
-        "2": 17.9,
-        "3": 19,
-        "4": 13,
-        "5": 2.5
-      }
-    },
-    {
-      "id": 38,
-      "date": "2026-05-05 21:00:00",
-      "values": {
-        "1": 19.8,
-        "2": 17.7,
-        "3": 19.1,
-        "4": 12.9,
-        "5": 2.5
-      }
-    },
-    {
-      "id": 39,
-      "date": "2026-05-05 22:00:00",
-      "values": {
-        "1": 19.6,
-        "2": 17.7,
-        "3": 19,
-        "4": 12.8,
-        "5": 2.4
-      }
-    },
-    {
-      "id": 40,
-      "date": "2026-05-05 23:00:00",
-      "values": {
-        "1": 19.4,
-        "2": 17.4,
-        "3": 18.9,
-        "4": 12.8,
-        "5": 2.5
-      }
-    },
-    {
-      "id": 41,
-      "date": "2026-05-06 00:00:00",
-      "values": {
-        "1": 19,
-        "2": 17.4,
-        "3": 19,
-        "4": 12.7,
-        "5": 2.5
-      }
-    },
-    {
-      "id": 42,
-      "date": "2026-05-06 01:00:00",
-      "values": {
-        "1": 18.9,
-        "2": 17.4,
-        "3": 18.9,
-        "4": 12.6,
-        "5": 2.5
-      }
-    },
-    {
-      "id": 43,
-      "date": "2026-05-06 02:00:00",
-      "values": {
-        "1": 18.7,
-        "2": 17.4,
-        "3": 18.7,
-        "4": 12.5,
-        "5": 2.5
-      }
-    },
-    {
-      "id": 44,
-      "date": "2026-05-06 03:00:00",
-      "values": {
-        "1": 18.7,
-        "2": 17.4,
-        "3": 18.6,
-        "4": 12.5,
-        "5": 2.4
-      }
-    },
-    {
-      "id": 45,
-      "date": "2026-05-06 04:00:00",
-      "values": {
-        "1": 18.8,
-        "2": 17.5,
-        "3": 18.5,
-        "4": 12.5,
-        "5": 2.4
-      }
-    },
-    {
-      "id": 46,
-      "date": "2026-05-06 05:00:00",
-      "values": {
-        "1": 18.8,
-        "2": 17.6,
-        "3": 18.5,
-        "4": 12.5,
-        "5": 2.5
-      }
-    },
-    {
-      "id": 47,
-      "date": "2026-05-06 06:00:00",
-      "values": {
-        "1": 19.1,
-        "2": 17.7,
-        "3": 18.4,
-        "4": 12.4,
-        "5": 2.4
-      }
-    },
-    {
-      "id": 48,
-      "date": "2026-05-06 07:00:00",
-      "values": {
-        "1": 19.2,
-        "2": 17.8,
-        "3": 18.2,
-        "4": 12.4,
-        "5": 2.4
-      }
-    },
-    {
-      "id": 49,
-      "date": "2026-05-06 08:00:00",
-      "values": {
-        "1": 19.6,
-        "2": 18.1,
-        "3": 18.1,
-        "4": 12.4,
-        "5": 2.4
-      }
-    },
-    {
-      "id": 50,
-      "date": "2026-05-06 09:00:00",
-      "values": {
-        "1": 19.8,
-        "2": 18.3,
-        "3": 18.1,
-        "4": 12.4,
-        "5": 2.3
-      }
-    },
-    {
-      "id": 51,
-      "date": "2026-05-06 10:00:00",
-      "values": {
-        "1": 20,
-        "2": 18.2,
-        "3": 18,
-        "4": 12.4,
-        "5": 2.2
-      }
-    },
-    {
-      "id": 52,
-      "date": "2026-05-06 11:00:00",
-      "values": {
-        "1": 20.1,
-        "2": 18.3,
-        "3": 18.1,
-        "4": 12.5,
-        "5": 2.2
-      }
-    },
-    {
-      "id": 53,
-      "date": "2026-05-06 12:00:00",
-      "values": {
-        "1": 20.2,
-        "2": 18.5,
-        "3": 18.1,
-        "4": 12.4,
-        "5": 2.1
-      }
+      "date": "2026-05-06",
+      "lab01Value": 19.5,
+      "lab02Value": 18.7
     }
   ],
-  "laboratories": [
+  "labs": [
     {
       "id": 1,
       "name": "Bio-Safety Lab 04",
@@ -1713,7 +1292,7 @@
       ]
     }
   ],
-  "history-records": [
+  "history": [
     {
       "id": 1,
       "name": "Temperature returned to normal",
@@ -1841,18 +1420,10 @@
   "user-profiles": [
     {
       "id": 1,
-      "fullName": "Dr. Alexander Vance",
-      "role": "Lab Coordinator",
-      "email": "a.vance@safelab.org",
-      "avatarUrl": "https://ui-avatars.com/api/?name=Dr.+Alexander+Vance&background=7C4DFF&color=fff&size=128",
-      "phoneNumber": "+1 (555) 019-2834",
-      "professionalTitle": "Lead Environmental Analyst",
-      "employeeId": "EMP-8924-SLX",
-      "systemState": "Active — Verified",
-      "accessTier": "Lab Coordinator (Tier 1)",
-      "defaultStartShift": "08:00 AM",
-      "shiftDuration": "8 Hours",
-      "autoGenerateShiftReport": true
+      "fullName": "John Doe",
+      "role": "Senior Lab Manager",
+      "email": "john.doe@safelab.io",
+      "avatarUrl": "https://ui-avatars.com/api/?name=John+Doe&background=1976d2&color=fff&size=128"
     }
   ],
   "sensor-configurations": [
@@ -1942,216 +1513,5 @@
       "isGranted": true,
       "lastAuditDate": "2026-05-12"
     }
-  ],
-  "lab-users": [
-    {
-      "id": 1,
-      "fullName": "Dr. Alexander Vance",
-      "email": "a.vance@safelab.org",
-      "role": "Lab Coordinator",
-      "labsAccess": "All labs",
-      "lastLogin": "Today, 08:41 AM",
-      "status": "Active",
-      "avatarInitials": "AV",
-      "avatarColor": "#7C4DFF"
-    },
-    {
-      "id": 2,
-      "fullName": "Jean Arizabal",
-      "email": "j.arizabal@safelab.org",
-      "role": "Supervisor",
-      "labsAccess": "All labs",
-      "lastLogin": "Today, 06:12 AM",
-      "status": "Active",
-      "avatarInitials": "JA",
-      "avatarColor": "#FF7043"
-    },
-    {
-      "id": 3,
-      "fullName": "Manuel Sánchez",
-      "email": "m.sanchez@safelab.org",
-      "role": "Lab Technician",
-      "labsAccess": "Lab 3B, Cryo Storage",
-      "lastLogin": "Yesterday",
-      "status": "Active",
-      "avatarInitials": "MS",
-      "avatarColor": "#26A69A"
-    },
-    {
-      "id": 4,
-      "fullName": "Sofia Torres",
-      "email": "s.torres@safelab.org",
-      "role": "Read Only",
-      "labsAccess": "Lab 3B only",
-      "lastLogin": "3 days ago",
-      "status": "Inactive",
-      "avatarInitials": "ST",
-      "avatarColor": "#78909C"
-    }
-  ],
-  "pending-invitations": [
-    {
-      "id": 1,
-      "email": "r.gomez@hospital.org",
-      "role": "Lab Technician",
-      "sentTimeAgo": "Sent 2 days ago"
-    }
-  ],
-  "role-definitions": [
-    {
-      "id": 1,
-      "name": "Lab Coordinator",
-      "description": "Full access to all laboratories, can manage users and configure sensors.",
-      "permissionsCount": 24
-    },
-    {
-      "id": 2,
-      "name": "Supervisor",
-      "description": "Can view all labs and approve critical actions. Cannot modify system settings.",
-      "permissionsCount": 18
-    },
-    {
-      "id": 3,
-      "name": "Lab Technician",
-      "description": "Access to assigned labs only. Can view data and acknowledge alerts.",
-      "permissionsCount": 12
-    },
-    {
-      "id": 4,
-      "name": "Read Only",
-      "description": "View-only access to assigned laboratories. No modification permissions.",
-      "permissionsCount": 6
-    }
-  ],
-  "equipment-thresholds": [
-    {
-      "id": 1,
-      "name": "Refrigerator B-01",
-      "lab": "Lab 3B",
-      "minThreshold": 2,
-      "maxThreshold": 8,
-      "warningAt": 7,
-      "unit": "°C",
-      "currentValue": 4.2,
-      "status": "normal",
-      "icon": "kitchen"
-    },
-    {
-      "id": 2,
-      "name": "Freezer F-10",
-      "lab": "Cryo Storage",
-      "minThreshold": -85,
-      "maxThreshold": -75,
-      "warningAt": -78,
-      "unit": "°C",
-      "currentValue": -80.2,
-      "status": "normal",
-      "icon": "ac_unit"
-    },
-    {
-      "id": 3,
-      "name": "Incubator I-04",
-      "lab": "Biochemistry",
-      "minThreshold": 35,
-      "maxThreshold": 39,
-      "warningAt": 38,
-      "unit": "°C",
-      "currentValue": 37,
-      "status": "normal",
-      "icon": "biotech"
-    }
-  ],
-  "automation-rules": [
-    {
-      "id": 1,
-      "name": "Temperature Critical Response",
-      "active": true,
-      "lastTriggered": "Triggered today at 08:23 AM",
-      "triggerMetric": "Temperature",
-      "triggerOperator": ">",
-      "triggerValue": 8,
-      "triggerUnit": "°C",
-      "triggerDuration": 5,
-      "scope": "all",
-      "specificLabId": null,
-      "actions": [
-        "activate_hvac",
-        "send_sms"
-      ],
-      "executionLimitMins": 60,
-      "autoResolve": true
-    },
-    {
-      "id": 2,
-      "name": "CO2 Safety Protocol",
-      "active": true,
-      "lastTriggered": "Never triggered",
-      "triggerMetric": "CO2",
-      "triggerOperator": ">",
-      "triggerValue": 1500,
-      "triggerUnit": "ppm",
-      "triggerDuration": 2,
-      "scope": "specific",
-      "specificLabId": 3,
-      "actions": [
-        "increase_ventilation",
-        "send_push"
-      ],
-      "executionLimitMins": 60,
-      "autoResolve": true
-    },
-    {
-      "id": 3,
-      "name": "Humidity Maintenance",
-      "active": true,
-      "lastTriggered": "Inactive",
-      "triggerMetric": "Humidity",
-      "triggerOperator": "<",
-      "triggerValue": 20,
-      "triggerUnit": "%",
-      "triggerDuration": 15,
-      "scope": "specific",
-      "specificLabId": 1,
-      "actions": [
-        "log_event"
-      ],
-      "executionLimitMins": 60,
-      "autoResolve": true
-    },
-    {
-      "id": 4,
-      "name": "Test Rule",
-      "active": true,
-      "lastTriggered": "Never triggered",
-      "triggerMetric": "Humidity",
-      "triggerOperator": ">",
-      "triggerValue": 12.5,
-      "triggerUnit": "%",
-      "triggerDuration": 5,
-      "scope": "all",
-      "specificLabId": null,
-      "actions": [],
-      "executionLimitMins": 60,
-      "autoResolve": true
-    },
-    {
-      "id": 5,
-      "name": "Test Rule After Fix",
-      "active": true,
-      "lastTriggered": "Never triggered",
-      "triggerMetric": "Temperature",
-      "triggerOperator": ">",
-      "triggerValue": 12.5,
-      "triggerUnit": "°C",
-      "triggerDuration": 5,
-      "scope": "all",
-      "specificLabId": null,
-      "actions": [],
-      "executionLimitMins": 60,
-      "autoResolve": true
-    }
-  ],
-  "system-status": {
-    "status": "CONNECTED"
-  }
+  ]
 }

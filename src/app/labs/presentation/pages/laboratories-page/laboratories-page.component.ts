@@ -7,7 +7,6 @@ import { LaboratoryStore } from '../../../application/laboratory.store';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { CardComponent } from '../../../../shared/presentation/components/card/card.component';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-laboratories-page',
@@ -19,7 +18,6 @@ import { TranslateModule } from '@ngx-translate/core';
     LaboratoriesPaginationComponent,
     MatIcon,
     MatProgressSpinner,
-    TranslateModule
   ],
   templateUrl: './laboratories-page.component.html',
   styleUrl: './laboratories-page.component.css',
@@ -30,7 +28,7 @@ export class LaboratoriesPageComponent implements OnInit {
   viewMode: 'grid' | 'list' = 'grid';
 
   ngOnInit(): void {
-
+    
   }
 
   onSearchInput(event: Event): void {

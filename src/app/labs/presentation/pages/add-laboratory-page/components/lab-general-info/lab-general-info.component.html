@@ -41,15 +41,6 @@
     </mat-form-field>
   </div>
 
-  <div class="form-grid cols-3">
-    <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Next Maintenance Date</mat-label>
-      <input matInput [matDatepicker]="picker" id="lab-next-maintenance" [(ngModel)]="formData().nextMaintenance" (click)="picker.open()" />
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </div>
-
   <div class="form-grid cols-1">
     <mat-form-field appearance="outline" subscriptSizing="dynamic">
       <mat-label>Description</mat-label>

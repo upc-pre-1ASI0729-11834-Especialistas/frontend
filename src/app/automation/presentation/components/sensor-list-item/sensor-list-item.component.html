@@ -1,4 +1,4 @@
-<mat-card appearance="outlined" class="sensor-item-card">
+﻿<mat-card appearance="outlined" class="sensor-item-card">
   <mat-card-content class="sensor-content">
 
     <div class="sensor-icon" [ngClass]="{'needs-calibration-icon': status() === 'Needs Calibration'}">
@@ -7,25 +7,7 @@
 
     <div class="sensor-info">
       <h3 class="sensor-name">{{ sensor().sensorName }}</h3>
-      <p class="sensor-details">
-        Type: {{ sensor().type }} | Unit: {{ sensor().unit }} | Last Cal: {{ sensor().calibrationDate }}
-        @if (sensor().laboratoryName) {
-          | Lab: {{ sensor().laboratoryName }}
-        }
-      </p>
-      @if (connectionStatus() !== 'INACTIVE' && sensor().lastConnected) {
-        <p class="sensor-connection-time"><mat-icon class="inline-icon">wifi</mat-icon> Last Connected: {{ lastConnectedText() }}</p>
-      }
-    </div>
-
-    <div class="sensor-connection-badge">
-      @if (connectionStatus() === 'ACTIVE') {
-        <span class="status-indicator active"></span> Connected
-      } @else if (connectionStatus() === 'OFFLINE') {
-        <span class="status-indicator offline"></span> Offline
-      } @else {
-        <span class="status-indicator inactive"></span> Inactive
-      }
+      <p class="sensor-details">Type: {{ sensor().type }} | Unit: {{ sensor().unit }} | Last Cal: {{ sensor().calibrationDate }}</p>
     </div>
 
     <div class="sensor-status-badge">

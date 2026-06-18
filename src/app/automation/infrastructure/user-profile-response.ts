@@ -1,4 +1,4 @@
-import { BaseResource, BaseResponse } from '../../shared/infrastructure/base-response';
+﻿import { BaseResource, BaseResponse } from '../../shared/infrastructure/base-response';
 
 export interface UserProfileResource extends BaseResource {
   id: number;
@@ -6,14 +6,6 @@ export interface UserProfileResource extends BaseResource {
   role: string;
   email: string;
   avatarUrl: string;
-  phoneNumber?: string;
-  professionalTitle?: string;
-  employeeId?: string;
-  systemState?: string;
-  accessTier?: string;
-  defaultStartShift?: string;
-  shiftDuration?: string;
-  autoGenerateShiftReport?: boolean;
 }
 
 export interface UserProfilesResponse extends BaseResponse {

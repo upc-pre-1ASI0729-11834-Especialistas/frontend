@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { TemperatureReading } from '../domain/model/temperature-reading.entity';
 import { TemperatureReadingResource, TemperatureReadingResponse } from './temperature-reading-response';
 import { TemperatureReadingAssembler } from './temperature-reading.assembler';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.delevopment';
 
 const temperatureReadingsEndpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderTelemetryTemperatureReadingsEndpointPath}`;
 

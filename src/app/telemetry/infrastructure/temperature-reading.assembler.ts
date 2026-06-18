@@ -7,7 +7,8 @@ export class TemperatureReadingAssembler implements BaseAssembler<TemperatureRea
     return new TemperatureReading({
       id: resource.id,
       date: resource.date,
-      values: resource.values
+      lab01Value: resource.lab01Value,
+      lab02Value: resource.lab02Value
     });
   }
 
@@ -15,8 +16,9 @@ export class TemperatureReadingAssembler implements BaseAssembler<TemperatureRea
     return {
       id: entity.id,
       date: entity.date,
-      values: entity.values
-    } as TemperatureReadingResource;
+      lab01Value: entity.lab01Value,
+      lab02Value: entity.lab02Value
+    };
   }
 
   toEntitiesFromResponse(response: TemperatureReadingResponse): TemperatureReading[] {

@@ -19,18 +19,6 @@ export type GasSensitivity = 'Low - General labs' | 'Medium - Chemical labs' | '
 
 export type AlertEscalation = 'Immediate - Stop all activity' | 'Gradual - Warn then escalate' | 'Monitor - Log only';
 
-export interface MetricSubscription {
-  metricTypeId: number;
-  metricTypeKey: string;
-  metricTypeDisplayName: string;
-  metricTypeIcon: string;
-  metricTypeUnit: string;
-  metricTypeCategory: string;
-  minThreshold?: number;
-  maxThreshold?: number;
-  active: boolean;
-}
-
 export interface SensorConfig {
   temperature: boolean;
   airQuality: boolean;
@@ -64,8 +52,6 @@ export interface LabMetric {
   status: string;
   icon: string;
   sparkline: number[];
-  threshold?: number;
-  objectType?: string;
 }
 
 export interface LabAlert {
@@ -111,10 +97,11 @@ export class Laboratory implements BaseEntity {
   private _recentActivities: LabActivity[];
   private _schedules: LabSchedule[];
 
-
+  
   private _roomNumber?: string;
   private _description?: string;
-  private _metricSubscriptions: MetricSubscription[] = [];
+  private _sensors?: SensorConfig;
+  private _thresholds?: SafetyThresholds;
   private _notifications?: NotificationPreferences;
 
   constructor(data: {
@@ -137,7 +124,8 @@ export class Laboratory implements BaseEntity {
     schedules: LabSchedule[];
     roomNumber?: string;
     description?: string;
-    metricSubscriptions?: MetricSubscription[];
+    sensors?: SensorConfig;
+    thresholds?: SafetyThresholds;
     notifications?: NotificationPreferences;
   }) {
     this._id = data.id;
@@ -153,17 +141,18 @@ export class Laboratory implements BaseEntity {
     this._isLive = data.isLive;
     this._nextMaintenance = data.nextMaintenance;
     this._maintenanceDaysLeft = data.maintenanceDaysLeft;
-    this._metrics = data.metrics || [];
-    this._recentAlerts = data.recentAlerts || [];
-    this._recentActivities = data.recentActivities || [];
-    this._schedules = data.schedules || [];
+    this._metrics = data.metrics;
+    this._recentAlerts = data.recentAlerts;
+    this._recentActivities = data.recentActivities;
+    this._schedules = data.schedules;
     this._roomNumber = data.roomNumber;
     this._description = data.description;
-    this._metricSubscriptions = data.metricSubscriptions || [];
+    this._sensors = data.sensors;
+    this._thresholds = data.thresholds;
     this._notifications = data.notifications;
   }
 
-
+  
   get id(): number { return this._id; }
   set id(value: number) { this._id = value; }
 
@@ -221,13 +210,16 @@ export class Laboratory implements BaseEntity {
   get description(): string | undefined { return this._description; }
   set description(value: string | undefined) { this._description = value; }
 
-  get metricSubscriptions(): MetricSubscription[] { return this._metricSubscriptions; }
-  set metricSubscriptions(value: MetricSubscription[]) { this._metricSubscriptions = value; }
+  get sensors(): SensorConfig | undefined { return this._sensors; }
+  set sensors(value: SensorConfig | undefined) { this._sensors = value; }
+
+  get thresholds(): SafetyThresholds | undefined { return this._thresholds; }
+  set thresholds(value: SafetyThresholds | undefined) { this._thresholds = value; }
 
   get notifications(): NotificationPreferences | undefined { return this._notifications; }
   set notifications(value: NotificationPreferences | undefined) { this._notifications = value; }
 
-
+  
   isOperational(): boolean {
     return this._overallStatus.toLowerCase() === 'operational';
   }
@@ -253,33 +245,15 @@ export class Laboratory implements BaseEntity {
     return `${this.building}, ${this.floor}`;
   }
   getFormattedMaintenance(): string {
-    if (!this.nextMaintenance) return '';
     const date = new Date(this.nextMaintenance);
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
-      timeZone: 'UTC',
     });
   }
   isMaintenanceUrgent(): boolean {
     return this.maintenanceDaysLeft <= 3;
-  }
-
-  getFormattedLastUpdate(): string {
-    if (!this._lastUpdate || this._lastUpdate === 'Just now') {
-      return 'Just now';
-    }
-    const date = new Date(this._lastUpdate);
-    if (isNaN(date.getTime())) {
-      return this._lastUpdate;
-    }
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
   }
 }
 

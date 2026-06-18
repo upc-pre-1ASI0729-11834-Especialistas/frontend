@@ -1,146 +1,72 @@
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-/* ── Base card ─────────────────────────────────────────────────── */
-.metric-card {
-  background: var(--mat-sys-surface);
-  border: 1px solid var(--mat-sys-outline-variant);
-  border-radius: 14px;
-  padding: 16px 18px 14px;
+:host:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.06));
+}
+
+.metric-inner {
+  padding: 18px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   height: 100%;
-  box-sizing: border-box;
 }
 
-.metric-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-}
-
-/* ── Status variants (border-left preserved) ───────────────────── */
-.metric-card--critical {
-  border-color: color-mix(in srgb, var(--mat-sys-error) 40%, transparent);
-  background: color-mix(in srgb, var(--mat-sys-error) 4%, var(--mat-sys-surface));
-  border-left: 4px solid var(--mat-sys-error);
-}
-
-.metric-card--warning {
-  border-color: color-mix(in srgb, var(--warning-color) 40%, transparent);
-  background: color-mix(in srgb, var(--warning-color) 4%, var(--mat-sys-surface));
-  border-left: 4px solid var(--warning-color);
-}
-
-/* ── Header ────────────────────────────────────────────────────── */
 .metric-header {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
   gap: 8px;
 }
 
-.metric-header-left {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-.metric-object-type {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--mat-sys-on-surface-variant);
-  opacity: 0.7;
-}
-
 .metric-name {
-  font-size: var(--mat-sys-body-medium-size, 14px);
-  font-weight: 600;
-  color: var(--mat-sys-on-surface);
+  font-size: var(--mat-sys-body-medium-size);
+  font-weight: var(--mat-sys-title-medium-weight);
+  color: var(--mat-sys-on-surface-variant);
+  flex: 1;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
 }
 
-.metric-card--critical .metric-name {
-  color: var(--mat-sys-error);
-}
-
-.metric-icon {
-  font-size: 20px;
-  width: 20px;
-  height: 20px;
-  opacity: 0.75;
+app-status-badge {
   flex-shrink: 0;
 }
 
-/* ── Divider ───────────────────────────────────────────────────── */
-.metric-divider {
-  height: 1px;
-  background: var(--mat-sys-outline-variant);
-  opacity: 0.5;
-}
-
-/* ── Value row ─────────────────────────────────────────────────── */
-.metric-value-row {
+.metric-body {
   display: flex;
   align-items: baseline;
-  gap: 6px;
+  gap: 4px;
 }
 
 .metric-value {
-  font-size: 32px;
-  font-weight: 700;
+  font-size: var(--mat-sys-headline-small-size);
+  font-weight: var(--mat-sys-title-large-weight);
   color: var(--mat-sys-on-surface);
   letter-spacing: -0.03em;
   line-height: 1;
 }
 
 .metric-unit {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: var(--mat-sys-body-medium-size);
+  font-weight: var(--mat-sys-title-medium-weight);
   color: var(--mat-sys-on-surface-variant);
-  margin-left: 1px;
+  margin-left: 2px;
 }
 
-.trend-icon {
-  font-size: 18px;
-  width: 18px;
-  height: 18px;
-  color: var(--mat-sys-error);
+.metric-sparkline {
+  margin-top: auto;
+  height: 28px;
+  opacity: 0.5;
 }
 
-/* ── Threshold note ────────────────────────────────────────────── */
-.metric-threshold {
-  font-size: 11px;
-  color: var(--mat-sys-error);
-  margin: 0;
-  line-height: 1.45;
-}
-
-/* ── Line chart ────────────────────────────────────────────────── */
-.metric-chart {
-  width: 100%;
-  height: 52px;
-  flex-shrink: 0;
-}
-
-.chart-svg {
+.metric-sparkline svg {
   width: 100%;
   height: 100%;
-  display: block;
-  overflow: visible;
-}
-
-/* ── Footer ────────────────────────────────────────────────────── */
-.metric-footer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: auto;
 }

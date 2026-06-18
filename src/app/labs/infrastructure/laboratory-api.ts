@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.delevopment';
 import { BaseApi } from '../../shared/infrastructure/base-api';
 import { Laboratory } from '../domain/model/laboratory.entity';
 import { LaboratoryApiEndpoint } from './laboratory-api-endpoint';

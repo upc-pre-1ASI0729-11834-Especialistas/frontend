@@ -1,10 +1,9 @@
 import { Component, input, output } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-laboratories-pagination',
-  imports: [MatButton, TranslateModule],
+  imports: [MatButton],
   templateUrl: './laboratories-pagination.component.html',
   styleUrl: './laboratories-pagination.component.css'
 })
