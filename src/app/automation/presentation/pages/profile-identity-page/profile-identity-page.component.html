@@ -1,0 +1,162 @@
+<div class="profile-container">
+  @if (automationStore.loading()) {
+    <div class="loading-overlay">
+      <div class="spinner"></div>
+      <span>Updating profile data...</span>
+    </div>
+  }
+
+  <div class="profile-grid">
+    <!-- Left Column: Personal Information -->
+    <div class="main-column">
+      <mat-card class="profile-card">
+        <mat-card-header class="card-header">
+          <mat-icon class="header-icon header-blue">badge</mat-icon>
+          <mat-card-title>Personal Information</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="card-content">
+          <form [formGroup]="profileForm" (ngSubmit)="onSaveChanges()">
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Full Name</mat-label>
+                <input matInput formControlName="fullName" placeholder="Dr. Alexander Vance">
+                @if (profileForm.get('fullName')?.hasError('required')) {
+                  <mat-error>Full name is required</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email" type="email" placeholder="a.vance@safelab.org">
+                @if (profileForm.get('email')?.hasError('required')) {
+                  <mat-error>Email address is required</mat-error>
+                }
+                @if (profileForm.get('email')?.hasError('email')) {
+                  <mat-error>Please enter a valid email address</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="phoneNumber" placeholder="+1 (555) 019-2834">
+                @if (profileForm.get('phoneNumber')?.hasError('required')) {
+                  <mat-error>Phone number is required</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="form-field readonly-field">
+                <mat-label>Professional Title</mat-label>
+                <input matInput formControlName="professionalTitle" readonly>
+                <mat-icon matSuffix class="lock-icon">lock</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="form-field readonly-field full-width">
+                <mat-label>Employee ID</mat-label>
+                <input matInput formControlName="employeeId" readonly>
+                <mat-icon matSuffix class="lock-icon">lock</mat-icon>
+              </mat-form-field>
+            </div>
+
+            <div class="form-actions">
+              <button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid || automationStore.loading()" class="btn-save">
+                <mat-icon>save</mat-icon>
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Right Column: Avatar, Status, Preferences -->
+    <div class="side-column">
+      <!-- Profile Photo -->
+      <mat-card class="profile-card photo-card">
+        <mat-card-content class="photo-container">
+          <div class="avatar-large">
+            <span class="avatar-text">{{ userInitials() }}</span>
+          </div>
+          <div class="photo-actions">
+            <button mat-button class="btn-link">Change photo</button>
+            <span class="divider">|</span>
+            <button mat-button class="btn-link text-danger">Remove</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Account Status -->
+      <mat-card class="profile-card">
+        <mat-card-header class="card-header">
+          <mat-icon class="header-icon header-status">shield</mat-icon>
+          <mat-card-title>Account Status</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="card-content">
+          <div class="status-item">
+            <span class="status-label">System State</span>
+            <div class="badge success-badge">
+              <span class="dot"></span>
+              Active — Verified
+            </div>
+          </div>
+
+          <div class="status-item">
+            <span class="status-label">Access Tier</span>
+            <span class="status-value font-semibold">Lab Coordinator (Tier 1)</span>
+          </div>
+
+          <div class="status-footer">
+            <a href="javascript:void(0)" class="action-link">
+              Request role change <mat-icon class="link-icon">arrow_forward</mat-icon>
+            </a>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Shift Preferences -->
+      <mat-card class="profile-card">
+        <mat-card-header class="card-header">
+          <mat-icon class="header-icon header-pref">schedule</mat-icon>
+          <mat-card-title>Shift Preferences</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="card-content" [formGroup]="profileForm">
+          <div class="preference-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Default Start</mat-label>
+              <mat-select formControlName="defaultStartShift">
+                @for (time of startTimes; track time) {
+                  <mat-option [value]="time">{{ time }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="preference-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Duration</mat-label>
+              <mat-select formControlName="shiftDuration">
+                @for (dur of durations; track dur) {
+                  <mat-option [value]="dur">{{ dur }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="toggle-row">
+            <div class="toggle-text">
+              <span class="toggle-title">Auto-generate shift report</span>
+              <span class="toggle-subtitle">Compile data at end of shift</span>
+            </div>
+            <mat-slide-toggle formControlName="autoGenerateShiftReport" color="primary"></mat-slide-toggle>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

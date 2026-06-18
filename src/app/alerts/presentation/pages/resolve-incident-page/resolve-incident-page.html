@@ -1,0 +1,233 @@
+<div class="resolve-container">
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
+    <a routerLink="/alerts" class="breadcrumb-link">Incidents</a>
+    <mat-icon>chevron_right</mat-icon>
+    <a [routerLink]="['/alerts/incident']" [queryParams]="{ id: alertId() }" class="breadcrumb-link">Incident #{{ alert()?.id || '4821' }}</a>
+    <mat-icon>chevron_right</mat-icon>
+    <span class="breadcrumb-current">Resolve</span>
+  </nav>
+
+  <!-- Page Title -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="title-row">
+        <div class="status-dot"></div>
+        <h1 class="page-title">Resolve Incident</h1>
+        <span class="incident-badge">INCIDENT #{{ alert()?.id || '4821' }}</span>
+      </div>
+      <p class="page-subtitle">
+        <mat-icon class="subtitle-icon">device_thermostat</mat-icon> {{ affectedEquipment() }}
+        <span class="sep">·</span>
+        <mat-icon class="subtitle-icon">science</mat-icon> {{ alert()?.labName || 'Laboratory' }}
+        <span class="sep">·</span>
+        <mat-icon class="subtitle-icon">schedule</mat-icon> Active for {{ startedTimeAgo() }}
+      </p>
+    </div>
+    <div class="severity-badge-wrap">
+      <span class="severity-chip" [ngClass]="{'pill-critical': alert()?.severity?.toLowerCase() === 'critical', 'pill-warning': alert()?.severity?.toLowerCase() === 'warning'}">
+        <mat-icon>warning</mat-icon> {{ alert()?.severity || 'CRITICAL' }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Two-column layout -->
+  <div class="resolve-grid">
+
+    <!-- LEFT: Form -->
+    <div class="left-col">
+
+      <!-- Resolution Note -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <mat-icon class="form-card-icon">edit_note</mat-icon>
+          <h3 class="form-card-title">Resolution Note</h3>
+          <span class="required-chip">Required</span>
+        </div>
+        <p class="form-card-desc">Describe the corrective action taken to resolve this incident.</p>
+        <div class="textarea-wrapper">
+          <textarea class="resolution-textarea"
+            placeholder="e.g. Adjusted thermostat to 6°C, verified all 12 biological samples are intact, will monitor temperature for the next 30 minutes."
+            [value]="resolutionNote()" (input)="onNoteChange($any($event.target).value)" rows="6">
+          </textarea>
+          <span class="char-count" [class.char-limit]="noteLength >= MAX_CHARS">
+            {{ noteLength }} / {{ MAX_CHARS }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Resolution Type -->
+      <div class="form-card">
+        <div class="form-card-header">
+          <mat-icon class="form-card-icon">tune</mat-icon>
+          <h3 class="form-card-title">Resolution Type</h3>
+        </div>
+        <p class="form-card-desc">Select the type of action that resolved this incident.</p>
+        <div class="type-buttons">
+          <button class="type-btn" [class.type-btn--active]="resolutionType() === 'manual'"
+            (click)="setResolutionType('manual')">
+            <div class="type-btn-icon-wrap" [class.active-icon]="resolutionType() === 'manual'">
+              <mat-icon>build</mat-icon>
+            </div>
+            <div class="type-btn-text">
+              <span class="type-btn-label">Manual fix</span>
+              <span class="type-btn-sub">Resolved by staff</span>
+            </div>
+          </button>
+          <button class="type-btn" [class.type-btn--active]="resolutionType() === 'automated'"
+            (click)="setResolutionType('automated')">
+            <div class="type-btn-icon-wrap" [class.active-icon]="resolutionType() === 'automated'">
+              <mat-icon>smart_toy</mat-icon>
+            </div>
+            <div class="type-btn-text">
+              <span class="type-btn-label">Automated</span>
+              <span class="type-btn-sub">System resolved</span>
+            </div>
+          </button>
+          <button class="type-btn" [class.type-btn--active]="resolutionType() === 'escalated'"
+            (click)="setResolutionType('escalated')">
+            <div class="type-btn-icon-wrap" [class.active-icon]="resolutionType() === 'escalated'">
+              <mat-icon>checklist</mat-icon>
+            </div>
+            <div class="type-btn-text">
+              <span class="type-btn-label">Escalated</span>
+              <span class="type-btn-sub">Closed by supervisor</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Follow-up Maintenance -->
+      <div class="form-card followup-card" [class.followup-card--active]="scheduleFollowUp()">
+        <label class="checkbox-label" (click)="toggleFollowUp()">
+          <div class="checkbox" [class.checkbox--checked]="scheduleFollowUp()">
+            <mat-icon *ngIf="scheduleFollowUp()">check</mat-icon>
+          </div>
+          <div class="followup-text">
+            <span class="followup-title">
+              <mat-icon class="followup-icon">build_circle</mat-icon>
+              Schedule follow-up maintenance
+            </span>
+            <span class="followup-sub">A maintenance task will be created for {{ affectedEquipment() }}</span>
+          </div>
+        </label>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Summary + Photo -->
+    <div class="right-col">
+
+      <!-- Incident Summary Card -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          <mat-icon class="sidebar-icon">info</mat-icon>
+          <h4 class="sidebar-card-title">Incident Summary</h4>
+        </div>
+        <div class="sidebar-divider"></div>
+        <div class="summary-body">
+
+          <div class="summary-item">
+            <span class="summary-label">
+              <mat-icon class="s-icon">sensors</mat-icon> SENSOR
+            </span>
+            <span class="summary-value">{{ sensorId() }}</span>
+          </div>
+
+          <div class="summary-item">
+            <span class="summary-label">
+              <mat-icon class="s-icon">device_thermostat</mat-icon> CURRENT VALUE
+            </span>
+            <span class="summary-value text-red">
+              {{ currentValue() }}
+              <span class="threshold-note">(threshold: {{ thresholdValue() }})</span>
+            </span>
+          </div>
+
+          <div class="summary-item">
+            <span class="summary-label">
+              <mat-icon class="s-icon">schedule</mat-icon> TRIGGERED AT
+            </span>
+            <span class="summary-value">{{ startedTimeAbsolute() }} today</span>
+          </div>
+
+          <div class="summary-item">
+            <span class="summary-label">
+              <mat-icon class="s-icon">bolt</mat-icon> LOCATION
+            </span>
+            <span class="summary-value text-green">
+              {{ location() }}
+            </span>
+          </div>
+
+          <div class="exceeded-alert">
+            <mat-icon>trending_up</mat-icon>
+            <span>Exceeded threshold by <strong>{{ exceededByValue() }}</strong> for <strong>{{ startedTimeAgo() }}</strong></span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Photo Attachment Card -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">
+          <mat-icon class="sidebar-icon">photo_camera</mat-icon>
+          <h4 class="sidebar-card-title">
+            Photo Attachment
+            <span class="optional-badge">optional</span>
+          </h4>
+        </div>
+        <div class="sidebar-divider"></div>
+        <div class="photo-body">
+          <div *ngIf="!uploadedFilePreview()" class="upload-zone" [class.upload-zone--dragging]="isDraggingOver()"
+            (dragover)="onDragOver($event)" (dragleave)="onDragLeave()" (drop)="onDrop($event)"
+            (click)="fileInput.click()">
+            <mat-icon class="upload-icon">cloud_upload</mat-icon>
+            <span class="upload-main-text">Tap to attach or drag &amp; drop</span>
+            <span class="upload-sub-text">JPG or PNG · Max 5MB</span>
+            <span class="upload-rec">
+              <mat-icon style="font-size:12px;width:12px;height:12px;">verified</mat-icon>
+              Recommended for audit records
+            </span>
+            <input #fileInput type="file" accept="image/jpeg,image/png" hidden (change)="onFileSelected($event)" />
+          </div>
+
+          <div *ngIf="uploadedFilePreview()" class="preview-wrapper">
+            <img [src]="uploadedFilePreview()" alt="Attached photo" class="preview-img" />
+            <div class="preview-check">
+              <mat-icon>check</mat-icon>
+            </div>
+            <div class="preview-footer">
+              <span class="preview-filename">
+                <mat-icon style="font-size:14px;width:14px;height:14px;">image</mat-icon>
+                {{ uploadedFileName() }}
+              </span>
+              <button class="remove-btn" (click)="removePhoto()">
+                <mat-icon>delete</mat-icon> Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer Actions -->
+  <div class="footer-bar">
+    <p class="footer-note">
+      <mat-icon>lock</mat-icon>
+      This resolution will be permanently logged in the audit history and included in the shift report.
+    </p>
+    <div class="footer-actions">
+      <a [routerLink]="['/alerts/incident']" [queryParams]="{ id: alertId() }" class="btn btn-cancel">
+        <mat-icon>close</mat-icon> Cancel
+      </a>
+      <button class="btn btn-confirm" [disabled]="!canConfirm" (click)="onConfirm()">
+        <mat-icon>check_circle</mat-icon> Confirm Resolution
+      </button>
+    </div>
+  </div>
+
+</div>

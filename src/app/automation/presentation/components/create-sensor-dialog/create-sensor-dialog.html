@@ -1,0 +1,107 @@
+<div class="side-sheet-container">
+  <!-- Header -->
+  <div class="dialog-header">
+    <h2 class="dialog-title">{{ isEditMode ? 'Edit Sensor Configuration' : 'Add New Sensor' }}</h2>
+    <button type="button" class="close-btn" (click)="onCancel()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Form Body -->
+  <div class="dialog-content-scroll" [formGroup]="sensorForm">
+    <!-- Sensor Name -->
+    <div class="form-group">
+      <label class="form-label">Sensor Name</label>
+      <div class="input-with-icon" [class.error]="sensorForm.get('sensorName')?.invalid && sensorForm.get('sensorName')?.touched">
+        <mat-icon class="input-icon">sensors</mat-icon>
+        <input
+          type="text"
+          formControlName="sensorName"
+          placeholder="e.g. Temperature Sensor - Hood 3"
+          class="custom-input"
+          required>
+      </div>
+      @if (sensorForm.get('sensorName')?.invalid && sensorForm.get('sensorName')?.touched) {
+        <span class="error-text">Sensor name is required</span>
+      }
+    </div>
+
+    <!-- Sensor Type -->
+    <div class="form-group">
+      <label class="form-label">Sensor Type / Model</label>
+      <div class="input-with-icon" [class.error]="sensorForm.get('type')?.invalid && sensorForm.get('type')?.touched">
+        <mat-icon class="input-icon">category</mat-icon>
+        <input
+          type="text"
+          formControlName="type"
+          placeholder="e.g. Model PT100"
+          class="custom-input"
+          required>
+      </div>
+      @if (sensorForm.get('type')?.invalid && sensorForm.get('type')?.touched) {
+        <span class="error-text">Sensor type is required</span>
+      }
+    </div>
+
+    <!-- Serial Number / MAC Address -->
+    <div class="form-group">
+      <label class="form-label">Serial Number / MAC Address</label>
+      <div class="input-with-icon" [class.error]="sensorForm.get('unit')?.invalid && sensorForm.get('unit')?.touched">
+        <mat-icon class="input-icon">tag</mat-icon>
+        <input
+          type="text"
+          formControlName="unit"
+          placeholder="e.g. MAC-A1-B2-C3 o SN-88291-B"
+          class="custom-input"
+          required>
+      </div>
+      @if (sensorForm.get('unit')?.invalid && sensorForm.get('unit')?.touched) {
+        <span class="error-text">Serial number / MAC address is required</span>
+      }
+    </div>
+
+    <!-- Associated Laboratory -->
+    <div class="form-group">
+      <label class="form-label">Associated Laboratory</label>
+      <div class="input-with-icon" [class.error]="sensorForm.get('laboratoryId')?.invalid && sensorForm.get('laboratoryId')?.touched">
+        <mat-icon class="input-icon">business</mat-icon>
+        <mat-select formControlName="laboratoryId" placeholder="Select Laboratory" class="custom-select-control">
+          @for (lab of laboratoryStore.laboratories(); track lab.id) {
+            <mat-option [value]="lab.id">{{ lab.name }}</mat-option>
+          }
+        </mat-select>
+      </div>
+      @if (sensorForm.get('laboratoryId')?.invalid && sensorForm.get('laboratoryId')?.touched) {
+        <span class="error-text">Laboratory association is required</span>
+      }
+    </div>
+
+    <!-- Active Toggle -->
+    <div class="form-group toggle-group">
+      <mat-slide-toggle formControlName="isActive" color="primary">
+        Sensor is Active
+      </mat-slide-toggle>
+    </div>
+
+    <!-- Note -->
+    @if (!isEditMode) {
+      <div class="form-note">
+        <mat-icon class="info-icon">info</mat-icon>
+        <p class="note-text">Dispositivo registrado con éxito. El sensor se mantendrá como 'Inactivo' hasta que el hardware físico se encienda y realice su primera conexión.</p>
+      </div>
+    }
+  </div>
+
+  <!-- Footer Actions -->
+  <div class="dialog-footer">
+    <button type="button" class="cancel-btn" (click)="onCancel()">Cancel</button>
+    <button
+      type="button"
+      class="submit-btn"
+      [disabled]="sensorForm.invalid"
+      (click)="onSubmit()">
+      <mat-icon>save</mat-icon>
+      <span>Save Sensor</span>
+    </button>
+  </div>
+</div>

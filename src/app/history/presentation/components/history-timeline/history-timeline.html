@@ -1,57 +1,57 @@
 @if (grouped().length === 0) {
-  <mat-card appearance="outlined" class="empty-state">
-    <mat-card-content>
-      <p>No history records match the current filters.</p>
-    </mat-card-content>
-  </mat-card>
+<div class="empty-state">
+  <mat-icon>inbox</mat-icon>
+  <p>No history records match the current filters.</p>
+</div>
 }
 
 @for (group of grouped(); track group.label) {
-  <div class="history-group">
-    <p class="group-label">{{ group.label }}</p>
+<div class="history-group">
+  <p class="group-label">{{ group.label }}</p>
 
+  <div class="timeline-list">
     @for (record of group.records; track record.id) {
-      <mat-card appearance="outlined" class="history-card">
-        <mat-card-content class="history-content">
-          <div class="history-main">
-            <div class="history-header">
-              <h3>{{ record.name }}</h3>
-              <mat-chip-set>
-                <mat-chip
-                  selected
-                  class="severity-chip"
-                  [class.severity-critical]="record.severity === 'Critical'"
-                  [class.severity-warning]="record.severity === 'Warning'"
-                  [class.severity-medium]="record.severity === 'Medium'"
-                  [class.severity-low]="record.severity === 'Low'"
-                >
-                  {{ record.severity }}
-                </mat-chip>
-                <mat-chip
-                  selected
-                  class="status-chip"
-                  [class.status-active]="record.status === 'Active'"
-                  [class.status-resolved]="record.status === 'Resolved'"
-                >
-                  {{ record.status }}
-                </mat-chip>
-              </mat-chip-set>
-            </div>
+    <div class="timeline-item" (click)="select(record)">
 
-            <p class="history-meta">
-              {{ record.lab }} · {{ record.eventType }} · {{ record.occurredAt | date: 'shortTime' }}
-            </p>
+      <!-- Dot + line -->
+      <div class="timeline-dot-col">
+        <div class="timeline-dot" [class.dot-critical]="record.severity === 'Critical'"
+          [class.dot-resolved]="record.status === 'Resolved'" [class.dot-automation]="record.eventType === 'Automation'"
+          [class.dot-manual]="record.eventType === 'Manual'"
+          [class.dot-default]="record.severity !== 'Critical' && record.status !== 'Resolved' && record.eventType !== 'Automation' && record.eventType !== 'Manual'">
+        </div>
+        <div class="timeline-line"></div>
+      </div>
 
-            <p class="history-description">{{ record.description }}</p>
-          </div>
+      <!-- Content -->
+      <div class="timeline-content">
+        <div class="timeline-top-row">
+          <span class="timeline-time">{{ record.occurredAt | date: 'HH:mm' }}</span>
+          <span class="timeline-badge" [class.badge-critical]="record.severity === 'Critical'"
+            [class.badge-resolved]="record.status === 'Resolved'"
+            [class.badge-automation]="record.eventType === 'Automation'"
+            [class.badge-manual]="record.eventType === 'Manual'">
+            <mat-icon class="badge-icon">
+              {{ record.severity === 'Critical' ? 'error' :
+              record.status === 'Resolved' ? 'check_circle' :
+              record.eventType === 'Automation' ? 'settings' : 'edit_note' }}
+            </mat-icon>
+            {{ record.severity === 'Critical' ? 'Critical' :
+            record.status === 'Resolved' ? 'Resolved' :
+            record.eventType === 'Automation' ? 'Automation' : 'Manual Log' }}
+          </span>
+        </div>
 
-          <div class="history-actions">
-            <button mat-raised-button color="primary" (click)="select(record)">
-              View details
-            </button>
-          </div>
-        </mat-card-content>
-      </mat-card>
+        <h3 class="timeline-title">{{ record.name }}</h3>
+        <p class="timeline-desc">{{ record.lab }} — {{ record.description }}</p>
+
+        <button class="timeline-link" (click)="$event.stopPropagation(); select(record)">
+          View {{ record.status === 'Resolved' ? 'Incident' : 'details' }} →
+        </button>
+      </div>
+
+    </div>
     }
   </div>
+</div>
 }

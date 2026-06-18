@@ -75,3 +75,54 @@
 ::ng-deep .apexcharts-text tspan {
   font-family: 'Inter', sans-serif !important;
 }
+
+.no-data-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--mat-sys-on-surface-variant);
+  padding: 32px;
+  text-align: center;
+}
+
+.no-data-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+  color: var(--mat-sys-outline);
+}
+
+.no-data-text {
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.chart-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.lab-filter-select {
+  width: 220px;
+}
+
+::ng-deep .lab-filter-select .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+::ng-deep .lab-filter-select .mat-mdc-text-field-wrapper {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  min-height: 40px !important;
+  height: 40px !important;
+}
+
+::ng-deep .lab-filter-select .mat-mdc-form-field-flex {
+  align-items: center !important;
+}

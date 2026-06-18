@@ -1,135 +1,99 @@
-<mat-drawer-container class="drawer-container">
+<div class="alerts-container">
 
-  <!-- CONTENIDO PRINCIPAL -->
-  <mat-drawer-content>
-
-    <div class="alerts-page">
-
-      <section class="summary-cards">
-        @for (card of summaryCards; track card.title) {
-          <mat-card appearance="outlined" class="summary-card">
-            <mat-card-content>
-              <h2>{{ card.value }}</h2>
-              <p>{{ card.title }}</p>
-            </mat-card-content>
-          </mat-card>
-        }
-      </section>
-
-      <section class="filters-bar">
-
-        <mat-form-field appearance="outline">
-          <mat-label>Search alerts</mat-label>
-          <input matInput placeholder="Type to search..." />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Severity</mat-label>
-          <mat-select>
-            <mat-option>Critical</mat-option>
-            <mat-option>Warning</mat-option>
-            <mat-option>Info</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Laboratory</mat-label>
-          <mat-select>
-            <mat-option>Lab A</mat-option>
-            <mat-option>Lab B</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Status</mat-label>
-          <mat-select>
-            <mat-option>Active</mat-option>
-            <mat-option>Resolved</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-      </section>
-
-      <section class="alerts-list">
-
-        @for (alert of alerts; track alert.title) {
-          <mat-card appearance="outlined" class="alert-card">
-            <mat-card-content class="alert-content">
-              <div class="alert-left">
-                <div class="alert-header">
-                  <h3>{{ alert.title }}</h3>
-                  <mat-chip-set>
-                    <mat-chip color="warn" selected>
-                      {{ alert.severity }}
-                    </mat-chip>
-                  </mat-chip-set>
-                </div>
-
-                <p class="alert-description">
-                  {{ alert.description }}
-                </p>
-
-                <mat-chip-set>
-                  <mat-chip color="primary" selected>
-                    {{ alert.status }}
-                  </mat-chip>
-                </mat-chip-set>
-              </div>
-
-              <div class="alert-actions">
-                <button mat-raised-button color="primary" (click)="openDrawer(alert)">
-                  View Details
-                </button>
-              </div>
-
-            </mat-card-content>
-
-          </mat-card>
-        }
-
-      </section>
-
+  <div class="header-section">
+    <div class="header-titles">
+      <h1 class="page-title">{{ 'alerts.title' | translate }}</h1>
+      <p class="page-subtitle">{{ 'alerts.subtitle' | translate }}</p>
     </div>
-
-  </mat-drawer-content>
-
-  <!-- DRAWER -->
-  <mat-drawer #drawer position="end" mode="over" class="alert-drawer">
-
-    <div class="drawer-header">
-      <h2>Alert Details</h2>
-
-      <button mat-icon-button (click)="drawer.close()" aria-label="Close drawer">
-        <mat-icon>close</mat-icon>
-      </button>
+    <div class="header-time">
+      <mat-icon>schedule</mat-icon>
+      {{ currentTime | date:'fullDate' }} <strong>{{ currentTime | date:'shortTime' }}</strong>
     </div>
+  </div>
 
-    @if (selectedAlert; as alert) {
-      <mat-chip-set>
-        <mat-chip color="warn" selected>
-          {{ alert.severity }}
-        </mat-chip>
-      </mat-chip-set>
+  <section class="summary-cards">
+    @for (card of summaryCards(); track card.title) {
+      <div class="summary-card {{card.class}}">
+        <div class="card-value">{{ card.value }}</div>
+        <div class="card-text">
+          <span class="card-title">{{ card.title | translate }}</span>
+          <span class="card-subtitle">{{ card.subtitle | translate }}</span>
+        </div>
+      </div>
+    }
+  </section>
 
-      <div class="mini-cards">
-        @for (metric of alert.metrics; track metric.label) {
-          <mat-card appearance="outlined">
-            <mat-card-content>
-              <p>{{ metric.label }}</p>
-              <h3>{{ metric.value }}</h3>
-            </mat-card-content>
-          </mat-card>
-        }
+  <section class="filters-bar">
+    <div class="filters-left">
+      <div class="search-box">
+        <mat-icon>search</mat-icon>
+        <input type="text" [placeholder]="'alerts.searchPlaceholder' | translate">
       </div>
 
-      <h3>Description</h3>
-      <p class="drawer-description">{{ alert.description }}</p>
+      <div class="dropdown">
+        <span>{{ 'alerts.filters.severity' | translate }}</span> <mat-icon>expand_more</mat-icon>
+      </div>
 
-      <button mat-raised-button color="primary">
-        Mark as Resolved
-      </button>
+      <div class="dropdown">
+        <span>{{ 'alerts.filters.laboratory' | translate }}</span> <mat-icon>expand_more</mat-icon>
+      </div>
+
+      <div class="dropdown">
+        <span>{{ 'alerts.filters.status' | translate }}</span> <mat-icon>expand_more</mat-icon>
+      </div>
+    </div>
+    <div class="filters-right">
+      <span class="total-text">{{ 'alerts.total' | translate:{count: alerts().length} }}</span>
+    </div>
+  </section>
+
+  <section class="alerts-list">
+    @for (group of alertGroups(); track group.severity) {
+
+      <div class="alert-group-header">
+        <span class="group-dot" [ngClass]="group.colorClass">●</span>
+        <span class="group-title" [ngClass]="group.colorClass">{{ ('alerts.summary.' + group.severity) | translate }}</span>
+        <span class="group-count">{{ group.count }}</span>
+      </div>
+
+      @for (alert of group.items; track alert.id) {
+        <div class="alert-card">
+          <div class="alert-indicator" [ngClass]="group.pillClass"></div>
+
+          <div class="alert-content-wrapper">
+            <div class="alert-left-content">
+              <div class="alert-pill" [ngClass]="group.pillClass">{{ ('alerts.summary.' + group.severity) | translate }}</div>
+
+              <div class="alert-details">
+                <h3 class="alert-title">{{ alert.title }}</h3>
+                <div class="alert-meta">
+                  <span class="meta-item"><mat-icon>location_on</mat-icon> {{ alert.location }}</span>
+                  <span class="meta-item"><mat-icon>schedule</mat-icon> {{ alert.timeAgo }}</span>
+                  @if (alert.sensor) {
+                    <span class="meta-item-divider">·</span>
+                    <span class="meta-item">{{ alert.sensor }}</span>
+                  }
+                </div>
+                <p class="alert-description">{{ alert.description }}</p>
+              </div>
+            </div>
+
+            <div class="alert-actions">
+              <div class="duration-pill">{{ alert.duration }}</div>
+
+              @if (group.severity === 'RESOLVED TODAY') {
+                <span class="resolved-by">{{ alert.resolvedBy }}</span>
+              } @else {
+                <button class="btn-investigate" (click)="navigateToIncident(alert.id)">
+                  {{ 'alerts.button.investigate' | translate }} <mat-icon>arrow_forward</mat-icon>
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+      }
     }
+  </section>
 
-  </mat-drawer>
+</div>
 
-</mat-drawer-container>

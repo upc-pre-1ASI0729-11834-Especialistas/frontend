@@ -4,7 +4,7 @@ export interface LaboratoryResource extends BaseResource {
   id: number;
   name: string;
   type: string;
-  temperature: number;
+  temperature: number | null;
   status: 'ALERT' | 'WARNING' | 'NORMAL';
 }
 

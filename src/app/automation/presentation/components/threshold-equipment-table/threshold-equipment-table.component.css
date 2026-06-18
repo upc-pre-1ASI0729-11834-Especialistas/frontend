@@ -1,0 +1,247 @@
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Desktop Table Styles */
+.desktop-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-family: inherit;
+  color: #1E293B;
+  background-color: #FFFFFF;
+}
+
+.desktop-table th {
+  padding: 16px;
+  font-weight: 500;
+  font-size: 13px;
+  color: #64748B;
+  border-bottom: 1px solid #E2E8F0;
+  background-color: #FAFAFA;
+  text-transform: none;
+}
+
+.desktop-table td {
+  padding: 16px;
+  border-bottom: 1px solid #F1F5F9;
+  font-size: 14px;
+}
+
+.desktop-table tbody tr:hover {
+  background-color: #F8FAFC;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+/* Equipment Column */
+.equipment-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.equipment-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: #EEF2F6;
+  color: #1A56DB;
+}
+
+.equipment-icon-wrapper mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.equipment-name {
+  font-weight: 600;
+  color: #1E293B;
+  display: block;
+}
+
+.lab-text {
+  color: #475569;
+  font-size: 14px;
+}
+
+/* Threshold Inputs */
+.threshold-input-wrapper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 6px 10px;
+  background-color: #FFFFFF;
+  width: 90px;
+  height: 38px;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.threshold-input-wrapper:focus-within {
+  border-color: #1A56DB;
+  box-shadow: 0 0 0 2px rgba(26, 86, 219, 0.15);
+}
+
+.threshold-input-wrapper input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 14px;
+  text-align: right;
+  padding-right: 4px;
+  color: #1E293B;
+  font-weight: 500;
+}
+
+.threshold-input-wrapper input::-webkit-outer-spin-button,
+.threshold-input-wrapper input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.threshold-input-wrapper input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.threshold-input-wrapper .unit-label {
+  font-size: 12px;
+  color: #64748B;
+  user-select: none;
+  margin-left: 2px;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-badge.normal {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+}
+
+.status-badge.warning {
+  background-color: #FFF3E0;
+  color: #EF6C00;
+}
+
+.status-badge.critical {
+  background-color: #FFEBEE;
+  color: #C62828;
+}
+
+.status-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+/* Action button */
+.action-btn {
+  color: #94A3B8;
+  transition: color 0.2s;
+}
+
+.action-btn:hover {
+  color: #475569;
+}
+
+/* Mobile responsive styles */
+.mobile-cards {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-table {
+    display: none;
+  }
+
+  .mobile-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 12px 0;
+  }
+
+  .mobile-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid #F1F5F9;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+
+  .lab-text-sub {
+    font-size: 12px;
+    color: #64748B;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .card-body {
+    padding-bottom: 12px;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .form-group {
+    flex: 1;
+    min-width: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-group label {
+    font-size: 11px;
+    font-weight: 500;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .form-group .threshold-input-wrapper {
+    width: 100%;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid #F1F5F9;
+    padding-top: 12px;
+  }
+
+  .mobile-edit-btn {
+    width: 100%;
+  }
+}

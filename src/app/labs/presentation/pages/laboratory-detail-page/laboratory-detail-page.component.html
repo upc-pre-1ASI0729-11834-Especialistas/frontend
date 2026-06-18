@@ -6,56 +6,63 @@
 } @else if (laboratoryStore.selectedLaboratory(); as lab) {
 <div class="page-body">
 
+  <!-- BREADCRUMB -->
   <nav class="breadcrumb">
-    <a routerLink="/laboratories" class="breadcrumb-link">Laboratories</a>
+    <a routerLink="/laboratories" class="breadcrumb-link">LABORATORIES</a>
     <mat-icon class="breadcrumb-sep">chevron_right</mat-icon>
-    <span class="breadcrumb-current">{{ lab.name }}</span>
+    <span class="breadcrumb-current">{{ lab.name.toUpperCase() }}</span>
   </nav>
 
+  <!-- HEADER -->
+  <app-laboratory-header [lab]="lab" (addObservation)="openAddObservationDialog()" />
 
-  <app-laboratory-header [lab]="lab" />
+  <!-- STATS ROW -->
+  <app-laboratory-stats [lab]="lab" />
 
+  <!-- INCIDENT BANNER -->
+  @if ((lab.isCritical() || lab.isWarning()) && activeAlert(); as alert) {
+  <div class="incident-banner" [class.incident-banner--critical]="lab.isCritical()">
+    <div class="incident-banner-left">
+      <mat-icon class="incident-icon">warning</mat-icon>
+      <div class="incident-text">
+        <strong class="incident-title">Active Incident: {{ alert.title }}</strong>
+        <span class="incident-sub">{{ alert.source }} · Started {{ alert.timeAgo }}</span>
+      </div>
+    </div>
+    <a [routerLink]="['/alerts/incident']" [queryParams]="{ id: alert.id }" class="incident-link">
+      View Incident <mat-icon class="link-arrow">arrow_forward</mat-icon>
+    </a>
+  </div>
+  }
 
+  <!-- TABS -->
   <mat-tab-group (selectedIndexChange)="onTabChange($event)" animationDuration="200ms">
     @for (tab of tabs; track tab) {
     <mat-tab [label]="tab" />
     }
   </mat-tab-group>
 
+  <!-- MAIN GRID -->
+  <div class="main-grid">
 
-  <app-laboratory-stats [lab]="lab" />
-
-
-  <div class="metrics-alerts-row">
-    <div class="metrics-section">
-      <div class="section-header">
-        <h3 class="section-title">Real-time Metrics</h3>
-        <span class="live-indicator">
-          <span class="live-dot"></span> Live data
-        </span>
-      </div>
-      <div class="metrics-grid">
-        @for (metric of lab.metrics; track metric.name) {
-        <app-metric-card [metric]="metric" />
-        }
-      </div>
+    <!-- Real-time Metrics -->
+    <div class="section-header">
+      <h3 class="section-title">Real-time Metrics</h3>
+      <span class="live-indicator"><span class="live-dot"></span> Live data</span>
+    </div>
+    <div class="metrics-grid">
+      @for (metric of lab.metrics; track metric.name) {
+      <app-metric-card [metric]="metric" />
+      }
     </div>
 
-
-    <div class="alerts-section">
-      <app-laboratory-alerts [alerts]="lab.recentAlerts" />
-    </div>
-  </div>
-
-
-  <div class="bottom-row">
-    <div class="activity-section">
+    <!-- Logs + Automations -->
+    <div class="bottom-row">
       <app-laboratory-activity [activities]="lab.recentActivities" />
+      <app-laboratory-schedules [laboratoryId]="lab.id" />
     </div>
 
-    <div class="schedules-section">
-      <app-laboratory-schedules [schedules]="lab.schedules" />
-    </div>
   </div>
+
 </div>
 }

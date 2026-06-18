@@ -1,0 +1,138 @@
+<div class="page-container">
+
+  <!-- Info alert bar at the top -->
+  <div class="info-alert">
+    <mat-icon class="info-icon">info</mat-icon>
+    <span class="info-alert-text">Changes to thresholds apply immediately and are logged in the audit trail.</span>
+  </div>
+
+  <!-- Threshold Configuration Card (Table) -->
+  <div class="section-card">
+    <div class="card-content" style="padding: 0;">
+      <app-threshold-equipment-table
+        [equipmentThresholds]="automationStore.equipmentThresholds()"
+        (updateThreshold)="onUpdateThreshold($event)"
+      ></app-threshold-equipment-table>
+    </div>
+    <div class="table-footer">
+      <button mat-stroked-button class="add-btn" (click)="onAddEquipment()">
+        <mat-icon>add</mat-icon> Add Equipment
+      </button>
+    </div>
+  </div>
+
+  <!-- Notification Preferences (Collapsible) -->
+  <div class="section-card">
+    <div class="card-header" (click)="toggleNotificationPreferences()">
+      <div class="header-title-area">
+        <mat-icon>notifications</mat-icon>
+        <h2>Notification Preferences</h2>
+      </div>
+      <mat-icon class="header-arrow" [style.transform]="notificationPreferencesExpanded() ? 'rotate(180deg)' : 'rotate(0deg)'">
+        expand_more
+      </mat-icon>
+    </div>
+
+    @if (notificationPreferencesExpanded()) {
+      <div class="card-content">
+        <div class="preferences-grid">
+          <!-- Critical & Warning Alerts Checkboxes -->
+          <div class="pref-section">
+            <h3 class="pref-section-title">Critical & Warning Alerts</h3>
+            <div class="checkbox-group">
+              <mat-checkbox [(ngModel)]="alertPrefs.inApp" (change)="onPrefChange()">In-app</mat-checkbox>
+              <mat-checkbox [(ngModel)]="alertPrefs.email" (change)="onPrefChange()">Email</mat-checkbox>
+              <mat-checkbox [(ngModel)]="alertPrefs.sms" (change)="onPrefChange()">SMS</mat-checkbox>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Quiet Hours and Coordinator Info -->
+          <div class="bottom-pref-row">
+            <!-- Quiet Hours Column -->
+            <div class="quiet-hours-col">
+              <div class="row-align">
+                <div class="col-header">
+                  <span class="col-title">Quiet Hours</span>
+                  <span class="col-subtitle">Only critical alerts will be sent during these hours.</span>
+                </div>
+                <mat-slide-toggle
+                  color="primary"
+                  [(ngModel)]="quietHours.enabled"
+                  (change)="onPrefChange()"
+                ></mat-slide-toggle>
+              </div>
+
+              <div class="time-inputs">
+                <input
+                  type="text"
+                  class="time-box"
+                  [(ngModel)]="quietHours.start"
+                  (change)="onPrefChange()"
+                  placeholder="10:00 PM"
+                />
+                <span class="to-text">to</span>
+                <input
+                  type="text"
+                  class="time-box"
+                  [(ngModel)]="quietHours.end"
+                  (change)="onPrefChange()"
+                  placeholder="06:00 AM"
+                />
+              </div>
+            </div>
+
+            <!-- On-call Coordinator Column -->
+            <div class="coordinator-col">
+              <div class="col-header">
+                <span class="col-title">On-call Coordinator</span>
+                <span class="col-subtitle">Primary contact for off-hours critical incidents.</span>
+              </div>
+              <div class="phone-input-wrapper">
+                <mat-icon>phone</mat-icon>
+                <input
+                  type="text"
+                  [(ngModel)]="coordinatorPhone"
+                  (change)="onPrefChange()"
+                  placeholder="+1 (555) 000-0000"
+                />
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Users & Access (Collapsible - Collapsed by default) -->
+  <div class="section-card">
+    <div class="card-header" (click)="toggleUsersAccess()">
+      <div class="header-title-area">
+        <mat-icon>people</mat-icon>
+        <h2>Users & Access</h2>
+      </div>
+      <mat-icon class="header-arrow" [style.transform]="usersAccessExpanded() ? 'rotate(180deg)' : 'rotate(0deg)'">
+        expand_more
+      </mat-icon>
+    </div>
+
+    @if (usersAccessExpanded()) {
+      <div class="card-content">
+        <p style="color: #64748B; font-size: 14px; margin: 0;">
+          Configure user privileges and access levels to specific laboratory units.
+        </p>
+      </div>
+    }
+  </div>
+
+  <!-- Floating Auto-save notification -->
+  @if (showSavedToast()) {
+    <div class="autosave-toast">
+      <mat-icon>check_circle</mat-icon>
+      <span>Changes saved successfully</span>
+    </div>
+  }
+
+</div>
