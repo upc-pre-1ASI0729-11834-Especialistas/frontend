@@ -42,7 +42,7 @@ export class AutomationRuleStore {
   createAutomationRule(data: {
     name: string;
     active: boolean;
-    lastTriggered: string;
+    lastTriggered: string | null;
     triggerMetric: string;
     triggerOperator: string;
     triggerValue: number;
@@ -88,7 +88,7 @@ export class AutomationRuleStore {
   updateAutomationRule(id: number, data: Partial<{
     name: string;
     active: boolean;
-    lastTriggered: string;
+    lastTriggered: string | null;
     triggerMetric: string;
     triggerOperator: string;
     triggerValue: number;

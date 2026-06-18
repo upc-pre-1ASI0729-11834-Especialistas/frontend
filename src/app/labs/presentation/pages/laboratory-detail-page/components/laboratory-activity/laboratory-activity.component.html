@@ -1,16 +1,27 @@
 <div class="activity-card">
   <div class="section-header">
-    <h3 class="section-title">Recent Activity</h3>
+    <h3 class="section-title">
+      <mat-icon class="section-icon">history</mat-icon>
+      Recent Logs
+    </h3>
     <a class="section-link" routerLink="/history">View Full Log</a>
   </div>
-  <div class="activity-list">
-    @for (activity of activities(); track activity.id) {
-    <div class="activity-item">
-      <div class="timeline-col">
-        <span class="timeline-dot"></span>
-        <span class="timeline-time">{{ activity.timestamp }}</span>
+
+  <div class="logs-list">
+    @for (activity of activities().slice(0, 3); track activity.id) {
+    <div class="log-item">
+      <div class="log-avatar">{{ activity.title.charAt(0).toUpperCase() }}</div>
+      <div class="log-content">
+        <div class="log-header-row">
+          <span class="log-author">{{ activity.title }}</span>
+          <span class="log-time">{{ activity.timestamp }}</span>
+        </div>
+        <p class="log-desc">{{ activity.description }}</p>
       </div>
-      <p class="activity-desc">{{ activity.title }}</p>
+    </div>
+    } @empty {
+    <div class="empty-logs">
+      <p>No logs available for this laboratory.</p>
     </div>
     }
   </div>

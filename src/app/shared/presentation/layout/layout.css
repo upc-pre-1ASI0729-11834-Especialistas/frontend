@@ -60,3 +60,52 @@ mat-sidenav-content {
     width: 100%;
   }
 }
+
+.global-status-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.warning-banner {
+  background-color: #fffbeb;
+  color: #b45309;
+  border-bottom: 1px solid #fef3c7;
+}
+
+.error-banner {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border-bottom: 1px solid #fee2e2;
+}
+
+.banner-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-text {
+  line-height: 1.4;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

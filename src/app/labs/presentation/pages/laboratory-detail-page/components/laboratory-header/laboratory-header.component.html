@@ -4,7 +4,7 @@
       <h1 class="lab-name">{{ lab().name }} — {{ lab().type }}</h1>
       <app-status-badge
         [severity]="lab().isCritical() ? 'critical' : lab().isWarning() ? 'warning' : 'normal'"
-        [label]="lab().status"
+        [label]="lab().overallStatus"
         [showDot]="true" />
     </div>
     <p class="lab-meta">{{ lab().building }} · {{ lab().floor }} · {{ lab().metrics.length * 2 }} sensors active</p>
@@ -16,7 +16,11 @@
       Emergency Protocol
     </button>
     }
-    <button class="btn-secondary">
+    <button class="btn-primary" (click)="addObservation.emit()">
+      <mat-icon>edit_note</mat-icon>
+      Add Observation
+    </button>
+    <button class="btn-secondary" [routerLink]="['/laboratories', lab().id, 'edit']">
       <mat-icon>edit</mat-icon>
       Edit
     </button>

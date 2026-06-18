@@ -25,12 +25,19 @@ export class LaboratoryAssembler implements BaseAssembler<Laboratory, Laboratory
       schedules: resource.schedules.map(s => ({ ...s })),
       roomNumber: resource.roomNumber,
       description: resource.description,
-      sensors: resource.sensors ? { ...resource.sensors } : undefined,
-      thresholds: resource.thresholds ? {
-        ...resource.thresholds,
-        gasSensitivity: resource.thresholds.gasSensitivity as GasSensitivity,
-        alertEscalation: resource.thresholds.alertEscalation as AlertEscalation
-      } : undefined,
+      metricSubscriptions: resource.metricSubscriptions
+        ? resource.metricSubscriptions.map(sub => ({
+            metricTypeId: sub.metricTypeId,
+            metricTypeKey: sub.metricTypeKey,
+            metricTypeDisplayName: sub.metricTypeDisplayName,
+            metricTypeIcon: sub.metricTypeIcon,
+            metricTypeUnit: sub.metricTypeUnit,
+            metricTypeCategory: sub.metricTypeCategory,
+            minThreshold: sub.minThreshold !== null ? sub.minThreshold : undefined,
+            maxThreshold: sub.maxThreshold !== null ? sub.maxThreshold : undefined,
+            active: sub.active
+          }))
+        : [],
       notifications: resource.notifications ? { ...resource.notifications } : undefined
     });
   }
@@ -56,12 +63,17 @@ export class LaboratoryAssembler implements BaseAssembler<Laboratory, Laboratory
       schedules: entity.schedules.map(s => ({ ...s })),
       roomNumber: entity.roomNumber,
       description: entity.description,
-      sensors: entity.sensors ? { ...entity.sensors } : undefined,
-      thresholds: entity.thresholds ? {
-        ...entity.thresholds,
-        gasSensitivity: entity.thresholds.gasSensitivity as string,
-        alertEscalation: entity.thresholds.alertEscalation as string
-      } : undefined,
+      metricSubscriptions: entity.metricSubscriptions.map(sub => ({
+        metricTypeId: sub.metricTypeId,
+        metricTypeKey: sub.metricTypeKey,
+        metricTypeDisplayName: sub.metricTypeDisplayName,
+        metricTypeIcon: sub.metricTypeIcon,
+        metricTypeUnit: sub.metricTypeUnit,
+        metricTypeCategory: sub.metricTypeCategory,
+        minThreshold: sub.minThreshold !== undefined ? sub.minThreshold : null,
+        maxThreshold: sub.maxThreshold !== undefined ? sub.maxThreshold : null,
+        active: sub.active
+      })),
       notifications: entity.notifications ? { ...entity.notifications } : undefined
     };
   }

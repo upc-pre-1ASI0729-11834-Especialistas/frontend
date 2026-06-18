@@ -7,18 +7,18 @@
       <mat-card-content class="card-content">
         <h2 class="card-title">Change Password</h2>
 
-        <div class="form-container">
+        <form [formGroup]="passwordForm" (ngSubmit)="onUpdatePassword()" class="form-container">
           <div class="form-field">
             <label class="field-label">Current Password</label>
             <mat-form-field appearance="outline" subscriptSizing="dynamic">
-              <input matInput type="password" value="********">
+              <input matInput type="password" formControlName="currentPassword" placeholder="••••••••">
             </mat-form-field>
           </div>
 
           <div class="form-field">
             <label class="field-label">New Password</label>
             <mat-form-field appearance="outline" subscriptSizing="dynamic">
-              <input matInput type="password" value="********">
+              <input matInput type="password" formControlName="newPassword" placeholder="••••••••">
             </mat-form-field>
             <div class="helper-text">Password must be 8+ characters</div>
           </div>
@@ -26,16 +26,16 @@
           <div class="form-field">
             <label class="field-label">Confirm New Password</label>
             <mat-form-field appearance="outline" subscriptSizing="dynamic">
-              <input matInput type="password" value="********">
+              <input matInput type="password" formControlName="confirmPassword" placeholder="••••••••">
             </mat-form-field>
           </div>
-        </div>
 
-        <div class="divider"></div>
+          <div class="divider"></div>
 
-        <div class="actions-right">
-          <button mat-flat-button color="primary">Update Password</button>
-        </div>
+          <div class="actions-right">
+            <button type="submit" mat-flat-button color="primary">Update Password</button>
+          </div>
+        </form>
       </mat-card-content>
     </mat-card>
 
@@ -60,7 +60,7 @@
         <div class="spacer"></div>
         <div class="divider"></div>
 
-        <button mat-stroked-button color="primary" class="full-width-btn">Enable 2FA</button>
+        <button mat-stroked-button color="primary" class="full-width-btn" (click)="onEnable2FA()">Enable 2FA</button>
       </mat-card-content>
     </mat-card>
 

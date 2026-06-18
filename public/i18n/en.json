@@ -55,8 +55,13 @@
     "status": {
       "inRange": "In Range",
       "outOfRange": "Out of Range",
-      "monitor": "Monitor"
+      "monitor": "Monitor",
+      "noEquipmentRegistered": "No equipment registered",
+      "noLaboratoriesRegistered": "No laboratories registered",
+      "allSystemsOperational": "All systems operational"
     },
+    "environmentalMetrics": "Environmental Metrics",
+    "selectMetric": "Select Metric",
     "laboratories": "Laboratories",
     "fab": "Generate Shift Report"
   },
@@ -74,6 +79,9 @@
       "warning": "Warning Alerts",
       "informational": "Informational",
       "resolvedToday": "Resolved Today",
+      "CRITICAL": "Critical Alerts",
+      "WARNING": "Warning Alerts",
+      "RESOLVED TODAY": "Resolved Today",
       "alerts": "alerts"
     },
     "total": "{{count}} alerts total",

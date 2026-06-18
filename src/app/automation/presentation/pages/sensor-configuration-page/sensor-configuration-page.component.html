@@ -2,7 +2,7 @@
 
   <div class="header-actions">
     <div class="spacer"></div>
-    <button mat-flat-button color="primary">
+    <button mat-flat-button color="primary" (click)="openCreateSensorDialog()">
       <mat-icon>add</mat-icon> Add New Sensor
     </button>
   </div>
@@ -12,30 +12,36 @@
       <span class="filter-label">Filter by:</span>
 
       <mat-form-field appearance="outline" subscriptSizing="dynamic" class="dense-field">
-        <mat-select value="all-types">
+        <mat-select [value]="selectedType()" (selectionChange)="selectedType.set($event.value)">
           <mat-option value="all-types">All Sensor Types</mat-option>
-          <mat-option value="temp">Temperature</mat-option>
-          <mat-option value="pressure">Pressure</mat-option>
+          @for (type of sensorTypes(); track type) {
+            <mat-option [value]="type">{{ type }}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" subscriptSizing="dynamic" class="dense-field">
-        <mat-select value="all-locations">
+        <mat-select [value]="selectedLocation()" (selectionChange)="selectedLocation.set($event.value)">
           <mat-option value="all-locations">All Lab Locations</mat-option>
-          <mat-option value="hood3">Hood 3</mat-option>
-          <mat-option value="airlock">Airlock B</mat-option>
+          @for (loc of sensorLocations(); track loc) {
+            <mat-option [value]="loc">{{ loc }}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
 
       <div class="spacer"></div>
 
-      <span class="total-sensors">Total {{ automationStore.sensorConfigurations().length }} Sensors</span>
+      <span class="total-sensors">Total {{ filteredSensors().length }} Sensors</span>
     </mat-card-content>
   </mat-card>
 
   <div class="sensor-list">
-    @for (sensor of automationStore.sensorConfigurations(); track sensor.id) {
-      <app-sensor-list-item [sensor]="sensor"></app-sensor-list-item>
+    @for (sensor of filteredSensors(); track sensor.id) {
+      <app-sensor-list-item 
+        [sensor]="sensor"
+        (edit)="openCreateSensorDialog($event)"
+        (calibrate)="openCalibrateSensorDialog($event)">
+      </app-sensor-list-item>
     }
   </div>
 
@@ -51,15 +57,15 @@
 
         <div class="metrics-grid">
           <div class="metric-box">
-            <div class="metric-value success">94%</div>
+            <div class="metric-value success">{{ calibratedPercent() }}%</div>
             <div class="metric-label">Calibrated</div>
           </div>
           <div class="metric-box">
-            <div class="metric-value warning">4%</div>
+            <div class="metric-value warning">{{ pendingPercent() }}%</div>
             <div class="metric-label">Pending</div>
           </div>
           <div class="metric-box">
-            <div class="metric-value error">2%</div>
+            <div class="metric-value error">{{ overduePercent() }}%</div>
             <div class="metric-label">Overdue</div>
           </div>
         </div>
@@ -74,7 +80,7 @@
       <p class="safety-text">
         Regular sensor calibration ensures ISO 17025 compliance and lab safety standards.
       </p>
-      <button mat-flat-button class="safety-btn">Download Audit Report</button>
+      <button mat-flat-button class="safety-btn" (click)="downloadAuditReport()">Download Audit Report</button>
     </div>
 
   </div>

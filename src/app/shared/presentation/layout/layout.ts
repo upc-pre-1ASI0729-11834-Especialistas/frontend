@@ -3,8 +3,10 @@ import { Sidebar } from './sidebar/sidebar';
 import { Topbar } from './topbar/topbar';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { MatSidenavModule, MatSidenav } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
 import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
+import { SystemStatusService } from '../../application/system-status.service';
 
 const MOBILE_BREAKPOINT = 768;
 
@@ -15,7 +17,8 @@ const MOBILE_BREAKPOINT = 768;
     Sidebar,
     Topbar,
     RouterModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatIconModule
   ],
   templateUrl: './layout.html',
   styleUrl: './layout.css',
@@ -26,6 +29,9 @@ export class Layout implements OnInit, OnDestroy {
   protected hasSecondarySidebar = false;
   protected isMobile = false;
   protected sidenavOpened = true;
+
+  private readonly systemStatusService = inject(SystemStatusService);
+  protected readonly systemStatus = this.systemStatusService.systemStatus;
 
   private readonly router = inject(Router);
 

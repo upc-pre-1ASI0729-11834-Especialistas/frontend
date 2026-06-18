@@ -1,0 +1,81 @@
+<div class="login-shell">
+  <!-- Main Content -->
+  <main class="login-main">
+    <div class="login-card" id="login-card">
+      <!-- Logo & Branding -->
+      <div class="card-header">
+        <div class="card-logo">
+          <mat-icon>science</mat-icon>
+        </div>
+        <h1 class="card-brand">Safelab</h1>
+        <span class="card-subtitle">BY ESPECIALISTAS</span>
+      </div>
+
+      <!-- Welcome Text -->
+      <h2 class="welcome-title">Welcome back</h2>
+      <p class="welcome-text">Sign in to monitor your laboratories</p>
+
+      <!-- Error Message -->
+      @if (authStore.error()) {
+        <div class="login-error-message" style="color: #ef4444; background-color: #fef2f2; border: 1px solid #fee2e2; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <mat-icon style="font-size: 18px; width: 18px; height: 18px; color: #ef4444;">error_outline</mat-icon>
+          <span>{{ authStore.error() }}</span>
+        </div>
+      }
+
+      <!-- Form -->
+      <form class="login-form" id="login-form" (ngSubmit)="onSignIn()">
+        <!-- Email -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email address</mat-label>
+          <mat-icon matPrefix>mail_outline</mat-icon>
+          <input matInput type="email" placeholder="you@organization.com"
+                 [(ngModel)]="email" name="email" autocomplete="email" id="login-email"
+                 [disabled]="authStore.loading()" required />
+        </mat-form-field>
+
+        <!-- Password -->
+        <div class="password-label-row">
+          <span></span>
+          <a href="#" class="link-accent forgot-link">Forgot password?</a>
+        </div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <mat-icon matPrefix>lock_outline</mat-icon>
+          <input matInput [type]="showPassword ? 'text' : 'password'"
+                 placeholder="••••••••••" [(ngModel)]="password" name="password"
+                 autocomplete="current-password" id="login-password"
+                 [disabled]="authStore.loading()" required />
+          <button mat-icon-button matSuffix type="button"
+                  (click)="togglePasswordVisibility()" id="toggle-password"
+                  [disabled]="authStore.loading()">
+            <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <!-- Remember Me -->
+        <mat-checkbox [(ngModel)]="rememberMe" name="rememberMe" color="primary"
+                       id="remember-me-checkbox" [disabled]="authStore.loading()">
+          Remember me for 30 days
+        </mat-checkbox>
+
+        <!-- Sign In -->
+        <button mat-flat-button color="primary" type="submit" class="sign-in-btn" id="sign-in-btn"
+                [disabled]="authStore.loading() || !email || !password">
+          @if (!authStore.loading()) {
+            <mat-icon>login</mat-icon>
+          }
+          {{ authStore.loading() ? 'Signing in...' : 'Sign in' }}
+        </button>
+      </form>
+
+      <!-- Footer -->
+      <footer class="login-footer" id="login-footer">
+        By signing in, you agree to our
+        <a href="#" class="link-accent">Terms of Service</a>
+        and
+        <a href="#" class="link-accent">Privacy Policy</a>
+      </footer>
+    </div>
+  </main>
+</div>

@@ -583,3 +583,20 @@
   font-size: 13px;
   color: #64748b;
 }
+
+.auto-icon-disabled mat-icon {
+  background-color: #64748b;
+  color: white;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 20px;
+}
+
+.pill-disabled {
+  background-color: #f1f5f9;
+  color: #64748b;
+}

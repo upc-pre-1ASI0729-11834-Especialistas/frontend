@@ -61,6 +61,18 @@ export interface NotificationPreferencesResource {
   criticalOnly: boolean;
 }
 
+export interface MetricSubscriptionResource {
+  metricTypeId: number;
+  metricTypeKey: string;
+  metricTypeDisplayName: string;
+  metricTypeUnit: string;
+  metricTypeIcon: string;
+  metricTypeCategory: string;
+  minThreshold: number | null;
+  maxThreshold: number | null;
+  active: boolean;
+}
+
 export interface LaboratoryResource extends BaseResource {
   id: number;
   name: string;
@@ -83,6 +95,7 @@ export interface LaboratoryResource extends BaseResource {
   description?: string;
   sensors?: SensorConfigResource;
   thresholds?: SafetyThresholdsResource;
+  metricSubscriptions?: MetricSubscriptionResource[];
   notifications?: NotificationPreferencesResource;
 }
 

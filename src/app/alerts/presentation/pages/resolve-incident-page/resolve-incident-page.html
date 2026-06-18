@@ -4,7 +4,7 @@
   <nav class="breadcrumb">
     <a routerLink="/alerts" class="breadcrumb-link">Incidents</a>
     <mat-icon>chevron_right</mat-icon>
-    <a routerLink="/alerts/incident" class="breadcrumb-link">Incident #0042</a>
+    <a [routerLink]="['/alerts/incident']" [queryParams]="{ id: alertId() }" class="breadcrumb-link">Incident #{{ alert()?.id || '4821' }}</a>
     <mat-icon>chevron_right</mat-icon>
     <span class="breadcrumb-current">Resolve</span>
   </nav>
@@ -15,19 +15,19 @@
       <div class="title-row">
         <div class="status-dot"></div>
         <h1 class="page-title">Resolve Incident</h1>
-        <span class="incident-badge">INCIDENT #0042</span>
+        <span class="incident-badge">INCIDENT #{{ alert()?.id || '4821' }}</span>
       </div>
       <p class="page-subtitle">
-        <mat-icon class="subtitle-icon">device_thermostat</mat-icon> Refrigerator B-02
+        <mat-icon class="subtitle-icon">device_thermostat</mat-icon> {{ affectedEquipment() }}
         <span class="sep">·</span>
-        <mat-icon class="subtitle-icon">science</mat-icon> Laboratory 3B
+        <mat-icon class="subtitle-icon">science</mat-icon> {{ alert()?.labName || 'Laboratory' }}
         <span class="sep">·</span>
-        <mat-icon class="subtitle-icon">schedule</mat-icon> Active for 23 minutes
+        <mat-icon class="subtitle-icon">schedule</mat-icon> Active for {{ startedTimeAgo() }}
       </p>
     </div>
     <div class="severity-badge-wrap">
-      <span class="severity-chip">
-        <mat-icon>warning</mat-icon> CRITICAL
+      <span class="severity-chip" [ngClass]="{'pill-critical': alert()?.severity?.toLowerCase() === 'critical', 'pill-warning': alert()?.severity?.toLowerCase() === 'warning'}">
+        <mat-icon>warning</mat-icon> {{ alert()?.severity || 'CRITICAL' }}
       </span>
     </div>
   </div>
@@ -109,7 +109,7 @@
               <mat-icon class="followup-icon">build_circle</mat-icon>
               Schedule follow-up maintenance
             </span>
-            <span class="followup-sub">A maintenance task will be created for Refrigerator B-02</span>
+            <span class="followup-sub">A maintenance task will be created for {{ affectedEquipment() }}</span>
           </div>
         </label>
       </div>
@@ -132,16 +132,16 @@
             <span class="summary-label">
               <mat-icon class="s-icon">sensors</mat-icon> SENSOR
             </span>
-            <span class="summary-value">T-04 (Internal)</span>
+            <span class="summary-value">{{ sensorId() }}</span>
           </div>
 
           <div class="summary-item">
             <span class="summary-label">
-              <mat-icon class="s-icon">device_thermostat</mat-icon> PEAK VALUE
+              <mat-icon class="s-icon">device_thermostat</mat-icon> CURRENT VALUE
             </span>
             <span class="summary-value text-red">
-              9.4°C
-              <span class="threshold-note">(threshold: 8.0°C)</span>
+              {{ currentValue() }}
+              <span class="threshold-note">(threshold: {{ thresholdValue() }})</span>
             </span>
           </div>
 
@@ -149,21 +149,21 @@
             <span class="summary-label">
               <mat-icon class="s-icon">schedule</mat-icon> TRIGGERED AT
             </span>
-            <span class="summary-value">13:47 today</span>
+            <span class="summary-value">{{ startedTimeAbsolute() }} today</span>
           </div>
 
           <div class="summary-item">
             <span class="summary-label">
-              <mat-icon class="s-icon">bolt</mat-icon> AUTOMATED RESPONSE
+              <mat-icon class="s-icon">bolt</mat-icon> LOCATION
             </span>
             <span class="summary-value text-green">
-              <mat-icon class="inline-icon">check_circle</mat-icon> Backup cooling activated
+              {{ location() }}
             </span>
           </div>
 
           <div class="exceeded-alert">
             <mat-icon>trending_up</mat-icon>
-            <span>Exceeded threshold by <strong>+1.4°C</strong> for <strong>23 min</strong></span>
+            <span>Exceeded threshold by <strong>{{ exceededByValue() }}</strong> for <strong>{{ startedTimeAgo() }}</strong></span>
           </div>
 
         </div>
@@ -221,7 +221,7 @@
       This resolution will be permanently logged in the audit history and included in the shift report.
     </p>
     <div class="footer-actions">
-      <a routerLink="/alerts/incident" class="btn btn-cancel">
+      <a [routerLink]="['/alerts/incident']" [queryParams]="{ id: alertId() }" class="btn btn-cancel">
         <mat-icon>close</mat-icon> Cancel
       </a>
       <button class="btn btn-confirm" [disabled]="!canConfirm" (click)="onConfirm()">

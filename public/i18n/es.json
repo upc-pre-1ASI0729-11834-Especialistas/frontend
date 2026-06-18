@@ -55,8 +55,13 @@
     "status": {
       "inRange": "En Rango",
       "outOfRange": "Fuera de Rango",
-      "monitor": "Monitorear"
+      "monitor": "Monitorear",
+      "noEquipmentRegistered": "No hay equipos registrados",
+      "noLaboratoriesRegistered": "No hay laboratorios registrados",
+      "allSystemsOperational": "Todos los sistemas operativos"
     },
+    "environmentalMetrics": "Métricas Ambientales",
+    "selectMetric": "Seleccionar Métrica",
     "laboratories": "Laboratorios",
     "fab": "Generar Reporte de Turno"
   },
@@ -74,6 +79,9 @@
       "warning": "Alertas de Advertencia",
       "informational": "Informativo",
       "resolvedToday": "Resueltos Hoy",
+      "CRITICAL": "Alertas Críticas",
+      "WARNING": "Alertas de Advertencia",
+      "RESOLVED TODAY": "Resueltos Hoy",
       "alerts": "alertas"
     },
     "total": "{{count}} alertas en total",

@@ -16,12 +16,20 @@ import { ResolveIncidentPage } from './alerts/presentation/pages/resolve-inciden
 import { ThresholdConfigurationPageComponent } from './automation/presentation/pages/threshold-configuration-page/threshold-configuration-page.component';
 import { AutomationRulesPageComponent } from './automation/presentation/pages/automation-rules-page/automation-rules-page.component';
 import { ProfileIdentityPageComponent } from './automation/presentation/pages/profile-identity-page/profile-identity-page.component';
+import { MetricTypesPageComponent } from './automation/presentation/pages/metric-types-page/metric-types-page.component';
+import { LoginPageComponent } from './iam/presentation/pages/login-page/login-page.component';
+import { authGuard } from './iam/infrastructure/authentication.guard';
 
 
 export const routes: Routes = [
   {
+    path: 'login',
+    component: LoginPageComponent,
+  },
+  {
     path: '',
     component: Layout,
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -56,6 +64,14 @@ export const routes: Routes = [
             data: {
               title: 'Add Laboratory',
               subtitle: 'Register a new laboratory in the system'
+            }
+          },
+          {
+            path: ':id/edit',
+            component: AddLaboratoryPageComponent,
+            data: {
+              title: 'Edit Laboratory',
+              subtitle: 'Modify laboratory configuration and details'
             }
           },
           {
@@ -115,6 +131,14 @@ export const routes: Routes = [
             data: {
               title: 'Sensor Configuration',
               subtitle: 'Calibrate and manage lab sensors for temperature, humidity, and atmospheric pressure monitoring.'
+            }
+          },
+          {
+            path: 'metric-types',
+            component: MetricTypesPageComponent,
+            data: {
+              title: 'Metric Types',
+              subtitle: 'Define and manage standard sensor metric types, units, icons, and categories.'
             }
           },
           {

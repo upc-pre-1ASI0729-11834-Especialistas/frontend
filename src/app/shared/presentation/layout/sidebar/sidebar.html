@@ -29,7 +29,9 @@
       <mat-icon class="nav-icon">notifications_active</mat-icon>
       <span>{{ 'sidebar.menu.alerts' | translate }}</span>
       <!-- Badge de alertas activas -->
-      <span class="alert-badge">2</span>
+      @if (activeAlertsCount() > 0) {
+        <span class="alert-badge">{{ activeAlertsCount() }}</span>
+      }
     </a>
 
     <a routerLink="/history" routerLinkActive="active" class="nav-item">
@@ -53,12 +55,14 @@
 
   <!-- User panel -->
   <div class="user-panel">
-    <div class="user-avatar">DC</div>
+    <div class="user-avatar">{{ userInitials() }}</div>
     <div class="user-info">
-      <p class="user-name">Dr. Chen</p>
-      <p class="user-role">{{ 'sidebar.user.role' | translate }}</p>
+      <p class="user-name" [title]="currentProfile()?.fullName || authStore.currentUser()?.fullName || 'SafeLab Administrator'">
+        {{ currentProfile()?.fullName || authStore.currentUser()?.fullName || 'SafeLab Administrator' }}
+      </p>
+      <p class="user-role">{{ currentProfile()?.role || ('sidebar.user.role' | translate) }}</p>
     </div>
-    <button class="logout-btn" mat-icon-button [title]="'sidebar.user.logout' | translate">
+    <button class="logout-btn" mat-icon-button (click)="logout()" id="logout-btn" [title]="'sidebar.user.logout' | translate">
       <mat-icon>logout</mat-icon>
     </button>
   </div>

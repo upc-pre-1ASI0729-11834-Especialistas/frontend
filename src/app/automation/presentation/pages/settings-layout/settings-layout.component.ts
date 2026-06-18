@@ -22,6 +22,11 @@ export class SettingsLayoutComponent {
       icon: 'sensors'
     },
     {
+      label: 'Metric Types',
+      route: '/settings/metric-types',
+      icon: 'category'
+    },
+    {
       label: 'Thresholds',
       route: '/settings/threshold-configuration',
       icon: 'thermostat'

@@ -1,8 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AlertsStore } from '../../../application/alerts.store';
+import { Alert } from '../../../domain/model/alert.entity';
 
 type ResolutionType = 'manual' | 'automated' | 'escalated';
 
@@ -14,6 +16,10 @@ type ResolutionType = 'manual' | 'automated' | 'escalated';
   styleUrl: './resolve-incident-page.css',
 })
 export class ResolveIncidentPage {
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly alertsStore = inject(AlertsStore);
+
   resolutionNote = signal<string>('');
   resolutionType = signal<ResolutionType>('manual');
   scheduleFollowUp = signal<boolean>(false);
@@ -22,6 +28,72 @@ export class ResolveIncidentPage {
   isDraggingOver = signal<boolean>(false);
 
   readonly MAX_CHARS = 500;
+  readonly alertId = signal<number | null>(null);
+
+  readonly alert = computed(() => {
+    const id = this.alertId();
+    return id ? this.alertsStore.getAlertById(id)() : undefined;
+  });
+
+  readonly location = computed(() => {
+    const currentAlert = this.alert();
+    return currentAlert?.labLocation || 'Building C - Level 1';
+  });
+
+  readonly currentValue = computed(() => {
+    const currentAlert = this.alert();
+    return currentAlert?.metrics?.find(m => m.label === 'currentValue')?.value || 'N/A';
+  });
+
+  readonly thresholdValue = computed(() => {
+    const currentAlert = this.alert();
+    return currentAlert?.metrics?.find(m => m.label === 'threshold')?.value || '8.0°C';
+  });
+
+  readonly exceededByValue = computed(() => {
+    const currentAlert = this.alert();
+    return currentAlert?.metrics?.find(m => m.label === 'exceededBy')?.value || 'N/A';
+  });
+
+  readonly affectedEquipment = computed(() => {
+    const currentAlert = this.alert();
+    if (!currentAlert) return 'Refrigerator B2';
+    const sensorName = currentAlert.sensorName || '';
+    if (sensorName.toLowerCase().includes('co2')) return 'CO2 Monitor CM-01';
+    if (sensorName.toLowerCase().includes('freezer')) return 'ULT Freezer F-07';
+    if (sensorName.toLowerCase().includes('humidity')) return 'HVAC Unit 3';
+    return sensorName || 'Refrigerator B2';
+  });
+
+  readonly sensorId = computed(() => {
+    const currentAlert = this.alert();
+    return currentAlert?.sensorName || 'Sensor T-01';
+  });
+
+  readonly startedTimeAbsolute = computed(() => {
+    const currentAlert = this.alert();
+    if (!currentAlert || !currentAlert.createdAt) return '08:21 AM';
+    return currentAlert.createdAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  });
+
+  readonly startedTimeAgo = computed(() => {
+    const currentAlert = this.alert();
+    if (!currentAlert || !currentAlert.createdAt) return '38 minutes ago';
+    const diffMs = new Date().getTime() - currentAlert.createdAt.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    if (diffMins < 1) return 'Just now';
+    if (diffMins === 1) return '1 minute ago';
+    return `${diffMins} minutes ago`;
+  });
+
+  constructor() {
+    this.route.queryParams.subscribe(params => {
+      const id = params['id'];
+      if (id) {
+        this.alertId.set(Number(id));
+      }
+    });
+  }
 
   get noteLength(): number {
     return this.resolutionNote().length;
@@ -90,12 +162,31 @@ export class ResolveIncidentPage {
 
   onConfirm(): void {
     if (!this.canConfirm) return;
-    // Resolution logic — route or emit event here
-    console.log({
-      note: this.resolutionNote(),
-      type: this.resolutionType(),
-      scheduleFollowUp: this.scheduleFollowUp(),
-      photo: this.uploadedFileName(),
-    });
+    
+    const id = this.alertId();
+    if (id) {
+      const currentAlert = this.alertsStore.getAlertById(id)();
+      if (currentAlert) {
+        const updatedAlert = new Alert({
+          id: currentAlert.id,
+          title: currentAlert.title,
+          description: currentAlert.description,
+          severity: currentAlert.severity,
+          status: 'RESOLVED',
+          metrics: currentAlert.metrics,
+          createdAt: currentAlert.createdAt,
+          laboratoryId: currentAlert.laboratoryId,
+          labName: currentAlert.labName,
+          labLocation: currentAlert.labLocation,
+          sensorId: currentAlert.sensorId,
+          sensorName: currentAlert.sensorName
+        });
+
+        this.alertsStore.updateAlert(updatedAlert);
+        this.router.navigate(['/alerts']);
+      }
+    } else {
+      this.router.navigate(['/alerts']);
+    }
   }
 }

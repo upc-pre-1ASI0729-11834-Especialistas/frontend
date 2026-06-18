@@ -4,7 +4,7 @@ export class AutomationRule implements BaseEntity {
   private _id: number;
   private _name: string;
   private _active: boolean;
-  private _lastTriggered: string;
+  private _lastTriggered: string | null;
   private _triggerMetric: string;
   private _triggerOperator: string;
   private _triggerValue: number;
@@ -20,7 +20,7 @@ export class AutomationRule implements BaseEntity {
     id: number;
     name: string;
     active: boolean;
-    lastTriggered: string;
+    lastTriggered: string | null;
     triggerMetric: string;
     triggerOperator: string;
     triggerValue: number;
@@ -57,8 +57,8 @@ export class AutomationRule implements BaseEntity {
   get active(): boolean { return this._active; }
   set active(value: boolean) { this._active = value; }
 
-  get lastTriggered(): string { return this._lastTriggered; }
-  set lastTriggered(value: string) { this._lastTriggered = value; }
+  get lastTriggered(): string | null { return this._lastTriggered; }
+  set lastTriggered(value: string | null) { this._lastTriggered = value; }
 
   get triggerMetric(): string { return this._triggerMetric; }
   set triggerMetric(value: string) { this._triggerMetric = value; }
