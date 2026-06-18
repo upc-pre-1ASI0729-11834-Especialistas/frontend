@@ -2,29 +2,30 @@
 
   <!-- ① EMERGENCY BANNER — solo si hay alertas críticas -->
   @if (dashboardStore.stats(); as stats) {
-  @if (stats.activeAlerts > 0) {
-  <div class="alert-banner">
-    <div class="alert-banner-left">
-      <div class="alert-banner-icon-wrap">
-        <mat-icon>warning_amber</mat-icon>
+    @if (stats.activeAlerts > 0) {
+      <div class="alert-banner">
+        <div class="alert-banner-left">
+          <div class="alert-banner-icon-wrap">
+            <mat-icon>warning_amber</mat-icon>
+          </div>
+          <div class="alert-banner-text-group">
+            <p class="alert-banner-text">
+              {{ stats.activeAlerts }} critical alert{{ stats.activeAlerts > 1 ? 's' : '' }} require immediate attention
+            </p>
+            <span class="alert-banner-subtext">Tap "View Alerts" to investigate and resolve</span>
+          </div>
+        </div>
+        <a routerLink="/alerts" class="alert-banner-btn">
+          <mat-icon>visibility</mat-icon>
+          View Alerts
+        </a>
       </div>
-      <div class="alert-banner-text-group">
-        <p class="alert-banner-text">
-          {{ stats.activeAlerts }} critical alert{{ stats.activeAlerts > 1 ? 's' : '' }} require immediate attention
-        </p>
-        <span class="alert-banner-subtext">Tap "View Alerts" to investigate and resolve</span>
-      </div>
-    </div>
-    <a routerLink="/alerts" class="alert-banner-btn">
-      <mat-icon>visibility</mat-icon>
-      View Alerts
-    </a>
-  </div>
+    }
   }
 
   <!-- ② KPI STATS ROW -->
   <div class="stats-grid">
-    <app-stat-card label="Active Critical Alerts" [value]="'' + stats.activeAlerts" accentColor="#dc2626"
+    <app-stat-card label="Active Critical Alerts" [value]="dashboardStore.stats() ? '' + dashboardStore.stats()!.activeAlerts : 'No info'" accentColor="#dc2626"
       [routerLink]="['/alerts']" style="cursor:pointer">
       <mat-icon>warning</mat-icon>
     </app-stat-card>
@@ -41,7 +42,6 @@
       <mat-icon>verified</mat-icon>
     </app-stat-card>
   </div>
-  }
 
   <!-- ③ ACTIVE ALERTS + EQUIPMENT STATUS -->
   <div class="content-row">
@@ -109,6 +109,11 @@
             <span>{{ item.maxThreshold }}&nbsp;{{ item.unit }}</span>
           </div>
         </div>
+        } @empty {
+        <div class="no-equipment-state" style="padding: 24px; text-align: center; color: #64748b;">
+          <mat-icon style="font-size: 36px; width: 36px; height: 36px; margin-bottom: 8px; color: #64748b;">info</mat-icon>
+          <p style="margin: 0; font-weight: 500;">No equipment registered</p>
+        </div>
         }
       </div>
     </div>
@@ -145,6 +150,11 @@
       <a [routerLink]="['/laboratories', lab.id]" class="lab-card-wrapper">
         <app-laboratory-card [lab]="lab" />
       </a>
+      } @empty {
+      <div class="no-labs-state" style="padding: 24px; text-align: center; color: #64748b; grid-column: 1 / -1;">
+        <mat-icon style="font-size: 36px; width: 36px; height: 36px; margin-bottom: 8px; color: #64748b;">info</mat-icon>
+        <p style="margin: 0; font-weight: 500;">No laboratories registered</p>
+      </div>
       }
     </div>
   </div>

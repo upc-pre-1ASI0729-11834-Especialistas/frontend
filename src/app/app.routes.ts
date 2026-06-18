@@ -60,6 +60,14 @@ export const routes: Routes = [
             }
           },
           {
+            path: ':id/edit',
+            component: AddLaboratoryPageComponent,
+            data: {
+              title: 'Edit Laboratory',
+              subtitle: 'Modify laboratory configuration and details'
+            }
+          },
+          {
             path: ':id',
             component: LaboratoryDetailPageComponent,
             data: {

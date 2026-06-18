@@ -253,15 +253,33 @@ export class Laboratory implements BaseEntity {
     return `${this.building}, ${this.floor}`;
   }
   getFormattedMaintenance(): string {
+    if (!this.nextMaintenance) return '';
     const date = new Date(this.nextMaintenance);
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
+      timeZone: 'UTC',
     });
   }
   isMaintenanceUrgent(): boolean {
     return this.maintenanceDaysLeft <= 3;
+  }
+
+  getFormattedLastUpdate(): string {
+    if (!this._lastUpdate || this._lastUpdate === 'Just now') {
+      return 'Just now';
+    }
+    const date = new Date(this._lastUpdate);
+    if (isNaN(date.getTime())) {
+      return this._lastUpdate;
+    }
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
   }
 }
 

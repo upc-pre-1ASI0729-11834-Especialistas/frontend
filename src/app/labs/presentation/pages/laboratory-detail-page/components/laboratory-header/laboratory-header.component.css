@@ -54,6 +54,26 @@
 
 .btn-emergency:hover { opacity: 0.88; }
 
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  background: var(--mat-sys-primary);
+  color: white;
+  font-size: var(--mat-sys-body-medium-size);
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+
+.btn-primary:hover {
+  opacity: 0.88;
+}
+
 .btn-secondary {
   display: inline-flex;
   align-items: center;

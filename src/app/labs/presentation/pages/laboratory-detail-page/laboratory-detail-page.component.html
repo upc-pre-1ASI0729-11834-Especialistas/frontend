@@ -14,7 +14,7 @@
   </nav>
 
   <!-- HEADER -->
-  <app-laboratory-header [lab]="lab" />
+  <app-laboratory-header [lab]="lab" (addObservation)="openAddObservationDialog()" />
 
   <!-- STATS ROW -->
   <app-laboratory-stats [lab]="lab" />
@@ -45,94 +45,23 @@
   <!-- MAIN GRID -->
   <div class="main-grid">
 
-    <!-- COLUMNA IZQUIERDA -->
-    <div class="left-col">
-
-      <!-- Real-time Metrics -->
-      <div class="section-header">
-        <h3 class="section-title">Real-time Metrics</h3>
-        <span class="live-indicator"><span class="live-dot"></span> Live data</span>
-      </div>
-      <div class="metrics-grid">
-        @for (metric of lab.metrics; track metric.name) {
-        <app-metric-card [metric]="metric" />
-        }
-      </div>
-
-      <!-- Activity + Automations -->
-      <div class="bottom-row">
-        <app-laboratory-activity [activities]="lab.recentActivities" />
-        <app-laboratory-schedules [schedules]="lab.schedules" />
-      </div>
-
+    <!-- Real-time Metrics -->
+    <div class="section-header">
+      <h3 class="section-title">Real-time Metrics</h3>
+      <span class="live-indicator"><span class="live-dot"></span> Live data</span>
+    </div>
+    <div class="metrics-grid">
+      @for (metric of lab.metrics; track metric.name) {
+      <app-metric-card [metric]="metric" />
+      }
     </div>
 
-    <!-- SIDEBAR DERECHA -->
-    <div class="right-col">
-
-      <!-- Next Scheduled Maintenance -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-header">
-          <mat-icon class="sidebar-icon">build</mat-icon>
-          <h4 class="sidebar-card-title">Next Scheduled Maintenance</h4>
-        </div>
-        <div class="sidebar-divider"></div>
-        <div class="maintenance-body">
-          <span class="maintenance-label">Equipment: {{ lab.labCode }}</span>
-          <div class="maintenance-date-row">
-            <strong class="maintenance-date">{{ lab.getFormattedMaintenance() }}</strong>
-            <app-status-badge [severity]="lab.isMaintenanceUrgent() ? 'warning' : 'info'"
-              [label]="lab.getMaintenanceBadgeLabel().toUpperCase()" [showDot]="false" />
-          </div>
-          <span class="maintenance-sub">In {{ lab.maintenanceDaysLeft }} days</span>
-        </div>
-      </div>
-
-      <!-- Add Manual Observation -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-header">
-          <mat-icon class="sidebar-icon">edit_note</mat-icon>
-          <h4 class="sidebar-card-title">Add Manual Observation</h4>
-        </div>
-        <div class="sidebar-divider"></div>
-        <div class="observation-body">
-          <textarea class="obs-textarea" placeholder="Enter observation details..." rows="4"
-            [(ngModel)]="observationText"></textarea>
-          <select class="obs-select" [(ngModel)]="observationType">
-            <option>Laboratory log</option>
-            <option>Maintenance log</option>
-            <option>Incident log</option>
-          </select>
-          <button class="btn-save-obs" [disabled]="!observationText.trim()" (click)="saveObservation()">
-            Save Observation
-          </button>
-        </div>
-      </div>
-
-      <!-- Recent Logs -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-header">
-          <mat-icon class="sidebar-icon">history</mat-icon>
-          <h4 class="sidebar-card-title">Recent Logs</h4>
-        </div>
-        <div class="sidebar-divider"></div>
-        <div class="logs-list">
-          @for (activity of lab.recentActivities.slice(0, 3); track activity.id) {
-          <div class="log-item">
-            <div class="log-avatar">{{ activity.title.charAt(0).toUpperCase() }}</div>
-            <div class="log-content">
-              <div class="log-header-row">
-                <span class="log-author">{{ activity.title }}</span>
-                <span class="log-time">{{ activity.timestamp }}</span>
-              </div>
-              <p class="log-desc">{{ activity.description }}</p>
-            </div>
-          </div>
-          }
-        </div>
-      </div>
-
+    <!-- Logs + Automations -->
+    <div class="bottom-row">
+      <app-laboratory-activity [activities]="lab.recentActivities" />
+      <app-laboratory-schedules [laboratoryId]="lab.id" />
     </div>
+
   </div>
 
 </div>

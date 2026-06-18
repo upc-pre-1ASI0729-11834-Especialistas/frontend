@@ -12,6 +12,7 @@ export interface LaboratoryFormData {
   floor: string;
   roomNumber: string;
   description: string;
+  nextMaintenance: string | Date;
   metricSubscriptions: {
     metricTypeId: number;
     metricTypeKey: string;
@@ -280,6 +281,25 @@ export class LaboratoryStore {
       next: (created) => {
         this.lastCreatedLabSignal.set(created);
         this.creationSuccessSignal.set(true);
+        this.loadLaboratories();
+      },
+      error: (err) => this.errorSignal.set(err.message)
+    });
+  }
+
+  updateLaboratory(id: number, laboratory: Laboratory): void {
+    this.loadingSignal.set(true);
+    this.creationSuccessSignal.set(false);
+
+    this.api.update(laboratory, id).pipe(
+      takeUntilDestroyed(this.destroyRef),
+      retry(2),
+      finalize(() => this.loadingSignal.set(false))
+    ).subscribe({
+      next: (updated) => {
+        this.lastCreatedLabSignal.set(updated);
+        this.creationSuccessSignal.set(true);
+        this.selectedLaboratorySignal.set(updated);
         this.loadLaboratories();
       },
       error: (err) => this.errorSignal.set(err.message)

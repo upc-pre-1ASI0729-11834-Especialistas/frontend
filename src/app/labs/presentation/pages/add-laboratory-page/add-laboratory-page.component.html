@@ -8,13 +8,13 @@
     <nav class="breadcrumb">
       <a routerLink="/laboratories" class="breadcrumb-link">Laboratories</a>
       <mat-icon class="breadcrumb-sep">chevron_right</mat-icon>
-      <span class="breadcrumb-current">New Laboratory</span>
+      <span class="breadcrumb-current">{{ isEditMode ? 'Edit Laboratory' : 'New Laboratory' }}</span>
     </nav>
     <div class="header-actions">
       <button mat-stroked-button (click)="onCancel()">Cancel</button>
       <button mat-flat-button (click)="onSubmit()" [disabled]="!isFormValid() || laboratoryStore.loading()">
         <mat-icon>save</mat-icon>
-        Save Laboratory
+        {{ isEditMode ? 'Save Changes' : 'Save Laboratory' }}
       </button>
     </div>
   </div>

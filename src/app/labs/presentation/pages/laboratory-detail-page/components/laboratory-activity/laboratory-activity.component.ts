@@ -1,10 +1,11 @@
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
 import { LabActivity } from '../../../../../domain/model/laboratory.entity';
 
 @Component({
   selector: 'app-laboratory-activity',
-  imports: [RouterLink],
+  imports: [RouterLink, MatIcon],
   templateUrl: './laboratory-activity.component.html',
   styleUrl: './laboratory-activity.component.css',
 })

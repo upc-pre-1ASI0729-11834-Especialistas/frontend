@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LaboratoryStore } from '../../../application/laboratory.store';
 import { HistoryStore } from '../../../../history/application/history.store';
 import { HistoryRecord } from '../../../../history/domain/model/history-record.entity';
@@ -13,6 +14,7 @@ import { LaboratoryStatsComponent } from './components/laboratory-stats/laborato
 import { LaboratoryActivityComponent } from './components/laboratory-activity/laboratory-activity.component';
 import { LaboratorySchedulesComponent } from './components/laboratory-schedules/laboratory-schedules.component';
 import { StatusBadgeComponent } from '../../../../shared/presentation/components/status-badge/status-badge.component';
+import { AddObservationDialogComponent } from './components/add-observation-dialog/add-observation-dialog.component';
 
 @Component({
   selector: 'app-laboratory-detail-page',
@@ -23,6 +25,7 @@ import { StatusBadgeComponent } from '../../../../shared/presentation/components
     MatProgressSpinner,
     MatTabGroup,
     MatTab,
+    MatDialogModule,
     MetricCardComponent,
     LaboratoryHeaderComponent,
     LaboratoryStatsComponent,
@@ -37,10 +40,9 @@ export class LaboratoryDetailPageComponent implements OnInit {
   protected readonly laboratoryStore = inject(LaboratoryStore);
   private readonly historyStore = inject(HistoryStore);
   private readonly route = inject(ActivatedRoute);
+  private readonly dialog = inject(MatDialog);
 
   tabs = ['Systems', 'Notifications', 'Reports', 'Settings'];
-  observationText = '';
-  observationType = 'Laboratory log';
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -53,27 +55,35 @@ export class LaboratoryDetailPageComponent implements OnInit {
     this.laboratoryStore.setActiveTab(this.tabs[index].toLowerCase());
   }
 
-  saveObservation(): void {
-    if (!this.observationText.trim()) return;
-
+  openAddObservationDialog(): void {
     const lab = this.laboratoryStore.selectedLaboratory();
     if (!lab) return;
 
-    const record = new HistoryRecord({
-      id: 0,
-      name: `${this.observationType} - ${lab.name}`,
-      description: this.observationText,
-      occurredAt: new Date().toISOString(),
-      lab: lab.name,
-      eventType: 'Observation',
-      severity: this.observationType === 'Incident log' ? 'Critical' : 'Info',
-      status: 'Active'
+    const dialogRef = this.dialog.open(AddObservationDialogComponent, {
+      position: { right: '0', top: '0' },
+      height: '100vh',
+      width: '400px',
+      panelClass: 'side-sheet-dialog',
+      data: { labName: lab.name }
     });
 
-    this.historyStore.addHistoryRecord(record, () => {
-      this.laboratoryStore.loadLaboratoryById(lab.id);
-    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.text) {
+        const record = new HistoryRecord({
+          id: 0,
+          name: `${result.type} - ${lab.name}`,
+          description: result.text,
+          occurredAt: new Date().toISOString(),
+          lab: lab.name,
+          eventType: 'Observation',
+          severity: result.type === 'Incident log' ? 'Critical' : 'Info',
+          status: 'Active'
+        });
 
-    this.observationText = '';
+        this.historyStore.addHistoryRecord(record, () => {
+          this.laboratoryStore.loadLaboratoryById(lab.id);
+        });
+      }
+    });
   }
 }

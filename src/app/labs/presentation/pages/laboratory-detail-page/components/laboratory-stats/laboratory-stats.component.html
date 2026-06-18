@@ -16,7 +16,7 @@
       @if (lab().isLive) {
       <span class="live-dot"></span>
       }
-      <span class="stat-value">{{ lab().lastUpdate }}</span>
+      <span class="stat-value">{{ lab().getFormattedLastUpdate() }}</span>
       @if (lab().isLive) {
       <span class="live-label">· Live</span>
       }

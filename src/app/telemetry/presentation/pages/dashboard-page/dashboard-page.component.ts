@@ -49,18 +49,21 @@ export class DashboardPageComponent implements OnInit {
 
   readonly sensorsOnlineText = computed(() => {
     const configs = this.automationStore.sensorConfigurations();
+    if (!configs || configs.length === 0) return 'No info';
     const activeCount = configs.filter(s => s.isActive).length;
     return `${activeCount} / ${configs.length}`;
   });
 
   readonly equipmentInRangeText = computed(() => {
     const thresholds = this.automationStore.equipmentThresholds();
+    if (!thresholds || thresholds.length === 0) return 'No info';
     const inRangeCount = thresholds.filter(e => e.status?.toLowerCase() === 'normal').length;
     return `${inRangeCount} / ${thresholds.length}`;
   });
 
   readonly complianceReportDate = computed(() => {
     const records = this.historyStore.history();
+    if (!records || records.length === 0) return 'No info';
     const reportRecord = [...records]
       .filter(r => 
         r.eventType?.toLowerCase().includes('report') || 
@@ -74,7 +77,7 @@ export class DashboardPageComponent implements OnInit {
       return this.formatRelativeTime(reportRecord.occurredAt);
     }
     
-    return 'N/A';
+    return 'No info';
   });
 
   readonly equipmentList = computed(() => this.automationStore.equipmentThresholds());
