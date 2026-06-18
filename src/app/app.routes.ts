@@ -17,9 +17,14 @@ import { ThresholdConfigurationPageComponent } from './automation/presentation/p
 import { AutomationRulesPageComponent } from './automation/presentation/pages/automation-rules-page/automation-rules-page.component';
 import { ProfileIdentityPageComponent } from './automation/presentation/pages/profile-identity-page/profile-identity-page.component';
 import { MetricTypesPageComponent } from './automation/presentation/pages/metric-types-page/metric-types-page.component';
+import { LoginPageComponent } from './iam/presentation/pages/login-page/login-page.component';
 
 
 export const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginPageComponent,
+  },
   {
     path: '',
     component: Layout,
