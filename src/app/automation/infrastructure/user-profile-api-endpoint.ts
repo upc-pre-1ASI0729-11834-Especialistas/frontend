@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+﻿import { HttpClient } from '@angular/common/http';
 import { BaseApiEndpoint } from '../../shared/infrastructure/base-api-endpoint';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.delevopment';
 import { UserProfile } from '../domain/model/user-profile.entity';
 import { UserProfileResource, UserProfilesResponse } from './user-profile-response';
 import { UserProfileAssembler } from './user-profile-assembler';

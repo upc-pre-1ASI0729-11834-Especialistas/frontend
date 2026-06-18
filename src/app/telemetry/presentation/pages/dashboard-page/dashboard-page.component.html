@@ -1,168 +1,46 @@
 <div class="page-body">
-
-  <!-- ① EMERGENCY BANNER — solo si hay alertas críticas -->
   @if (dashboardStore.stats(); as stats) {
-    @if (stats.activeAlerts > 0) {
-      <div class="alert-banner">
-        <div class="alert-banner-left">
-          <div class="alert-banner-icon-wrap">
-            <mat-icon>warning_amber</mat-icon>
-          </div>
-          <div class="alert-banner-text-group">
-            <p class="alert-banner-text">
-              {{ stats.activeAlerts }} {{ stats.activeAlerts > 1 ? ('dashboard.alert.bannerPlural' | translate) : ('dashboard.alert.banner' | translate) }}
-            </p>
-            <span class="alert-banner-subtext">{{ 'dashboard.alert.bannerSubtext' | translate }}</span>
-          </div>
-        </div>
-        <a routerLink="/alerts" class="alert-banner-btn">
-          <mat-icon>visibility</mat-icon>
-          {{ 'dashboard.alert.viewAlerts' | translate }}
-        </a>
-      </div>
-    }
-  }
 
-  <!-- ② KPI STATS ROW -->
   <div class="stats-grid">
-    <app-stat-card [label]="'dashboard.stats.activeCriticalAlerts' | translate" [value]="dashboardStore.stats() ? '' + dashboardStore.stats()!.activeAlerts : 'No info'" accentColor="#dc2626"
-      [routerLink]="['/alerts']" style="cursor:pointer">
+    <app-stat-card label="Total Laboratories" [value]="'' + stats.totalLaboratories"
+      accentColor="var(--mat-sys-primary)">
+      <mat-icon>science</mat-icon>
+    </app-stat-card>
+    <app-stat-card label="Active Alerts" [value]="'' + stats.activeAlerts" accentColor="var(--mat-sys-error)">
       <mat-icon>warning</mat-icon>
     </app-stat-card>
-
-    <app-stat-card [label]="'dashboard.stats.sensorsOnline' | translate" [value]="sensorsOnlineText()" accentColor="#16a34a">
-      <mat-icon>sensors</mat-icon>
+    <app-stat-card label="Systems Health" [value]="stats.getHealthPercentage()" accentColor="var(--success-color)"
+      [showProgress]="true" [progressValue]="stats.systemsHealth">
+      <mat-icon>favorite</mat-icon>
     </app-stat-card>
-
-    <app-stat-card [label]="'dashboard.stats.equipmentInRange' | translate" [value]="equipmentInRangeText()" accentColor="#d97706">
-      <mat-icon>device_thermostat</mat-icon>
-    </app-stat-card>
-
-    <app-stat-card [label]="'dashboard.stats.lastComplianceReport' | translate" [value]="complianceReportDate()" accentColor="#16a34a">
-      <mat-icon>verified</mat-icon>
+    <app-stat-card label="Upcoming Maintenance" [value]="'' + stats.upcomingMaintenance"
+      accentColor="var(--mat-sys-tertiary)">
+      <mat-icon>bolt</mat-icon>
     </app-stat-card>
   </div>
+  }
 
-  <!-- ③ ACTIVE ALERTS + EQUIPMENT STATUS -->
+
   <div class="content-row">
-
-    <!-- Columna izquierda: Alertas activas -->
-    <div class="alerts-panel">
-      <div class="panel-header">
-        <div>
-          <h3 class="panel-title">{{ 'dashboard.panel.activeAlerts' | translate }}</h3>
-          <p class="panel-subtitle">{{ 'dashboard.panel.activeAlertsSubtitle' | translate }}</p>
-        </div>
-        <a routerLink="/alerts" class="panel-view-all">
-          {{ 'dashboard.panel.viewAll' | translate }} <mat-icon>arrow_forward</mat-icon>
-        </a>
-      </div>
-
-      <div class="alert-rows">
-        @for (alert of dashboardStore.recentAlerts(); track alert.id) {
-        <a routerLink="/alerts/incident" [queryParams]="{ id: alert.id }" [class]="'alert-row ' + alert.severity.toLowerCase()">
-          <span [class]="'alert-dot ' + alert.severity.toLowerCase()"></span>
-          <div class="alert-row-content">
-            <div class="alert-row-top">
-              <span [class]="'severity-pill ' + alert.severity.toLowerCase()">{{ ('dashboard.severity.' + alert.severity.toLowerCase()) | translate }}</span>
-              <span class="alert-row-time">{{ alert.timeAgo }}</span>
-            </div>
-            <div class="alert-row-title">{{ alert.labName }} — {{ alert.title }}</div>
-            <div class="alert-row-lab">{{ alert.description }}</div>
-          </div>
-          <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
-        </a>
-        } @empty {
-        <div class="no-alerts-state" style="padding: 24px; text-align: center; color: #64748b;">
-          <mat-icon style="font-size: 36px; width: 36px; height: 36px; margin-bottom: 8px; color: #10b981;">check_circle</mat-icon>
-          <p style="margin: 0; font-weight: 500;">{{ 'dashboard.status.allSystemsOperational' | translate }}</p>
-        </div>
-        }
-      </div>
+    <div class="chart-col">
+      <app-temperature-chart [readings]="dashboardStore.temperatureTrends()"
+        [selectedPeriod]="dashboardStore.selectedPeriod()" (periodChanged)="onPeriodChange($event)" />
     </div>
-
-    <!-- Columna derecha: Estado de equipos -->
-    <div class="equipment-panel">
-      <div class="panel-header">
-        <div>
-          <h3 class="panel-title">{{ 'dashboard.panel.equipmentStatus' | translate }}</h3>
-          <p class="panel-subtitle">{{ 'dashboard.panel.equipmentStatusSubtitle' | translate }}</p>
-        </div>
-        <a routerLink="/laboratories" class="panel-view-all">
-          {{ 'dashboard.panel.allEquipment' | translate }} <mat-icon>arrow_forward</mat-icon>
-        </a>
-      </div>
-
-      <div class="equipment-list">
-        @for (item of equipmentList(); track item.id) {
-        <div class="equipment-row">
-          <div class="equipment-row-top">
-            <span class="equipment-name">{{ item.name }}</span>
-            <span [class]="'equipment-temp ' + getEquipmentStatusClass(item.status)">{{ item.currentValue }}&nbsp;{{ item.unit }}</span>
-          </div>
-          <div class="equipment-bar-wrap">
-            <div [class]="'equipment-bar ' + getEquipmentStatusClass(item.status)" [style.width]="getEquipmentBarWidth(item)"></div>
-          </div>
-          <div class="equipment-bar-labels">
-            <span>{{ item.minThreshold }}&nbsp;{{ item.unit }}</span>
-            <span [class]="'equipment-status-label ' + getEquipmentStatusClass(item.status)">{{ getEquipmentStatusTranslationKey(item.status) | translate }}</span>
-            <span>{{ item.maxThreshold }}&nbsp;{{ item.unit }}</span>
-          </div>
-        </div>
-        } @empty {
-        <div class="no-equipment-state" style="padding: 24px; text-align: center; color: #64748b;">
-          <mat-icon style="font-size: 36px; width: 36px; height: 36px; margin-bottom: 8px; color: #64748b;">info</mat-icon>
-          <p style="margin: 0; font-weight: 500;">{{ 'dashboard.status.noEquipmentRegistered' | translate }}</p>
-        </div>
-        }
-      </div>
+    <div class="alerts-col">
+      <app-recent-alerts [alerts]="dashboardStore.recentAlerts()" />
     </div>
   </div>
 
-  <!-- ④ TEMPERATURE CHART -->
-  <div class="chart-col">
-    <div class="chart-selector-row" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 16px;">
-      <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--mat-sys-on-surface);">{{ 'dashboard.environmentalMetrics' | translate }}</h3>
-      <mat-form-field appearance="outline" style="width: 200px; margin-bottom: -1.25em;">
-        <mat-label>{{ 'dashboard.selectMetric' | translate }}</mat-label>
-        <mat-select [value]="selectedMetricKey()" (selectionChange)="onMetricChange($event.value)">
-          @for (type of metricTypeStore.activeMetricTypes(); track type.id) {
-            <mat-option [value]="type.key">{{ type.displayName }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <app-temperature-chart [readings]="dashboardStore.temperatureTrends()"
-      [metricType]="currentMetricType()"
-      [selectedPeriod]="dashboardStore.selectedPeriod()" (periodChanged)="onPeriodChange($event)" />
-  </div>
 
-  <!-- ⑤ LABS PREVIEW -->
-  <div class="labs-section">
+  <app-card>
     <div class="labs-header">
-      <h2 class="labs-title">{{ 'dashboard.laboratories' | translate }}</h2>
-      <a class="labs-view-all" routerLink="/laboratories">
-        {{ 'dashboard.panel.viewAll' | translate }} <mat-icon style="font-size:14px;width:14px;height:14px;">arrow_forward</mat-icon>
-      </a>
+      <h2 class="labs-title">Laboratories</h2>
+      <a class="labs-view-all" href="javascript:void(0)">View All</a>
     </div>
     <div class="labs-grid">
       @for (lab of dashboardStore.laboratories(); track lab.id) {
-      <a [routerLink]="['/laboratories', lab.id]" class="lab-card-wrapper">
-        <app-laboratory-card [lab]="lab" />
-      </a>
-      } @empty {
-      <div class="no-labs-state" style="padding: 24px; text-align: center; color: #64748b; grid-column: 1 / -1;">
-        <mat-icon style="font-size: 36px; width: 36px; height: 36px; margin-bottom: 8px; color: #64748b;">info</mat-icon>
-        <p style="margin: 0; font-weight: 500;">{{ 'dashboard.status.noLaboratoriesRegistered' | translate }}</p>
-      </div>
+      <app-laboratory-card [lab]="lab" />
       }
     </div>
-  </div>
-
+  </app-card>
 </div>
-
-<!-- FAB: Cerrar turno -->
-<a routerLink="/history" class="shift-close-fab">
-  <mat-icon>summarize</mat-icon>
-  {{ 'dashboard.fab' | translate }}
-</a>

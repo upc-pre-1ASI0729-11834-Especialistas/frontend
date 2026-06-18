@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import { Alert } from '../domain/model/alert.entity';
 import { AlertResource, AlertsResponse } from './alerts-response';
 import { AlertAssembler } from './alert-assembler';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.delevopment';
 
 const alertsEndpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderAlertsEndpointPath}`;
 

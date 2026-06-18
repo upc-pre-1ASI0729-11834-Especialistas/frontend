@@ -3,7 +3,7 @@ import { Laboratory, LaboratoryType, GasSensitivity, AlertEscalation } from '../
 import { LaboratoryResource, LaboratoryResponse } from './laboratory-response';
 
 export class LaboratoryAssembler implements BaseAssembler<Laboratory, LaboratoryResource, LaboratoryResponse> {
-
+  
   toEntityFromResource(resource: LaboratoryResource): Laboratory {
     return new Laboratory({
       id: resource.id,
@@ -25,19 +25,12 @@ export class LaboratoryAssembler implements BaseAssembler<Laboratory, Laboratory
       schedules: resource.schedules.map(s => ({ ...s })),
       roomNumber: resource.roomNumber,
       description: resource.description,
-      metricSubscriptions: resource.metricSubscriptions
-        ? resource.metricSubscriptions.map(sub => ({
-            metricTypeId: sub.metricTypeId,
-            metricTypeKey: sub.metricTypeKey,
-            metricTypeDisplayName: sub.metricTypeDisplayName,
-            metricTypeIcon: sub.metricTypeIcon,
-            metricTypeUnit: sub.metricTypeUnit,
-            metricTypeCategory: sub.metricTypeCategory,
-            minThreshold: sub.minThreshold !== null ? sub.minThreshold : undefined,
-            maxThreshold: sub.maxThreshold !== null ? sub.maxThreshold : undefined,
-            active: sub.active
-          }))
-        : [],
+      sensors: resource.sensors ? { ...resource.sensors } : undefined,
+      thresholds: resource.thresholds ? {
+        ...resource.thresholds,
+        gasSensitivity: resource.thresholds.gasSensitivity as GasSensitivity,
+        alertEscalation: resource.thresholds.alertEscalation as AlertEscalation
+      } : undefined,
       notifications: resource.notifications ? { ...resource.notifications } : undefined
     });
   }
@@ -63,17 +56,12 @@ export class LaboratoryAssembler implements BaseAssembler<Laboratory, Laboratory
       schedules: entity.schedules.map(s => ({ ...s })),
       roomNumber: entity.roomNumber,
       description: entity.description,
-      metricSubscriptions: entity.metricSubscriptions.map(sub => ({
-        metricTypeId: sub.metricTypeId,
-        metricTypeKey: sub.metricTypeKey,
-        metricTypeDisplayName: sub.metricTypeDisplayName,
-        metricTypeIcon: sub.metricTypeIcon,
-        metricTypeUnit: sub.metricTypeUnit,
-        metricTypeCategory: sub.metricTypeCategory,
-        minThreshold: sub.minThreshold !== undefined ? sub.minThreshold : null,
-        maxThreshold: sub.maxThreshold !== undefined ? sub.maxThreshold : null,
-        active: sub.active
-      })),
+      sensors: entity.sensors ? { ...entity.sensors } : undefined,
+      thresholds: entity.thresholds ? {
+        ...entity.thresholds,
+        gasSensitivity: entity.thresholds.gasSensitivity as string,
+        alertEscalation: entity.thresholds.alertEscalation as string
+      } : undefined,
       notifications: entity.notifications ? { ...entity.notifications } : undefined
     };
   }

@@ -5,22 +5,10 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-laboratories-toolbar',
-  imports: [
-    RouterLink,
-    MatSelect,
-    MatOption,
-    MatFormField,
-    MatLabel,
-    MatButtonToggleGroup,
-    MatButtonToggle,
-    MatButton,
-    MatIcon,
-    TranslatePipe
-  ],
+  imports: [RouterLink, MatSelect, MatOption, MatFormField, MatLabel, MatButtonToggleGroup, MatButtonToggle, MatButton, MatIcon],
   templateUrl: './laboratories-toolbar.component.html',
   styleUrl: './laboratories-toolbar.component.css'
 })

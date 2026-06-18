@@ -1,70 +1,26 @@
 <aside class="sidebar">
 
-  <!-- Logo -->
-  <div class="logo-area">
-    <div class="logo-icon">
-      <mat-icon>science</mat-icon>
-    </div>
-    <div class="logo-text">
-      <span class="logo-name">{{ 'sidebar.logo.name' | translate }}</span>
-      <span class="logo-sub">{{ 'sidebar.logo.subtext' | translate }}</span>
-    </div>
+  <div class="logo">
+    <img class="logo-asset" src="safelab-logo.png" alt="SafeLab Logo">
   </div>
 
-  <!-- Nav principal -->
   <nav class="nav-links">
-    <p class="options-title">{{ 'sidebar.menu.main' | translate }}</p>
-
-    <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
-      <mat-icon class="nav-icon">dashboard</mat-icon>
-      <span>{{ 'sidebar.menu.dashboard' | translate }}</span>
-    </a>
-
-    <a routerLink="/laboratories" routerLinkActive="active" class="nav-item">
-      <mat-icon class="nav-icon">science</mat-icon>
-      <span>{{ 'sidebar.menu.laboratories' | translate }}</span>
-    </a>
-
-    <a routerLink="/alerts" routerLinkActive="active" class="nav-item">
-      <mat-icon class="nav-icon">notifications_active</mat-icon>
-      <span>{{ 'sidebar.menu.alerts' | translate }}</span>
-      <!-- Badge de alertas activas -->
-      @if (activeAlertsCount() > 0) {
-        <span class="alert-badge">{{ activeAlertsCount() }}</span>
+    @for (section of navSections; track section.title) {
+      <p class="options-title">{{ section.title }}</p>
+      @for (item of section.items; track item.route) {
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="active">
+          {{ item.label }}
+        </a>
       }
-    </a>
-
-    <a routerLink="/history" routerLinkActive="active" class="nav-item">
-      <mat-icon class="nav-icon">history</mat-icon>
-      <span>{{ 'sidebar.menu.reports' | translate }}</span>
-    </a>
-
-    <p class="options-title" style="margin-top:8px;">{{ 'sidebar.menu.system' | translate }}</p>
-
-    <a routerLink="/settings" routerLinkActive="active" class="nav-item">
-      <mat-icon class="nav-icon">settings</mat-icon>
-      <span>{{ 'sidebar.menu.settings' | translate }}</span>
-    </a>
+    }
   </nav>
 
-  <!-- Status del sistema -->
-  <div class="system-status">
-    <span class="status-dot"></span>
-    <span class="status-text">{{ 'sidebar.status.systemActive' | translate }}</span>
-  </div>
-
-  <!-- User panel -->
   <div class="user-panel">
-    <div class="user-avatar">{{ userInitials() }}</div>
-    <div class="user-info">
-      <p class="user-name" [title]="currentProfile()?.fullName || authStore.currentUser()?.fullName || 'SafeLab Administrator'">
-        {{ currentProfile()?.fullName || authStore.currentUser()?.fullName || 'SafeLab Administrator' }}
-      </p>
-      <p class="user-role">{{ currentProfile()?.role || ('sidebar.user.role' | translate) }}</p>
-    </div>
-    <button class="logout-btn" mat-icon-button (click)="logout()" id="logout-btn" [title]="'sidebar.user.logout' | translate">
-      <mat-icon>logout</mat-icon>
-    </button>
+    <img alt="profile" class="user-photo" src="user-photo.png">
+    <p class="user-name">Dr. Alexander Vance</p>
+    <button class="logout-btn">Logout</button>
   </div>
 
 </aside>

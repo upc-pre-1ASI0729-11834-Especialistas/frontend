@@ -3,12 +3,14 @@ import { BaseEntity } from '../../../shared/domain/model/base-entity';
 export class TemperatureReading implements BaseEntity {
   private _id: number;
   private _date: string;
-  private _values: { [labId: string]: number };
+  private _lab01Value: number;
+  private _lab02Value: number;
 
-  constructor(data: { id: number; date: string; values: { [labId: string]: number } }) {
+  constructor(data: { id: number; date: string; lab01Value: number; lab02Value: number }) {
     this._id = data.id;
     this._date = data.date;
-    this._values = data.values || {};
+    this._lab01Value = data.lab01Value;
+    this._lab02Value = data.lab02Value;
   }
 
   get id(): number {
@@ -27,45 +29,27 @@ export class TemperatureReading implements BaseEntity {
     this._date = value;
   }
 
-  get values(): { [labId: string]: number } {
-    return this._values;
-  }
-
-  set values(value: { [labId: string]: number }) {
-    this._values = value;
-  }
-
   get lab01Value(): number {
-    const keys = Object.keys(this._values);
-    return keys.length > 0 ? this._values[keys[0]] : 20.0;
+    return this._lab01Value;
   }
 
   set lab01Value(value: number) {
-    const keys = Object.keys(this._values);
-    if (keys.length > 0) {
-      this._values[keys[0]] = value;
-    }
+    this._lab01Value = value;
   }
 
   get lab02Value(): number {
-    const keys = Object.keys(this._values);
-    return keys.length > 1 ? this._values[keys[1]] : 21.0;
+    return this._lab02Value;
   }
 
   set lab02Value(value: number) {
-    const keys = Object.keys(this._values);
-    if (keys.length > 1) {
-      this._values[keys[1]] = value;
-    }
+    this._lab02Value = value;
   }
 
   getMaxTemperature(): number {
-    const vals = Object.values(this._values);
-    return vals.length > 0 ? Math.max(...vals) : 20.0;
+    return Math.max(this._lab01Value, this._lab02Value);
   }
 
   getMinTemperature(): number {
-    const vals = Object.values(this._values);
-    return vals.length > 0 ? Math.min(...vals) : 20.0;
+    return Math.min(this._lab01Value, this._lab02Value);
   }
 }

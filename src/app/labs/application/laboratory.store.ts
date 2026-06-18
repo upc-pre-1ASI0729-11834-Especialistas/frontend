@@ -1,6 +1,6 @@
 import { inject, Injectable, signal, computed, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Laboratory, LaboratoryType, GasSensitivity, AlertEscalation, NotificationPreferences, MetricSubscription } from '../domain/model/laboratory.entity';
+import { Laboratory, LaboratoryType, GasSensitivity, AlertEscalation, SensorConfig, SafetyThresholds, NotificationPreferences } from '../domain/model/laboratory.entity';
 import { LaboratoryApi } from '../infrastructure/laboratory-api';
 import { finalize, retry, tap } from 'rxjs';
 
@@ -12,18 +12,8 @@ export interface LaboratoryFormData {
   floor: string;
   roomNumber: string;
   description: string;
-  nextMaintenance: string | Date;
-  metricSubscriptions: {
-    metricTypeId: number;
-    metricTypeKey: string;
-    metricTypeDisplayName: string;
-    metricTypeIcon: string;
-    metricTypeUnit: string;
-    metricTypeCategory: string;
-    minThreshold?: number;
-    maxThreshold?: number;
-    enabled: boolean;
-  }[];
+  sensors: SensorConfig;
+  thresholds: SafetyThresholds;
   notifications: NotificationPreferences;
 }
 
@@ -153,7 +143,7 @@ export class LaboratoryStore {
         let filtered = allLabs;
 
         if (status && status !== 'All') {
-          filtered = filtered.filter(l => l.overallStatus.toLowerCase() === status.toLowerCase());
+          filtered = filtered.filter(l => l.overallStatus === status);
         }
         if (location && location !== 'All') {
           filtered = filtered.filter(l => l.building === location);
@@ -186,36 +176,6 @@ export class LaboratoryStore {
       next: (lab) => this.selectedLaboratorySignal.set(lab),
       error: (err) => this.errorSignal.set(err.message)
     });
-  }
-
-  addRecentActivityToSelected(activity: any): void {
-    const currentLab = this.selectedLaboratorySignal();
-    if (currentLab) {
-      const updatedLab = new Laboratory({
-        id: currentLab.id,
-        name: currentLab.name,
-        type: currentLab.type,
-        status: currentLab.status,
-        building: currentLab.building,
-        floor: currentLab.floor,
-        labCode: currentLab.labCode,
-        overallStatus: currentLab.overallStatus,
-        active: currentLab.active,
-        lastUpdate: currentLab.lastUpdate,
-        isLive: currentLab.isLive,
-        nextMaintenance: currentLab.nextMaintenance,
-        maintenanceDaysLeft: currentLab.maintenanceDaysLeft,
-        metrics: currentLab.metrics,
-        recentAlerts: currentLab.recentAlerts,
-        recentActivities: [activity, ...currentLab.recentActivities],
-        schedules: currentLab.schedules,
-        roomNumber: currentLab.roomNumber,
-        description: currentLab.description,
-        metricSubscriptions: currentLab.metricSubscriptions,
-        notifications: currentLab.notifications
-      });
-      this.selectedLaboratorySignal.set(updatedLab);
-    }
   }
 
   loadFilterData(): void {
@@ -281,25 +241,6 @@ export class LaboratoryStore {
       next: (created) => {
         this.lastCreatedLabSignal.set(created);
         this.creationSuccessSignal.set(true);
-        this.loadLaboratories();
-      },
-      error: (err) => this.errorSignal.set(err.message)
-    });
-  }
-
-  updateLaboratory(id: number, laboratory: Laboratory): void {
-    this.loadingSignal.set(true);
-    this.creationSuccessSignal.set(false);
-
-    this.api.update(laboratory, id).pipe(
-      takeUntilDestroyed(this.destroyRef),
-      retry(2),
-      finalize(() => this.loadingSignal.set(false))
-    ).subscribe({
-      next: (updated) => {
-        this.lastCreatedLabSignal.set(updated);
-        this.creationSuccessSignal.set(true);
-        this.selectedLaboratorySignal.set(updated);
         this.loadLaboratories();
       },
       error: (err) => this.errorSignal.set(err.message)

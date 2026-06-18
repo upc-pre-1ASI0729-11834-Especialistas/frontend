@@ -1,8 +1,7 @@
 .sensors-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
-  margin-top: 16px;
 }
 
 .sensor-card {
@@ -29,19 +28,8 @@
   margin-bottom: 4px;
 }
 
-.sensor-name {
-  font-size: var(--mat-sys-title-medium-size);
-  font-weight: var(--mat-sys-title-large-weight);
-  color: var(--mat-sys-on-surface);
-  margin: 0;
-}
-
-.sensor-desc {
-  font-size: var(--mat-sys-label-medium-size);
-  color: var(--mat-sys-on-surface-variant);
-  margin: 0;
-  line-height: 1.4;
-}
+.sensor-name { font-size: var(--mat-sys-title-medium-size); font-weight: var(--mat-sys-title-large-weight); color: var(--mat-sys-on-surface); margin: 0; }
+.sensor-desc { font-size: var(--mat-sys-label-medium-size); color: var(--mat-sys-on-surface-variant); margin: 0; line-height: 1.4; }
 
 .sensor-badge {
   display: inline-block;
@@ -59,45 +47,3 @@
   background: linear-gradient(135deg, var(--mat-sys-primary-container) 0%, var(--mat-sys-primary-container) 100%);
   color: var(--mat-sys-primary);
 }
-
-.thresholds-inputs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: auto;
-  padding-top: 12px;
-  border-top: 1px dashed var(--mat-sys-outline-variant);
-}
-
-.threshold-field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.threshold-field label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--mat-sys-on-surface-variant);
-}
-
-.threshold-field input {
-  height: 32px;
-  width: 100%;
-  box-sizing: border-box;
-  min-width: 0;
-  padding: 0 8px;
-  border: 1px solid var(--mat-sys-outline-variant);
-  border-radius: 6px;
-  font-size: 13px;
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.threshold-field input:focus {
-  border-color: var(--mat-sys-primary);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--mat-sys-primary) 15%, transparent);
-}
-

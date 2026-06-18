@@ -1,28 +1,34 @@
 <div class="lab-header">
   <div class="lab-header-left">
     <div class="lab-title-row">
-      <h1 class="lab-name">{{ lab().name }} — {{ lab().type }}</h1>
-      <app-status-badge
-        [severity]="lab().isCritical() ? 'critical' : lab().isWarning() ? 'warning' : 'normal'"
-        [label]="lab().overallStatus"
-        [showDot]="true" />
+      <h2 class="lab-name">{{ lab().name }}</h2>
+      <app-status-badge [severity]="lab().status" [label]="lab().overallStatus" [showDot]="true" />
     </div>
-    <p class="lab-meta">{{ lab().building }} · {{ lab().floor }} · {{ lab().metrics.length * 2 }} sensors active</p>
+    <div class="lab-meta">
+      <span class="meta-item">
+        <mat-icon>corporate_fare</mat-icon>
+        {{ lab().building }}
+      </span>
+      <span class="meta-dot">•</span>
+      <span class="meta-item">
+        <mat-icon>layers</mat-icon>
+        {{ lab().floor }}
+      </span>
+      <span class="meta-dot">•</span>
+      <span class="meta-item">
+        <mat-icon>tag</mat-icon>
+        ID: {{ lab().labCode }}
+      </span>
+    </div>
   </div>
   <div class="lab-header-actions">
-    @if (lab().isCritical() || lab().isWarning()) {
-    <button class="btn-emergency">
-      <mat-icon>emergency</mat-icon>
-      Emergency Protocol
-    </button>
-    }
-    <button class="btn-primary" (click)="addObservation.emit()">
-      <mat-icon>edit_note</mat-icon>
-      Add Observation
-    </button>
-    <button class="btn-secondary" [routerLink]="['/laboratories', lab().id, 'edit']">
+    <button class="btn-secondary" id="edit-lab-btn">
       <mat-icon>edit</mat-icon>
-      Edit
+      Edit Laboratory
+    </button>
+    <button class="btn-danger" id="delete-lab-btn">
+      <mat-icon>delete</mat-icon>
+      Delete
     </button>
   </div>
 </div>

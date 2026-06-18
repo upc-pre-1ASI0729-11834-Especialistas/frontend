@@ -1,4 +1,4 @@
-import { Component, input, output, computed } from '@angular/core';
+﻿import { Component, input, output, computed } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -40,22 +40,6 @@ export class SensorListItemComponent {
 
     if (diffDays > 365) return 'Needs Calibration';
     return 'Active';
-  });
-
-  connectionStatus = computed(() => {
-    const s = this.sensor().status;
-    if (!s) return 'INACTIVE';
-    return s.toUpperCase();
-  });
-
-  lastConnectedText = computed(() => {
-    const date = this.sensor().lastConnected;
-    if (!date) return 'Never';
-    try {
-      return new Date(date).toLocaleString();
-    } catch (e) {
-      return String(date);
-    }
   });
 
   onCalibrate(): void {

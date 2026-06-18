@@ -6,10 +6,10 @@ export class Laboratory implements BaseEntity {
   private _id: number;
   private _name: string;
   private _type: string;
-  private _temperature: number | null;
+  private _temperature: number;
   private _status: LaboratoryStatus;
 
-  constructor(data: { id: number; name: string; type: string; temperature: number | null; status: LaboratoryStatus }) {
+  constructor(data: { id: number; name: string; type: string; temperature: number; status: LaboratoryStatus }) {
     this._id = data.id;
     this._name = data.name;
     this._type = data.type;
@@ -41,11 +41,11 @@ export class Laboratory implements BaseEntity {
     this._type = value;
   }
 
-  get temperature(): number | null {
+  get temperature(): number {
     return this._temperature;
   }
 
-  set temperature(value: number | null) {
+  set temperature(value: number) {
     this._temperature = value;
   }
 
@@ -70,9 +70,6 @@ export class Laboratory implements BaseEntity {
   }
 
   getFormattedTemperature(): string {
-    if (this._temperature === null || this._temperature === undefined) {
-      return 'N/A';
-    }
     return `${this._temperature}°C`;
   }
 }

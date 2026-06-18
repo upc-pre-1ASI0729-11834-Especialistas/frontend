@@ -4,25 +4,12 @@ import { SectionHeaderComponent } from '../../../../../../shared/presentation/co
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelect, MatOption } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { Component, model, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-lab-general-info',
-  imports: [
-    FormsModule,
-    CardComponent,
-    SectionHeaderComponent,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    MatSelect,
-    MatOption,
-    MatDatepickerModule,
-    MatNativeDateModule
-  ],
+  imports: [FormsModule, CardComponent, SectionHeaderComponent, MatFormField, MatLabel, MatInput, MatSelect, MatOption],
   templateUrl: './lab-general-info.component.html',
   styleUrl: './lab-general-info.component.css'
 })

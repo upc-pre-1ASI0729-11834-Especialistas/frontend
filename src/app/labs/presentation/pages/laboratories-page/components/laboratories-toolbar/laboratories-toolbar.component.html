@@ -1,27 +1,27 @@
 <div class="toolbar">
   <div class="toolbar-left">
     <span class="lab-count">
-      <strong>{{ totalCount() }}</strong> {{ 'laboratories.title' | translate }}
+      <strong>{{ totalCount() }}</strong> laboratories
     </span>
   </div>
 
   <div class="toolbar-right">
 
     <mat-form-field appearance="outline" class="filter-field" subscriptSizing="dynamic">
-      <mat-label>{{ 'laboratories.filters.status' | translate }}</mat-label>
+      <mat-label>Status</mat-label>
       <mat-select id="status-filter" value="All" (selectionChange)="statusChange.emit($event.value)">
-        <mat-option value="All">{{ 'laboratories.status.all' | translate }}</mat-option>
-        <mat-option value="Operational">{{ 'laboratories.status.ok' | translate }}</mat-option>
-        <mat-option value="Warning">{{ 'laboratories.status.warning' | translate }}</mat-option>
-        <mat-option value="Critical">{{ 'laboratories.status.critical' | translate }}</mat-option>
+        <mat-option value="All">All</mat-option>
+        <mat-option value="Operational">OK</mat-option>
+        <mat-option value="Warning">Warning</mat-option>
+        <mat-option value="Critical">Critical</mat-option>
       </mat-select>
     </mat-form-field>
 
 
     <mat-form-field appearance="outline" class="filter-field" subscriptSizing="dynamic">
-      <mat-label>{{ 'laboratories.filters.location' | translate }}</mat-label>
+      <mat-label>Location</mat-label>
       <mat-select id="location-filter" value="All" (selectionChange)="locationChange.emit($event.value)">
-        <mat-option value="All">{{ 'laboratories.status.all' | translate }}</mat-option>
+        <mat-option value="All">All</mat-option>
         @for (loc of locations(); track loc) {
         <mat-option [value]="loc">{{ loc }}</mat-option>
         }
@@ -41,7 +41,7 @@
 
     <a mat-flat-button color="primary" id="add-laboratory-btn" routerLink="/laboratories/add">
       <mat-icon>add</mat-icon>
-      {{ 'laboratories.add' | translate }}
+      Add Laboratory
     </a>
   </div>
 </div>

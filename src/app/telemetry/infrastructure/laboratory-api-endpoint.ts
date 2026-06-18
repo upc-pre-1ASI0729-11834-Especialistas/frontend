@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Laboratory } from '../domain/model/laboratory.entity';
 import { LaboratoryResource, LaboratoryResponse } from './laboratory-response';
 import { LaboratoryAssembler } from './laboratory.assembler';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.delevopment';
 
 const laboratoriesEndpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderTelemetryLaboratoriesEndpointPath}`;
 

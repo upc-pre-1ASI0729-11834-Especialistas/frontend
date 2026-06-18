@@ -1,27 +1,44 @@
-<div class="schedules-card">
+<app-card>
   <div class="section-header">
-    <h3 class="section-title">Active Automations</h3>
-    <a class="section-link" routerLink="/settings/automation-rules">Manage</a>
+    <h3 class="section-title">Active Schedules</h3>
+    <a class="section-link" href="javascript:void(0)">Manage</a>
   </div>
   <div class="schedules-list">
-    @for (rule of filteredRules(); track rule.id) {
+    @for (schedule of schedules(); track schedule.id) {
     <div class="schedule-item">
+      <app-icon-badge color="var(--mat-sys-primary)" size="sm">
+        @switch (schedule.icon) {
+        @case ('ventilation') {
+        <mat-icon>air</mat-icon>
+        }
+        @case ('ac') {
+        <mat-icon>ac_unit</mat-icon>
+        }
+        @case ('maintenance') {
+        <mat-icon>settings</mat-icon>
+        }
+        @case ('safety') {
+        <mat-icon>security</mat-icon>
+        }
+        @case ('experiment') {
+        <mat-icon>biotech</mat-icon>
+        }
+        @case ('backup') {
+        <mat-icon>backup</mat-icon>
+        }
+        @default {
+        <mat-icon>schedule</mat-icon>
+        }
+        }
+      </app-icon-badge>
       <div class="schedule-info">
-        <span class="schedule-name">{{ rule.name }}</span>
-        <span class="schedule-status" [class.status--running]="rule.active">
-          {{ rule.active ? '● Running' : '○ Standby' }}
-        </span>
+        <span class="schedule-name">{{ schedule.name }}</span>
+        <span class="schedule-time">{{ schedule.timeRange }}</span>
       </div>
-      <div class="toggle" [class.toggle--active]="rule.active" (click)="toggleRuleActive(rule)">
+      <div class="toggle" [class.active]="schedule.active">
         <div class="toggle-thumb"></div>
       </div>
     </div>
     }
-
-    @if (filteredRules().length === 0) {
-    <div class="empty-rules" style="color: var(--mat-sys-on-surface-variant); font-size: var(--mat-sys-body-medium-size); text-align: center; padding: 20px 0;">
-      No active automation rules for this laboratory.
-    </div>
-    }
   </div>
-</div>
+</app-card>

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BaseApi } from '../../shared/infrastructure/base-api';
@@ -16,9 +16,5 @@ export class UserProfilesApi extends BaseApi {
 
   getUserProfiles(): Observable<UserProfile[]> {
     return this.userProfilesEndpoint.getAll();
-  }
-
-  updateUserProfile(id: number, userProfile: UserProfile): Observable<UserProfile> {
-    return this.userProfilesEndpoint.update(userProfile, id);
   }
 }

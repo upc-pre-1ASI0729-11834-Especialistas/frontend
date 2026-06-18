@@ -1,7 +1,0 @@
-{
-  "/api/v1/telemetry/alerts": "/api/v1/telemetry-alerts",
-  "/api/v1/telemetry/laboratories": "/api/v1/telemetry-laboratories",
-  "/api/v1/telemetry/stats": "/api/v1/telemetry-stats",
-  "/api/v1/telemetry/temperature-readings": "/api/v1/telemetry-temperature-readings",
-  "/api/v1/system/status": "/api/v1/system-status"
-}

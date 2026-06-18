@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DashboardStats } from '../domain/model/dashboard-stats.entity';
 import { DashboardStatsResource, DashboardStatsResponse } from './stats-response';
 import { StatsAssembler } from './stats.assembler';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.delevopment';
 
 const statsEndpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderTelemetryStatsEndpointPath}`;
 

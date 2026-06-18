@@ -1,4 +1,4 @@
-import { BaseEntity } from '../../../shared/domain/model/base-entity';
+﻿import { BaseEntity } from '../../../shared/domain/model/base-entity';
 
 export class SensorConfiguration implements BaseEntity {
   private _id: number;
@@ -7,33 +7,14 @@ export class SensorConfiguration implements BaseEntity {
   private _unit: string;
   private _calibrationDate: string;
   private _isActive: boolean;
-  private _status: string;
-  private _lastConnected: string;
-  private _laboratoryId?: number;
-  private _laboratoryName?: string;
 
-  constructor(data: {
-    id: number;
-    sensorName: string;
-    type: string;
-    unit: string;
-    calibrationDate: string;
-    isActive: boolean;
-    status?: string;
-    lastConnected?: string;
-    laboratoryId?: number;
-    laboratoryName?: string;
-  }) {
+  constructor(data: { id: number; sensorName: string; type: string; unit: string; calibrationDate: string; isActive: boolean }) {
     this._id = data.id;
     this._sensorName = data.sensorName;
     this._type = data.type;
     this._unit = data.unit;
     this._calibrationDate = data.calibrationDate;
     this._isActive = data.isActive;
-    this._status = data.status || 'INACTIVE';
-    this._lastConnected = data.lastConnected || '';
-    this._laboratoryId = data.laboratoryId;
-    this._laboratoryName = data.laboratoryName;
   }
 
   get id(): number { return this._id; }
@@ -53,16 +34,4 @@ export class SensorConfiguration implements BaseEntity {
 
   get isActive(): boolean { return this._isActive; }
   set isActive(value: boolean) { this._isActive = value; }
-
-  get status(): string { return this._status; }
-  set status(value: string) { this._status = value; }
-
-  get lastConnected(): string { return this._lastConnected; }
-  set lastConnected(value: string) { this._lastConnected = value; }
-
-  get laboratoryId(): number | undefined { return this._laboratoryId; }
-  set laboratoryId(value: number | undefined) { this._laboratoryId = value; }
-
-  get laboratoryName(): string | undefined { return this._laboratoryName; }
-  set laboratoryName(value: string | undefined) { this._laboratoryName = value; }
 }

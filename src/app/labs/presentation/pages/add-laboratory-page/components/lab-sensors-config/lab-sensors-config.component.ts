@@ -1,6 +1,6 @@
 import { MatIcon } from '@angular/material/icon';
-import { Component, model } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, model, input } from '@angular/core';
+import { SensorConfig } from '../../../../../domain/model/laboratory.entity';
 import { IconBadgeComponent } from '../../../../../../shared/presentation/components/icon-badge/icon-badge.component';
 import { CardComponent } from '../../../../../../shared/presentation/components/card/card.component';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
@@ -8,46 +8,26 @@ import { SectionHeaderComponent } from '../../../../../../shared/presentation/co
 
 @Component({
   selector: 'app-lab-sensors-config',
-  imports: [MatIcon, IconBadgeComponent, CardComponent, SectionHeaderComponent, MatSlideToggle, FormsModule],
+  imports: [MatIcon, IconBadgeComponent, CardComponent, SectionHeaderComponent, MatSlideToggle],
   templateUrl: './lab-sensors-config.component.html',
   styleUrl: './lab-sensors-config.component.css'
 })
 export class LabSensorsConfigComponent {
-  metricSubscriptions = model.required<{
-    metricTypeId: number;
-    metricTypeKey: string;
-    metricTypeDisplayName: string;
-    metricTypeIcon: string;
-    metricTypeUnit: string;
-    minThreshold?: number;
-    maxThreshold?: number;
-    enabled: boolean;
+  sensors = model.required<SensorConfig>();
+
+  sensorCards = input.required<{
+    key: keyof SensorConfig;
+    label: string;
+    description: string;
+    icon: string;
+    color: string;
   }[]>();
 
-  toggleSubscription(metricTypeId: number): void {
-    const list = this.metricSubscriptions();
-    const updated = list.map(item => {
-      if (item.metricTypeId === metricTypeId) {
-        return { ...item, enabled: !item.enabled };
-      }
-      return item;
+  toggleSensor(key: keyof SensorConfig): void {
+    const current = this.sensors();
+    this.sensors.set({
+      ...current,
+      [key]: !current[key]
     });
-    this.metricSubscriptions.set(updated);
-  }
-
-  onThresholdChange(metricTypeId: number, type: 'min' | 'max', value: any): void {
-    const list = this.metricSubscriptions();
-    const updated = list.map(item => {
-      if (item.metricTypeId === metricTypeId) {
-        const val = value === null || value === '' ? undefined : Number(value);
-        if (type === 'min') {
-          return { ...item, minThreshold: val };
-        } else {
-          return { ...item, maxThreshold: val };
-        }
-      }
-      return item;
-    });
-    this.metricSubscriptions.set(updated);
   }
 }
