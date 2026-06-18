@@ -1,6 +1,5 @@
 import { Component, inject, OnInit, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TitleCasePipe } from '@angular/common';
 import { TemperatureChartComponent } from '../../components/temperature-chart/temperature-chart.component';
 import { LaboratoryCardComponent } from '../../components/laboratory-card/laboratory-card.component';
 import { DashboardStore } from '../../../application/dashboard.store';
@@ -14,6 +13,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { MatIcon } from '@angular/material/icon';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-dashboard-page',
   imports: [
@@ -22,9 +23,9 @@ import { MatIcon } from '@angular/material/icon';
     TemperatureChartComponent,
     LaboratoryCardComponent,
     MatIcon,
-    TitleCasePipe,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    TranslateModule
   ],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.css',
@@ -108,6 +109,14 @@ export class DashboardPageComponent implements OnInit {
     if (s === 'warning') return 'Monitor';
     if (s === 'critical') return 'Out of Range';
     return 'In Range';
+  }
+
+  getEquipmentStatusTranslationKey(status: string): string {
+    const s = status?.toLowerCase();
+    if (s === 'normal') return 'dashboard.status.inRange';
+    if (s === 'warning') return 'dashboard.status.monitor';
+    if (s === 'critical') return 'dashboard.status.outOfRange';
+    return 'dashboard.status.inRange';
   }
 
   getEquipmentBarWidth(item: any): string {

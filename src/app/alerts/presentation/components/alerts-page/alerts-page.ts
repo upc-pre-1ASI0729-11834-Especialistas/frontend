@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { AlertsStore } from '../../../application/alerts.store';
 import { Alert } from '../../../domain/model/alert.entity';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 interface LocalAlert {
   id: number;
   title: string;
@@ -38,7 +40,8 @@ interface AlertGroup {
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    TranslateModule
   ],
   templateUrl: './alerts-page.html',
   styleUrl: './alerts-page.css',
@@ -46,6 +49,8 @@ interface AlertGroup {
 export class AlertsPage {
   private readonly router = inject(Router);
   private readonly alertsStore = inject(AlertsStore);
+
+  readonly currentTime = new Date();
 
   readonly alerts = this.alertsStore.alerts;
   readonly loading = this.alertsStore.loading;

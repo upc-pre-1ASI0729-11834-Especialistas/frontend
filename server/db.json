@@ -6,6 +6,12 @@
       "description": "Sensor T-01 detected abnormal temperature levels.",
       "severity": "Critical",
       "status": "Active",
+      "createdAt": "2026-06-18T10:00:00Z",
+      "laboratoryId": 1,
+      "labName": "Bio-Safety Lab 04",
+      "labLocation": "Building A, Floor 3",
+      "sensorId": 1,
+      "sensorName": "T-01",
       "metrics": [
         {
           "id": 1,
@@ -35,6 +41,12 @@
       "description": "Humidity sensor detected low humidity.",
       "severity": "Warning",
       "status": "Active",
+      "createdAt": "2026-06-18T11:00:00Z",
+      "laboratoryId": 2,
+      "labName": "Chemical Storage Room",
+      "labLocation": "Building B, Floor 1",
+      "sensorId": 2,
+      "sensorName": "H-02",
       "metrics": [
         {
           "id": 1,
@@ -64,6 +76,12 @@
       "description": "An unknown element was detected in the system.",
       "severity": "Warning",
       "status": "Active",
+      "createdAt": "2026-06-18T12:00:00Z",
+      "laboratoryId": 3,
+      "labName": "Clean Room Suite",
+      "labLocation": "Building C, Floor 2",
+      "sensorId": 3,
+      "sensorName": "U-03",
       "metrics": [
         {
           "id": 1,
@@ -745,7 +763,7 @@
       }
     }
   ],
-  "labs": [
+  "laboratories": [
     {
       "id": 1,
       "name": "Bio-Safety Lab 04",
@@ -1695,7 +1713,7 @@
       ]
     }
   ],
-  "history": [
+  "history-records": [
     {
       "id": 1,
       "name": "Temperature returned to normal",
@@ -2132,5 +2150,8 @@
       "executionLimitMins": 60,
       "autoResolve": true
     }
-  ]
+  ],
+  "system-status": {
+    "status": "CONNECTED"
+  }
 }

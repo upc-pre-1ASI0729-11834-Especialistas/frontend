@@ -4,6 +4,8 @@ import { filter, map } from 'rxjs/operators';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { TranslateModule } from '@ngx-translate/core';
+import { LanguageSwitcher } from '../../components/language-switcher/language-switcher';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { TopbarActionService, TopbarActionConfig } from '../../../application/topbar-action.service';
@@ -14,6 +16,8 @@ import { TopbarActionService, TopbarActionConfig } from '../../../application/to
     MatToolbarModule,
     MatInputModule,
     MatFormFieldModule,
+    TranslateModule,
+    LanguageSwitcher,
     MatIconModule,
     MatButtonModule
   ],
@@ -23,7 +27,6 @@ import { TopbarActionService, TopbarActionConfig } from '../../../application/to
 export class Topbar implements OnInit {
   @Input() showHamburger = false;
   @Output() hamburgerClick = new EventEmitter<void>();
-
   title = '';
   subtitle = '';
   action: TopbarActionConfig | null = null;

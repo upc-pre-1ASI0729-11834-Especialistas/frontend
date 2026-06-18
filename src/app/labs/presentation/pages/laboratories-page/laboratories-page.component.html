@@ -1,27 +1,29 @@
 <div class="page-body">
 
-  <app-laboratories-toolbar [totalCount]="laboratoryStore.totalCount()" [locations]="laboratoryStore.locations()"
-    [viewMode]="viewMode" (statusChange)="onStatusChange($event)" (locationChange)="onLocationChange($event)"
+  <app-laboratories-toolbar
+    [totalCount]="laboratoryStore.totalCount()"
+    [locations]="laboratoryStore.locations()"
+    [viewMode]="viewMode"
+    (statusChange)="onStatusChange($event)"
+    (locationChange)="onLocationChange($event)"
     (viewModeChange)="viewMode = $event" />
-
 
   @if (laboratoryStore.loading()) {
   <div class="loading-state">
     <mat-spinner diameter="36" />
-    <p>Loading laboratories...</p>
+    <p>{{ 'laboratories.loading' | translate }}</p>
   </div>
   } @else if (laboratoryStore.laboratories().length === 0) {
   <app-card>
     <div class="empty-state">
       <mat-icon class="empty-icon">science</mat-icon>
-      <p class="empty-title">No laboratories found</p>
-      <p class="empty-desc">Try adjusting your search or filter criteria.</p>
+      <p class="empty-title">{{ 'laboratories.empty.title' | translate }}</p>
+      <p class="empty-desc">{{ 'laboratories.empty.description' | translate }}</p>
     </div>
   </app-card>
   } @else {
 
   <app-laboratories-list [laboratories]="laboratoryStore.laboratories()" [viewMode]="viewMode" />
-
 
   <app-laboratories-pagination [totalPages]="laboratoryStore.totalPages()" [currentPage]="laboratoryStore.currentPage()"
     [showingFrom]="laboratoryStore.showingFrom()" [showingTo]="laboratoryStore.showingTo()"

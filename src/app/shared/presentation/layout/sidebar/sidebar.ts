@@ -6,6 +6,7 @@ import { UserProfileStore } from '../../../../automation/application/user-profil
 import { AlertsStore } from '../../../../alerts/application/alerts.store';
 import { CommonModule } from '@angular/common';
 import { AuthStore } from '../../../../iam/application/auth.store';
+import { TranslateModule } from '@ngx-translate/core';
 
 interface NavItem {
   label: string;
@@ -19,7 +20,7 @@ interface NavSection {
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterModule, MatIconModule, MatButtonModule, CommonModule],
+  imports: [RouterModule, MatIconModule, MatButtonModule, CommonModule, TranslateModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })

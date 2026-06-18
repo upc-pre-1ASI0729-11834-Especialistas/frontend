@@ -2,11 +2,12 @@
 
   <div class="header-section">
     <div class="header-titles">
-      <h1 class="page-title">Alerts</h1>
-      <p class="page-subtitle">Active incidents and notifications</p>
+      <h1 class="page-title">{{ 'alerts.title' | translate }}</h1>
+      <p class="page-subtitle">{{ 'alerts.subtitle' | translate }}</p>
     </div>
     <div class="header-time">
-      <mat-icon>schedule</mat-icon> Monday, 14 July 2025 <strong>08:59 AM</strong>
+      <mat-icon>schedule</mat-icon>
+      {{ currentTime | date:'fullDate' }} <strong>{{ currentTime | date:'shortTime' }}</strong>
     </div>
   </div>
 
@@ -15,8 +16,8 @@
       <div class="summary-card {{card.class}}">
         <div class="card-value">{{ card.value }}</div>
         <div class="card-text">
-          <span class="card-title">{{ card.title }}</span>
-          <span class="card-subtitle">{{ card.subtitle }}</span>
+          <span class="card-title">{{ card.title | translate }}</span>
+          <span class="card-subtitle">{{ card.subtitle | translate }}</span>
         </div>
       </div>
     }
@@ -26,23 +27,23 @@
     <div class="filters-left">
       <div class="search-box">
         <mat-icon>search</mat-icon>
-        <input type="text" placeholder="Search alerts...">
+        <input type="text" [placeholder]="'alerts.searchPlaceholder' | translate">
       </div>
 
       <div class="dropdown">
-        <span>Severity</span> <mat-icon>expand_more</mat-icon>
+        <span>{{ 'alerts.filters.severity' | translate }}</span> <mat-icon>expand_more</mat-icon>
       </div>
 
       <div class="dropdown">
-        <span>Laboratory</span> <mat-icon>expand_more</mat-icon>
+        <span>{{ 'alerts.filters.laboratory' | translate }}</span> <mat-icon>expand_more</mat-icon>
       </div>
 
       <div class="dropdown">
-        <span>Status</span> <mat-icon>expand_more</mat-icon>
+        <span>{{ 'alerts.filters.status' | translate }}</span> <mat-icon>expand_more</mat-icon>
       </div>
     </div>
     <div class="filters-right">
-      <span class="total-text">{{ alerts().length }} alerts total</span>
+      <span class="total-text">{{ 'alerts.total' | translate:{count: alerts().length} }}</span>
     </div>
   </section>
 
@@ -51,7 +52,7 @@
 
       <div class="alert-group-header">
         <span class="group-dot" [ngClass]="group.colorClass">●</span>
-        <span class="group-title" [ngClass]="group.colorClass">{{ group.severity }}</span>
+        <span class="group-title" [ngClass]="group.colorClass">{{ ('alerts.summary.' + group.severity) | translate }}</span>
         <span class="group-count">{{ group.count }}</span>
       </div>
 
@@ -61,7 +62,7 @@
 
           <div class="alert-content-wrapper">
             <div class="alert-left-content">
-              <div class="alert-pill" [ngClass]="group.pillClass">{{ group.severity }}</div>
+              <div class="alert-pill" [ngClass]="group.pillClass">{{ ('alerts.summary.' + group.severity) | translate }}</div>
 
               <div class="alert-details">
                 <h3 class="alert-title">{{ alert.title }}</h3>
@@ -84,7 +85,7 @@
                 <span class="resolved-by">{{ alert.resolvedBy }}</span>
               } @else {
                 <button class="btn-investigate" (click)="navigateToIncident(alert.id)">
-                  Investigate <mat-icon>arrow_forward</mat-icon>
+                  {{ 'alerts.button.investigate' | translate }} <mat-icon>arrow_forward</mat-icon>
                 </button>
               }
             </div>
@@ -95,3 +96,4 @@
   </section>
 
 </div>
+

@@ -1,14 +1,14 @@
 @if (totalPages() > 1) {
 <div class="pagination">
   <span class="pagination-info">
-    Showing <strong>{{ showingFrom() }}</strong> to
-    <strong>{{ showingTo() }}</strong> of
-    <strong>{{ totalCount() }}</strong> labs
+    {{ 'laboratories.pagination.showing' | translate }} <strong>{{ showingFrom() }}</strong> {{ 'laboratories.pagination.to' | translate }}
+    <strong>{{ showingTo() }}</strong> {{ 'laboratories.pagination.of' | translate }}
+    <strong>{{ totalCount() }}</strong> {{ 'laboratories.pagination.labs' | translate }}
   </span>
 
   <div class="pagination-controls">
     <button mat-stroked-button [disabled]="currentPage() === 1" (click)="prevPage.emit()">
-      Prev
+      {{ 'laboratories.pagination.prev' | translate }}
     </button>
 
     @for (p of pages(); track $index) {
@@ -22,7 +22,7 @@
     }
 
     <button mat-stroked-button [disabled]="currentPage() === totalPages()" (click)="nextPage.emit()">
-      Next
+      {{ 'laboratories.pagination.next' | translate }}
     </button>
   </div>
 </div>

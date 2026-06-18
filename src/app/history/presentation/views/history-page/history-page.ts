@@ -20,6 +20,7 @@ import { HistoryTimeline } from '../../components/history-timeline/history-timel
 import { HistoryPlaceholderDialog } from '../../components/history-placeholder-dialog/history-placeholder-dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-history-page',
@@ -41,7 +42,8 @@ import { startWith } from 'rxjs';
     ReactiveFormsModule,
     FormsModule,
     MatSnackBarModule,
-    HistoryTimeline
+    HistoryTimeline,
+    TranslatePipe
   ],
   templateUrl: './history-page.html',
   styleUrl: './history-page.css'
