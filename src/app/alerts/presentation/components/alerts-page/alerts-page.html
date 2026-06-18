@@ -56,7 +56,7 @@
         <span class="group-count">{{ group.count }}</span>
       </div>
 
-      @for (alert of group.items; track alert.title) {
+      @for (alert of group.items; track alert.id) {
         <div class="alert-card">
           <div class="alert-indicator" [ngClass]="group.pillClass"></div>
 
@@ -69,7 +69,7 @@
                 <div class="alert-meta">
                   <span class="meta-item"><mat-icon>location_on</mat-icon> {{ alert.location }}</span>
                   <span class="meta-item"><mat-icon>schedule</mat-icon> {{ alert.timeAgo }}</span>
-                  @if(alert.sensor) {
+                  @if (alert.sensor) {
                     <span class="meta-item-divider">·</span>
                     <span class="meta-item">{{ alert.sensor }}</span>
                   }
@@ -81,7 +81,7 @@
             <div class="alert-actions">
               <div class="duration-pill">{{ alert.duration }}</div>
 
-              @if(group.severity === 'RESOLVED TODAY') {
+              @if (group.severity === 'RESOLVED TODAY') {
                 <span class="resolved-by">{{ alert.resolvedBy }}</span>
               } @else {
                 <button class="btn-investigate" (click)="navigateToIncident(alert.id)">
