@@ -9,7 +9,7 @@
         {{ lab().type }}
       </span>
     </div>
-    <app-status-badge [severity]="statusSeverity()" [label]="lab().status" />
+    <app-status-badge [severity]="statusSeverity()" [label]="lab().overallStatus" />
   </div>
 
   <!-- ── TEMPERATURA PRINCIPAL (fila destacada) ── -->
@@ -54,13 +54,13 @@
   </div>
 
   <!-- ── INCIDENT BANNER (solo crítico) ── -->
-  @if (lab().isCritical() && lab().recentAlerts.length) {
+  @if (lab().isCritical() && activeAlert(); as alert) {
   <div class="incident-banner">
     <div class="incident-banner-body">
       <mat-icon class="incident-icon">error</mat-icon>
       <div class="incident-text-group">
-        <span class="incident-title">Active incident — {{ lab().recentAlerts[0].timeAgo }}</span>
-        <span class="incident-desc">{{ lab().recentAlerts[0].title }}</span>
+        <span class="incident-title">Active incident — {{ alert.timeAgo }}</span>
+        <span class="incident-desc">{{ alert.title }}</span>
       </div>
     </div>
   </div>
@@ -87,8 +87,8 @@
       View Details
     </a>
 
-    @if (lab().isCritical()) {
-    <a [routerLink]="['/alerts/incident']" class="btn-investigate btn-investigate--critical"
+    @if (lab().isCritical() && activeAlert(); as alert) {
+    <a [routerLink]="['/alerts/incident']" [queryParams]="{ id: alert.id }" class="btn-investigate btn-investigate--critical"
       (click)="$event.stopPropagation()">
       <mat-icon class="btn-icon">warning</mat-icon>
       Investigate Incident

@@ -20,16 +20,16 @@
   <app-laboratory-stats [lab]="lab" />
 
   <!-- INCIDENT BANNER -->
-  @if ((lab.isCritical() || lab.isWarning()) && lab.recentAlerts.length) {
+  @if ((lab.isCritical() || lab.isWarning()) && activeAlert(); as alert) {
   <div class="incident-banner" [class.incident-banner--critical]="lab.isCritical()">
     <div class="incident-banner-left">
       <mat-icon class="incident-icon">warning</mat-icon>
       <div class="incident-text">
-        <strong class="incident-title">Active Incident: {{ lab.recentAlerts[0].title }}</strong>
-        <span class="incident-sub">{{ lab.recentAlerts[0].source }} · Started {{ lab.recentAlerts[0].timeAgo }}</span>
+        <strong class="incident-title">Active Incident: {{ alert.title }}</strong>
+        <span class="incident-sub">{{ alert.source }} · Started {{ alert.timeAgo }}</span>
       </div>
     </div>
-    <a routerLink="/alerts/incident" class="incident-link">
+    <a [routerLink]="['/alerts/incident']" [queryParams]="{ id: alert.id }" class="incident-link">
       View Incident <mat-icon class="link-arrow">arrow_forward</mat-icon>
     </a>
   </div>

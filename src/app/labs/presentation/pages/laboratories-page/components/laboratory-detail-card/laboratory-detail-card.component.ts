@@ -1,6 +1,7 @@
-import { Component, input, computed } from '@angular/core';
+import { Component, input, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Laboratory, LabMetric } from '../../../../../domain/model/laboratory.entity';
+import { AlertsStore } from '../../../../../../alerts/application/alerts.store';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { StatusBadgeComponent } from '../../../../../../shared/presentation/components/status-badge/status-badge.component';
@@ -13,7 +14,29 @@ import { CardComponent } from '../../../../../../shared/presentation/components/
   styleUrl: './laboratory-detail-card.component.css',
 })
 export class LaboratoryDetailCardComponent {
+  private readonly alertsStore = inject(AlertsStore);
   lab = input.required<Laboratory>();
+
+  readonly activeAlert = computed(() => {
+    const lab = this.lab();
+    const active = this.alertsStore.alerts().find(
+      a => a.laboratoryId === lab.id && a.status !== 'RESOLVED'
+    );
+    if (active) {
+      return {
+        id: active.id,
+        title: active.title,
+        source: active.sensorName ? `Sensor ${active.sensorName}` : active.labLocation || 'N/A',
+        timeAgo: 'Just now'
+      };
+    }
+    return lab.recentAlerts[0] ? {
+      id: Number(lab.recentAlerts[0].id),
+      title: lab.recentAlerts[0].title,
+      source: lab.recentAlerts[0].source,
+      timeAgo: lab.recentAlerts[0].timeAgo
+    } : undefined;
+  });
 
   cardBorderColor = computed(() => {
     if (this.lab().isCritical()) return '#fca5a5';

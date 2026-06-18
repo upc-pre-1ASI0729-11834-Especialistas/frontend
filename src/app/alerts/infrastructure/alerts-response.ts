@@ -6,6 +6,13 @@ export interface AlertResource extends BaseResource {
   description: string;
   severity: string;
   status: string;
+  createdAt?: string;
+  laboratoryId?: number;
+  labName?: string;
+  labLocation?: string;
+  sensorId?: number;
+  sensorName?: string;
+  metrics?: Array<{ label: string; value: string }>;
 }
 
 export interface AlertsResponse extends BaseResponse {

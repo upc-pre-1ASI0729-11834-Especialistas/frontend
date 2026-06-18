@@ -153,7 +153,7 @@ export class LaboratoryStore {
         let filtered = allLabs;
 
         if (status && status !== 'All') {
-          filtered = filtered.filter(l => l.overallStatus === status);
+          filtered = filtered.filter(l => l.overallStatus.toLowerCase() === status.toLowerCase());
         }
         if (location && location !== 'All') {
           filtered = filtered.filter(l => l.building === location);

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, computed } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
@@ -7,6 +7,7 @@ import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LaboratoryStore } from '../../../application/laboratory.store';
 import { HistoryStore } from '../../../../history/application/history.store';
+import { AlertsStore } from '../../../../alerts/application/alerts.store';
 import { HistoryRecord } from '../../../../history/domain/model/history-record.entity';
 import { MetricCardComponent } from './components/metric-card/metric-card.component';
 import { LaboratoryHeaderComponent } from './components/laboratory-header/laboratory-header.component';
@@ -38,11 +39,34 @@ import { AddObservationDialogComponent } from './components/add-observation-dial
 })
 export class LaboratoryDetailPageComponent implements OnInit {
   protected readonly laboratoryStore = inject(LaboratoryStore);
+  protected readonly alertsStore = inject(AlertsStore);
   private readonly historyStore = inject(HistoryStore);
   private readonly route = inject(ActivatedRoute);
   private readonly dialog = inject(MatDialog);
 
   tabs = ['Systems', 'Notifications', 'Reports', 'Settings'];
+
+  readonly activeAlert = computed(() => {
+    const lab = this.laboratoryStore.selectedLaboratory();
+    if (!lab) return undefined;
+    const active = this.alertsStore.alerts().find(
+      a => a.laboratoryId === lab.id && a.status !== 'RESOLVED'
+    );
+    if (active) {
+      return {
+        id: active.id,
+        title: active.title,
+        source: active.sensorName ? `Sensor ${active.sensorName}` : active.labLocation || 'N/A',
+        timeAgo: 'Just now'
+      };
+    }
+    return lab.recentAlerts[0] ? {
+      id: Number(lab.recentAlerts[0].id),
+      title: lab.recentAlerts[0].title,
+      source: lab.recentAlerts[0].source,
+      timeAgo: lab.recentAlerts[0].timeAgo
+    } : undefined;
+  });
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');

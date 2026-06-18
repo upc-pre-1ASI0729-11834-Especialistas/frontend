@@ -1,14 +1,5 @@
 <div class="status-row">
 
-  <!-- Overall Status -->
-  <div class="stat-card">
-    <span class="stat-label">Overall Status</span>
-    <span class="stat-value" [class.stat-value--critical]="lab().isCritical()"
-      [class.stat-value--warning]="lab().isWarning()">
-      {{ lab().overallStatus }}
-    </span>
-  </div>
-
   <!-- Last Update -->
   <div class="stat-card">
     <span class="stat-label">Last Update</span>
