@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,8 +6,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
+import { AlertsStore } from '../../../application/alerts.store';
+import { Alert } from '../../../domain/model/alert.entity';
 
-interface Alert {
+interface LocalAlert {
+  id: number;
   title: string;
   location: string;
   timeAgo: string;
@@ -23,7 +26,7 @@ interface AlertGroup {
   count: number;
   colorClass: string;
   pillClass: string;
-  items: Alert[];
+  items: LocalAlert[];
 }
 
 @Component({
@@ -41,101 +44,87 @@ interface AlertGroup {
   styleUrl: './alerts-page.css',
 })
 export class AlertsPage {
-  private router = inject(Router);
+  private readonly router = inject(Router);
+  private readonly alertsStore = inject(AlertsStore);
 
-  summaryCards = [
-    { title: 'Critical', subtitle: 'alerts', value: 3, class: 'card-critical' },
-    { title: 'Warning', subtitle: 'alerts', value: 5, class: 'card-warning' },
-    { title: 'Informational', subtitle: 'alerts', value: 12, class: 'card-info' },
-    { title: 'Resolved Today', subtitle: 'alerts', value: 24, class: 'card-resolved' }
-  ];
+  readonly alerts = this.alertsStore.alerts;
+  readonly loading = this.alertsStore.loading;
 
-  alertGroups: AlertGroup[] = [
-    {
-      severity: 'CRITICAL',
-      count: 3,
-      colorClass: 'text-red',
-      pillClass: 'pill-critical',
-      items: [
-        {
-          title: 'Temperature threshold exceeded',
-          location: 'Cryo Storage 01 — Refrigerator B2',
-          timeAgo: '38 min ago',
-          sensor: 'Sensor T-B2-01',
-          description: 'Temperature reading of 9.4°C exceeded the safe threshold of 8.0°C. Sample integrity may be at risk.',
-          duration: '38 min'
-        },
-        {
-          title: 'CO2 level above safe limit',
-          location: 'Lab A — CO2 Monitor CM-01',
-          timeAgo: '1 hr ago',
-          sensor: 'Sensor CO2-A-01',
-          description: 'CO2 concentration at 1,850 ppm — exceeds regulatory limit of 1,000 ppm. Ventilation check required.',
-          duration: '1 hr 4 min'
-        },
-        {
-          title: 'Freezer door ajar — sample exposure risk',
-          location: 'Lab D — ULT Freezer F-07',
-          timeAgo: '2 hr ago',
-          sensor: 'Door sensor DS-F07',
-          description: 'Door open status detected for over 4 minutes. Internal temperature rising. Samples flagged for review.',
-          duration: '2 hr 11 min'
-        }
-      ]
-    },
-    {
-      severity: 'WARNING',
-      count: 5,
-      colorClass: 'text-orange',
-      pillClass: 'pill-warning',
-      items: [
-        {
-          title: 'Humidity above optimal threshold',
-          location: 'Lab C — HVAC Unit 3',
-          timeAgo: '1 hr ago',
-          sensor: 'Sensor HU-C3-02',
-          description: 'Relative humidity at 68% — above the optimal ceiling of 60%. Monitor closely for condensation risk.',
-          duration: '1 hr 2 min'
-        },
-        {
-          title: 'Refrigerator A1 temperature trending high',
-          location: 'Lab A — Refrigerator A1',
-          timeAgo: '3 hr ago',
-          sensor: 'Sensor T-A1-01',
-          description: 'Temperature trending toward 7.8°C (threshold: 8.0°C). No breach yet — preventive review recommended.',
-          duration: '3 hr 18 min'
-        }
-      ]
-    },
-    {
-      severity: 'RESOLVED TODAY',
-      count: 24,
-      colorClass: 'text-green',
-      pillClass: 'pill-resolved',
-      items: [
-        {
-          title: 'Incubator D1 temperature spike',
-          location: 'Lab D — Incubator D1',
-          timeAgo: '5 hr ago',
-          sensor: 'Sensor T-D1-01',
-          description: 'Brief spike to 38.4°C detected. Auto-recovery confirmed. Temperature returned to 37.0°C within 6 minutes.',
-          duration: '6 min',
-          resolvedBy: 'Resolved by Dr. Vance · 5h ago'
-        },
-        {
-          title: 'Power interruption — UPS switchover',
-          location: 'Building C — Power Monitor',
-          timeAgo: 'Yesterday · 11:32 PM',
-          sensor: '',
-          description: 'Momentary grid power loss. UPS engaged successfully. All equipment remained operational throughout.',
-          duration: '2 min',
-          resolvedBy: 'Resolved by System Auto-resolved · 8h ago'
-        }
-      ]
+  readonly summaryCards = computed(() => {
+    const list: Alert[] = this.alerts();
+    const critical = list.filter((a: Alert) => a.status.toLowerCase() !== 'resolved' && a.severity.toLowerCase() === 'critical').length;
+    const warning = list.filter((a: Alert) => a.status.toLowerCase() !== 'resolved' && a.severity.toLowerCase() === 'warning').length;
+    const info = list.filter((a: Alert) => a.status.toLowerCase() !== 'resolved' && a.severity.toLowerCase() === 'info').length;
+    const resolved = list.filter((a: Alert) => a.status.toLowerCase() === 'resolved').length;
+
+    return [
+      { title: 'Critical', subtitle: 'alerts', value: critical, class: 'card-critical' },
+      { title: 'Warning', subtitle: 'alerts', value: warning, class: 'card-warning' },
+      { title: 'Informational', subtitle: 'alerts', value: info, class: 'card-info' },
+      { title: 'Resolved Today', subtitle: 'alerts', value: resolved, class: 'card-resolved' }
+    ];
+  });
+
+  readonly alertGroups = computed<AlertGroup[]>(() => {
+    const list: Alert[] = this.alerts();
+    const criticalItems = list.filter((a: Alert) => a.status.toLowerCase() !== 'resolved' && a.severity.toLowerCase() === 'critical');
+    const warningItems = list.filter((a: Alert) => a.status.toLowerCase() !== 'resolved' && a.severity.toLowerCase() === 'warning');
+    const resolvedItems = list.filter((a: Alert) => a.status.toLowerCase() === 'resolved');
+
+    return [
+      {
+        severity: 'CRITICAL',
+        count: criticalItems.length,
+        colorClass: 'text-red',
+        pillClass: 'pill-critical',
+        items: criticalItems.map(a => this.mapToLocalAlert(a))
+      },
+      {
+        severity: 'WARNING',
+        count: warningItems.length,
+        colorClass: 'text-orange',
+        pillClass: 'pill-warning',
+        items: warningItems.map(a => this.mapToLocalAlert(a))
+      },
+      {
+        severity: 'RESOLVED TODAY',
+        count: resolvedItems.length,
+        colorClass: 'text-green',
+        pillClass: 'pill-resolved',
+        items: resolvedItems.map(a => this.mapToLocalAlert(a))
+      }
+    ];
+  });
+
+  private mapToLocalAlert(alert: Alert): LocalAlert {
+    const desc = alert.description || '';
+    const sensorMatch = desc.match(/Sensor\s+[\w\-]+/i);
+    const sensor = sensorMatch ? sensorMatch[0] : 'Sensor T-01';
+
+    let location = 'Main Laboratory';
+    if (desc.includes('Cryo')) {
+      location = 'Cryo Storage 01 — Refrigerator B2';
+    } else if (desc.includes('Lab A')) {
+      location = 'Lab A — CO2 Monitor';
+    } else if (desc.includes('Lab D')) {
+      location = 'Lab D — ULT Freezer F-07';
+    } else if (desc.includes('Lab C')) {
+      location = 'Lab C — HVAC Unit 3';
     }
-  ];
 
-  navigateToIncident() {
-    this.router.navigate(['/alerts/incident']);
+    return {
+      id: alert.id,
+      title: alert.title,
+      location: location,
+      timeAgo: '38 min ago',
+      sensor: sensor,
+      description: alert.description,
+      duration: '38 min',
+      resolvedBy: alert.status.toLowerCase() === 'resolved' ? 'Resolved by Dr. Vance · Just now' : undefined
+    };
+  }
+
+  navigateToIncident(id: number) {
+    this.router.navigate(['/alerts/incident'], { queryParams: { id } });
   }
 }

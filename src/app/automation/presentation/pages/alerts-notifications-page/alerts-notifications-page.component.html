@@ -1,4 +1,4 @@
-<div class="page-body">
+<form [formGroup]="notificationForm" (ngSubmit)="onSaveChanges()" class="page-body">
 
   <mat-card appearance="outlined" class="main-card">
     <mat-card-content class="main-content">
@@ -15,7 +15,7 @@
               <h3 class="channel-name">Email Notifications</h3>
               <p class="channel-desc">Daily digests and critical alerts via email</p>
             </div>
-            <mat-slide-toggle [checked]="true" color="primary"></mat-slide-toggle>
+            <mat-slide-toggle formControlName="emailNotifications" color="primary"></mat-slide-toggle>
           </div>
 
           <div class="channel-card">
@@ -23,7 +23,7 @@
               <h3 class="channel-name">In-App Notifications</h3>
               <p class="channel-desc">Real-time alerts within the dashboard</p>
             </div>
-            <mat-slide-toggle color="primary"></mat-slide-toggle>
+            <mat-slide-toggle formControlName="inAppNotifications" color="primary"></mat-slide-toggle>
           </div>
 
         </div>
@@ -44,7 +44,7 @@
             <div class="threshold-field">
               <span class="field-label">Warning Level</span>
               <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                <mat-select value="2c">
+                <mat-select formControlName="tempWarningLevel">
                   <mat-option value="2c">2°C Deviation</mat-option>
                   <mat-option value="3c">3°C Deviation</mat-option>
                 </mat-select>
@@ -57,7 +57,7 @@
             <div class="threshold-field">
               <span class="field-label">Critical Level</span>
               <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                <mat-select value="5c">
+                <mat-select formControlName="tempCriticalLevel">
                   <mat-option value="4c">4°C Deviation</mat-option>
                   <mat-option value="5c">5°C Deviation</mat-option>
                 </mat-select>
@@ -78,7 +78,7 @@
         <div class="summary-list">
 
           <div class="summary-item">
-            <mat-checkbox color="primary" class="summary-checkbox"></mat-checkbox>
+            <mat-checkbox formControlName="dailySummary" color="primary" class="summary-checkbox"></mat-checkbox>
             <div class="summary-info">
               <h3 class="summary-name">Daily Summary</h3>
               <p class="summary-desc">A concise snapshot of all lab readings and events over the past 24 hours.</p>
@@ -86,7 +86,7 @@
           </div>
 
           <div class="summary-item">
-            <mat-checkbox color="primary" class="summary-checkbox"></mat-checkbox>
+            <mat-checkbox formControlName="weeklyReport" color="primary" class="summary-checkbox"></mat-checkbox>
             <div class="summary-info">
               <h3 class="summary-name">Weekly Report</h3>
               <p class="summary-desc">Comprehensive trends and compliance documentation for the previous week.</p>
@@ -94,7 +94,7 @@
           </div>
 
           <div class="summary-item">
-            <mat-checkbox [checked]="true" color="primary" class="summary-checkbox"></mat-checkbox>
+            <mat-checkbox formControlName="instantSensorAlerts" color="primary" class="summary-checkbox"></mat-checkbox>
             <div class="summary-info">
               <h3 class="summary-name">Instant Sensor Alerts</h3>
               <p class="summary-desc">Immediate notification for any sensor hardware malfunctions or connectivity loss.</p>
@@ -107,10 +107,10 @@
       <div class="divider full-width"></div>
 
       <div class="actions-footer">
-        <button mat-flat-button color="primary" class="save-btn">Save Changes</button>
+        <button type="submit" mat-flat-button color="primary" class="save-btn">Save Changes</button>
       </div>
 
     </mat-card-content>
   </mat-card>
 
-</div>
+</form>

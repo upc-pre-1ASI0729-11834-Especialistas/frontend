@@ -12,9 +12,16 @@
   </div>
 
   <div class="chart-body">
+    @if (readings().length > 0) {
     <apx-chart [series]="chartOptions().series!" [chart]="chartOptions().chart!" [xaxis]="chartOptions().xaxis!"
       [yaxis]="chartOptions().yaxis!" [stroke]="chartOptions().stroke!" [dataLabels]="chartOptions().dataLabels!"
       [grid]="chartOptions().grid!" [colors]="chartOptions().colors!" [fill]="chartOptions().fill!"
       [tooltip]="chartOptions().tooltip!" [legend]="chartOptions().legend!"></apx-chart>
+    } @else {
+    <div class="no-data-state">
+      <mat-icon class="no-data-icon">trending_flat</mat-icon>
+      <p class="no-data-text">No temperature trends available</p>
+    </div>
+    }
   </div>
 </app-card>

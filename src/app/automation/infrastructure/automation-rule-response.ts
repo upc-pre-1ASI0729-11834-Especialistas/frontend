@@ -4,7 +4,7 @@ export interface AutomationRuleResource extends BaseResource {
   id: number;
   name: string;
   active: boolean;
-  lastTriggered: string;
+  lastTriggered: string | null;
   triggerMetric: string;
   triggerOperator: string;
   triggerValue: number;

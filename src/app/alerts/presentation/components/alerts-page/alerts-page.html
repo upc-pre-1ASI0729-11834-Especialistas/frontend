@@ -11,7 +11,7 @@
   </div>
 
   <section class="summary-cards">
-    @for (card of summaryCards; track card.title) {
+    @for (card of summaryCards(); track card.title) {
       <div class="summary-card {{card.class}}">
         <div class="card-value">{{ card.value }}</div>
         <div class="card-text">
@@ -42,12 +42,12 @@
       </div>
     </div>
     <div class="filters-right">
-      <span class="total-text">20 alerts total</span>
+      <span class="total-text">{{ alerts().length }} alerts total</span>
     </div>
   </section>
 
   <section class="alerts-list">
-    @for (group of alertGroups; track group.severity) {
+    @for (group of alertGroups(); track group.severity) {
 
       <div class="alert-group-header">
         <span class="group-dot" [ngClass]="group.colorClass">●</span>
@@ -83,7 +83,7 @@
               @if(group.severity === 'RESOLVED TODAY') {
                 <span class="resolved-by">{{ alert.resolvedBy }}</span>
               } @else {
-                <button class="btn-investigate" (click)="navigateToIncident()">
+                <button class="btn-investigate" (click)="navigateToIncident(alert.id)">
                   Investigate <mat-icon>arrow_forward</mat-icon>
                 </button>
               }

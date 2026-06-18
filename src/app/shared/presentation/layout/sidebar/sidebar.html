@@ -29,7 +29,9 @@
       <mat-icon class="nav-icon">notifications_active</mat-icon>
       <span>Alerts</span>
       <!-- Badge de alertas activas -->
-      <span class="alert-badge">2</span>
+      @if (activeAlertsCount() > 0) {
+        <span class="alert-badge">{{ activeAlertsCount() }}</span>
+      }
     </a>
 
     <a routerLink="/history" routerLinkActive="active" class="nav-item">
@@ -53,10 +55,10 @@
 
   <!-- User panel -->
   <div class="user-panel">
-    <div class="user-avatar">DC</div>
+    <div class="user-avatar">{{ userInitials() }}</div>
     <div class="user-info">
-      <p class="user-name">Dr. Chen</p>
-      <p class="user-role">Lab Coordinator</p>
+      <p class="user-name">{{ currentProfile()?.fullName || 'Dr. Chen' }}</p>
+      <p class="user-role">{{ currentProfile()?.role || 'Lab Coordinator' }}</p>
     </div>
     <button class="logout-btn" mat-icon-button>
       <mat-icon>logout</mat-icon>

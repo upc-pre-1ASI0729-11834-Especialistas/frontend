@@ -1,8 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AlertsStore } from '../../../application/alerts.store';
+import { Alert } from '../../../domain/model/alert.entity';
 
 type ResolutionType = 'manual' | 'automated' | 'escalated';
 
@@ -14,6 +16,10 @@ type ResolutionType = 'manual' | 'automated' | 'escalated';
   styleUrl: './resolve-incident-page.css',
 })
 export class ResolveIncidentPage {
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly alertsStore = inject(AlertsStore);
+
   resolutionNote = signal<string>('');
   resolutionType = signal<ResolutionType>('manual');
   scheduleFollowUp = signal<boolean>(false);
@@ -22,6 +28,16 @@ export class ResolveIncidentPage {
   isDraggingOver = signal<boolean>(false);
 
   readonly MAX_CHARS = 500;
+  readonly alertId = signal<number | null>(null);
+
+  constructor() {
+    this.route.queryParams.subscribe(params => {
+      const id = params['id'];
+      if (id) {
+        this.alertId.set(Number(id));
+      }
+    });
+  }
 
   get noteLength(): number {
     return this.resolutionNote().length;
@@ -90,12 +106,26 @@ export class ResolveIncidentPage {
 
   onConfirm(): void {
     if (!this.canConfirm) return;
-    // Resolution logic — route or emit event here
-    console.log({
-      note: this.resolutionNote(),
-      type: this.resolutionType(),
-      scheduleFollowUp: this.scheduleFollowUp(),
-      photo: this.uploadedFileName(),
-    });
+    
+    const id = this.alertId();
+    if (id) {
+      const currentAlert = this.alertsStore.getAlertById(id)();
+      if (currentAlert) {
+        const updatedAlert = new Alert({
+          id: currentAlert.id,
+          title: currentAlert.title,
+          description: currentAlert.description,
+          severity: currentAlert.severity,
+          status: 'Resolved',
+          metrics: currentAlert.metrics
+        });
+
+        this.alertsStore.updateAlert(updatedAlert);
+        this.router.navigate(['/alerts']);
+      }
+    } else {
+      // Fallback if no specific alert is targeted
+      this.router.navigate(['/alerts']);
+    }
   }
 }

@@ -5,6 +5,8 @@ import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { LaboratoryStore } from '../../../application/laboratory.store';
+import { HistoryStore } from '../../../../history/application/history.store';
+import { HistoryRecord } from '../../../../history/domain/model/history-record.entity';
 import { MetricCardComponent } from './components/metric-card/metric-card.component';
 import { LaboratoryHeaderComponent } from './components/laboratory-header/laboratory-header.component';
 import { LaboratoryStatsComponent } from './components/laboratory-stats/laboratory-stats.component';
@@ -33,10 +35,12 @@ import { StatusBadgeComponent } from '../../../../shared/presentation/components
 })
 export class LaboratoryDetailPageComponent implements OnInit {
   protected readonly laboratoryStore = inject(LaboratoryStore);
+  private readonly historyStore = inject(HistoryStore);
   private readonly route = inject(ActivatedRoute);
 
   tabs = ['Systems', 'Notifications', 'Reports', 'Settings'];
   observationText = '';
+  observationType = 'Laboratory log';
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -51,7 +55,25 @@ export class LaboratoryDetailPageComponent implements OnInit {
 
   saveObservation(): void {
     if (!this.observationText.trim()) return;
-    console.log('Observation saved:', this.observationText);
+
+    const lab = this.laboratoryStore.selectedLaboratory();
+    if (!lab) return;
+
+    const record = new HistoryRecord({
+      id: 0,
+      name: `${this.observationType} - ${lab.name}`,
+      description: this.observationText,
+      occurredAt: new Date().toISOString(),
+      lab: lab.name,
+      eventType: 'Observation',
+      severity: this.observationType === 'Incident log' ? 'Critical' : 'Info',
+      status: 'Active'
+    });
+
+    this.historyStore.addHistoryRecord(record, () => {
+      this.laboratoryStore.loadLaboratoryById(lab.id);
+    });
+
     this.observationText = '';
   }
 }

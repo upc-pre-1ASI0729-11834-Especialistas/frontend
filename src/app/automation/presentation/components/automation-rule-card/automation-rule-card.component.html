@@ -13,10 +13,10 @@
           <h3 class="rule-title">{{ rule.name }}</h3>
           <div class="badge-wrapper">
             <span class="trigger-badge" 
-                  [class.badge-warning]="rule.active && rule.lastTriggered.includes('Triggered')" 
-                  [class.badge-inactive]="!rule.active || rule.lastTriggered.includes('Inactive') || rule.lastTriggered.includes('Never')">
+                  [class.badge-warning]="rule.active && rule.lastTriggered" 
+                  [class.badge-inactive]="!rule.active || !rule.lastTriggered">
               <mat-icon class="badge-icon">schedule</mat-icon>
-              {{ rule.lastTriggered }}
+              {{ rule.lastTriggered ? (rule.lastTriggered | date:'medium') : 'Never triggered' }}
             </span>
           </div>
         </div>

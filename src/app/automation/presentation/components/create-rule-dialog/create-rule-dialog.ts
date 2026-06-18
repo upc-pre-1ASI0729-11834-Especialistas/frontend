@@ -98,7 +98,7 @@ export class CreateRuleDialog implements OnInit {
       const result = {
         name: formVal.name,
         active: true,
-        lastTriggered: 'Never triggered',
+        lastTriggered: null,
         triggerMetric: formVal.triggerMetric,
         triggerOperator: formVal.triggerOperator,
         triggerValue: Number(formVal.triggerValue),

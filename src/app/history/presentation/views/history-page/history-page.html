@@ -20,11 +20,11 @@
       <!-- ② FILTER TABS + DATE + SEARCH -->
       <div class="filters-top-bar">
         <div class="filter-tabs">
-          <button class="filter-tab active">All events</button>
-          <button class="filter-tab">Incidents</button>
-          <button class="filter-tab">Resolutions</button>
-          <button class="filter-tab">Manual observations</button>
-          <button class="filter-tab">Automations</button>
+          <button class="filter-tab" [class.active]="selectedTab() === 'All events'" (click)="selectedTab.set('All events')">All events</button>
+          <button class="filter-tab" [class.active]="selectedTab() === 'Incidents'" (click)="selectedTab.set('Incidents')">Incidents</button>
+          <button class="filter-tab" [class.active]="selectedTab() === 'Resolutions'" (click)="selectedTab.set('Resolutions')">Resolutions</button>
+          <button class="filter-tab" [class.active]="selectedTab() === 'Manual observations'" (click)="selectedTab.set('Manual observations')">Manual observations</button>
+          <button class="filter-tab" [class.active]="selectedTab() === 'Automations'" (click)="selectedTab.set('Automations')">Automations</button>
         </div>
         <div class="filter-right">
           <button class="date-btn">
@@ -85,7 +85,7 @@
               General shift notes
             </p>
             <p class="report-section-hint">Summary of general operations and non-critical observations.</p>
-            <textarea class="report-textarea" placeholder="Enter notes here..."></textarea>
+            <textarea class="report-textarea" [(ngModel)]="shiftNotes" placeholder="Enter notes here..."></textarea>
           </div>
 
           <!-- Handover note -->
@@ -95,7 +95,7 @@
               Handover note — for the next shift
             </p>
             <p class="handover-subtitle">Critical information for the incoming operator.</p>
-            <textarea class="report-textarea handover-textarea"
+            <textarea class="report-textarea handover-textarea" [(ngModel)]="handoverNote"
               placeholder="Important details for next shift..."></textarea>
             <p class="handover-notice">
               <mat-icon>info</mat-icon>

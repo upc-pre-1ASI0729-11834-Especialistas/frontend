@@ -1,5 +1,6 @@
-﻿import { computed, DestroyRef, inject, Injectable, Signal, signal } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, Signal, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Observable, tap } from 'rxjs';
 import { SensorConfiguration } from '../domain/model/sensor-configuration.entity';
 import { SensorConfigurationsApi } from '../infrastructure/sensor-configuration-api';
 
@@ -22,6 +23,49 @@ export class SensorConfigurationStore {
 
   getSensorConfigurationById(id: number | null | undefined): Signal<SensorConfiguration | undefined> {
     return computed(() => id ? this.sensorConfigurations().find(e => e.id === id) : undefined);
+  }
+
+  createSensorConfiguration(sensor: SensorConfiguration): Observable<SensorConfiguration> {
+    this.loadingSignal.set(true);
+    return this.sensorConfigurationsApi.createSensorConfiguration(sensor).pipe(
+      tap({
+        next: saved => {
+          this.sensorConfigurationsSignal.update(list => [...list, saved]);
+          this.loadingSignal.set(false);
+        },
+        error: err => this.handleError(err, 'Failed to create sensor configuration')
+      })
+    );
+  }
+
+  updateSensorConfiguration(id: number, sensor: SensorConfiguration): Observable<SensorConfiguration> {
+    this.loadingSignal.set(true);
+    return this.sensorConfigurationsApi.updateSensorConfiguration(id, sensor).pipe(
+      tap({
+        next: saved => {
+          this.sensorConfigurationsSignal.update(list =>
+            list.map(item => item.id === id ? saved : item)
+          );
+          this.loadingSignal.set(false);
+        },
+        error: err => this.handleError(err, 'Failed to update sensor configuration')
+      })
+    );
+  }
+
+  calibrateSensor(id: number, certificateId: string, expirationDate: Date, calibratedAt: Date): Observable<SensorConfiguration> {
+    this.loadingSignal.set(true);
+    return this.sensorConfigurationsApi.calibrateSensor(id, certificateId, expirationDate, calibratedAt).pipe(
+      tap({
+        next: saved => {
+          this.sensorConfigurationsSignal.update(list =>
+            list.map(item => item.id === id ? saved : item)
+          );
+          this.loadingSignal.set(false);
+        },
+        error: err => this.handleError(err, 'Failed to calibrate sensor')
+      })
+    );
   }
 
   private loadSensorConfigurations(): void {

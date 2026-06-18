@@ -24,13 +24,16 @@ export class HistoryStore {
     return computed(() => (id ? this.history().find(record => record.id === id) : undefined));
   }
 
-  addHistoryRecord(record: HistoryRecord): void {
+  addHistoryRecord(record: HistoryRecord, onSuccess?: () => void): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.historyApi.createHistoryRecord(record).pipe(retry(2)).subscribe({
       next: createdRecord => {
         this.historySignal.update(history => [...history, createdRecord]);
         this.loadingSignal.set(false);
+        if (onSuccess) {
+          onSuccess();
+        }
       },
       error: err => {
         this.errorSignal.set(this.formatError(err, 'Failed to create history record'));

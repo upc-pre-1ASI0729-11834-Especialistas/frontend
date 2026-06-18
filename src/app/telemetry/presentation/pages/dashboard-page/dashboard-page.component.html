@@ -29,15 +29,15 @@
       <mat-icon>warning</mat-icon>
     </app-stat-card>
 
-    <app-stat-card label="Sensors Online" [value]="'14 / 15'" accentColor="#16a34a">
+    <app-stat-card label="Sensors Online" [value]="sensorsOnlineText()" accentColor="#16a34a">
       <mat-icon>sensors</mat-icon>
     </app-stat-card>
 
-    <app-stat-card label="Equipment in Range" [value]="'4 / 5'" accentColor="#d97706">
+    <app-stat-card label="Equipment in Range" [value]="equipmentInRangeText()" accentColor="#d97706">
       <mat-icon>device_thermostat</mat-icon>
     </app-stat-card>
 
-    <app-stat-card label="Last Compliance Report" [value]="'Yesterday'" accentColor="#16a34a">
+    <app-stat-card label="Last Compliance Report" [value]="complianceReportDate()" accentColor="#16a34a">
       <mat-icon>verified</mat-icon>
     </app-stat-card>
   </div>
@@ -59,58 +59,25 @@
       </div>
 
       <div class="alert-rows">
-        <!-- Critical -->
-        <a routerLink="/alerts/incident" class="alert-row critical">
-          <span class="alert-dot critical"></span>
+        @for (alert of dashboardStore.recentAlerts(); track alert.id) {
+        <a routerLink="/alerts/incident" [queryParams]="{ id: alert.id }" [class]="'alert-row ' + alert.severity.toLowerCase()">
+          <span [class]="'alert-dot ' + alert.severity.toLowerCase()"></span>
           <div class="alert-row-content">
             <div class="alert-row-top">
-              <span class="severity-pill critical">Critical</span>
-              <span class="alert-row-time">8 min ago</span>
+              <span [class]="'severity-pill ' + alert.severity.toLowerCase()">{{ alert.severity | titlecase }}</span>
+              <span class="alert-row-time">{{ alert.timeAgo }}</span>
             </div>
-            <div class="alert-row-title">Lab B — Freezer B2 temperature exceeded</div>
-            <div class="alert-row-lab">Temperature rose to −5°C (threshold: −18°C). Sample integrity at risk.</div>
+            <div class="alert-row-title">{{ alert.labName }} — {{ alert.title }}</div>
+            <div class="alert-row-lab">{{ alert.description }}</div>
           </div>
           <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
         </a>
-
-        <a routerLink="/alerts/incident" class="alert-row critical">
-          <span class="alert-dot critical"></span>
-          <div class="alert-row-content">
-            <div class="alert-row-top">
-              <span class="severity-pill critical">Critical</span>
-              <span class="alert-row-time">22 min ago</span>
-            </div>
-            <div class="alert-row-title">Lab A — CO₂ Monitor above safe limit</div>
-            <div class="alert-row-lab">CO₂ at 1,850 ppm — exceeds regulatory limit of 1,000 ppm.</div>
-          </div>
-          <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
-        </a>
-
-        <a routerLink="/alerts" class="alert-row warning">
-          <span class="alert-dot warning"></span>
-          <div class="alert-row-content">
-            <div class="alert-row-top">
-              <span class="severity-pill warning">Warning</span>
-              <span class="alert-row-time">1 hr ago</span>
-            </div>
-            <div class="alert-row-title">Lab C — HVAC Unit 3 humidity high</div>
-            <div class="alert-row-lab">Humidity at 68% — above optimal 60% threshold.</div>
-          </div>
-          <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
-        </a>
-
-        <a routerLink="/alerts" class="alert-row resolved">
-          <span class="alert-dot resolved"></span>
-          <div class="alert-row-content">
-            <div class="alert-row-top">
-              <span class="severity-pill resolved">Resolved</span>
-              <span class="alert-row-time">3 hr ago</span>
-            </div>
-            <div class="alert-row-title">Lab A — Refrigerator A1 temperature spike</div>
-            <div class="alert-row-lab">Temperature briefly spiked; auto-recovery confirmed within range.</div>
-          </div>
-          <mat-icon class="investigate-arrow">arrow_forward_ios</mat-icon>
-        </a>
+        } @empty {
+        <div class="no-alerts-state" style="padding: 24px; text-align: center; color: #64748b;">
+          <mat-icon style="font-size: 36px; width: 36px; height: 36px; margin-bottom: 8px; color: #10b981;">check_circle</mat-icon>
+          <p style="margin: 0; font-weight: 500;">All systems operational</p>
+        </div>
+        }
       </div>
     </div>
 
@@ -127,80 +94,22 @@
       </div>
 
       <div class="equipment-list">
+        @for (item of equipmentList(); track item.id) {
         <div class="equipment-row">
           <div class="equipment-row-top">
-            <span class="equipment-name">Refrigerator A1</span>
-            <span class="equipment-temp ok">−3.2°C</span>
+            <span class="equipment-name">{{ item.name }}</span>
+            <span [class]="'equipment-temp ' + getEquipmentStatusClass(item.status)">{{ item.currentValue }}&nbsp;{{ item.unit }}</span>
           </div>
           <div class="equipment-bar-wrap">
-            <div class="equipment-bar ok" style="width: 40%"></div>
+            <div [class]="'equipment-bar ' + getEquipmentStatusClass(item.status)" [style.width]="getEquipmentBarWidth(item)"></div>
           </div>
           <div class="equipment-bar-labels">
-            <span>−25°C</span>
-            <span class="equipment-status-label ok">In Range</span>
-            <span>0°C</span>
+            <span>{{ item.minThreshold }}&nbsp;{{ item.unit }}</span>
+            <span [class]="'equipment-status-label ' + getEquipmentStatusClass(item.status)">{{ getEquipmentStatusLabel(item.status) }}</span>
+            <span>{{ item.maxThreshold }}&nbsp;{{ item.unit }}</span>
           </div>
         </div>
-
-        <div class="equipment-row">
-          <div class="equipment-row-top">
-            <span class="equipment-name">Freezer B2</span>
-            <span class="equipment-temp crit">−5.0°C</span>
-          </div>
-          <div class="equipment-bar-wrap">
-            <div class="equipment-bar crit" style="width: 85%"></div>
-          </div>
-          <div class="equipment-bar-labels">
-            <span>−25°C</span>
-            <span class="equipment-status-label crit">Out of Range</span>
-            <span>0°C</span>
-          </div>
-        </div>
-
-        <div class="equipment-row">
-          <div class="equipment-row-top">
-            <span class="equipment-name">Refrigerator C1</span>
-            <span class="equipment-temp ok">4.1°C</span>
-          </div>
-          <div class="equipment-bar-wrap">
-            <div class="equipment-bar ok" style="width: 52%"></div>
-          </div>
-          <div class="equipment-bar-labels">
-            <span>2°C</span>
-            <span class="equipment-status-label ok">In Range</span>
-            <span>8°C</span>
-          </div>
-        </div>
-
-        <div class="equipment-row">
-          <div class="equipment-row-top">
-            <span class="equipment-name">Incubator D1</span>
-            <span class="equipment-temp ok">37.0°C</span>
-          </div>
-          <div class="equipment-bar-wrap">
-            <div class="equipment-bar ok" style="width: 70%"></div>
-          </div>
-          <div class="equipment-bar-labels">
-            <span>35°C</span>
-            <span class="equipment-status-label ok">In Range</span>
-            <span>39°C</span>
-          </div>
-        </div>
-
-        <div class="equipment-row">
-          <div class="equipment-row-top">
-            <span class="equipment-name">HVAC Unit 3</span>
-            <span class="equipment-temp warn">21.4°C</span>
-          </div>
-          <div class="equipment-bar-wrap">
-            <div class="equipment-bar warn" style="width: 62%"></div>
-          </div>
-          <div class="equipment-bar-labels">
-            <span>18°C</span>
-            <span class="equipment-status-label warn">Monitor</span>
-            <span>24°C</span>
-          </div>
-        </div>
+        }
       </div>
     </div>
   </div>

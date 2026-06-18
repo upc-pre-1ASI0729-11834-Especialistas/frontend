@@ -10,6 +10,7 @@ import { RoleDefinitionStore } from './role-definition.store';
 import { EquipmentThresholdStore } from './equipment-threshold.store';
 import { AutomationRuleStore } from './automation-rule.store';
 import { UserProfile } from '../domain/model/user-profile.entity';
+import { SensorConfiguration } from '../domain/model/sensor-configuration.entity';
 
 @Injectable({ providedIn: 'root' })
 export class AutomationStore {
@@ -75,7 +76,7 @@ export class AutomationStore {
   createAutomationRule(data: {
     name: string;
     active: boolean;
-    lastTriggered: string;
+    lastTriggered: string | null;
     triggerMetric: string;
     triggerOperator: string;
     triggerValue: number;
@@ -93,7 +94,7 @@ export class AutomationStore {
   updateAutomationRule(id: number, data: Partial<{
     name: string;
     active: boolean;
-    lastTriggered: string;
+    lastTriggered: string | null;
     triggerMetric: string;
     triggerOperator: string;
     triggerValue: number;
@@ -110,5 +111,17 @@ export class AutomationStore {
 
   updateUserProfile(id: number, userProfile: UserProfile) {
     return this.userProfileStore.updateUserProfile(id, userProfile);
+  }
+
+  createSensorConfiguration(sensor: SensorConfiguration) {
+    return this.sensorConfigurationStore.createSensorConfiguration(sensor);
+  }
+
+  updateSensorConfiguration(id: number, sensor: SensorConfiguration) {
+    return this.sensorConfigurationStore.updateSensorConfiguration(id, sensor);
+  }
+
+  calibrateSensor(id: number, certificateId: string, expirationDate: Date, calibratedAt: Date) {
+    return this.sensorConfigurationStore.calibrateSensor(id, certificateId, expirationDate, calibratedAt);
   }
 }

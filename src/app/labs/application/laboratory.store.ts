@@ -178,6 +178,37 @@ export class LaboratoryStore {
     });
   }
 
+  addRecentActivityToSelected(activity: any): void {
+    const currentLab = this.selectedLaboratorySignal();
+    if (currentLab) {
+      const updatedLab = new Laboratory({
+        id: currentLab.id,
+        name: currentLab.name,
+        type: currentLab.type,
+        status: currentLab.status,
+        building: currentLab.building,
+        floor: currentLab.floor,
+        labCode: currentLab.labCode,
+        overallStatus: currentLab.overallStatus,
+        active: currentLab.active,
+        lastUpdate: currentLab.lastUpdate,
+        isLive: currentLab.isLive,
+        nextMaintenance: currentLab.nextMaintenance,
+        maintenanceDaysLeft: currentLab.maintenanceDaysLeft,
+        metrics: currentLab.metrics,
+        recentAlerts: currentLab.recentAlerts,
+        recentActivities: [activity, ...currentLab.recentActivities],
+        schedules: currentLab.schedules,
+        roomNumber: currentLab.roomNumber,
+        description: currentLab.description,
+        sensors: currentLab.sensors,
+        thresholds: currentLab.thresholds,
+        notifications: currentLab.notifications
+      });
+      this.selectedLaboratorySignal.set(updatedLab);
+    }
+  }
+
   loadFilterData(): void {
     this.api.getAll().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (labs) => {

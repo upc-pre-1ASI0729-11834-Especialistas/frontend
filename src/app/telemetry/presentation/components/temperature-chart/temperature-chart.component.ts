@@ -15,6 +15,7 @@ import {
   ApexLegend
 } from 'ng-apexcharts';
 import { CardComponent } from '../../../../shared/presentation/components/card/card.component';
+import { MatIcon } from '@angular/material/icon';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -32,7 +33,7 @@ export type ChartOptions = {
 
 @Component({
   selector: 'app-temperature-chart',
-  imports: [CardComponent, MatButtonToggleGroup, MatButtonToggle, NgApexchartsModule],
+  imports: [CardComponent, MatButtonToggleGroup, MatButtonToggle, NgApexchartsModule, MatIcon],
   templateUrl: './temperature-chart.component.html',
   styleUrl: './temperature-chart.component.css',
 })

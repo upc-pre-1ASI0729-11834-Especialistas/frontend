@@ -98,7 +98,7 @@
         <div class="observation-body">
           <textarea class="obs-textarea" placeholder="Enter observation details..." rows="4"
             [(ngModel)]="observationText"></textarea>
-          <select class="obs-select">
+          <select class="obs-select" [(ngModel)]="observationType">
             <option>Laboratory log</option>
             <option>Maintenance log</option>
             <option>Incident log</option>

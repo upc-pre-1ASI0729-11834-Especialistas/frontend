@@ -5,7 +5,7 @@
       <a routerLink="/dashboard" class="back-link"><mat-icon>arrow_back</mat-icon> Back to Dashboard</a>
       <div class="breadcrumbs-text">
         Dashboard <mat-icon>chevron_right</mat-icon> Alerts <mat-icon>chevron_right</mat-icon> <strong>Incident:
-          Refrigerator B2 — Temperature Exceeded</strong>
+          {{ alert() ? affectedEquipment() + ' — ' + alert()?.title : 'Refrigerator B2 — Temperature Exceeded' }}</strong>
       </div>
     </div>
     <div class="nav-time">
@@ -16,19 +16,19 @@
   <!-- Page Title -->
   <div class="page-title-row">
     <h1 class="page-title"><span class="red-dot-large"></span> Active Incident</h1>
-    <span class="incident-id-pill">INCIDENT #4821</span>
+    <span class="incident-id-pill">INCIDENT #{{ alert()?.id || '4821' }}</span>
   </div>
 
   <!-- Main Alert Banner -->
   <div class="main-alert-banner">
     <div class="banner-header">
       <div class="banner-title-group">
-        <h2 class="banner-title">Temperature Threshold Exceeded</h2>
-        <span class="pill pill-critical">CRITICAL</span>
-        <span class="pill pill-active"><span class="red-dot-small"></span> ACTIVE</span>
+        <h2 class="banner-title">{{ alert()?.title || 'Temperature Threshold Exceeded' }}</h2>
+        <span class="pill" [ngClass]="{'pill-critical': alert()?.severity?.toLowerCase() === 'critical', 'pill-warning': alert()?.severity?.toLowerCase() === 'warning'}">{{ alert()?.severity || 'CRITICAL' }}</span>
+        <span class="pill pill-active"><span class="red-dot-small"></span> {{ alert()?.status || 'ACTIVE' }}</span>
       </div>
       <div class="banner-location">
-        <mat-icon>location_on</mat-icon> Building C - Level 1
+        <mat-icon>location_on</mat-icon> {{ location() }}
       </div>
     </div>
     <div class="banner-details">
@@ -36,8 +36,7 @@
         <mat-icon>schedule</mat-icon> Started: <strong>38 minutes ago</strong> — 08:21 AM
       </div>
       <div class="detail-item">
-        <mat-icon>device_thermostat</mat-icon> Affected equipment: <strong>Refrigerator B2</strong> — Cryo Storage 01,
-        Building C, Level 1
+        <mat-icon>device_thermostat</mat-icon> Affected equipment: <strong>{{ affectedEquipment() }}</strong> — {{ location() }}
       </div>
     </div>
   </div>
@@ -52,7 +51,7 @@
         <div class="readings-content">
           <div class="reading-main">
             <div class="reading-label">CURRENT TEMPERATURE</div>
-            <div class="reading-value">9.4°C</div>
+            <div class="reading-value">{{ currentValue() }}</div>
           </div>
           <div class="reading-stats">
             <div class="stat-row">
@@ -72,7 +71,7 @@
 
         <div class="chart-header">
           <div class="chart-title">Temperature — Last 2 Hours</div>
-          <div class="sensor-pill">Sensor T-B2-01</div>
+          <div class="sensor-pill">{{ sensorId() }}</div>
         </div>
         <div class="mock-chart">
           <!-- Mock Chart Graphic Structure -->
@@ -105,11 +104,11 @@
         <div class="sensor-grid">
           <div class="sensor-item">
             <span class="s-label">Sensor ID</span>
-            <span class="s-value"><strong>T-B2-01</strong></span>
+            <span class="s-value"><strong>{{ sensorId() }}</strong></span>
           </div>
           <div class="sensor-item">
             <span class="s-label">Location</span>
-            <span class="s-value"><strong>Cryo Storage 01, Zone 3</strong></span>
+            <span class="s-value"><strong>{{ location() }}</strong></span>
           </div>
           <div class="sensor-item">
             <span class="s-label">Last Calibration</span>
@@ -157,7 +156,7 @@
         <h3 class="card-title">Actions</h3>
         <p class="card-subtitle">Take action on this incident</p>
 
-        <a routerLink="/alerts/incident/resolve" class="btn btn-primary btn-block">
+        <a [routerLink]="['/alerts/incident/resolve']" [queryParams]="{ id: alertId() }" class="btn btn-primary btn-block">
           <mat-icon>check_circle_outline</mat-icon> Mark as Resolved
         </a>
         <button class="btn btn-secondary btn-block" (click)="openEscalate()">
