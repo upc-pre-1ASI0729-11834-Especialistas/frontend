@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
   platformProviderApiBaseUrl: 'http://localhost:8080',
+  platformProviderAuthenticationEndpointPath: '/api/v1/authentication',
   platformProviderAlertsEndpointPath: '/api/v1/alerts',
 
   platformProviderTelemetryAlertsEndpointPath: '/api/v1/telemetry/alerts',

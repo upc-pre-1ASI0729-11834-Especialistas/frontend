@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   platformProviderApiBaseUrl: 'https://fake-api-production-0033.up.railway.app',
+  platformProviderAuthenticationEndpointPath: '/api/v1/authentication',
   platformProviderAlertsEndpointPath: '/alerts',
 
   platformProviderTelemetryAlertsEndpointPath: '/telemetry-alerts',

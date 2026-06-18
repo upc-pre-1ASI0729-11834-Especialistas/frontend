@@ -18,6 +18,7 @@ import { AutomationRulesPageComponent } from './automation/presentation/pages/au
 import { ProfileIdentityPageComponent } from './automation/presentation/pages/profile-identity-page/profile-identity-page.component';
 import { MetricTypesPageComponent } from './automation/presentation/pages/metric-types-page/metric-types-page.component';
 import { LoginPageComponent } from './iam/presentation/pages/login-page/login-page.component';
+import { authGuard } from './iam/infrastructure/authentication.guard';
 
 
 export const routes: Routes = [
@@ -28,6 +29,7 @@ export const routes: Routes = [
   {
     path: '',
     component: Layout,
+    canActivate: [authGuard],
     children: [
       {
         path: '',

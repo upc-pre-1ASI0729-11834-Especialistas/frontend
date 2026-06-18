@@ -57,10 +57,12 @@
   <div class="user-panel">
     <div class="user-avatar">{{ userInitials() }}</div>
     <div class="user-info">
-      <p class="user-name">{{ currentProfile()?.fullName || 'Dr. Chen' }}</p>
-      <p class="user-role">{{ currentProfile()?.role || 'Lab Coordinator' }}</p>
+      <p class="user-name" [title]="currentProfile()?.fullName || authStore.currentUser()?.fullName || 'SafeLab Administrator'">
+        {{ currentProfile()?.fullName || authStore.currentUser()?.fullName || 'SafeLab Administrator' }}
+      </p>
+      <p class="user-role">{{ currentProfile()?.role || 'Administrator' }}</p>
     </div>
-    <button class="logout-btn" mat-icon-button>
+    <button class="logout-btn" mat-icon-button (click)="logout()" id="logout-btn">
       <mat-icon>logout</mat-icon>
     </button>
   </div>

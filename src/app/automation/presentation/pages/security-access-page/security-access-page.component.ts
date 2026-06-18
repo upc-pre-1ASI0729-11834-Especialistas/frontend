@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AutomationStore } from '../../../application/automation.store';
+import { AuthStore } from '../../../../iam/application/auth.store';
 
 @Component({
   selector: 'app-security-access-page',
@@ -27,6 +28,7 @@ import { AutomationStore } from '../../../application/automation.store';
 })
 export class SecurityAccessPageComponent implements OnInit {
   protected readonly automationStore = inject(AutomationStore);
+  protected readonly authStore = inject(AuthStore);
   private readonly fb = inject(FormBuilder);
   private readonly snackBar = inject(MatSnackBar);
 
@@ -57,12 +59,26 @@ export class SecurityAccessPageComponent implements OnInit {
       return;
     }
 
-    this.snackBar.open('Password updated successfully!', 'Close', {
-      duration: 3000,
-      horizontalPosition: 'end',
-      verticalPosition: 'bottom'
+    const { currentPassword, newPassword } = this.passwordForm.value;
+    this.authStore.updatePassword(currentPassword, newPassword).subscribe({
+      next: () => {
+        this.snackBar.open('Password updated successfully!', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom'
+        });
+        this.passwordForm.reset();
+      },
+      error: (err) => {
+        console.error('Failed to update password:', err);
+        const errorMsg = err.status === 400 ? 'Incorrect current password.' : 'Failed to update password. Please try again.';
+        this.snackBar.open(errorMsg, 'Close', {
+          duration: 3000,
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom'
+        });
+      }
     });
-    this.passwordForm.reset();
   }
 
   onEnable2FA(): void {

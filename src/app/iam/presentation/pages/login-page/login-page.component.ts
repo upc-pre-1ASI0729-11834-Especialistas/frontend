@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { AuthStore } from '../../../application/auth.store';
 
 @Component({
   selector: 'app-login-page',
@@ -20,6 +21,8 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './login-page.component.css',
 })
 export class LoginPageComponent {
+  readonly authStore = inject(AuthStore);
+
   email = '';
   password = '';
   rememberMe = false;
@@ -30,10 +33,8 @@ export class LoginPageComponent {
   }
 
   onSignIn(): void {
-    // Future: dispatch sign-in use-case
-  }
-
-  onCreateAccount(): void {
-    // Future: navigate to register
+    if (this.email && this.password) {
+      this.authStore.signIn(this.email, this.password);
+    }
   }
 }

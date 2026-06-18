@@ -15,6 +15,14 @@
       <h2 class="welcome-title">Welcome back</h2>
       <p class="welcome-text">Sign in to monitor your laboratories</p>
 
+      <!-- Error Message -->
+      @if (authStore.error()) {
+        <div class="login-error-message" style="color: #ef4444; background-color: #fef2f2; border: 1px solid #fee2e2; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <mat-icon style="font-size: 18px; width: 18px; height: 18px; color: #ef4444;">error_outline</mat-icon>
+          <span>{{ authStore.error() }}</span>
+        </div>
+      }
+
       <!-- Form -->
       <form class="login-form" id="login-form" (ngSubmit)="onSignIn()">
         <!-- Email -->
@@ -22,7 +30,8 @@
           <mat-label>Email address</mat-label>
           <mat-icon matPrefix>mail_outline</mat-icon>
           <input matInput type="email" placeholder="you@organization.com"
-                 [(ngModel)]="email" name="email" autocomplete="email" id="login-email" />
+                 [(ngModel)]="email" name="email" autocomplete="email" id="login-email"
+                 [disabled]="authStore.loading()" required />
         </mat-form-field>
 
         <!-- Password -->
@@ -35,33 +44,28 @@
           <mat-icon matPrefix>lock_outline</mat-icon>
           <input matInput [type]="showPassword ? 'text' : 'password'"
                  placeholder="••••••••••" [(ngModel)]="password" name="password"
-                 autocomplete="current-password" id="login-password" />
+                 autocomplete="current-password" id="login-password"
+                 [disabled]="authStore.loading()" required />
           <button mat-icon-button matSuffix type="button"
-                  (click)="togglePasswordVisibility()" id="toggle-password">
+                  (click)="togglePasswordVisibility()" id="toggle-password"
+                  [disabled]="authStore.loading()">
             <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
         </mat-form-field>
 
         <!-- Remember Me -->
         <mat-checkbox [(ngModel)]="rememberMe" name="rememberMe" color="primary"
-                      id="remember-me-checkbox">
+                       id="remember-me-checkbox" [disabled]="authStore.loading()">
           Remember me for 30 days
         </mat-checkbox>
 
         <!-- Sign In -->
-        <button mat-flat-button color="primary" type="submit" class="sign-in-btn" id="sign-in-btn">
-          <mat-icon>login</mat-icon>
-          Sign in
-        </button>
-
-        <!-- Divider -->
-        <div class="or-divider"><span>or</span></div>
-
-        <!-- Create Account -->
-        <button mat-stroked-button type="button" class="create-account-btn"
-                id="create-account-btn" (click)="onCreateAccount()">
-          <mat-icon>person_add</mat-icon>
-          Create an account
+        <button mat-flat-button color="primary" type="submit" class="sign-in-btn" id="sign-in-btn"
+                [disabled]="authStore.loading() || !email || !password">
+          @if (!authStore.loading()) {
+            <mat-icon>login</mat-icon>
+          }
+          {{ authStore.loading() ? 'Signing in...' : 'Sign in' }}
         </button>
       </form>
 

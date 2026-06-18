@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, effect } from '@angular/core';
+import { Component, inject, OnInit, effect, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -11,6 +11,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AutomationStore } from '../../../application/automation.store';
 import { UserProfile } from '../../../domain/model/user-profile.entity';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AuthStore } from '../../../../iam/application/auth.store';
 
 @Component({
   selector: 'app-profile-identity-page',
@@ -32,10 +33,31 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 })
 export class ProfileIdentityPageComponent implements OnInit {
   protected readonly automationStore = inject(AutomationStore);
+  protected readonly authStore = inject(AuthStore);
   private readonly fb = inject(FormBuilder);
   private readonly snackBar = inject(MatSnackBar);
 
   profileForm!: FormGroup;
+
+  readonly userInitials = computed(() => {
+    const email = this.authStore.currentUser()?.email;
+    const profile = this.automationStore.userProfiles().find(p => p.email === email);
+    if (profile) {
+      const cleanName = profile.fullName.replace(/Dr\.\s+/i, '').trim();
+      const parts = cleanName.split(/\s+/);
+      const first = parts[0]?.charAt(0) || '';
+      const last = parts[parts.length - 1]?.charAt(0) || '';
+      return (first + last).toUpperCase() || 'AV';
+    }
+    const currentUserObj = this.authStore.currentUser();
+    if (currentUserObj) {
+      const emailParts = currentUserObj.email.split('@')[0].split(/[._-]/);
+      const first = emailParts[0]?.charAt(0) || '';
+      const last = emailParts[emailParts.length - 1]?.charAt(0) || '';
+      return (first + last).toUpperCase() || 'US';
+    }
+    return 'US';
+  });
 
   readonly startTimes = [
     '06:00 AM', '07:00 AM', '08:00 AM', '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM'
@@ -48,7 +70,8 @@ export class ProfileIdentityPageComponent implements OnInit {
     this.initForm();
 
     effect(() => {
-      const profile = this.automationStore.currentProfile();
+      const email = this.authStore.currentUser()?.email;
+      const profile = this.automationStore.userProfiles().find(p => p.email === email);
       if (profile) {
         this.profileForm.patchValue({
           fullName: profile.fullName,
@@ -84,7 +107,8 @@ export class ProfileIdentityPageComponent implements OnInit {
       return;
     }
 
-    const currentProfile = this.automationStore.currentProfile();
+    const email = this.authStore.currentUser()?.email;
+    const currentProfile = this.automationStore.userProfiles().find(p => p.email === email);
     if (!currentProfile) {
       this.snackBar.open('No user profile active to update.', 'Close', { duration: 3000 });
       return;
@@ -108,7 +132,8 @@ export class ProfileIdentityPageComponent implements OnInit {
     });
 
     this.automationStore.updateUserProfile(currentProfile.id, updatedProfile).subscribe({
-      next: () => {
+      next: (updated) => {
+        this.authStore.updateCurrentUserDetails(updated.email, updated.fullName);
         this.snackBar.open('Profile updated successfully!', 'Close', {
           duration: 3000,
         });
