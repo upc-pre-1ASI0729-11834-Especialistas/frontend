@@ -1,6 +1,6 @@
 import { inject, Injectable, signal, computed, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Laboratory, LaboratoryType, GasSensitivity, AlertEscalation, SensorConfig, SafetyThresholds, NotificationPreferences } from '../domain/model/laboratory.entity';
+import { Laboratory, LaboratoryType, GasSensitivity, AlertEscalation, NotificationPreferences, MetricSubscription } from '../domain/model/laboratory.entity';
 import { LaboratoryApi } from '../infrastructure/laboratory-api';
 import { finalize, retry, tap } from 'rxjs';
 
@@ -12,8 +12,17 @@ export interface LaboratoryFormData {
   floor: string;
   roomNumber: string;
   description: string;
-  sensors: SensorConfig;
-  thresholds: SafetyThresholds;
+  metricSubscriptions: {
+    metricTypeId: number;
+    metricTypeKey: string;
+    metricTypeDisplayName: string;
+    metricTypeIcon: string;
+    metricTypeUnit: string;
+    metricTypeCategory: string;
+    minThreshold?: number;
+    maxThreshold?: number;
+    enabled: boolean;
+  }[];
   notifications: NotificationPreferences;
 }
 
@@ -201,8 +210,7 @@ export class LaboratoryStore {
         schedules: currentLab.schedules,
         roomNumber: currentLab.roomNumber,
         description: currentLab.description,
-        sensors: currentLab.sensors,
-        thresholds: currentLab.thresholds,
+        metricSubscriptions: currentLab.metricSubscriptions,
         notifications: currentLab.notifications
       });
       this.selectedLaboratorySignal.set(updatedLab);

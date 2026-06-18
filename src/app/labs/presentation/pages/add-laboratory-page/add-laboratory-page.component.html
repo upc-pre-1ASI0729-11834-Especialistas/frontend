@@ -21,9 +21,7 @@
 
   <app-lab-general-info [(formData)]="formData" />
 
-  <app-lab-sensors-config [(sensors)]="formData.sensors" [sensorCards]="sensorCards" />
-
-  <app-lab-thresholds-config [(thresholds)]="formData.thresholds" />
+  <app-lab-sensors-config [(metricSubscriptions)]="formData.metricSubscriptions" />
 
   <app-lab-notifications-config [(notifications)]="formData.notifications" />
 

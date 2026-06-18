@@ -1,21 +1,39 @@
 <app-card padding="section" [hoverLift]="true">
-  <app-section-header icon="memory" iconColor="var(--mat-sys-primary)" title="Sensors & Systems"
-    subtitle="Enable or disable monitoring modules for this laboratory" />
+  <app-section-header icon="sensors" iconColor="var(--mat-sys-primary)" title="Sensors & Systems"
+    subtitle="Enable or disable monitoring modules for this laboratory and configure safety thresholds" />
 
-  <div class="sensors-grid">
-    @for (sensor of sensorCards(); track sensor.key) {
-    <div class="sensor-card" [class.active]="sensors()[sensor.key]">
-      <div class="sensor-card-header">
-        <app-icon-badge [color]="sensors()[sensor.key] ? sensor.color : 'var(--mat-sys-on-surface-variant)'" size="md">
-          <mat-icon>{{ sensor.icon }}</mat-icon>
+  <div class="sensors-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 16px;">
+    @for (sub of metricSubscriptions(); track sub.metricTypeId) {
+    <div class="sensor-card" [class.active]="sub.enabled" style="display: flex; flex-direction: column; border: 1px solid var(--border-color); border-radius: 8px; padding: 16px; background-color: #fff; transition: all 0.2s;">
+      <div class="sensor-card-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <app-icon-badge [color]="sub.enabled ? 'var(--mat-sys-primary)' : 'var(--mat-sys-on-surface-variant)'" size="md">
+          <mat-icon>{{ sub.metricTypeIcon }}</mat-icon>
         </app-icon-badge>
-        <mat-slide-toggle [checked]="sensors()[sensor.key]" (change)="toggleSensor(sensor.key)" />
+        <mat-slide-toggle [checked]="sub.enabled" (change)="toggleSubscription(sub.metricTypeId)" />
       </div>
-      <h4 class="sensor-name">{{ sensor.label }}</h4>
-      <p class="sensor-desc">{{ sensor.description }}</p>
-      <span class="sensor-badge" [class.active]="sensors()[sensor.key]">
-        {{ sensors()[sensor.key] ? 'Active' : 'Inactive' }}
-      </span>
+      <h4 class="sensor-name" style="margin: 0 0 4px 0; font-size: 16px; font-weight: 600;">{{ sub.metricTypeDisplayName }}</h4>
+      <p class="sensor-desc" style="margin: 0 0 12px 0; font-size: 13px; color: #64748b; line-height: 1.4;">Monitor {{ sub.metricTypeDisplayName }} ({{ sub.metricTypeUnit }})</p>
+
+      @if (sub.enabled) {
+        <div class="thresholds-inputs" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--border-color);">
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <label style="font-size: 11px; font-weight: 600; color: #64748b;">Min ({{ sub.metricTypeUnit }})</label>
+            <input type="number" 
+                   style="height: 32px; padding: 0 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;"
+                   [ngModel]="sub.minThreshold" 
+                   (ngModelChange)="onThresholdChange(sub.metricTypeId, 'min', $event)" 
+                   placeholder="No limit" />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <label style="font-size: 11px; font-weight: 600; color: #64748b;">Max ({{ sub.metricTypeUnit }})</label>
+            <input type="number" 
+                   style="height: 32px; padding: 0 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;"
+                   [ngModel]="sub.maxThreshold" 
+                   (ngModelChange)="onThresholdChange(sub.metricTypeId, 'max', $event)" 
+                   placeholder="No limit" />
+          </div>
+        </div>
+      }
     </div>
     }
   </div>

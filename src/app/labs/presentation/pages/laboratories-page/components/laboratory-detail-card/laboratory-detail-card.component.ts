@@ -69,13 +69,7 @@ export class LaboratoryDetailCardComponent {
   }
 
   metricIcon(metric: LabMetric): string {
-    const n = metric.name.toLowerCase();
-    if (n.includes('humid')) return 'water_drop';
-    if (n.includes('air') || n.includes('aqi')) return 'air';
-    if (n.includes('vent')) return 'hvac';
-    if (n.includes('vibr')) return 'vibration';
-    if (n.includes('light')) return 'light_mode';
-    return 'sensors';
+    return metric.icon || 'sensors';
   }
 
   metricDisplayValue(metric: LabMetric): string {

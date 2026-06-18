@@ -19,6 +19,18 @@ export type GasSensitivity = 'Low - General labs' | 'Medium - Chemical labs' | '
 
 export type AlertEscalation = 'Immediate - Stop all activity' | 'Gradual - Warn then escalate' | 'Monitor - Log only';
 
+export interface MetricSubscription {
+  metricTypeId: number;
+  metricTypeKey: string;
+  metricTypeDisplayName: string;
+  metricTypeIcon: string;
+  metricTypeUnit: string;
+  metricTypeCategory: string;
+  minThreshold?: number;
+  maxThreshold?: number;
+  active: boolean;
+}
+
 export interface SensorConfig {
   temperature: boolean;
   airQuality: boolean;
@@ -102,8 +114,7 @@ export class Laboratory implements BaseEntity {
 
   private _roomNumber?: string;
   private _description?: string;
-  private _sensors?: SensorConfig;
-  private _thresholds?: SafetyThresholds;
+  private _metricSubscriptions: MetricSubscription[] = [];
   private _notifications?: NotificationPreferences;
 
   constructor(data: {
@@ -126,8 +137,7 @@ export class Laboratory implements BaseEntity {
     schedules: LabSchedule[];
     roomNumber?: string;
     description?: string;
-    sensors?: SensorConfig;
-    thresholds?: SafetyThresholds;
+    metricSubscriptions?: MetricSubscription[];
     notifications?: NotificationPreferences;
   }) {
     this._id = data.id;
@@ -143,14 +153,13 @@ export class Laboratory implements BaseEntity {
     this._isLive = data.isLive;
     this._nextMaintenance = data.nextMaintenance;
     this._maintenanceDaysLeft = data.maintenanceDaysLeft;
-    this._metrics = data.metrics;
-    this._recentAlerts = data.recentAlerts;
-    this._recentActivities = data.recentActivities;
-    this._schedules = data.schedules;
+    this._metrics = data.metrics || [];
+    this._recentAlerts = data.recentAlerts || [];
+    this._recentActivities = data.recentActivities || [];
+    this._schedules = data.schedules || [];
     this._roomNumber = data.roomNumber;
     this._description = data.description;
-    this._sensors = data.sensors;
-    this._thresholds = data.thresholds;
+    this._metricSubscriptions = data.metricSubscriptions || [];
     this._notifications = data.notifications;
   }
 
@@ -212,11 +221,8 @@ export class Laboratory implements BaseEntity {
   get description(): string | undefined { return this._description; }
   set description(value: string | undefined) { this._description = value; }
 
-  get sensors(): SensorConfig | undefined { return this._sensors; }
-  set sensors(value: SensorConfig | undefined) { this._sensors = value; }
-
-  get thresholds(): SafetyThresholds | undefined { return this._thresholds; }
-  set thresholds(value: SafetyThresholds | undefined) { this._thresholds = value; }
+  get metricSubscriptions(): MetricSubscription[] { return this._metricSubscriptions; }
+  set metricSubscriptions(value: MetricSubscription[]) { this._metricSubscriptions = value; }
 
   get notifications(): NotificationPreferences | undefined { return this._notifications; }
   set notifications(value: NotificationPreferences | undefined) { this._notifications = value; }
