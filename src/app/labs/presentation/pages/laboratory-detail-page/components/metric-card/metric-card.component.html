@@ -1,20 +1,52 @@
-<app-card padding="none">
-  <div class="metric-inner">
-    <div class="metric-header">
-      <app-icon-badge [color]="iconColor()" size="sm">
-        <mat-icon>{{ metric().icon }}</mat-icon>
-      </app-icon-badge>
+<div class="metric-card" [class.metric-card--critical]="isCritical()" [class.metric-card--warning]="isWarning()">
+
+  <!-- Header: object label + type icon -->
+  <div class="metric-header">
+    <div class="metric-header-left">
+      <span class="metric-object-type">{{ objectLabel() }}</span>
       <span class="metric-name">{{ metric().name }}</span>
-      <app-status-badge [severity]="metric().status" [label]="metric().status" [showDot]="false" />
     </div>
-    <div class="metric-body">
-      <span class="metric-value">{{ metric().value }}<span class="metric-unit">{{ metric().unit }}</span></span>
-    </div>
-    <div class="metric-sparkline">
-      <svg viewBox="0 0 100 28" preserveAspectRatio="none">
-        <path [attr.d]="sparklinePath()" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round" [style.color]="iconColor()" />
-      </svg>
-    </div>
+    <mat-icon class="metric-icon" [style.color]="iconColor()">{{ metric().icon }}</mat-icon>
   </div>
-</app-card>
+
+  <div class="metric-divider"></div>
+
+  <!-- Temperature value -->
+  <div class="metric-value-row">
+    <span class="metric-value" [style.color]="isCritical() ? 'var(--mat-sys-error)' : 'var(--mat-sys-on-surface)'">
+      {{ metric().value }}<span class="metric-unit">{{ metric().unit }}</span>
+    </span>
+    @if (isCritical()) {
+    <mat-icon class="trend-icon">arrow_upward</mat-icon>
+    }
+  </div>
+
+  <!-- Threshold info (only when critical) -->
+  @if (thresholdExceeded(); as info) {
+  <p class="metric-threshold">
+    Threshold: {{ info.threshold }}{{ metric().unit }} — exceeded by {{ info.diff }}{{ metric().unit }}
+  </p>
+  }
+
+  <!-- Mini line chart -->
+  @if (metric().sparkline.length >= 2) {
+  <div class="metric-chart">
+    <svg viewBox="0 0 100 40" preserveAspectRatio="none" class="chart-svg">
+      <!-- Grid line at midpoint -->
+      <line x1="0" y1="20" x2="100" y2="20" stroke="currentColor" stroke-width="0.5" opacity="0.15" />
+      <!-- Area fill -->
+      <path [attr.d]="sparklineArea()" [style.fill]="iconColor()" opacity="0.12" />
+      <!-- Line -->
+      <path [attr.d]="sparklinePath()" fill="none" [style.stroke]="iconColor()" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round" />
+      <!-- Last point dot -->
+    </svg>
+  </div>
+  }
+
+  <!-- Footer: status badge -->
+  <div class="metric-footer">
+    <app-status-badge [severity]="metric().status" [label]="metric().status.toUpperCase()" [showDot]="false" />
+  </div>
+
+</div>

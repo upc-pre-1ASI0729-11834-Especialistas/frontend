@@ -1,5 +1,15 @@
 <mat-toolbar class="topbar" color="primary">
 
+  @if (showHamburger) {
+    <button
+      mat-icon-button
+      class="hamburger-btn"
+      aria-label="Toggle sidebar"
+      (click)="hamburgerClick.emit()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  }
+
   <div class="view-info">
     <p class="view-title">{{ title }}</p>
     <p class="view-subtitle">{{ subtitle }}</p>
@@ -7,8 +17,26 @@
 
   <span class="spacer"></span>
 
-  <mat-form-field appearance="outline" class="search-field">
-    <input matInput placeholder="Search labs or alerts...">
-  </mat-form-field>
+  @if (action) {
+    <button
+      mat-flat-button
+      color="primary"
+      class="topbar-action-btn"
+      [id]="action.id"
+      (click)="onActionClick()">
+      @if (action.icon) {
+        <mat-icon class="btn-icon">{{ action.icon }}</mat-icon>
+      }
+      <span class="btn-label">{{ action.label }}</span>
+    </button>
+  } @else {
+    <mat-form-field appearance="outline" class="search-field">
+      <input matInput [placeholder]="'topbar.search' | translate">
+    </mat-form-field>
+  }
+
+  <div class="language-switcher-wrapper">
+    <app-language-switcher></app-language-switcher>
+  </div>
 
 </mat-toolbar>

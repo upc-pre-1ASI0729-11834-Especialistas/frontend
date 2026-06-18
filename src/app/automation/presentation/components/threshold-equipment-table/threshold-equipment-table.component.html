@@ -1,0 +1,117 @@
+<div class="table-container">
+  <!-- Desktop table -->
+  <table class="desktop-table">
+    <thead>
+      <tr>
+        <th>Equipment</th>
+        <th>Lab</th>
+        <th class="text-center">Min Threshold</th>
+        <th class="text-center">Max Threshold</th>
+        <th class="text-center">Warning At</th>
+        <th class="text-center">Current</th>
+        <th class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of equipmentThresholds(); track item.id) {
+        <tr>
+          <td>
+            <div class="equipment-cell">
+              <div class="equipment-icon-wrapper">
+                <mat-icon>{{ item.icon }}</mat-icon>
+              </div>
+              <div class="equipment-info">
+                <span class="equipment-name">{{ item.name }}</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="lab-text">{{ item.lab }}</span>
+          </td>
+          <td class="text-center">
+            <div class="threshold-input-wrapper">
+              <input type="number" [value]="item.minThreshold" (change)="onThresholdChange(item, 'minThreshold', $event)" />
+              <span class="unit-label">{{ item.unit }}</span>
+            </div>
+          </td>
+          <td class="text-center">
+            <div class="threshold-input-wrapper">
+              <input type="number" [value]="item.maxThreshold" (change)="onThresholdChange(item, 'maxThreshold', $event)" />
+              <span class="unit-label">{{ item.unit }}</span>
+            </div>
+          </td>
+          <td class="text-center">
+            <div class="threshold-input-wrapper">
+              <input type="number" [value]="item.warningAt" (change)="onThresholdChange(item, 'warningAt', $event)" />
+              <span class="unit-label">{{ item.unit }}</span>
+            </div>
+          </td>
+          <td class="text-center">
+            <span class="status-badge" [ngClass]="item.status">
+              <span class="dot"></span>
+              {{ item.currentValue }}&nbsp;{{ item.unit }}
+            </span>
+          </td>
+          <td class="text-center">
+            <button mat-icon-button class="action-btn" (click)="onEdit(item)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <!-- Mobile cards -->
+  <div class="mobile-cards">
+    @for (item of equipmentThresholds(); track item.id) {
+      <div class="mobile-card">
+        <div class="card-header">
+          <div class="equipment-cell">
+            <div class="equipment-icon-wrapper">
+              <mat-icon>{{ item.icon }}</mat-icon>
+            </div>
+            <div class="equipment-info">
+              <span class="equipment-name">{{ item.name }}</span>
+              <span class="lab-text-sub">{{ item.lab }}</span>
+            </div>
+          </div>
+          <span class="status-badge" [ngClass]="item.status">
+            <span class="dot"></span>
+            {{ item.currentValue }}&nbsp;{{ item.unit }}
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Min Threshold</label>
+              <div class="threshold-input-wrapper">
+                <input type="number" [value]="item.minThreshold" (change)="onThresholdChange(item, 'minThreshold', $event)" />
+                <span class="unit-label">{{ item.unit }}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Max Threshold</label>
+              <div class="threshold-input-wrapper">
+                <input type="number" [value]="item.maxThreshold" (change)="onThresholdChange(item, 'maxThreshold', $event)" />
+                <span class="unit-label">{{ item.unit }}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Warning At</label>
+              <div class="threshold-input-wrapper">
+                <input type="number" [value]="item.warningAt" (change)="onThresholdChange(item, 'warningAt', $event)" />
+                <span class="unit-label">{{ item.unit }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button mat-flat-button color="primary" class="mobile-edit-btn" (click)="onEdit(item)">
+            <mat-icon>edit</mat-icon> Update limits
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

@@ -18,20 +18,16 @@ export class DashboardStore {
   readonly temperatureTrends = this.temperatureStore.readings;
   readonly selectedPeriod = this.temperatureStore.selectedPeriod;
 
-  readonly loading = computed(() => 
-    this.statsStore.loading() || 
-    this.laboratoryStore.loading() || 
-    this.alertStore.loading() || 
+  readonly loading = computed(() =>
+    this.statsStore.loading() ||
+    this.laboratoryStore.loading() ||
+    this.alertStore.loading() ||
     this.temperatureStore.loading()
   );
 
-  loadAll(): void {
-    
-    
-  }
+  loadAll(): void { }
 
   loadTemperatureTrends(period: string): void {
     this.temperatureStore.setPeriod(period);
   }
 }
-

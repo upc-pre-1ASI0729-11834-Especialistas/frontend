@@ -1,0 +1,115 @@
+<div class="page-body">
+
+  <div class="header-actions">
+    <div class="spacer"></div>
+    <button mat-flat-button color="primary" (click)="openCreateMetricTypeDialog()">
+      <mat-icon>add</mat-icon> Add Metric Type
+    </button>
+  </div>
+
+  <mat-card appearance="outlined" class="filter-card">
+    <mat-card-content class="filter-content">
+      <span class="filter-label">Filter by:</span>
+
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="dense-field">
+        <mat-select [value]="selectedCategory()" (selectionChange)="selectedCategory.set($event.value)">
+          <mat-option value="all-categories">All Categories</mat-option>
+          @for (cat of categories; track cat) {
+            <mat-option [value]="cat">{{ cat }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="dense-field">
+        <mat-select [value]="selectedStatus()" (selectionChange)="selectedStatus.set($event.value)">
+          <mat-option value="all-statuses">All Statuses</mat-option>
+          <mat-option value="active">Active Only</mat-option>
+          <mat-option value="inactive">Inactive Only</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="spacer"></div>
+
+      <span class="total-sensors">Total {{ filteredMetricTypes().length }} Metric Types</span>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Metric Types List (Inline Cards/Rows) -->
+  <div class="metric-types-list">
+    @for (type of filteredMetricTypes(); track type.id) {
+      <div class="metric-row-card" [class.inactive]="!type.active">
+        <div class="metric-card-icon-wrap">
+          <mat-icon class="metric-avatar-icon">{{ type.icon || 'sensors' }}</mat-icon>
+        </div>
+
+        <div class="metric-card-details">
+          <div class="metric-name-row">
+            <h4 class="metric-display-name">{{ type.displayName }}</h4>
+            <span class="metric-category-badge">{{ type.category }}</span>
+          </div>
+          <div class="metric-info-row">
+            <span class="metric-info-label">Key: <code>{{ type.key }}</code></span>
+            <span class="metric-info-divider">•</span>
+            <span class="metric-info-label">Unit: <strong>{{ type.unit }}</strong></span>
+          </div>
+        </div>
+
+        <div class="metric-card-actions">
+          <mat-slide-toggle
+            [checked]="type.active"
+            (change)="toggleActive(type)"
+            color="primary"
+            class="active-toggle">
+            {{ type.active ? 'Active' : 'Inactive' }}
+          </mat-slide-toggle>
+
+          <button mat-icon-button (click)="openCreateMetricTypeDialog(type)" title="Edit Metric Type">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+      </div>
+    } @empty {
+      <div class="no-metrics-state">
+        <mat-icon class="no-metrics-icon">category</mat-icon>
+        <p class="no-metrics-text">No metric types match the selected filters.</p>
+      </div>
+    }
+  </div>
+
+  <!-- Compliance / Summary section -->
+  <div class="bottom-section">
+    <mat-card appearance="outlined" class="compliance-card">
+      <mat-card-content>
+        <div class="compliance-header">
+          <h2 class="section-title">Catalog Distribution</h2>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="metric-value success">{{ activeCount() }}</div>
+            <div class="metric-label">Active Types</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-value error">{{ inactiveCount() }}</div>
+            <div class="metric-label">Inactive Types</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-value success" style="color: var(--mat-sys-primary);">{{ totalCount() }}</div>
+            <div class="metric-label">Total catalogued</div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="safety-card">
+      <div class="safety-icon">
+        <mat-icon>category</mat-icon>
+      </div>
+      <h2 class="safety-title">Database Catalog</h2>
+      <p class="safety-text">
+        Defining metric types dynamically allows automatic telemetry processing, unit formatting, icon rendering, and thresholds mapping for new IoT sensors without requiring code changes.
+      </p>
+    </div>
+  </div>
+
+</div>

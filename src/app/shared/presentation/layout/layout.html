@@ -1,13 +1,35 @@
 <mat-sidenav-container class="app-container">
 
+  <!-- Overlay for mobile when sidebar is open -->
+  @if (isMobile && sidenavOpened) {
+    <div class="sidebar-overlay" (click)="closeSidenav()"></div>
+  }
+
   <!-- SIDEBAR -->
-  <mat-sidenav mode="side" opened class="app-sidenav">
+  <mat-sidenav
+    #sidenav
+    [mode]="isMobile ? 'over' : 'side'"
+    [opened]="sidenavOpened"
+    class="app-sidenav"
+    (closedStart)="onSidenavClosed()">
     <app-sidebar></app-sidebar>
   </mat-sidenav>
 
   <!-- CONTENIDO -->
-  <mat-sidenav-content>
-    <app-topbar></app-topbar>
+  <mat-sidenav-content [class.with-secondary-sidebar]="hasSecondarySidebar">
+    <app-topbar [showHamburger]="isMobile" (hamburgerClick)="toggleSidenav()"></app-topbar>
+
+    @if (systemStatus() === 'DISCONNECTED') {
+      <div class="global-status-banner warning-banner">
+        <mat-icon class="banner-icon">warning</mat-icon>
+        <span class="banner-text">ERROR DE INFRAESTRUCTURA: La plataforma no puede comunicarse con el servidor de telemetría MQTT. Las lecturas en tiempo real se encuentran temporalmente suspendidas.</span>
+      </div>
+    } @else if (systemStatus() === 'SERVER_ERROR') {
+      <div class="global-status-banner error-banner">
+        <mat-icon class="banner-icon">error</mat-icon>
+        <span class="banner-text">ERROR DE CONEXIÓN: No se puede establecer contacto con el servidor principal.</span>
+      </div>
+    }
 
     <main class="content">
       <router-outlet></router-outlet>

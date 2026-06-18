@@ -1,4 +1,4 @@
-﻿import { BaseAssembler } from '../../shared/infrastructure/base-assembler';
+import { BaseAssembler } from '../../shared/infrastructure/base-assembler';
 import { SensorConfiguration } from '../domain/model/sensor-configuration.entity';
 import { SensorConfigurationResource, SensorConfigurationsResponse } from './sensor-configuration-response';
 
@@ -15,6 +15,10 @@ export class SensorConfigurationAssembler implements BaseAssembler<SensorConfigu
       unit: resource.unit,
       calibrationDate: resource.calibrationDate,
       isActive: resource.isActive,
+      status: resource.status,
+      lastConnected: resource.lastConnected,
+      laboratoryId: resource.laboratoryId,
+      laboratoryName: resource.laboratoryName,
     });
   }
 
@@ -26,6 +30,10 @@ export class SensorConfigurationAssembler implements BaseAssembler<SensorConfigu
       unit: entity.unit,
       calibrationDate: entity.calibrationDate,
       isActive: entity.isActive,
+      status: entity.status,
+      lastConnected: entity.lastConnected,
+      laboratoryId: entity.laboratoryId,
+      laboratoryName: entity.laboratoryName,
     } as SensorConfigurationResource;
   }
 }

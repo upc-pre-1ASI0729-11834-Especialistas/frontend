@@ -1,5 +1,5 @@
-import { AlertsApi } from './../infrastructure/alerts-api';
-import { Alert } from './../domain/model/alert.entity';
+import { AlertsApi } from '../infrastructure/alerts-api';
+import { Alert } from '../domain/model/alert.entity';
 import { computed, Injectable, Signal, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { retry} from 'rxjs';

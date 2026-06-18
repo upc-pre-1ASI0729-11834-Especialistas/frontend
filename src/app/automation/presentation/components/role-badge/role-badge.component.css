@@ -1,0 +1,33 @@
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-coordinator {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.badge-supervisor {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.badge-technician {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.badge-readonly {
+  background-color: #f5f5f5;
+  color: var(--text-secondary);
+}
+
+.badge-default {
+  background-color: #f5f5f5;
+  color: var(--text-secondary);
+}

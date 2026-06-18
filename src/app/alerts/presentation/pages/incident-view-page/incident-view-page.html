@@ -1,0 +1,239 @@
+<div class="incident-view-container">
+  <!-- Top Navigation -->
+  <div class="top-nav">
+    <div class="nav-breadcrumbs">
+      <a routerLink="/dashboard" class="back-link"><mat-icon>arrow_back</mat-icon> Back to Dashboard</a>
+      <div class="breadcrumbs-text">
+        Dashboard <mat-icon>chevron_right</mat-icon> Alerts <mat-icon>chevron_right</mat-icon> <strong>Incident:
+          {{ alert() ? affectedEquipment() + ' — ' + alert()?.title : 'Refrigerator B2 — Temperature Exceeded' }}</strong>
+      </div>
+    </div>
+    <div class="nav-time">
+      <mat-icon>schedule</mat-icon> Current system status: <strong>Live Telemetry</strong>
+    </div>
+  </div>
+
+  <!-- Page Title -->
+  <div class="page-title-row">
+    <h1 class="page-title"><span class="red-dot-large"></span> Active Incident</h1>
+    <span class="incident-id-pill">INCIDENT #{{ alert()?.id || '4821' }}</span>
+  </div>
+
+  <!-- Main Alert Banner -->
+  <div class="main-alert-banner">
+    <div class="banner-header">
+      <div class="banner-title-group">
+        <h2 class="banner-title">{{ alert()?.title || 'Temperature Threshold Exceeded' }}</h2>
+        <span class="pill" [ngClass]="{'pill-critical': alert()?.severity?.toLowerCase() === 'critical', 'pill-warning': alert()?.severity?.toLowerCase() === 'warning'}">{{ alert()?.severity || 'CRITICAL' }}</span>
+        <span class="pill pill-active"><span class="red-dot-small"></span> {{ alert()?.status || 'ACTIVE' }}</span>
+      </div>
+      <div class="banner-location">
+        <mat-icon>location_on</mat-icon> {{ location() }}
+      </div>
+    </div>
+    <div class="banner-details">
+      <div class="detail-item">
+        <mat-icon>schedule</mat-icon> Started: <strong>{{ startedTimeAgo() }}</strong> — {{ startedTimeAbsolute() }}
+      </div>
+      <div class="detail-item">
+        <mat-icon>device_thermostat</mat-icon> Affected equipment: <strong>{{ affectedEquipment() }}</strong> — {{ location() }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Grid -->
+  <div class="incident-grid">
+    <!-- Left Column -->
+    <div class="grid-left">
+      <!-- Card 1: Current Readings -->
+      <div class="card">
+        <h3 class="card-title">Current Readings</h3>
+        <div class="readings-content">
+          <div class="reading-main">
+            <div class="reading-label">CURRENT VALUE</div>
+            <div class="reading-value">{{ currentValue() }}</div>
+          </div>
+          <div class="reading-stats">
+            <div class="stat-row">
+              <mat-icon class="icon-red">trending_up</mat-icon> <span class="stat-label">Threshold:</span> <span
+                class="stat-val text-red">{{ thresholdValue() }}</span>
+            </div>
+            <div class="stat-row">
+              <mat-icon class="icon-orange">arrow_upward</mat-icon> <span class="stat-label">Exceeded by:</span> <span
+                class="stat-val text-orange">{{ exceededByValue() }}</span>
+            </div>
+            <div class="stat-row">
+              <mat-icon class="icon-gray">bolt</mat-icon> <span class="stat-label">Duration:</span> <span
+                class="stat-val">{{ startedTimeAgo() }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-header">
+          <div class="chart-title">Realtime Chart — Last 2 Hours</div>
+          <div class="sensor-pill">{{ sensorId() }}</div>
+        </div>
+        <div class="mock-chart">
+          <!-- Real Dynamic SVG Chart -->
+          <div class="chart-area" style="position: relative;">
+            <svg width="100%" height="120" viewBox="0 0 500 120" preserveAspectRatio="none" style="display:block;">
+              <!-- Fill green below the threshold line representing normal range -->
+              <rect x="0" [attr.y]="thresholdY()" width="500" [attr.height]="thresholdHeight()" fill="#f0fdf4" />
+              <!-- Red threshold dotted line -->
+              <line x1="0" [attr.y1]="thresholdY()" x2="500" [attr.y2]="thresholdY()" stroke="#dc2626" stroke-width="2" stroke-dasharray="4" />
+              <!-- Telemetry data line -->
+              <path [attr.d]="chartPath()" fill="none" stroke="#2563eb" stroke-width="3" />
+            </svg>
+            <span [style.top.px]="thresholdY() + 4" style="position:absolute; left:8px; font-size:11px; color:#16a34a;">Normal range</span>
+            <span [style.top.px]="thresholdY() - 16" style="position:absolute; right:8px; font-size:11px; color:#dc2626;">Threshold exceeded</span>
+            <span [style.top.px]="thresholdY() - 16" style="position:absolute; left:8px; font-size:11px; color:#dc2626; font-weight: 600;">Limit: {{ thresholdValue() }}</span>
+          </div>
+          <div class="chart-x-axis">
+            @for (label of xAxisLabels(); track label) {
+              <span>{{ label }}</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Sensor Information -->
+      <div class="card">
+        <h3 class="card-title">Sensor Information</h3>
+        <div class="sensor-grid">
+          <div class="sensor-item">
+            <span class="s-label">Sensor ID</span>
+            <span class="s-value"><strong>{{ sensorId() }}</strong></span>
+          </div>
+          <div class="sensor-item">
+            <span class="s-label">Location</span>
+            <span class="s-value"><strong>{{ location() }}</strong></span>
+          </div>
+          <div class="sensor-item">
+            <span class="s-label">Last Calibration</span>
+            <span class="s-value"><strong>{{ lastCalibration() }}</strong></span>
+          </div>
+          <div class="sensor-item">
+            <span class="s-label">Signal Strength</span>
+            <span class="s-value text-green"><strong>{{ signalStrength() }}</strong></span>
+          </div>
+          <div class="sensor-item">
+            <span class="s-label">Network Status</span>
+            <span class="s-value text-green"><strong>{{ networkStatus() }}</strong></span>
+          </div>
+          <div class="sensor-item">
+            <span class="s-label">Sensor Type</span>
+            <span class="s-value"><strong>{{ sensorType() }}</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Automation Response -->
+      <div class="card">
+        <h3 class="card-title">Automation Response</h3>
+        
+        <!-- Case 1: Rule triggered -->
+        <div class="automation-box" *ngIf="automationRuleName() !== 'None' && automationRuleName() !== 'N/A'">
+          <div class="auto-icon">
+            <mat-icon>bolt</mat-icon>
+          </div>
+          <div class="auto-content">
+            <div class="auto-header">
+              <h4 class="auto-title">{{ automationRuleName() }}</h4>
+              <span class="pill pill-running"><mat-icon>settings</mat-icon> {{ automationRuleStatus() }}</span>
+            </div>
+            <p class="auto-desc">Activated automatically for zone: {{ location() }}</p>
+            <p class="auto-subdesc">Description: {{ automationRuleDesc() }}</p>
+          </div>
+        </div>
+
+        <!-- Case 2: No rule triggered -->
+        <div class="automation-box" *ngIf="automationRuleName() === 'None' || automationRuleName() === 'N/A'">
+          <div class="auto-icon-disabled">
+            <mat-icon>settings_suggest</mat-icon>
+          </div>
+          <div class="auto-content">
+            <div class="auto-header">
+              <h4 class="auto-title">No Automation Rule Triggered</h4>
+              <span class="pill pill-disabled"><mat-icon>settings</mat-icon> Inactive</span>
+            </div>
+            <p class="auto-desc" style="color: #64748b; font-weight: normal;">No safety automation rule matches this laboratory metric breach.</p>
+            <p class="auto-subdesc">Configure rules in system settings to automate emergency responses.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="grid-right">
+      <!-- Actions Card -->
+      <div class="card actions-card">
+        <h3 class="card-title">Actions</h3>
+        <p class="card-subtitle">Take action on this incident</p>
+
+        <a [routerLink]="['/alerts/incident/resolve']" [queryParams]="{ id: alertId() }" class="btn btn-primary btn-block">
+          <mat-icon>check_circle_outline</mat-icon> Mark as Resolved
+        </a>
+        <button class="btn btn-secondary btn-block" (click)="openEscalate()">
+          <mat-icon>people_outline</mat-icon> Escalate to Supervisor
+        </button>
+        <a [routerLink]="['/laboratories', alert()?.laboratoryId]" class="btn btn-secondary btn-block">
+          <mat-icon>science</mat-icon> View Laboratory
+        </a>
+
+        <div class="info-box">
+          <mat-icon>info_outline</mat-icon>
+          <span>Resolving requires a note describing the corrective action taken.</span>
+        </div>
+      </div>
+
+      <!-- Timeline Card -->
+      <div class="card timeline-card">
+        <h3 class="card-title">Incident Timeline</h3>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="t-dot" [ngClass]="{'dot-red': alert()?.status !== 'RESOLVED', 'dot-green': alert()?.status === 'RESOLVED'}"></div>
+            <div class="t-content">
+              <div class="t-time">{{ startedTimeAbsolute() }}</div>
+              <div class="t-title" [ngClass]="{'text-red': alert()?.status !== 'RESOLVED', 'text-green': alert()?.status === 'RESOLVED'}">
+                Limit breach detected ({{ thresholdValue() }})
+              </div>
+              <div class="t-desc">Reading: {{ currentValue() }} — first breach registered</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="t-dot dot-blue-ring"></div>
+            <div class="t-content">
+              <div class="t-time">{{ dispatchTimeAbsolute() }}</div>
+              <div class="t-title text-blue">Alert dispatched</div>
+              <div class="t-desc">Notification sent to lab coordinator on duty</div>
+            </div>
+          </div>
+
+          <div class="timeline-item" *ngIf="automationRuleName() !== 'None' && automationRuleName() !== 'N/A'">
+            <div class="t-dot dot-blue-ring"></div>
+            <div class="t-content">
+              <div class="t-time">{{ automationTimeAbsolute() }}</div>
+              <div class="t-title text-blue">Automation triggered</div>
+              <div class="t-desc">{{ automationRuleName() }} active for {{ location() }}</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="t-dot" [ngClass]="{'dot-orange': alert()?.status !== 'RESOLVED', 'dot-green': alert()?.status === 'RESOLVED'}"></div>
+            <div class="t-content">
+              <div class="t-time">Status: {{ alert()?.status || 'ACTIVE' }}</div>
+              <div class="t-title" [ngClass]="{'text-orange': alert()?.status !== 'RESOLVED', 'text-green': alert()?.status === 'RESOLVED'}">
+                {{ alert()?.status === 'RESOLVED' ? 'Incident resolved' : 'Awaiting resolution' }}
+              </div>
+              <div class="t-desc">
+                {{ alert()?.status === 'RESOLVED' ? 'Corrective action note saved.' : 'Incident remains active.' }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

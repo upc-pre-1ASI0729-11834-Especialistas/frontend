@@ -1,0 +1,88 @@
+<div class="escalate-dialog">
+
+  <!-- HEADER -->
+  <div class="dialog-header">
+    <div class="header-icon">
+      <mat-icon>phone_in_talk</mat-icon>
+    </div>
+    <div class="header-text">
+      <h2>Escalate to Supervisor</h2>
+      <p>{{ data.equipmentName }} — {{ data.incidentDescription }}</p>
+    </div>
+  </div>
+
+  <mat-dialog-content class="dialog-body">
+
+    <!-- ESCALATION REASON -->
+    <div class="field-group">
+      <label class="field-label">Escalation reason</label>
+      <select
+        class="custom-select"
+        [ngModel]="selectedReason()"
+        (ngModelChange)="selectedReason.set($event)"
+      >
+        <option value="" disabled>Select reason...</option>
+        @for (reason of reasons; track reason) {
+          <option [value]="reason">{{ reason }}</option>
+        }
+      </select>
+    </div>
+
+    <!-- MESSAGE -->
+    <div class="field-group">
+      <label class="field-label">Message to supervisor <span class="optional">(optional)</span></label>
+      <textarea
+        class="custom-textarea"
+        placeholder="Add context for the supervisor..."
+        [ngModel]="message()"
+        (ngModelChange)="message.set($event)"
+        rows="4"
+      ></textarea>
+    </div>
+
+    <!-- NOTIFY VIA -->
+    <div class="field-group">
+      <label class="field-label">Notify via</label>
+      <div class="notify-buttons">
+        <button
+          class="notify-btn"
+          [class.active]="notifyEmail()"
+          (click)="toggleEmail()"
+          type="button"
+        >
+          <mat-icon>email</mat-icon>
+          Email
+        </button>
+        <button
+          class="notify-btn"
+          [class.active]="notifyInApp()"
+          (click)="toggleInApp()"
+          type="button"
+        >
+          <mat-icon>notifications</mat-icon>
+          In-app notification
+        </button>
+      </div>
+    </div>
+
+    <!-- SUPERVISOR INFO -->
+    <div class="supervisor-info">
+      <mat-icon class="info-icon">info</mat-icon>
+      <span><strong>Supervisor on duty:</strong> Dr. Jean Arizabal · Last active 3 min ago</span>
+    </div>
+
+  </mat-dialog-content>
+
+  <!-- ACTIONS -->
+  <mat-dialog-actions class="dialog-actions">
+    <button class="btn-cancel" (click)="cancel()">Cancel</button>
+    <button
+      class="btn-send"
+      (click)="send()"
+      [disabled]="!selectedReason()"
+    >
+      Send Escalation
+    </button>
+  </mat-dialog-actions>
+
+</div>

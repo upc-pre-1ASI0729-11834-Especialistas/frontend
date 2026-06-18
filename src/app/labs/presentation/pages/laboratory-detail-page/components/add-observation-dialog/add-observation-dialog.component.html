@@ -1,0 +1,62 @@
+<div class="side-sheet-container">
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="dialog-header-text">
+      <h2 class="dialog-title">Add Manual Observation</h2>
+      @if (data && data.labName) {
+        <span class="dialog-subtitle">For {{ data.labName }}</span>
+      }
+    </div>
+    <button type="button" class="close-btn" (click)="onCancel()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Form Body -->
+  <div class="dialog-content-scroll" [formGroup]="observationForm">
+    <!-- Log Type Selector -->
+    <div class="form-group">
+      <label class="form-label">Log Type</label>
+      <div class="input-with-icon" [class.error]="observationForm.get('type')?.invalid && observationForm.get('type')?.touched">
+        <mat-icon class="input-icon">category</mat-icon>
+        <mat-select formControlName="type" placeholder="Select Log Type" class="custom-select-control">
+          @for (type of logTypes; track type) {
+            <mat-option [value]="type">{{ type }}</mat-option>
+          }
+        </mat-select>
+      </div>
+      @if (observationForm.get('type')?.invalid && observationForm.get('type')?.touched) {
+        <span class="error-text">Log type is required</span>
+      }
+    </div>
+
+    <!-- Observation Textarea -->
+    <div class="form-group">
+      <label class="form-label">Observation Details</label>
+      <div class="textarea-container" [class.error]="observationForm.get('text')?.invalid && observationForm.get('text')?.touched">
+        <textarea
+          formControlName="text"
+          placeholder="Enter observation details..."
+          rows="6"
+          class="custom-textarea"
+          required></textarea>
+      </div>
+      @if (observationForm.get('text')?.invalid && observationForm.get('text')?.touched) {
+        <span class="error-text">Observation details are required</span>
+      }
+    </div>
+  </div>
+
+  <!-- Footer Actions -->
+  <div class="dialog-footer">
+    <button type="button" class="cancel-btn" (click)="onCancel()">Cancel</button>
+    <button
+      type="button"
+      class="submit-btn"
+      [disabled]="observationForm.invalid"
+      (click)="onSubmit()">
+      <mat-icon>save</mat-icon>
+      <span>Save Observation</span>
+    </button>
+  </div>
+</div>

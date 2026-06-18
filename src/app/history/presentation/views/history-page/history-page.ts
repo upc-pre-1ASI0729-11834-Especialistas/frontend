@@ -12,13 +12,15 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule, FormControl, FormGroup, FormsModule } from '@angular/forms';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { HistoryStore } from '../../../application/history.store';
 import { HistoryRecord } from '../../../domain/model/history-record.entity';
 import { HistoryTimeline } from '../../components/history-timeline/history-timeline';
 import { HistoryPlaceholderDialog } from '../../components/history-placeholder-dialog/history-placeholder-dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-history-page',
@@ -38,7 +40,10 @@ import { startWith } from 'rxjs';
     MatDatepickerModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    HistoryTimeline
+    FormsModule,
+    MatSnackBarModule,
+    HistoryTimeline,
+    TranslatePipe
   ],
   templateUrl: './history-page.html',
   styleUrl: './history-page.css'
@@ -48,10 +53,15 @@ export class HistoryPage {
 
   private readonly historyStore = inject(HistoryStore);
   private readonly dialog = inject(MatDialog);
+  private readonly snackBar = inject(MatSnackBar);
 
   readonly history = this.historyStore.history;
   readonly loading = this.historyStore.loading;
   readonly error = this.historyStore.error;
+
+  readonly selectedTab = signal<string>('All events');
+  readonly shiftNotes = signal<string>('');
+  readonly handoverNote = signal<string>('');
 
   readonly searchQuery = signal('');
   readonly selectedLab = signal('');
@@ -80,8 +90,25 @@ export class HistoryPage {
     const eventType = this.selectedEventType();
     const severity = this.selectedSeverity();
     const { start, end } = this.dateRangeValue();
+    const tab = this.selectedTab().toLowerCase();
 
     return this.history().filter(record => {
+      // Filter by top tabs
+      if (tab !== 'all events') {
+        if (tab === 'incidents' && record.severity !== 'Critical' && record.severity !== 'Warning') {
+          return false;
+        }
+        if (tab === 'resolutions' && record.status !== 'Resolved') {
+          return false;
+        }
+        if (tab === 'manual observations' && record.eventType?.toLowerCase() !== 'observation' && record.eventType?.toLowerCase() !== 'manual') {
+          return false;
+        }
+        if (tab === 'automations' && record.eventType?.toLowerCase() !== 'automation') {
+          return false;
+        }
+      }
+
       if (query && !record.name.toLowerCase().includes(query)) {
         return false;
       }
@@ -123,6 +150,10 @@ export class HistoryPage {
   }
 
   openPlaceholder(actionLabel: string): void {
+    if (actionLabel.toLowerCase().includes('report') || actionLabel.toLowerCase().includes('pdf')) {
+      this.snackBar.open(`Generating PDF: ${actionLabel}...`, 'Close', { duration: 3000 });
+      return;
+    }
     this.dialog.open(HistoryPlaceholderDialog, {
       data: {
         title: actionLabel,
