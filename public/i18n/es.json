@@ -75,10 +75,10 @@
       "status": "Estado"
     },
     "summary": {
-      "critical": "Alertas Críticas",
-      "warning": "Alertas de Advertencia",
-      "informational": "Informativo",
-      "resolvedToday": "Resueltos Hoy",
+      "critical": "Críticas",
+      "warning": "Advertencias",
+      "informational": "Informativas",
+      "resolvedToday": "Resueltas Hoy",
       "CRITICAL": "Alertas Críticas",
       "WARNING": "Alertas de Advertencia",
       "RESOLVED TODAY": "Resueltos Hoy",
@@ -180,7 +180,12 @@
     "sensor": {
       "title": "Configuración de Sensores",
       "description": "Calibra y administra los sensores del laboratorio para monitoreo de temperatura, humedad y presión atmosférica.",
-      "button": "Configurar"
+      "button": "Configurar",
+      "add": "Añadir Nuevo Sensor"
+    },
+    "metricTypes": {
+      "title": "Tipos de Métricas",
+      "add": "Añadir Tipo de Métrica"
     },
     "alerts": {
       "title": "Alertas y Notificaciones",
@@ -194,6 +199,7 @@
     }
   },
   "common": {
+    "actions": "Acciones",
     "add": "Añadir",
     "edit": "Editar",
     "delete": "Eliminar",

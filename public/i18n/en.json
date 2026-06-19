@@ -75,8 +75,8 @@
       "status": "Status"
     },
     "summary": {
-      "critical": "Critical Alerts",
-      "warning": "Warning Alerts",
+      "critical": "Critical",
+      "warning": "Warnings",
       "informational": "Informational",
       "resolvedToday": "Resolved Today",
       "CRITICAL": "Critical Alerts",
@@ -180,7 +180,12 @@
     "sensor": {
       "title": "Sensor Configuration",
       "description": "Calibrate and manage lab sensors for temperature, humidity, and atmospheric pressure monitoring.",
-      "button": "Configure"
+      "button": "Configure",
+      "add": "Add New Sensor"
+    },
+    "metricTypes": {
+      "title": "Metric Types",
+      "add": "Add Metric Type"
     },
     "alerts": {
       "title": "Alerts & Notifications",
@@ -194,6 +199,7 @@
     }
   },
   "common": {
+    "actions": "Actions",
     "add": "Add",
     "edit": "Edit",
     "delete": "Delete",

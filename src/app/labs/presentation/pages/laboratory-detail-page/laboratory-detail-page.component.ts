@@ -14,7 +14,6 @@ import { LaboratoryHeaderComponent } from './components/laboratory-header/labora
 import { LaboratoryStatsComponent } from './components/laboratory-stats/laboratory-stats.component';
 import { LaboratoryActivityComponent } from './components/laboratory-activity/laboratory-activity.component';
 import { LaboratorySchedulesComponent } from './components/laboratory-schedules/laboratory-schedules.component';
-import { StatusBadgeComponent } from '../../../../shared/presentation/components/status-badge/status-badge.component';
 import { AddObservationDialogComponent } from './components/add-observation-dialog/add-observation-dialog.component';
 
 @Component({
@@ -32,7 +31,6 @@ import { AddObservationDialogComponent } from './components/add-observation-dial
     LaboratoryStatsComponent,
     LaboratoryActivityComponent,
     LaboratorySchedulesComponent,
-    StatusBadgeComponent,
   ],
   templateUrl: './laboratory-detail-page.component.html',
   styleUrl: './laboratory-detail-page.component.css',

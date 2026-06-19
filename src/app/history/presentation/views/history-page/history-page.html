@@ -2,22 +2,6 @@
   <mat-drawer-content>
     <div class="history-page">
 
-      <!-- ① PAGE HEADER -->
-      <div class="page-header">
-        <div class="page-header-left">
-          <h1>{{ 'history.title' | translate }}</h1>
-          <p class="shift-info">
-            <mat-icon class="shift-info-icon">schedule</mat-icon>
-            {{ 'history.shift.current' | translate }}: 8:00 AM – 2:00 PM · Manuel Sánchez · 6h 14m {{
-            'history.shift.active' | translate }}
-          </p>
-        </div>
-        <button class="shift-banner-btn" (click)="openPlaceholder('Generate Shift Report')">
-          <mat-icon>picture_as_pdf</mat-icon>
-          {{ 'history.button.generateReport' | translate }}
-        </button>
-      </div>
-
       <!-- ② FILTER TABS + DATE + SEARCH -->
       <div class="filters-top-bar">
         <div class="filter-tabs">
@@ -34,10 +18,31 @@
             (click)="selectedTab.set('Automations')">{{ 'history.tabs.automations' | translate }}</button>
         </div>
         <div class="filter-right">
-          <button class="date-btn">
-            <mat-icon>calendar_today</mat-icon>
-            {{ 'history.filter.today' | translate }} · Jun 5, 2026
-          </button>
+          <div style="position: relative; display: inline-flex; align-items: center; gap: 8px;">
+            <button class="date-btn" (click)="picker.open()">
+              <mat-icon>calendar_today</mat-icon>
+              @if (dateRange.value.start && dateRange.value.end) {
+                {{ dateRange.value.start | date:'dd/MM/yy' }} – {{ dateRange.value.end | date:'dd/MM/yy' }}
+              } @else if (dateRange.value.start) {
+                {{ dateRange.value.start | date:'dd/MM/yy' }}
+              } @else {
+                {{ 'history.filter.today' | translate }}
+              }
+            </button>
+            @if (dateRange.value.start || dateRange.value.end) {
+              <button mat-icon-button (click)="dateRange.reset(); $event.stopPropagation()" style="width: 32px; height: 32px; min-width: 32px; border: 1px solid #e5e7eb; border-radius: 8px; background: #f8fafc; color: #64748b; padding: 0; display: flex; align-items: center; justify-content: center;">
+                <mat-icon style="font-size: 16px; width: 16px; height: 16px; margin: 0;">close</mat-icon>
+              </button>
+            }
+
+            <mat-form-field style="width: 0; height: 0; padding: 0; margin: 0; visibility: hidden; position: absolute;">
+              <mat-date-range-input [formGroup]="dateRange" [rangePicker]="picker">
+                <input matStartDate formControlName="start">
+                <input matEndDate formControlName="end">
+              </mat-date-range-input>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+          </div>
           <div class="search-box">
             <mat-icon>search</mat-icon>
             <input [placeholder]="'history.filter.searchPlaceholder' | translate" [value]="searchQuery()"

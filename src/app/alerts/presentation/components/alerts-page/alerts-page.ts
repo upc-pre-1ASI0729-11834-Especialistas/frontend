@@ -1,4 +1,4 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { AlertsStore } from '../../../application/alerts.store';
 import { Alert } from '../../../domain/model/alert.entity';
+import { LaboratoryStore } from '../../../../labs/application/laboratory.store';
 
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -49,11 +50,46 @@ interface AlertGroup {
 export class AlertsPage {
   private readonly router = inject(Router);
   private readonly alertsStore = inject(AlertsStore);
+  private readonly laboratoryStore = inject(LaboratoryStore);
 
   readonly currentTime = new Date();
 
   readonly alerts = this.alertsStore.alerts;
   readonly loading = this.alertsStore.loading;
+
+  // Filter signals
+  readonly searchQuery = signal('');
+  readonly selectedSeverity = signal('All');
+  readonly selectedLab = signal('All');
+  readonly selectedStatus = signal('All');
+
+  readonly uniqueLabs = computed(() => {
+    const list = this.alerts().map(a => a.labName).filter(Boolean);
+    return ['All', ...new Set(list)].sort();
+  });
+
+  readonly filteredAlerts = computed(() => {
+    const query = this.searchQuery().trim().toLowerCase();
+    const severity = this.selectedSeverity();
+    const lab = this.selectedLab();
+    const status = this.selectedStatus();
+
+    return this.alerts().filter(alert => {
+      if (query && !alert.title.toLowerCase().includes(query) && !alert.description.toLowerCase().includes(query)) {
+        return false;
+      }
+      if (severity !== 'All' && alert.severity.toUpperCase() !== severity.toUpperCase()) {
+        return false;
+      }
+      if (lab !== 'All' && alert.labName !== lab) {
+        return false;
+      }
+      if (status !== 'All' && alert.status.toUpperCase() !== status.toUpperCase()) {
+        return false;
+      }
+      return true;
+    });
+  });
 
   readonly summaryCards = computed(() => {
     const list: Alert[] = this.alerts();
@@ -63,15 +99,15 @@ export class AlertsPage {
     const resolved = list.filter((a: Alert) => a.status.toLowerCase() === 'resolved').length;
 
     return [
-      { title: 'Critical', subtitle: 'alerts', value: critical, class: 'card-critical' },
-      { title: 'Warning', subtitle: 'alerts', value: warning, class: 'card-warning' },
-      { title: 'Informational', subtitle: 'alerts', value: info, class: 'card-info' },
-      { title: 'Resolved Today', subtitle: 'alerts', value: resolved, class: 'card-resolved' }
+      { title: 'alerts.summary.critical', subtitle: 'alerts.summary.alerts', value: critical, class: 'card-critical' },
+      { title: 'alerts.summary.warning', subtitle: 'alerts.summary.alerts', value: warning, class: 'card-warning' },
+      { title: 'alerts.summary.informational', subtitle: 'alerts.summary.alerts', value: info, class: 'card-info' },
+      { title: 'alerts.summary.resolvedToday', subtitle: 'alerts.summary.alerts', value: resolved, class: 'card-resolved' }
     ];
   });
 
   readonly alertGroups = computed<AlertGroup[]>(() => {
-    const list: Alert[] = this.alerts();
+    const list: Alert[] = this.filteredAlerts();
     const criticalItems = list.filter((a: Alert) => a.status.toLowerCase() !== 'resolved' && a.severity.toLowerCase() === 'critical');
     const warningItems = list.filter((a: Alert) => a.status.toLowerCase() !== 'resolved' && a.severity.toLowerCase() === 'warning');
     const resolvedItems = list.filter((a: Alert) => a.status.toLowerCase() === 'resolved');
@@ -106,27 +142,34 @@ export class AlertsPage {
     const sensorMatch = desc.match(/Sensor\s+[\w\-]+/i);
     const sensor = sensorMatch ? sensorMatch[0] : 'Sensor T-01';
 
-    let location = 'Main Laboratory';
-    if (desc.includes('Cryo')) {
-      location = 'Cryo Storage 01 — Refrigerator B2';
-    } else if (desc.includes('Lab A')) {
-      location = 'Lab A — CO2 Monitor';
-    } else if (desc.includes('Lab D')) {
-      location = 'Lab D — ULT Freezer F-07';
-    } else if (desc.includes('Lab C')) {
-      location = 'Lab C — HVAC Unit 3';
-    }
+    const labs = this.laboratoryStore.allLaboratories();
+    const lab = labs.find(l => l.id === alert.laboratoryId);
+    const location = lab 
+      ? `${lab.building} — ${lab.name}` 
+      : (alert.labLocation || alert.labName || 'Main Laboratory');
 
     return {
       id: alert.id,
       title: alert.title,
       location: location,
-      timeAgo: '38 min ago',
+      timeAgo: this.getTimeAgo(alert.createdAt),
       sensor: sensor,
       description: alert.description,
       duration: '38 min',
-      resolvedBy: alert.status.toLowerCase() === 'resolved' ? 'Resolved by Dr. Vance · Just now' : undefined
+      resolvedBy: alert.status.toLowerCase() === 'resolved' ? 'Resolved · Just now' : undefined
     };
+  }
+
+  getTimeAgo(date?: Date): string {
+    if (!date) return '38 min ago';
+    const seconds = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
+    if (seconds < 60) return 'Just now';
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes} min ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours} hr ago`;
+    const days = Math.floor(hours / 24);
+    return `${days} days ago`;
   }
 
   navigateToIncident(id: number) {

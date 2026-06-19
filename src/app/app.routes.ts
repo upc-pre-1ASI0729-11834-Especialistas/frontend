@@ -18,6 +18,7 @@ import { AutomationRulesPageComponent } from './automation/presentation/pages/au
 import { ProfileIdentityPageComponent } from './automation/presentation/pages/profile-identity-page/profile-identity-page.component';
 import { MetricTypesPageComponent } from './automation/presentation/pages/metric-types-page/metric-types-page.component';
 import { LoginPageComponent } from './iam/presentation/pages/login-page/login-page.component';
+import { RegisterPageComponent } from './iam/presentation/pages/register-page/register-page.component';
 import { authGuard } from './iam/infrastructure/authentication.guard';
 
 
@@ -25,6 +26,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginPageComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterPageComponent,
   },
   {
     path: '',
@@ -104,8 +109,13 @@ export const routes: Routes = [
         path: 'history',
         component: HistoryPage,
         data: {
-          title: 'History',
-          subtitle: 'View system activity and logs'
+          title: 'History & Reports',
+          subtitle: 'Event timeline and shift reports',
+          topbarAction: {
+            label: 'Generate Shift Report',
+            icon: 'picture_as_pdf',
+            id: 'generate-report-action'
+          }
         }
       },
       {
@@ -130,7 +140,12 @@ export const routes: Routes = [
             component: SensorConfigurationPageComponent,
             data: {
               title: 'Sensor Configuration',
-              subtitle: 'Calibrate and manage lab sensors for temperature, humidity, and atmospheric pressure monitoring.'
+              subtitle: 'Calibrate and manage lab sensors for temperature, humidity, and atmospheric pressure monitoring.',
+              topbarAction: {
+                label: 'Add New Sensor',
+                icon: 'add',
+                id: 'add-sensor-action'
+              }
             }
           },
           {
@@ -138,7 +153,12 @@ export const routes: Routes = [
             component: MetricTypesPageComponent,
             data: {
               title: 'Metric Types',
-              subtitle: 'Define and manage standard sensor metric types, units, icons, and categories.'
+              subtitle: 'Define and manage standard sensor metric types, units, icons, and categories.',
+              topbarAction: {
+                label: 'Add Metric Type',
+                icon: 'add',
+                id: 'add-metric-type-action'
+              }
             }
           },
           {
