@@ -24,7 +24,7 @@
   <!-- Threshold info (only when critical) -->
   @if (thresholdExceeded(); as info) {
   <p class="metric-threshold">
-    Threshold: {{ info.threshold }}{{ metric().unit }} — exceeded by {{ info.diff }}{{ metric().unit }}
+    {{ 'laboratoriesDetail.thresholdExceededInfo' | translate:{ threshold: info.threshold, unit: metric().unit, diff: info.diff } }}
   </p>
   }
 

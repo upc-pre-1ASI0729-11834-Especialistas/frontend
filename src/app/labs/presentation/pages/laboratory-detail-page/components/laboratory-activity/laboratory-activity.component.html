@@ -2,9 +2,9 @@
   <div class="section-header">
     <h3 class="section-title">
       <mat-icon class="section-icon">history</mat-icon>
-      Recent Logs
+      {{ 'laboratoriesDetail.recentLogs' | translate }}
     </h3>
-    <a class="section-link" routerLink="/history">View Full Log</a>
+    <a class="section-link" routerLink="/history">{{ 'laboratoriesDetail.viewFullLog' | translate }}</a>
   </div>
 
   <div class="logs-list">
@@ -21,7 +21,7 @@
     </div>
     } @empty {
     <div class="empty-logs">
-      <p>No logs available for this laboratory.</p>
+      <p>{{ 'laboratoriesDetail.noLogs' | translate }}</p>
     </div>
     }
   </div>

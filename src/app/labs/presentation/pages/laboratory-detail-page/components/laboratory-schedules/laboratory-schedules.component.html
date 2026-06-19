@@ -1,7 +1,7 @@
 <div class="schedules-card">
   <div class="section-header">
-    <h3 class="section-title">Active Automations</h3>
-    <a class="section-link" routerLink="/settings/automation-rules">Manage</a>
+    <h3 class="section-title">{{ 'laboratoriesDetail.activeAutomations' | translate }}</h3>
+    <a class="section-link" routerLink="/settings/automation-rules">{{ 'laboratoriesDetail.manage' | translate }}</a>
   </div>
   <div class="schedules-list">
     @for (rule of filteredRules(); track rule.id) {
@@ -9,7 +9,7 @@
       <div class="schedule-info">
         <span class="schedule-name">{{ rule.name }}</span>
         <span class="schedule-status" [class.status--running]="rule.active">
-          {{ rule.active ? '● Running' : '○ Standby' }}
+          {{ rule.active ? '● ' + ('laboratoriesDetail.statusRunning' | translate) : '○ ' + ('laboratoriesDetail.statusStandby' | translate) }}
         </span>
       </div>
       <div class="toggle" [class.toggle--active]="rule.active" (click)="toggleRuleActive(rule)">
@@ -17,10 +17,10 @@
       </div>
     </div>
     }
-
+ 
     @if (filteredRules().length === 0) {
     <div class="empty-rules" style="color: var(--mat-sys-on-surface-variant); font-size: var(--mat-sys-body-medium-size); text-align: center; padding: 20px 0;">
-      No active automation rules for this laboratory.
+      {{ 'laboratoriesDetail.noRules' | translate }}
     </div>
     }
   </div>
