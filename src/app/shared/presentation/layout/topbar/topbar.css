@@ -71,6 +71,14 @@
   .search-field {
     max-width: 180px;
   }
+
+  .topbar-actions {
+    gap: 8px;
+  }
+
+  .topbar-title-row {
+    gap: 8px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -133,6 +141,29 @@
   .topbar-action-btn mat-icon {
     margin: 0 !important;
   }
+  .topbar {
+    padding: 6px 12px;
+    gap: 6px;
+  }
+  .topbar-actions {
+    gap: 6px;
+  }
+  .topbar-title-row {
+    gap: 6px;
+  }
+  .view-title {
+    font-size: 14px;
+  }
+  .view-subtitle {
+    font-size: 10px;
+  }
+  .topbar-breadcrumbs {
+    font-size: 10px;
+  }
+  .topbar-breadcrumb-link,
+  .topbar-breadcrumb-current {
+    font-size: 10px;
+  }
 }
 
 .topbar-actions {
@@ -181,6 +212,7 @@
 .topbar-title-row {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
   margin-top: 4px;
   margin-bottom: 2px;
