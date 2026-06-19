@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  platformProviderApiBaseUrl: 'http://localhost:8080',
+  platformProviderApiBaseUrl: 'https://backend-5mih.onrender.com',
   platformProviderAuthenticationEndpointPath: '/api/v1/authentication',
   platformProviderAlertsEndpointPath: '/api/v1/alerts',
 
