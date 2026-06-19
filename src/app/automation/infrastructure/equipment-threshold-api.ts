@@ -21,4 +21,8 @@ export class EquipmentThresholdsApi extends BaseApi {
   updateEquipmentThreshold(id: number, equipmentThreshold: EquipmentThreshold): Observable<EquipmentThreshold> {
     return this.equipmentThresholdsEndpoint.update(equipmentThreshold, id);
   }
+
+  createEquipmentThreshold(equipmentThreshold: EquipmentThreshold): Observable<EquipmentThreshold> {
+    return this.equipmentThresholdsEndpoint.create(equipmentThreshold);
+  }
 }

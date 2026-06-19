@@ -23,6 +23,7 @@ export class UserProfileAssembler implements BaseAssembler<UserProfile, UserProf
       defaultStartShift: resource.defaultStartShift,
       shiftDuration: resource.shiftDuration,
       autoGenerateShiftReport: resource.autoGenerateShiftReport,
+      laboratoryIds: resource.laboratoryIds,
     });
   }
 
@@ -41,6 +42,7 @@ export class UserProfileAssembler implements BaseAssembler<UserProfile, UserProf
       defaultStartShift: entity.defaultStartShift,
       shiftDuration: entity.shiftDuration,
       autoGenerateShiftReport: entity.autoGenerateShiftReport,
+      laboratoryIds: entity.laboratoryIds,
     } as UserProfileResource;
   }
 }

@@ -6,10 +6,11 @@ import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { StatusBadgeComponent } from '../../../../../../shared/presentation/components/status-badge/status-badge.component';
 import { CardComponent } from '../../../../../../shared/presentation/components/card/card.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-laboratory-detail-card',
-  imports: [StatusBadgeComponent, CardComponent, MatIcon, MatButtonModule, RouterLink],
+  imports: [StatusBadgeComponent, CardComponent, MatIcon, MatButtonModule, RouterLink, TranslatePipe],
   templateUrl: './laboratory-detail-card.component.html',
   styleUrl: './laboratory-detail-card.component.css',
 })

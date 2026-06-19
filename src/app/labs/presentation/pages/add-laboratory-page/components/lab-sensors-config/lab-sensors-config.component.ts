@@ -5,10 +5,11 @@ import { IconBadgeComponent } from '../../../../../../shared/presentation/compon
 import { CardComponent } from '../../../../../../shared/presentation/components/card/card.component';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { SectionHeaderComponent } from '../../../../../../shared/presentation/components/section-header/section-header.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lab-sensors-config',
-  imports: [MatIcon, IconBadgeComponent, CardComponent, SectionHeaderComponent, MatSlideToggle, FormsModule],
+  imports: [MatIcon, IconBadgeComponent, CardComponent, SectionHeaderComponent, MatSlideToggle, FormsModule, TranslateModule],
   templateUrl: './lab-sensors-config.component.html',
   styleUrl: './lab-sensors-config.component.css'
 })

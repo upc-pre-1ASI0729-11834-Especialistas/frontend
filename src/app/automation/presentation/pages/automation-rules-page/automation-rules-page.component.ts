@@ -10,6 +10,7 @@ import { TopbarActionService } from '../../../../shared/application/topbar-actio
 import { AutomationRuleCardComponent } from '../../components/automation-rule-card/automation-rule-card.component';
 import { CreateRuleDialog } from '../../components/create-rule-dialog/create-rule-dialog';
 import { Laboratory } from '../../../../labs/domain/model/laboratory.entity';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-automation-rules-page',
@@ -19,7 +20,8 @@ import { Laboratory } from '../../../../labs/domain/model/laboratory.entity';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    AutomationRuleCardComponent
+    AutomationRuleCardComponent,
+    TranslateModule
   ],
   templateUrl: './automation-rules-page.component.html',
   styleUrl: './automation-rules-page.component.css'
@@ -30,10 +32,25 @@ export class AutomationRulesPageComponent implements OnInit {
   private readonly dialog = inject(MatDialog);
   private readonly topbarActionService = inject(TopbarActionService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly translateService = inject(TranslateService);
 
   readonly labs = signal<Laboratory[]>([]);
 
   constructor() {
+    this.topbarActionService.setAction({
+      label: this.translateService.instant('settingsPage.automationRules.createRule') || 'Create New Rule',
+      icon: 'add',
+      id: 'add-rule-action'
+    });
+
+    this.translateService.onLangChange.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.topbarActionService.setAction({
+        label: this.translateService.instant('settingsPage.automationRules.createRule') || 'Create New Rule',
+        icon: 'add',
+        id: 'add-rule-action'
+      });
+    });
+
     this.topbarActionService.actionClicked$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {

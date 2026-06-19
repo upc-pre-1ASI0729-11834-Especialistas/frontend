@@ -2,7 +2,7 @@ import { inject, Injectable, signal, DestroyRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError, finalize } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, timeout } from 'rxjs';
 import { AuthenticatedUser } from '../domain/model/authenticated-user.entity';
 import { AuthenticationPort } from '../domain/ports/authentication.port';
 
@@ -33,6 +33,7 @@ export class AuthStore {
     this.errorSignal.set(null);
 
     this.authPort.signIn(email, password).pipe(
+      timeout(10000),
       takeUntilDestroyed(this.destroyRef),
       finalize(() => this.loadingSignal.set(false))
     ).subscribe({
@@ -46,8 +47,37 @@ export class AuthStore {
       error: (err) => {
         console.error('Sign-in failed:', err);
         let errorMsg = 'Invalid credentials. Please try again.';
-        if (err.status === 400 || err.status === 401) {
+        if (err.name === 'TimeoutError') {
+          errorMsg = 'Connection timed out. Please try again.';
+        } else if (err.status === 400 || err.status === 401) {
           errorMsg = 'Incorrect email/username or password.';
+        } else if (err.status === 0) {
+          errorMsg = 'Cannot connect to the authorization server.';
+        }
+        this.errorSignal.set(errorMsg);
+      }
+    });
+  }
+
+  signUp(email: string, password: string, fullName: string): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+
+    this.authPort.signUp(email, password, fullName).pipe(
+      timeout(10000),
+      takeUntilDestroyed(this.destroyRef),
+      finalize(() => this.loadingSignal.set(false))
+    ).subscribe({
+      next: () => {
+        this.signIn(email, password);
+      },
+      error: (err) => {
+        console.error('Sign-up failed:', err);
+        let errorMsg = 'Failed to register account. Please try again.';
+        if (err.name === 'TimeoutError') {
+          errorMsg = 'Connection timed out. Please try again.';
+        } else if (err.status === 400) {
+          errorMsg = err.error?.message || 'Email already registered or invalid invitation.';
         } else if (err.status === 0) {
           errorMsg = 'Cannot connect to the authorization server.';
         }

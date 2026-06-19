@@ -13,6 +13,13 @@
           | Lab: {{ sensor().laboratoryName }}
         }
       </p>
+      <p class="sensor-target-limits">
+        <mat-icon>gps_fixed</mat-icon>
+        <strong>Target:</strong> <span [style.color]="sensor().equipmentName ? 'var(--primary-color)' : 'inherit'">{{ targetText() }}</span>
+        <span class="divider-dot">•</span>
+        <mat-icon>thermostat</mat-icon>
+        <strong>Safety Limits:</strong> <span>{{ thresholdsText() }}</span>
+      </p>
       @if (connectionStatus() !== 'INACTIVE' && sensor().lastConnected) {
         <p class="sensor-connection-time"><mat-icon class="inline-icon">wifi</mat-icon> Last Connected: {{ lastConnectedText() }}</p>
       }

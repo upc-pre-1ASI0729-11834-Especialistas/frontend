@@ -2,21 +2,21 @@
   <!-- Top Navigation -->
   <div class="top-nav">
     <div class="nav-breadcrumbs">
-      <a routerLink="/dashboard" class="back-link"><mat-icon>arrow_back</mat-icon> Back to Dashboard</a>
+      <a routerLink="/dashboard" class="back-link"><mat-icon>arrow_back</mat-icon> {{ 'incident.details.backLink' | translate }}</a>
       <div class="breadcrumbs-text">
-        Dashboard <mat-icon>chevron_right</mat-icon> Alerts <mat-icon>chevron_right</mat-icon> <strong>Incident:
+        {{ 'incident.details.breadcrumbRoot' | translate }} <mat-icon>chevron_right</mat-icon> {{ 'incident.details.breadcrumbAlerts' | translate }} <mat-icon>chevron_right</mat-icon> <strong>{{ 'incident.details.breadcrumbIncident' | translate }}:
           {{ alert() ? affectedEquipment() + ' — ' + alert()?.title : 'Refrigerator B2 — Temperature Exceeded' }}</strong>
       </div>
     </div>
     <div class="nav-time">
-      <mat-icon>schedule</mat-icon> Current system status: <strong>Live Telemetry</strong>
+      <mat-icon>schedule</mat-icon> {{ 'incident.details.systemStatusLabel' | translate }} <strong>{{ 'incident.details.liveStatus' | translate }}</strong>
     </div>
   </div>
 
   <!-- Page Title -->
   <div class="page-title-row">
-    <h1 class="page-title"><span class="red-dot-large"></span> Active Incident</h1>
-    <span class="incident-id-pill">INCIDENT #{{ alert()?.id || '4821' }}</span>
+    <h1 class="page-title"><span class="red-dot-large"></span> {{ 'incident.details.activeIncident' | translate }}</h1>
+    <span class="incident-id-pill">{{ 'incident.details.incidentId' | translate }} #{{ alert()?.id || '4821' }}</span>
   </div>
 
   <!-- Main Alert Banner -->
@@ -33,10 +33,10 @@
     </div>
     <div class="banner-details">
       <div class="detail-item">
-        <mat-icon>schedule</mat-icon> Started: <strong>{{ startedTimeAgo() }}</strong> — {{ startedTimeAbsolute() }}
+        <mat-icon>schedule</mat-icon> {{ 'incident.details.started' | translate }}: <strong>{{ startedTimeAgo() }}</strong> — {{ startedTimeAbsolute() }}
       </div>
       <div class="detail-item">
-        <mat-icon>device_thermostat</mat-icon> Affected equipment: <strong>{{ affectedEquipment() }}</strong> — {{ location() }}
+        <mat-icon>device_thermostat</mat-icon> {{ 'incident.details.affectedEquipment' | translate }}: <strong>{{ affectedEquipment() }}</strong> — {{ location() }}
       </div>
     </div>
   </div>
@@ -47,30 +47,30 @@
     <div class="grid-left">
       <!-- Card 1: Current Readings -->
       <div class="card">
-        <h3 class="card-title">Current Readings</h3>
+        <h3 class="card-title">{{ 'incident.details.currentReadings' | translate }}</h3>
         <div class="readings-content">
           <div class="reading-main">
-            <div class="reading-label">CURRENT VALUE</div>
+            <div class="reading-label">{{ 'incident.details.currentValueLabel' | translate }}</div>
             <div class="reading-value">{{ currentValue() }}</div>
           </div>
           <div class="reading-stats">
             <div class="stat-row">
-              <mat-icon class="icon-red">trending_up</mat-icon> <span class="stat-label">Threshold:</span> <span
+              <mat-icon class="icon-red">trending_up</mat-icon> <span class="stat-label">{{ 'incident.details.thresholdLabel' | translate }}</span> <span
                 class="stat-val text-red">{{ thresholdValue() }}</span>
             </div>
             <div class="stat-row">
-              <mat-icon class="icon-orange">arrow_upward</mat-icon> <span class="stat-label">Exceeded by:</span> <span
+              <mat-icon class="icon-orange">arrow_upward</mat-icon> <span class="stat-label">{{ 'incident.details.exceededByLabel' | translate }}</span> <span
                 class="stat-val text-orange">{{ exceededByValue() }}</span>
             </div>
             <div class="stat-row">
-              <mat-icon class="icon-gray">bolt</mat-icon> <span class="stat-label">Duration:</span> <span
+              <mat-icon class="icon-gray">bolt</mat-icon> <span class="stat-label">{{ 'incident.details.durationLabel' | translate }}</span> <span
                 class="stat-val">{{ startedTimeAgo() }}</span>
             </div>
           </div>
         </div>
 
         <div class="chart-header">
-          <div class="chart-title">Realtime Chart — Last 2 Hours</div>
+          <div class="chart-title">{{ 'incident.details.chartHeader' | translate }}</div>
           <div class="sensor-pill">{{ sensorId() }}</div>
         </div>
         <div class="mock-chart">
@@ -84,9 +84,9 @@
               <!-- Telemetry data line -->
               <path [attr.d]="chartPath()" fill="none" stroke="#2563eb" stroke-width="3" />
             </svg>
-            <span [style.top.px]="thresholdY() + 4" style="position:absolute; left:8px; font-size:11px; color:#16a34a;">Normal range</span>
-            <span [style.top.px]="thresholdY() - 16" style="position:absolute; right:8px; font-size:11px; color:#dc2626;">Threshold exceeded</span>
-            <span [style.top.px]="thresholdY() - 16" style="position:absolute; left:8px; font-size:11px; color:#dc2626; font-weight: 600;">Limit: {{ thresholdValue() }}</span>
+            <span [style.top.px]="thresholdY() + 4" style="position:absolute; left:8px; font-size:11px; color:#16a34a;">{{ 'incident.details.normalRange' | translate }}</span>
+            <span [style.top.px]="thresholdY() - 16" style="position:absolute; right:8px; font-size:11px; color:#dc2626;">{{ 'incident.details.thresholdExceeded' | translate }}</span>
+            <span [style.top.px]="thresholdY() - 16" style="position:absolute; left:8px; font-size:11px; color:#dc2626; font-weight: 600;">{{ 'incident.details.limitLabel' | translate }} {{ thresholdValue() }}</span>
           </div>
           <div class="chart-x-axis">
             @for (label of xAxisLabels(); track label) {
@@ -98,30 +98,30 @@
 
       <!-- Card 2: Sensor Information -->
       <div class="card">
-        <h3 class="card-title">Sensor Information</h3>
+        <h3 class="card-title">{{ 'incident.details.sensorInfo' | translate }}</h3>
         <div class="sensor-grid">
           <div class="sensor-item">
-            <span class="s-label">Sensor ID</span>
+            <span class="s-label">{{ 'incident.details.sensorId' | translate }}</span>
             <span class="s-value"><strong>{{ sensorId() }}</strong></span>
           </div>
           <div class="sensor-item">
-            <span class="s-label">Location</span>
+            <span class="s-label">{{ 'incident.details.location' | translate }}</span>
             <span class="s-value"><strong>{{ location() }}</strong></span>
           </div>
           <div class="sensor-item">
-            <span class="s-label">Last Calibration</span>
+            <span class="s-label">{{ 'incident.details.lastCalibration' | translate }}</span>
             <span class="s-value"><strong>{{ lastCalibration() }}</strong></span>
           </div>
           <div class="sensor-item">
-            <span class="s-label">Signal Strength</span>
+            <span class="s-label">{{ 'incident.details.signalStrength' | translate }}</span>
             <span class="s-value text-green"><strong>{{ signalStrength() }}</strong></span>
           </div>
           <div class="sensor-item">
-            <span class="s-label">Network Status</span>
+            <span class="s-label">{{ 'incident.details.networkStatus' | translate }}</span>
             <span class="s-value text-green"><strong>{{ networkStatus() }}</strong></span>
           </div>
           <div class="sensor-item">
-            <span class="s-label">Sensor Type</span>
+            <span class="s-label">{{ 'incident.details.sensorType' | translate }}</span>
             <span class="s-value"><strong>{{ sensorType() }}</strong></span>
           </div>
         </div>
@@ -129,7 +129,7 @@
 
       <!-- Card 3: Automation Response -->
       <div class="card">
-        <h3 class="card-title">Automation Response</h3>
+        <h3 class="card-title">{{ 'incident.details.automationResponse' | translate }}</h3>
         
         <!-- Case 1: Rule triggered -->
         <div class="automation-box" *ngIf="automationRuleName() !== 'None' && automationRuleName() !== 'N/A'">
@@ -141,8 +141,8 @@
               <h4 class="auto-title">{{ automationRuleName() }}</h4>
               <span class="pill pill-running"><mat-icon>settings</mat-icon> {{ automationRuleStatus() }}</span>
             </div>
-            <p class="auto-desc">Activated automatically for zone: {{ location() }}</p>
-            <p class="auto-subdesc">Description: {{ automationRuleDesc() }}</p>
+            <p class="auto-desc">{{ 'incident.details.activatedForZone' | translate }}: {{ location() }}</p>
+            <p class="auto-subdesc">{{ 'incident.details.descriptionLabel' | translate }} {{ automationRuleDesc() }}</p>
           </div>
         </div>
 
@@ -153,11 +153,11 @@
           </div>
           <div class="auto-content">
             <div class="auto-header">
-              <h4 class="auto-title">No Automation Rule Triggered</h4>
-              <span class="pill pill-disabled"><mat-icon>settings</mat-icon> Inactive</span>
+              <h4 class="auto-title">{{ 'incident.details.noAutomationTriggered' | translate }}</h4>
+              <span class="pill pill-disabled"><mat-icon>settings</mat-icon> {{ 'incident.details.inactive' | translate }}</span>
             </div>
-            <p class="auto-desc" style="color: #64748b; font-weight: normal;">No safety automation rule matches this laboratory metric breach.</p>
-            <p class="auto-subdesc">Configure rules in system settings to automate emergency responses.</p>
+            <p class="auto-desc" style="color: #64748b; font-weight: normal;">{{ 'incident.details.noRuleMatch' | translate }}</p>
+            <p class="auto-subdesc">{{ 'incident.details.configureRulesHint' | translate }}</p>
           </div>
         </div>
       </div>
@@ -167,28 +167,28 @@
     <div class="grid-right">
       <!-- Actions Card -->
       <div class="card actions-card">
-        <h3 class="card-title">Actions</h3>
-        <p class="card-subtitle">Take action on this incident</p>
+        <h3 class="card-title">{{ 'incident.details.actions' | translate }}</h3>
+        <p class="card-subtitle">{{ 'incident.details.actionsSubtitle' | translate }}</p>
 
         <a [routerLink]="['/alerts/incident/resolve']" [queryParams]="{ id: alertId() }" class="btn btn-primary btn-block">
-          <mat-icon>check_circle_outline</mat-icon> Mark as Resolved
+          <mat-icon>check_circle_outline</mat-icon> {{ 'incident.details.markAsResolved' | translate }}
         </a>
         <button class="btn btn-secondary btn-block" (click)="openEscalate()">
-          <mat-icon>people_outline</mat-icon> Escalate to Supervisor
+          <mat-icon>people_outline</mat-icon> {{ 'incident.details.escalateSupervisor' | translate }}
         </button>
         <a [routerLink]="['/laboratories', alert()?.laboratoryId]" class="btn btn-secondary btn-block">
-          <mat-icon>science</mat-icon> View Laboratory
+          <mat-icon>science</mat-icon> {{ 'incident.details.viewLab' | translate }}
         </a>
 
         <div class="info-box">
           <mat-icon>info_outline</mat-icon>
-          <span>Resolving requires a note describing the corrective action taken.</span>
+          <span>{{ 'incident.details.resolveHelpText' | translate }}</span>
         </div>
       </div>
 
       <!-- Timeline Card -->
       <div class="card timeline-card">
-        <h3 class="card-title">Incident Timeline</h3>
+        <h3 class="card-title">{{ 'incident.details.incidentTimeline' | translate }}</h3>
 
         <div class="timeline">
           <div class="timeline-item">
@@ -196,9 +196,9 @@
             <div class="t-content">
               <div class="t-time">{{ startedTimeAbsolute() }}</div>
               <div class="t-title" [ngClass]="{'text-red': alert()?.status !== 'RESOLVED', 'text-green': alert()?.status === 'RESOLVED'}">
-                Limit breach detected ({{ thresholdValue() }})
+                {{ 'incident.details.limitBreachDetected' | translate }} ({{ thresholdValue() }})
               </div>
-              <div class="t-desc">Reading: {{ currentValue() }} — first breach registered</div>
+              <div class="t-desc">{{ 'incident.details.readingFirstBreach' | translate:{value: currentValue()} }}</div>
             </div>
           </div>
 
@@ -206,8 +206,8 @@
             <div class="t-dot dot-blue-ring"></div>
             <div class="t-content">
               <div class="t-time">{{ dispatchTimeAbsolute() }}</div>
-              <div class="t-title text-blue">Alert dispatched</div>
-              <div class="t-desc">Notification sent to lab coordinator on duty</div>
+              <div class="t-title text-blue">{{ 'incident.details.alertDispatched' | translate }}</div>
+              <div class="t-desc">{{ 'incident.details.notificationDuty' | translate }}</div>
             </div>
           </div>
 
@@ -215,20 +215,20 @@
             <div class="t-dot dot-blue-ring"></div>
             <div class="t-content">
               <div class="t-time">{{ automationTimeAbsolute() }}</div>
-              <div class="t-title text-blue">Automation triggered</div>
-              <div class="t-desc">{{ automationRuleName() }} active for {{ location() }}</div>
+              <div class="t-title text-blue">{{ 'incident.details.automationTriggered' | translate }}</div>
+              <div class="t-desc">{{ automationRuleName() }} {{ 'incident.details.activeFor' | translate }} {{ location() }}</div>
             </div>
           </div>
 
           <div class="timeline-item">
             <div class="t-dot" [ngClass]="{'dot-orange': alert()?.status !== 'RESOLVED', 'dot-green': alert()?.status === 'RESOLVED'}"></div>
             <div class="t-content">
-              <div class="t-time">Status: {{ alert()?.status || 'ACTIVE' }}</div>
+              <div class="t-time">Status: {{ alert()?.status === 'RESOLVED' ? ('common.status.resolved' | translate) : ('common.status.active' | translate) }}</div>
               <div class="t-title" [ngClass]="{'text-orange': alert()?.status !== 'RESOLVED', 'text-green': alert()?.status === 'RESOLVED'}">
-                {{ alert()?.status === 'RESOLVED' ? 'Incident resolved' : 'Awaiting resolution' }}
+                {{ alert()?.status === 'RESOLVED' ? ('incident.details.resolvedState' | translate) : ('incident.details.awaitingState' | translate) }}
               </div>
               <div class="t-desc">
-                {{ alert()?.status === 'RESOLVED' ? 'Corrective action note saved.' : 'Incident remains active.' }}
+                {{ alert()?.status === 'RESOLVED' ? ('incident.details.noteSaved' | translate) : ('incident.details.remainsActive' | translate) }}
               </div>
             </div>
           </div>

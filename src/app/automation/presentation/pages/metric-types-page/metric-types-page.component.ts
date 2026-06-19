@@ -11,6 +11,9 @@ import { MetricTypeStore } from '../../../../telemetry/application/metric-type.s
 import { CreateMetricTypeDialog } from '../../components/create-metric-type-dialog/create-metric-type-dialog';
 import { MetricType } from '../../../../telemetry/domain/model/metric-type.entity';
 import { RouterModule } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslateService } from '@ngx-translate/core';
+import { TopbarActionService } from '../../../../shared/application/topbar-action.service';
 
 @Component({
   selector: 'app-metric-types-page',
@@ -32,10 +35,34 @@ import { RouterModule } from '@angular/router';
 export class MetricTypesPageComponent {
   protected readonly metricTypeStore = inject(MetricTypeStore);
   private readonly dialog = inject(MatDialog);
+  private readonly topbarActionService = inject(TopbarActionService);
+  private readonly translateService = inject(TranslateService);
 
   // Filters state
   readonly selectedCategory = signal<string>('all-categories');
   readonly selectedStatus = signal<string>('all-statuses');
+
+  constructor() {
+    this.topbarActionService.setAction({
+      label: this.translateService.instant('settings.metricTypes.add') || 'Add Metric Type',
+      icon: 'add',
+      id: 'add-metric-type-action'
+    });
+
+    this.translateService.onLangChange.pipe(takeUntilDestroyed()).subscribe(() => {
+      this.topbarActionService.setAction({
+        label: this.translateService.instant('settings.metricTypes.add') || 'Add Metric Type',
+        icon: 'add',
+        id: 'add-metric-type-action'
+      });
+    });
+
+    this.topbarActionService.actionClicked$
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => {
+        this.openCreateMetricTypeDialog();
+      });
+  }
 
   // Dynamic filter options based on categories
   readonly categories = ['ENVIRONMENTAL', 'SAFETY', 'EQUIPMENT'];

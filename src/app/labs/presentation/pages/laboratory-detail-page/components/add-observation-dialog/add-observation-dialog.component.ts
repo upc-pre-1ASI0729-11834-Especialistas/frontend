@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-observation-dialog',
@@ -19,7 +20,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
     MatInputModule,
     MatSelectModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslatePipe
   ],
   templateUrl: './add-observation-dialog.component.html',
   styleUrl: './add-observation-dialog.component.css'

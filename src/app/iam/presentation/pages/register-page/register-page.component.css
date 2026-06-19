@@ -1,0 +1,165 @@
+/* ========= Full-page login shell ========= */
+.login-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--background-color);
+}
+
+/* ========= Main ========= */
+.login-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
+}
+
+/* ========= Card ========= */
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--surface-color);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-lg);
+}
+
+/* ========= Card Header / Branding ========= */
+.card-header {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.card-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--primary-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  margin-bottom: var(--spacing-sm);
+}
+
+.card-logo mat-icon {
+  font-size: 26px;
+  width: 26px;
+  height: 26px;
+}
+
+.card-brand {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.card-subtitle {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--primary-color);
+  margin-top: 2px;
+}
+
+.welcome-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-xs);
+}
+
+.welcome-text {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-lg);
+}
+
+/* ========= Form ========= */
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.password-label-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--spacing-xs);
+}
+
+.forgot-link {
+  font-size: var(--font-size-xs);
+}
+
+/* ========= Buttons ========= */
+.sign-in-btn {
+  width: 100%;
+  height: 48px;
+  margin-top: var(--spacing-md);
+  font-size: var(--font-size-md) !important;
+  border-radius: var(--border-radius-lg) !important;
+}
+
+.or-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+}
+
+.or-divider::before,
+.or-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
+}
+
+.or-divider span {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.create-account-btn {
+  width: 100%;
+  height: 48px;
+  font-size: var(--font-size-md) !important;
+  border-radius: var(--border-radius-lg) !important;
+}
+
+/* ========= Footer ========= */
+.login-footer {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md) 0 0;
+  border-top: 1px solid var(--border-color);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/* ========= Shared accent link ========= */
+.link-accent {
+  color: var(--primary-color);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.link-accent:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* ========= Responsive ========= */
+@media (max-width: 640px) {
+  .login-card {
+    padding: var(--spacing-lg) var(--spacing-md);
+    border-radius: var(--border-radius-lg);
+  }
+}

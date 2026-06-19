@@ -4,7 +4,7 @@
   <div class="metric-header">
     <div class="metric-header-left">
       <span class="metric-object-type">{{ objectLabel() }}</span>
-      <span class="metric-name">{{ metric().name }}</span>
+      <span class="metric-name">{{ metric().name | titlecase }}</span>
     </div>
     <mat-icon class="metric-icon" [style.color]="iconColor()">{{ metric().icon }}</mat-icon>
   </div>

@@ -11,6 +11,11 @@ export class SensorConfiguration implements BaseEntity {
   private _lastConnected: string;
   private _laboratoryId?: number;
   private _laboratoryName?: string;
+  private _equipmentId?: number;
+  private _equipmentName?: string;
+  private _minThreshold?: number;
+  private _maxThreshold?: number;
+  private _warningThreshold?: number;
 
   constructor(data: {
     id: number;
@@ -23,6 +28,11 @@ export class SensorConfiguration implements BaseEntity {
     lastConnected?: string;
     laboratoryId?: number;
     laboratoryName?: string;
+    equipmentId?: number;
+    equipmentName?: string;
+    minThreshold?: number;
+    maxThreshold?: number;
+    warningThreshold?: number;
   }) {
     this._id = data.id;
     this._sensorName = data.sensorName;
@@ -34,6 +44,11 @@ export class SensorConfiguration implements BaseEntity {
     this._lastConnected = data.lastConnected || '';
     this._laboratoryId = data.laboratoryId;
     this._laboratoryName = data.laboratoryName;
+    this._equipmentId = data.equipmentId;
+    this._equipmentName = data.equipmentName;
+    this._minThreshold = data.minThreshold;
+    this._maxThreshold = data.maxThreshold;
+    this._warningThreshold = data.warningThreshold;
   }
 
   get id(): number { return this._id; }
@@ -65,4 +80,19 @@ export class SensorConfiguration implements BaseEntity {
 
   get laboratoryName(): string | undefined { return this._laboratoryName; }
   set laboratoryName(value: string | undefined) { this._laboratoryName = value; }
+
+  get equipmentId(): number | undefined { return this._equipmentId; }
+  set equipmentId(value: number | undefined) { this._equipmentId = value; }
+
+  get equipmentName(): string | undefined { return this._equipmentName; }
+  set equipmentName(value: string | undefined) { this._equipmentName = value; }
+
+  get minThreshold(): number | undefined { return this._minThreshold; }
+  set minThreshold(value: number | undefined) { this._minThreshold = value; }
+
+  get maxThreshold(): number | undefined { return this._maxThreshold; }
+  set maxThreshold(value: number | undefined) { this._maxThreshold = value; }
+
+  get warningThreshold(): number | undefined { return this._warningThreshold; }
+  set warningThreshold(value: number | undefined) { this._warningThreshold = value; }
 }

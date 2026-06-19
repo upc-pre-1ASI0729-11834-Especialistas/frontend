@@ -1,7 +1,7 @@
 <div class="side-sheet-container">
   <!-- Header -->
   <div class="dialog-header">
-    <h2 class="dialog-title">Invite New User</h2>
+    <h2 class="dialog-title">{{ 'settingsPage.usersPermissions.inviteUser' | translate }}</h2>
     <button type="button" class="close-btn" (click)="onCancel()" aria-label="Close dialog">
       <mat-icon>close</mat-icon>
     </button>
@@ -11,7 +11,7 @@
   <div class="dialog-content-scroll" [formGroup]="inviteForm">
     <!-- Email Address -->
     <div class="form-group">
-      <label class="form-label">Email address</label>
+      <label class="form-label">{{ 'iam.login.emailLabel' | translate }}</label>
       <div class="input-with-icon" [class.error]="inviteForm.get('email')?.invalid && inviteForm.get('email')?.touched">
         <mat-icon class="input-icon">mail_outline</mat-icon>
         <input
@@ -22,65 +22,64 @@
           required>
       </div>
       @if (inviteForm.get('email')?.hasError('required') && inviteForm.get('email')?.touched) {
-        <span class="error-text">Email address is required</span>
+        <span class="error-text">{{ 'settingsPage.usersPermissions.emailRequired' | translate }}</span>
       }
       @if (inviteForm.get('email')?.hasError('email') && inviteForm.get('email')?.touched) {
-        <span class="error-text">Please enter a valid email address</span>
+        <span class="error-text">{{ 'settingsPage.usersPermissions.emailValid' | translate }}</span>
       }
     </div>
 
     <!-- Select Role -->
     <div class="form-group">
-      <label class="form-label">Select role</label>
+      <label class="form-label">{{ 'settingsPage.usersPermissions.selectRole' | translate }}</label>
       <mat-form-field appearance="outline" class="custom-select-field">
-        <mat-select formControlName="role" placeholder="Choose a role" required>
-          <mat-option value="Administrator">Administrator</mat-option>
-          <mat-option value="Supervisor">Supervisor</mat-option>
-          <mat-option value="Operator">Operator</mat-option>
-          <mat-option value="Viewer">Viewer</mat-option>
+        <mat-select formControlName="role" placeholder="{{ 'settingsPage.usersPermissions.chooseRole' | translate }}" required>
+          <mat-option value="Administrator">{{ 'settingsPage.usersPermissions.roles.administrator' | translate }}</mat-option>
+          <mat-option value="Supervisor">{{ 'settingsPage.usersPermissions.roles.supervisor' | translate }}</mat-option>
+          <mat-option value="Operator">{{ 'settingsPage.usersPermissions.roles.operator' | translate }}</mat-option>
+          <mat-option value="Viewer">{{ 'settingsPage.usersPermissions.roles.viewer' | translate }}</mat-option>
         </mat-select>
       </mat-form-field>
       @if (inviteForm.get('role')?.invalid && inviteForm.get('role')?.touched) {
-        <span class="error-text">Please select a role</span>
+        <span class="error-text">{{ 'settingsPage.usersPermissions.roleRequired' | translate }}</span>
       }
     </div>
 
     <!-- Select Lab Access -->
     <div class="form-group">
-      <label class="form-label">Select lab access</label>
+      <label class="form-label">{{ 'settingsPage.usersPermissions.selectLabAccess' | translate }}</label>
       <div class="checkbox-group-box" formGroupName="labs">
         <div class="checkbox-row">
-          <mat-checkbox formControlName="allLabs" color="primary">All Labs</mat-checkbox>
+          <mat-checkbox formControlName="allLabs" color="primary">{{ 'settingsPage.usersPermissions.allLabs' | translate }}</mat-checkbox>
         </div>
-        <div class="checkbox-row">
-          <mat-checkbox formControlName="lab3B" color="primary">Lab 3B</mat-checkbox>
-        </div>
-        <div class="checkbox-row">
-          <mat-checkbox formControlName="cryoStorage" color="primary">Cryo Storage</mat-checkbox>
-        </div>
+        @for (lab of laboratories(); track lab.id) {
+          <div class="checkbox-row">
+            <mat-checkbox [formControlName]="lab.id.toString()" color="primary">{{ lab.name }}</mat-checkbox>
+          </div>
+        }
       </div>
     </div>
 
     <!-- Personal Message -->
     <div class="form-group">
-      <label class="form-label">Personal message (optional)</label>
+      <label class="form-label">{{ 'settingsPage.usersPermissions.personalMessage' | translate }}</label>
       <textarea
         formControlName="message"
-        placeholder="Add a note to the invitation email..."
+        placeholder="{{ 'settingsPage.usersPermissions.messagePlaceholder' | translate }}"
         class="custom-textarea"></textarea>
     </div>
   </div>
 
   <!-- Footer Actions -->
   <div class="dialog-footer">
-    <button type="button" class="cancel-btn" (click)="onCancel()">Cancel</button>
+    <button type="button" class="cancel-btn" (click)="onCancel()">{{ 'common.cancel' | translate }}</button>
     <button
       type="button"
       class="submit-btn"
       [disabled]="inviteForm.invalid"
       (click)="onSubmit()">
       <mat-icon>send</mat-icon>
-      <span>Send Invitation</span>
+      <span>{{ 'settingsPage.usersPermissions.sendInvitation' | translate }}</span>
     </button>
   </div>
 </div>

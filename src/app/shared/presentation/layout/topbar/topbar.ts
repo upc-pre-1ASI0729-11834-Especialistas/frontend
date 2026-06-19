@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Component, OnInit, Input, Output, EventEmitter, computed, signal } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd, RouterLink } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
+import { UpperCasePipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -9,6 +10,7 @@ import { LanguageSwitcher } from '../../components/language-switcher/language-sw
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { TopbarActionService, TopbarActionConfig } from '../../../application/topbar-action.service';
+import { StatusBadgeComponent } from '../../components/status-badge/status-badge.component';
 
 @Component({
   selector: 'app-topbar',
@@ -19,7 +21,10 @@ import { TopbarActionService, TopbarActionConfig } from '../../../application/to
     TranslateModule,
     LanguageSwitcher,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterLink,
+    UpperCasePipe,
+    StatusBadgeComponent
   ],
   templateUrl: './topbar.html',
   styleUrl: './topbar.css',
@@ -27,9 +32,15 @@ import { TopbarActionService, TopbarActionConfig } from '../../../application/to
 export class Topbar implements OnInit {
   @Input() showHamburger = false;
   @Output() hamburgerClick = new EventEmitter<void>();
-  title = '';
-  subtitle = '';
-  action: TopbarActionConfig | null = null;
+  
+  private readonly routeTitle = signal('');
+  private readonly routeSubtitle = signal('');
+
+  readonly title = computed(() => this.topbarActionService.customTitle() ?? this.routeTitle());
+  readonly subtitle = computed(() => this.topbarActionService.customSubtitle() ?? this.routeSubtitle());
+  readonly action = computed(() => this.topbarActionService.currentAction());
+  readonly actions = computed(() => this.topbarActionService.customActions());
+  readonly breadcrumbs = computed(() => this.topbarActionService.customBreadcrumbs());
 
   constructor(
     readonly router: Router,
@@ -44,6 +55,10 @@ export class Topbar implements OnInit {
         filter(event => event instanceof NavigationEnd)
       )
       .subscribe(() => {
+        this.topbarActionService.clearCustomTitleAndSubtitle();
+        this.topbarActionService.clearActions();
+        this.topbarActionService.clearBreadcrumbs();
+        this.topbarActionService.clearBadge();
         this.updateTitleAndSubtitle();
       });
   }
@@ -58,9 +73,9 @@ export class Topbar implements OnInit {
       currentRoute = currentRoute.firstChild;
     }
     const data = currentRoute.snapshot.data;
-    this.title = data['title'] ?? '';
-    this.subtitle = data['subtitle'] ?? '';
-    this.action = data['topbarAction'] ?? null;
-    this.topbarActionService.setAction(this.action);
+    this.routeTitle.set(data['title'] ?? '');
+    this.routeSubtitle.set(data['subtitle'] ?? '');
+    const routeAction = data['topbarAction'] ?? null;
+    this.topbarActionService.setAction(routeAction);
   }
 }

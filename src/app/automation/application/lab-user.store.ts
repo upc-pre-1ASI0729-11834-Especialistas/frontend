@@ -25,7 +25,7 @@ export class LabUserStore {
     return computed(() => id ? this.labUsers().find(e => e.id === id) : undefined);
   }
 
-  private loadLabUsers(): void {
+  loadLabUsers(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.labUsersApi.getLabUsers().pipe(

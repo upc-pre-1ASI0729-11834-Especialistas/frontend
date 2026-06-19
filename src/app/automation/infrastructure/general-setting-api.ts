@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BaseApi } from '../../shared/infrastructure/base-api';
@@ -16,5 +16,9 @@ export class GeneralSettingsApi extends BaseApi {
 
   getGeneralSettings(): Observable<GeneralSetting[]> {
     return this.generalSettingsEndpoint.getAll();
+  }
+
+  updateGeneralSetting(id: number, setting: GeneralSetting): Observable<GeneralSetting> {
+    return this.generalSettingsEndpoint.update(setting, id);
   }
 }

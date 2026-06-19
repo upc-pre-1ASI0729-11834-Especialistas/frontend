@@ -12,6 +12,7 @@ export interface AlertResource extends BaseResource {
   labLocation?: string;
   sensorId?: number;
   sensorName?: string;
+  equipmentName?: string;
   metrics?: Array<{ label: string; value: string }>;
 }
 

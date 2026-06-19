@@ -1,10 +1,11 @@
 import { MatIcon } from '@angular/material/icon';
 import { Component, input, output } from '@angular/core';
 import { Laboratory } from '../../../../../domain/model/laboratory.entity';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lab-success-card',
-  imports: [MatIcon],
+  imports: [MatIcon, TranslatePipe],
   templateUrl: './lab-success-card.component.html',
   styleUrl: './lab-success-card.component.css'
 })

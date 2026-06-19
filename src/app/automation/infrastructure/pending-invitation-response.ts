@@ -5,6 +5,9 @@ export interface PendingInvitationResource extends BaseResource {
   email: string;
   role: string;
   sentTimeAgo: string;
+  laboratoryIds?: number[];
+  workspaceId?: number;
+  workspaceName?: string;
 }
 
 export interface PendingInvitationsResponse extends BaseResponse {

@@ -1,17 +1,20 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { AutomationRule } from '../../../domain/model/automation-rule.entity';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-automation-rule-card',
   standalone: true,
-  imports: [CommonModule, MatSlideToggleModule, MatIconModule],
+  imports: [CommonModule, MatSlideToggleModule, MatIconModule, TranslateModule],
   templateUrl: './automation-rule-card.component.html',
   styleUrl: './automation-rule-card.component.css'
 })
 export class AutomationRuleCardComponent {
+  private readonly translateService = inject(TranslateService);
+
   @Input({ required: true }) rule!: AutomationRule;
   @Input() labs: any[] = [];
   @Output() toggleActive = new EventEmitter<{ id: number; active: boolean }>();
@@ -28,7 +31,9 @@ export class AutomationRuleCardComponent {
     if (this.rule.scope === 'all') return 'All labs';
     if (!this.rule.specificLabId) return 'Specific lab';
     const lab = this.labs.find(l => l.id === Number(this.rule.specificLabId));
-    return lab ? lab.name : `Lab (ID: ${this.rule.specificLabId})`;
+    if (lab) return lab.name;
+    const labLabel = this.translateService.instant('history.drawer.lab');
+    return `${labLabel} (ID: ${this.rule.specificLabId})`;
   }
 
   getFormattedAction(): string {
