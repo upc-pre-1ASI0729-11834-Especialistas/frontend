@@ -63,71 +63,6 @@
           <app-history-timeline [records]="filteredHistory()" (recordSelected)="openDrawer($event)" />
         </section>
 
-        <!-- RIGHT: Generate Shift Report panel -->
-        <aside class="report-panel">
-          <h2 class="panel-title">
-            <mat-icon>description</mat-icon>
-            {{ 'history.panel.report' | translate }}
-          </h2>
-
-          <!-- Stats pills -->
-          <div class="stats-grid">
-            <div class="stat-pill stat-incidents">
-              <mat-icon>warning</mat-icon>
-              <span>{{ criticalEvents() + activeEvents() }} {{ 'history.stats.incidents' | translate }}</span>
-            </div>
-            <div class="stat-pill stat-resolved">
-              <mat-icon>check_circle</mat-icon>
-              <span>{{ resolvedEvents() }} {{ 'history.stats.resolved' | translate }}</span>
-            </div>
-            <div class="stat-pill stat-active">
-              <mat-icon>bolt</mat-icon>
-              <span>{{ activeEvents() }} {{ 'history.stats.active' | translate }}</span>
-            </div>
-            <div class="stat-pill stat-manual">
-              <mat-icon>edit_note</mat-icon>
-              <span>3 {{ 'history.stats.manualObs' | translate }}</span>
-            </div>
-          </div>
-
-          <!-- General shift notes -->
-          <div class="report-section">
-            <p class="report-section-label">
-              <mat-icon>notes</mat-icon>
-              {{ 'history.notes.general' | translate }}
-            </p>
-            <p class="report-section-hint">{{ 'history.notes.generalHint' | translate }}</p>
-            <textarea class="report-textarea" [(ngModel)]="shiftNotes"
-              [placeholder]="'history.notes.placeholder' | translate"></textarea>
-          </div>
-
-          <!-- Handover note -->
-          <div class="handover-box">
-            <p class="handover-title">
-              <mat-icon>bookmark</mat-icon>
-              {{ 'history.notes.handover' | translate }}
-            </p>
-            <p class="handover-subtitle">{{ 'history.notes.handoverSubtitle' | translate }}</p>
-            <textarea class="report-textarea handover-textarea" [(ngModel)]="handoverNote"
-              [placeholder]="'history.notes.handoverPlaceholder' | translate"></textarea>
-            <p class="handover-notice">
-              <mat-icon>info</mat-icon>
-              This note will be visible to Jean Arizabal (next shift, 2:00 PM - 10:00 PM) upon login.
-            </p>
-          </div>
-
-          <!-- Actions -->
-          <div class="report-actions">
-            <button class="report-btn-secondary" (click)="openPlaceholder('Preview PDF')">
-              Preview PDF
-            </button>
-            <button class="report-btn-primary" (click)="openPlaceholder('Download PDF Report')">
-              <mat-icon>download</mat-icon>
-              Download PDF Report
-            </button>
-          </div>
-        </aside>
-
       </div>
 
     </div>
@@ -136,7 +71,7 @@
   <!-- DRAWER: detalles del evento -->
   <mat-drawer #drawer position="end" mode="over" class="history-drawer">
     <div class="drawer-header">
-      <h2>Event details</h2>
+      <h2>{{ 'history.drawer.title' | translate }}</h2>
       <button mat-icon-button (click)="drawer.close()">
         <mat-icon>close</mat-icon>
       </button>
@@ -151,38 +86,38 @@
     </div>
 
     <div class="drawer-section">
-      <p class="drawer-label">Name</p>
+      <p class="drawer-label">{{ 'history.drawer.name' | translate }}</p>
       <h3>{{ record.name }}</h3>
     </div>
 
     <div class="drawer-section">
-      <p class="drawer-label">Date</p>
+      <p class="drawer-label">{{ 'history.drawer.date' | translate }}</p>
       <p>{{ record.occurredAt | date: 'medium' }}</p>
     </div>
 
     <div class="drawer-section">
-      <p class="drawer-label">Lab</p>
+      <p class="drawer-label">{{ 'history.drawer.lab' | translate }}</p>
       <p>{{ record.lab }}</p>
     </div>
 
     <div class="drawer-section">
-      <p class="drawer-label">Type</p>
+      <p class="drawer-label">{{ 'history.drawer.type' | translate }}</p>
       <p>{{ record.eventType }}</p>
     </div>
 
     <mat-divider style="margin: 16px 0;" />
 
     <div class="drawer-section">
-      <p class="drawer-label">Description</p>
+      <p class="drawer-label">{{ 'history.drawer.description' | translate }}</p>
       <p class="drawer-description">{{ record.description }}</p>
     </div>
 
     <div class="drawer-actions">
       <button mat-raised-button color="primary" (click)="openPlaceholder('Generate report')">
-        <mat-icon>picture_as_pdf</mat-icon> Generate report
+        <mat-icon>picture_as_pdf</mat-icon> {{ 'history.drawer.generateReport' | translate }}
       </button>
       <button mat-stroked-button (click)="openPlaceholder('View laboratory')">
-        <mat-icon>science</mat-icon> View laboratory
+        <mat-icon>science</mat-icon> {{ 'history.drawer.viewLab' | translate }}
       </button>
     </div>
     }

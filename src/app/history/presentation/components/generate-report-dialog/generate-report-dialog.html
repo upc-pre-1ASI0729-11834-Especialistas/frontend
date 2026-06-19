@@ -1,0 +1,87 @@
+<div class="side-sheet-container">
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="dialog-header-text">
+      <h2 class="dialog-title">
+        {{ 'history.panel.report' | translate }}
+      </h2>
+    </div>
+    <button type="button" class="close-btn" (click)="onCancel()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Scrollable Content -->
+  <div class="dialog-content-scroll">
+    <!-- Stats pills -->
+    <div class="stats-grid">
+      @if (incidentsCount > 0) {
+      <div class="stat-pill stat-incidents">
+        <mat-icon>warning</mat-icon>
+        <span>{{ incidentsCount }} {{ 'history.stats.incidents' | translate }}</span>
+      </div>
+      }
+      @if (resolvedCount > 0) {
+      <div class="stat-pill stat-resolved">
+        <mat-icon>check_circle</mat-icon>
+        <span>{{ resolvedCount }} {{ 'history.stats.resolved' | translate }}</span>
+      </div>
+      }
+      @if (activeCount > 0) {
+      <div class="stat-pill stat-active">
+        <mat-icon>bolt</mat-icon>
+        <span>{{ activeCount }} {{ 'history.stats.active' | translate }}</span>
+      </div>
+      }
+      @if (manualCount > 0) {
+      <div class="stat-pill stat-manual">
+        <mat-icon>edit_note</mat-icon>
+        <span>{{ manualCount }} {{ 'history.stats.manualObs' | translate }}</span>
+      </div>
+      }
+      @if (automationsCount > 0) {
+      <div class="stat-pill stat-automations">
+        <mat-icon>settings</mat-icon>
+        <span>{{ automationsCount }} {{ 'history.tabs.automations' | translate }}</span>
+      </div>
+      }
+    </div>
+
+    <!-- General shift notes -->
+    <div class="report-section">
+      <p class="report-section-label">
+        <mat-icon>notes</mat-icon>
+        {{ 'history.notes.general' | translate }}
+      </p>
+      <p class="report-section-hint">{{ 'history.notes.generalHint' | translate }}</p>
+      <textarea class="report-textarea" [(ngModel)]="shiftNotes"
+        [placeholder]="'history.notes.placeholder' | translate"></textarea>
+    </div>
+
+    <!-- Handover note -->
+    <div class="handover-box">
+      <p class="handover-title">
+        <mat-icon>bookmark</mat-icon>
+        {{ 'history.notes.handover' | translate }}
+      </p>
+      <p class="handover-subtitle">{{ 'history.notes.handoverSubtitle' | translate }}</p>
+      <textarea class="report-textarea handover-textarea" [(ngModel)]="handoverNote"
+        [placeholder]="'history.notes.handoverPlaceholder' | translate"></textarea>
+      <p class="handover-notice">
+        <mat-icon>info</mat-icon>
+        {{ 'history.notes.handoverNotice' | translate }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer Actions -->
+  <div class="dialog-footer">
+    <button type="button" class="report-btn-secondary" (click)="onPreview()">
+      {{ 'history.reportDialog.previewPdf' | translate }}
+    </button>
+    <button type="button" class="report-btn-primary" (click)="onDownload()">
+      <mat-icon>download</mat-icon>
+      {{ 'history.reportDialog.downloadPdf' | translate }}
+    </button>
+  </div>
+</div>
