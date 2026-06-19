@@ -1,11 +1,12 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AutomationStore } from '../../../../../../automation/application/automation.store';
 import { AutomationRule } from '../../../../../../automation/domain/model/automation-rule.entity';
 
 @Component({
   selector: 'app-laboratory-schedules',
-  imports: [RouterLink],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './laboratory-schedules.component.html',
   styleUrl: './laboratory-schedules.component.css',
 })
