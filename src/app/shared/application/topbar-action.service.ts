@@ -24,6 +24,7 @@ export class TopbarActionService {
   readonly customBreadcrumbs = signal<BreadcrumbConfig[] | null>(null);
   readonly customTitle = signal<string | null>(null);
   readonly customSubtitle = signal<string | null>(null);
+  readonly customBadge = signal<{ severity: string; label: string } | null>(null);
 
   private readonly actionClickedSource = new Subject<void>();
   readonly actionClicked$ = this.actionClickedSource.asObservable();
@@ -54,6 +55,14 @@ export class TopbarActionService {
 
   clearBreadcrumbs(): void {
     this.customBreadcrumbs.set(null);
+  }
+
+  setBadge(badge: { severity: string; label: string } | null): void {
+    this.customBadge.set(badge);
+  }
+
+  clearBadge(): void {
+    this.customBadge.set(null);
   }
 
   setTitle(title: string | null): void {

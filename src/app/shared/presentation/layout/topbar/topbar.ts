@@ -10,6 +10,7 @@ import { LanguageSwitcher } from '../../components/language-switcher/language-sw
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { TopbarActionService, TopbarActionConfig } from '../../../application/topbar-action.service';
+import { StatusBadgeComponent } from '../../components/status-badge/status-badge.component';
 
 @Component({
   selector: 'app-topbar',
@@ -22,7 +23,8 @@ import { TopbarActionService, TopbarActionConfig } from '../../../application/to
     MatIconModule,
     MatButtonModule,
     RouterLink,
-    UpperCasePipe
+    UpperCasePipe,
+    StatusBadgeComponent
   ],
   templateUrl: './topbar.html',
   styleUrl: './topbar.css',
@@ -56,6 +58,7 @@ export class Topbar implements OnInit {
         this.topbarActionService.clearCustomTitleAndSubtitle();
         this.topbarActionService.clearActions();
         this.topbarActionService.clearBreadcrumbs();
+        this.topbarActionService.clearBadge();
         this.updateTitleAndSubtitle();
       });
   }

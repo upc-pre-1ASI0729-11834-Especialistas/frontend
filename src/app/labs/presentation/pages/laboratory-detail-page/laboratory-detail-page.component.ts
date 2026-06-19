@@ -11,7 +11,6 @@ import { HistoryStore } from '../../../../history/application/history.store';
 import { AlertsStore } from '../../../../alerts/application/alerts.store';
 import { HistoryRecord } from '../../../../history/domain/model/history-record.entity';
 import { MetricCardComponent } from './components/metric-card/metric-card.component';
-import { LaboratoryHeaderComponent } from './components/laboratory-header/laboratory-header.component';
 import { LaboratoryStatsComponent } from './components/laboratory-stats/laboratory-stats.component';
 import { LaboratoryActivityComponent } from './components/laboratory-activity/laboratory-activity.component';
 import { LaboratorySchedulesComponent } from './components/laboratory-schedules/laboratory-schedules.component';
@@ -33,7 +32,6 @@ import { TopbarActionService } from '../../../../shared/application/topbar-actio
     MatTab,
     MatDialogModule,
     MetricCardComponent,
-    LaboratoryHeaderComponent,
     LaboratoryStatsComponent,
     LaboratoryActivityComponent,
     LaboratorySchedulesComponent,
@@ -73,6 +71,18 @@ export class LaboratoryDetailPageComponent implements OnInit {
         { label: 'routes.laboratories.title', url: '/laboratories' }
       ]);
 
+      this.topbarActionService.setTitle(lab.name + ' — ' + lab.type);
+
+      const sensorsText = this.translateService.instant('laboratoriesDetail.sensorsActive') || 'sensors active';
+      this.topbarActionService.setSubtitle(
+        `${lab.building} · ${lab.floor} · ${lab.metrics.length * 2} ${sensorsText}`
+      );
+
+      this.topbarActionService.setBadge({
+        severity: lab.isCritical() ? 'critical' : lab.isWarning() ? 'warning' : 'normal',
+        label: lab.overallStatus
+      });
+
       const actions = [];
       if (lab.isCritical() || lab.isWarning()) {
         actions.push({
@@ -104,6 +114,8 @@ export class LaboratoryDetailPageComponent implements OnInit {
     } else {
       this.topbarActionService.clearBreadcrumbs();
       this.topbarActionService.clearActions();
+      this.topbarActionService.clearCustomTitleAndSubtitle();
+      this.topbarActionService.clearBadge();
     }
   }
 

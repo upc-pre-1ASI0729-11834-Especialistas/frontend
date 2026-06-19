@@ -24,6 +24,18 @@
           }
         }
       </nav>
+      <div class="topbar-title-row">
+        <p class="view-title">{{ title() }}</p>
+        @if (topbarActionService.customBadge(); as badge) {
+          <app-status-badge
+            [severity]="badge.severity"
+            [label]="badge.label"
+            [showDot]="true" />
+        }
+      </div>
+      @if (subtitle()) {
+        <p class="view-subtitle">{{ subtitle() }}</p>
+      }
     } @else {
       <p class="view-title">{{ title() | translate }}</p>
       <p class="view-subtitle">{{ subtitle() | translate }}</p>
