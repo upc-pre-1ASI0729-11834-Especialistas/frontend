@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AuthStore } from '../../../application/auth.store';
 
 @Component({
@@ -18,7 +19,8 @@ import { AuthStore } from '../../../application/auth.store';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    RouterLink
+    RouterLink,
+    TranslatePipe
   ],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.css',

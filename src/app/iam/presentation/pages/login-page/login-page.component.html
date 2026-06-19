@@ -12,8 +12,8 @@
       </div>
 
       <!-- Welcome Text -->
-      <h2 class="welcome-title">Welcome back</h2>
-      <p class="welcome-text">Sign in to monitor your laboratories</p>
+      <h2 class="welcome-title">{{ 'iam.login.welcome' | translate }}</h2>
+      <p class="welcome-text">{{ 'iam.login.subtitle' | translate }}</p>
 
       <!-- Error Message -->
       @if (authStore.error()) {
@@ -27,9 +27,9 @@
       <form class="login-form" id="login-form" (ngSubmit)="onSignIn()">
         <!-- Email -->
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Email address</mat-label>
+          <mat-label>{{ 'iam.login.emailLabel' | translate }}</mat-label>
           <mat-icon matPrefix>mail_outline</mat-icon>
-          <input matInput type="email" placeholder="you@organization.com"
+          <input matInput type="email" [placeholder]="'iam.login.emailPlaceholder' | translate"
                  [(ngModel)]="email" name="email" autocomplete="email" id="login-email"
                  [disabled]="authStore.loading()" required />
         </mat-form-field>
@@ -37,10 +37,10 @@
         <!-- Password -->
         <div class="password-label-row">
           <span></span>
-          <a href="#" class="link-accent forgot-link">Forgot password?</a>
+          <a href="#" class="link-accent forgot-link">{{ 'iam.login.forgotPassword' | translate }}</a>
         </div>
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Password</mat-label>
+          <mat-label>{{ 'iam.login.passwordLabel' | translate }}</mat-label>
           <mat-icon matPrefix>lock_outline</mat-icon>
           <input matInput [type]="showPassword ? 'text' : 'password'"
                  placeholder="••••••••••" [(ngModel)]="password" name="password"
@@ -56,7 +56,7 @@
         <!-- Remember Me -->
         <mat-checkbox [(ngModel)]="rememberMe" name="rememberMe" color="primary"
                        id="remember-me-checkbox" [disabled]="authStore.loading()">
-          Remember me for 30 days
+          {{ 'iam.login.rememberMe' | translate }}
         </mat-checkbox>
 
         <!-- Sign In -->
@@ -65,21 +65,21 @@
           @if (!authStore.loading()) {
             <mat-icon>login</mat-icon>
           }
-          {{ authStore.loading() ? 'Signing in...' : 'Sign in' }}
+          {{ authStore.loading() ? ('iam.login.signingIn' | translate) : ('iam.login.signIn' | translate) }}
         </button>
       </form>
 
       <!-- Register Link -->
       <div style="text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-secondary);">
-        Have an invitation? <a routerLink="/register" class="link-accent">Register here</a>
+        {{ 'iam.login.haveInvitation' | translate }} <a routerLink="/register" class="link-accent">{{ 'iam.login.registerHere' | translate }}</a>
       </div>
 
       <!-- Footer -->
       <footer class="login-footer" id="login-footer">
-        By signing in, you agree to our
-        <a href="#" class="link-accent">Terms of Service</a>
-        and
-        <a href="#" class="link-accent">Privacy Policy</a>
+        {{ 'iam.login.termsPrefix' | translate }}
+        <a href="#" class="link-accent">{{ 'iam.login.terms' | translate }}</a>
+        {{ 'iam.login.and' | translate }}
+        <a href="#" class="link-accent">{{ 'iam.login.privacy' | translate }}</a>
       </footer>
     </div>
   </main>

@@ -12,8 +12,8 @@
       </div>
 
       <!-- Welcome Text -->
-      <h2 class="welcome-title">Create Account</h2>
-      <p class="welcome-text">Sign up to access your shared laboratories</p>
+      <h2 class="welcome-title">{{ 'iam.register.title' | translate }}</h2>
+      <p class="welcome-text">{{ 'iam.register.subtitle' | translate }}</p>
 
       <!-- Error Message -->
       @if (authStore.error()) {
@@ -27,25 +27,25 @@
       <form class="login-form" id="register-form" (ngSubmit)="onSignUp()">
         <!-- Full Name -->
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Full Name</mat-label>
+          <mat-label>{{ 'iam.register.fullNameLabel' | translate }}</mat-label>
           <mat-icon matPrefix>person_outline</mat-icon>
-          <input matInput type="text" placeholder="John Doe"
+          <input matInput type="text" [placeholder]="'iam.register.fullNamePlaceholder' | translate"
                  [(ngModel)]="fullName" name="fullName" id="register-fullname"
                  [disabled]="authStore.loading()" required />
         </mat-form-field>
 
         <!-- Email -->
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Email address</mat-label>
+          <mat-label>{{ 'iam.register.emailLabel' | translate }}</mat-label>
           <mat-icon matPrefix>mail_outline</mat-icon>
-          <input matInput type="email" placeholder="you@organization.com"
+          <input matInput type="email" [placeholder]="'iam.register.emailPlaceholder' | translate"
                  [(ngModel)]="email" name="email" autocomplete="email" id="register-email"
                  [disabled]="authStore.loading()" required />
         </mat-form-field>
 
         <!-- Password -->
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Password</mat-label>
+          <mat-label>{{ 'iam.register.passwordLabel' | translate }}</mat-label>
           <mat-icon matPrefix>lock_outline</mat-icon>
           <input matInput [type]="showPassword ? 'text' : 'password'"
                  placeholder="••••••••••" [(ngModel)]="password" name="password"
@@ -59,7 +59,7 @@
 
         <!-- Confirm Password -->
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Confirm Password</mat-label>
+          <mat-label>{{ 'iam.register.confirmPasswordLabel' | translate }}</mat-label>
           <mat-icon matPrefix>lock_outline</mat-icon>
           <input matInput [type]="showConfirmPassword ? 'text' : 'password'"
                  placeholder="••••••••••" [(ngModel)]="confirmPassword" name="confirmPassword"
@@ -73,7 +73,7 @@
 
         <!-- Error on password mismatch -->
         @if (password && confirmPassword && password !== confirmPassword) {
-          <p style="color: #ef4444; font-size: 12px; margin: -10px 0 15px 5px;">Passwords do not match.</p>
+          <p style="color: #ef4444; font-size: 12px; margin: -10px 0 15px 5px;">{{ 'iam.register.passwordMismatch' | translate }}</p>
         }
 
         <!-- Sign Up Button -->
@@ -82,14 +82,14 @@
           @if (!authStore.loading()) {
             <mat-icon>person_add</mat-icon>
           }
-          {{ authStore.loading() ? 'Creating account...' : 'Create Account' }}
+          {{ authStore.loading() ? ('iam.register.signingUp' | translate) : ('iam.register.signUpButton' | translate) }}
         </button>
       </form>
 
       <!-- Footer/Link to Login -->
       <footer class="login-footer" id="register-footer" style="text-align: center; border-top: 1px solid var(--border-color); margin-top: 20px; padding-top: 15px;">
-        Already have an account?
-        <a routerLink="/login" class="link-accent">Sign in here</a>
+        {{ 'iam.register.alreadyHaveAccount' | translate }}
+        <a routerLink="/login" class="link-accent">{{ 'iam.register.signInHere' | translate }}</a>
       </footer>
     </div>
   </main>
