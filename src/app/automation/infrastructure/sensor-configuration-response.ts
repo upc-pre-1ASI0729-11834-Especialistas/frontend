@@ -11,6 +11,11 @@ export interface SensorConfigurationResource extends BaseResource {
   lastConnected?: string;
   laboratoryId?: number;
   laboratoryName?: string;
+  equipmentId?: number;
+  equipmentName?: string;
+  minThreshold?: number;
+  maxThreshold?: number;
+  warningThreshold?: number;
 }
 
 export interface SensorConfigurationsResponse extends BaseResponse {

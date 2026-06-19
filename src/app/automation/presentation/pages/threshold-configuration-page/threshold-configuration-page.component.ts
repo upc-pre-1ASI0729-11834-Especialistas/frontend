@@ -5,12 +5,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { forkJoin, Observable } from 'rxjs';
 
 import { AutomationStore } from '../../../application/automation.store';
 import { ThresholdEquipmentTableComponent } from '../../components/threshold-equipment-table/threshold-equipment-table.component';
 import { EquipmentThreshold } from '../../../domain/model/equipment-threshold.entity';
+import { CreateEquipmentDialog } from '../../components/create-equipment-dialog/create-equipment-dialog';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-threshold-configuration-page',
@@ -22,7 +25,9 @@ import { EquipmentThreshold } from '../../../domain/model/equipment-threshold.en
     MatButtonModule,
     MatCheckboxModule,
     MatSlideToggleModule,
-    ThresholdEquipmentTableComponent
+    MatDialogModule,
+    ThresholdEquipmentTableComponent,
+    TranslateModule
   ],
   templateUrl: './threshold-configuration-page.component.html',
   styleUrl: './threshold-configuration-page.component.css'
@@ -30,6 +35,7 @@ import { EquipmentThreshold } from '../../../domain/model/equipment-threshold.en
 export class ThresholdConfigurationPageComponent {
   readonly automationStore = inject(AutomationStore);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly dialog = inject(MatDialog);
 
   // Card expansion states
   notificationPreferencesExpanded = signal(true);
@@ -165,26 +171,95 @@ export class ThresholdConfigurationPageComponent {
   }
 
   onAddEquipment(): void {
-    const newId = 0; // Backend generates the ID automatically
-    const newEquipment = new EquipmentThreshold({
-      id: newId,
-      name: `New Incubator ${this.automationStore.equipmentThresholds().length + 1}`,
-      lab: 'Bio-Safety Lab 04',
-      minThreshold: 10,
-      maxThreshold: 45,
-      warningAt: 40,
-      unit: '°C',
-      currentValue: 37.0,
-      status: 'normal',
-      icon: 'biotech'
+    const dialogRef = this.dialog.open(CreateEquipmentDialog, {
+      position: { right: '0', top: '0' },
+      height: '100vh',
+      width: '400px',
+      panelClass: 'side-sheet-dialog',
+      data: {}
     });
 
-    this.automationStore.addEquipmentThreshold(newEquipment)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: () => this.triggerSaveToast(),
-        error: (err) => console.error('Failed to add equipment threshold:', err)
-      });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const min = result.minThreshold;
+        const max = result.maxThreshold;
+        const warn = result.warningAt;
+        const cur = 0.0;
+        let status = 'normal';
+        if (min !== null && min !== undefined && cur < min) {
+          status = 'critical';
+        } else if (max !== null && max !== undefined && cur > max) {
+          status = 'critical';
+        } else if (warn !== null && warn !== undefined && cur >= warn) {
+          status = 'warning';
+        }
+
+        const newEquipment = new EquipmentThreshold({
+          id: 0,
+          name: result.name,
+          lab: result.lab,
+          minThreshold: result.minThreshold,
+          maxThreshold: result.maxThreshold,
+          warningAt: result.warningAt,
+          unit: result.unit,
+          currentValue: cur,
+          status: status,
+          icon: result.icon
+        });
+
+        this.automationStore.addEquipmentThreshold(newEquipment)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe({
+            next: () => this.triggerSaveToast(),
+            error: (err) => console.error('Failed to add equipment threshold:', err)
+          });
+      }
+    });
+  }
+
+  onEditEquipment(item: EquipmentThreshold): void {
+    const dialogRef = this.dialog.open(CreateEquipmentDialog, {
+      position: { right: '0', top: '0' },
+      height: '100vh',
+      width: '400px',
+      panelClass: 'side-sheet-dialog',
+      data: { equipment: item }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const min = result.minThreshold;
+        const max = result.maxThreshold;
+        const warn = result.warningAt;
+        const cur = item.currentValue;
+        let status = 'normal';
+        if (min !== null && min !== undefined && cur < min) {
+          status = 'critical';
+        } else if (max !== null && max !== undefined && cur > max) {
+          status = 'critical';
+        } else if (warn !== null && warn !== undefined && cur >= warn) {
+          status = 'warning';
+        }
+
+        const changes = {
+          name: result.name,
+          lab: result.lab,
+          icon: result.icon,
+          minThreshold: result.minThreshold,
+          maxThreshold: result.maxThreshold,
+          warningAt: result.warningAt,
+          unit: result.unit,
+          status: status
+        };
+
+        this.automationStore.updateEquipmentThreshold(item.id, changes)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe({
+            next: () => this.triggerSaveToast(),
+            error: (err) => console.error('Failed to update equipment threshold:', err)
+          });
+      }
+    });
   }
 
   private triggerSaveToast(): void {

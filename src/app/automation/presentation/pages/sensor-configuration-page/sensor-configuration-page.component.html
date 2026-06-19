@@ -2,11 +2,11 @@
 
   <mat-card appearance="outlined" class="filter-card">
     <mat-card-content class="filter-content">
-      <span class="filter-label">Filter by:</span>
+      <span class="filter-label">{{ 'settingsPage.sensor.filterBy' | translate }}</span>
 
       <mat-form-field appearance="outline" subscriptSizing="dynamic" class="dense-field">
         <mat-select [value]="selectedType()" (selectionChange)="selectedType.set($event.value)">
-          <mat-option value="all-types">All Sensor Types</mat-option>
+          <mat-option value="all-types">{{ 'settingsPage.sensor.allTypes' | translate }}</mat-option>
           @for (type of sensorTypes(); track type) {
             <mat-option [value]="type">{{ type }}</mat-option>
           }
@@ -15,7 +15,7 @@
 
       <mat-form-field appearance="outline" subscriptSizing="dynamic" class="dense-field">
         <mat-select [value]="selectedLocation()" (selectionChange)="selectedLocation.set($event.value)">
-          <mat-option value="all-locations">All Lab Locations</mat-option>
+          <mat-option value="all-locations">{{ 'settingsPage.sensor.allLocations' | translate }}</mat-option>
           @for (loc of sensorLocations(); track loc) {
             <mat-option [value]="loc">{{ loc }}</mat-option>
           }
@@ -24,7 +24,7 @@
 
       <div class="spacer"></div>
 
-      <span class="total-sensors">Total {{ filteredSensors().length }} Sensors</span>
+      <span class="total-sensors">{{ 'settingsPage.sensor.totalSensors' | translate:{count: filteredSensors().length} }}</span>
     </mat-card-content>
   </mat-card>
 
@@ -44,22 +44,22 @@
     <mat-card appearance="outlined" class="compliance-card">
       <mat-card-content>
         <div class="compliance-header">
-          <h2 class="section-title">Calibration Compliance</h2>
-          <span class="audit-badge">Next Audit: Dec 15</span>
+          <h2 class="section-title">{{ 'settingsPage.sensor.compliance' | translate }}</h2>
+          <span class="audit-badge">{{ 'settingsPage.sensor.nextAudit' | translate:{date: 'Dec 15'} }}</span>
         </div>
 
         <div class="metrics-grid">
           <div class="metric-box">
             <div class="metric-value success">{{ calibratedPercent() }}%</div>
-            <div class="metric-label">Calibrated</div>
+            <div class="metric-label">{{ 'settingsPage.sensor.calibrated' | translate }}</div>
           </div>
           <div class="metric-box">
             <div class="metric-value warning">{{ pendingPercent() }}%</div>
-            <div class="metric-label">Pending</div>
+            <div class="metric-label">{{ 'settingsPage.sensor.pending' | translate }}</div>
           </div>
           <div class="metric-box">
             <div class="metric-value error">{{ overduePercent() }}%</div>
-            <div class="metric-label">Overdue</div>
+            <div class="metric-label">{{ 'settingsPage.sensor.overdue' | translate }}</div>
           </div>
         </div>
       </mat-card-content>
@@ -69,11 +69,11 @@
       <div class="safety-icon">
         <mat-icon>verified_user</mat-icon>
       </div>
-      <h2 class="safety-title">Safety First</h2>
+      <h2 class="safety-title">{{ 'settingsPage.sensor.safetyFirst' | translate }}</h2>
       <p class="safety-text">
-        Regular sensor calibration ensures ISO 17025 compliance and lab safety standards.
+        {{ 'settingsPage.sensor.complianceText' | translate }}
       </p>
-      <button mat-flat-button class="safety-btn" (click)="downloadAuditReport()">Download Audit Report</button>
+      <button mat-flat-button class="safety-btn" (click)="downloadAuditReport()">{{ 'settingsPage.sensor.downloadAudit' | translate }}</button>
     </div>
 
   </div>

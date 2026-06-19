@@ -46,8 +46,6 @@ export class AlertsNotificationsPageComponent implements OnInit {
         const emailPref = prefs.find(p => p.channel.toLowerCase() === 'email');
         const inAppPref = prefs.find(p => p.channel.toLowerCase() === 'in-app');
 
-        const tempWarning = settings.find(s => s.key === 'tempWarningLevel');
-        const tempCritical = settings.find(s => s.key === 'tempCriticalLevel');
         const dailySum = settings.find(s => s.key === 'dailySummary');
         const weeklyRep = settings.find(s => s.key === 'weeklyReport');
         const instantAlert = settings.find(s => s.key === 'instantSensorAlerts');
@@ -55,8 +53,6 @@ export class AlertsNotificationsPageComponent implements OnInit {
         this.notificationForm.patchValue({
           emailNotifications: emailPref ? emailPref.isEnabled : true,
           inAppNotifications: inAppPref ? inAppPref.isEnabled : false,
-          tempWarningLevel: tempWarning ? tempWarning.value : '2c',
-          tempCriticalLevel: tempCritical ? tempCritical.value : '5c',
           dailySummary: dailySum ? dailySum.value === 'true' : false,
           weeklyReport: weeklyRep ? weeklyRep.value === 'true' : false,
           instantSensorAlerts: instantAlert ? instantAlert.value === 'true' : true
@@ -73,8 +69,6 @@ export class AlertsNotificationsPageComponent implements OnInit {
     this.notificationForm = this.fb.group({
       emailNotifications: [true],
       inAppNotifications: [false],
-      tempWarningLevel: ['2c'],
-      tempCriticalLevel: ['5c'],
       dailySummary: [false],
       weeklyReport: [false],
       instantSensorAlerts: [true]
@@ -89,8 +83,6 @@ export class AlertsNotificationsPageComponent implements OnInit {
     const emailPref = prefs.find(p => p.channel.toLowerCase() === 'email');
     const inAppPref = prefs.find(p => p.channel.toLowerCase() === 'in-app');
 
-    const tempWarning = settings.find(s => s.key === 'tempWarningLevel');
-    const tempCritical = settings.find(s => s.key === 'tempCriticalLevel');
     const dailySum = settings.find(s => s.key === 'dailySummary');
     const weeklyRep = settings.find(s => s.key === 'weeklyReport');
     const instantAlert = settings.find(s => s.key === 'instantSensorAlerts');
@@ -102,12 +94,6 @@ export class AlertsNotificationsPageComponent implements OnInit {
     }
     if (inAppPref && inAppPref.isEnabled !== formValue.inAppNotifications) {
       updates$.push(this.automationStore.updateNotificationPreference(inAppPref.id, formValue.inAppNotifications));
-    }
-    if (tempWarning && tempWarning.value !== formValue.tempWarningLevel) {
-      updates$.push(this.automationStore.updateGeneralSetting(tempWarning.id, formValue.tempWarningLevel));
-    }
-    if (tempCritical && tempCritical.value !== formValue.tempCriticalLevel) {
-      updates$.push(this.automationStore.updateGeneralSetting(tempCritical.id, formValue.tempCriticalLevel));
     }
     const dailySummaryStr = formValue.dailySummary ? 'true' : 'false';
     if (dailySum && dailySum.value !== dailySummaryStr) {

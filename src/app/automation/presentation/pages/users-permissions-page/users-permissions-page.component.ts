@@ -14,6 +14,7 @@ import { RoleDefinitionsPanelComponent } from '../../components/role-definitions
 import { TopbarActionService } from '../../../../shared/application/topbar-action.service';
 import { InviteUserDialog } from '../../components/invite-user-dialog/invite-user-dialog';
 import { EditPermissionsDialog } from '../../components/edit-permissions-dialog/edit-permissions-dialog';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-users-permissions-page',
@@ -27,7 +28,8 @@ import { EditPermissionsDialog } from '../../components/edit-permissions-dialog/
     MatInputModule,
     ActiveUsersTableComponent,
     PendingInvitationsCardComponent,
-    RoleDefinitionsPanelComponent
+    RoleDefinitionsPanelComponent,
+    TranslateModule
   ],
   templateUrl: './users-permissions-page.component.html',
   styleUrl: './users-permissions-page.component.css'
@@ -38,8 +40,23 @@ export class UsersPermissionsPageComponent {
   private readonly dialog = inject(MatDialog);
   private readonly topbarActionService = inject(TopbarActionService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly translateService = inject(TranslateService);
 
   constructor() {
+    this.topbarActionService.setAction({
+      label: this.translateService.instant('settingsPage.usersPermissions.inviteUser') || 'Invite New User',
+      icon: 'person_add',
+      id: 'invite-user-action'
+    });
+
+    this.translateService.onLangChange.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.topbarActionService.setAction({
+        label: this.translateService.instant('settingsPage.usersPermissions.inviteUser') || 'Invite New User',
+        icon: 'person_add',
+        id: 'invite-user-action'
+      });
+    });
+
     this.topbarActionService.actionClicked$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {

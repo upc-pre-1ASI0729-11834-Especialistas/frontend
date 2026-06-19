@@ -10,6 +10,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { LaboratoryApi } from '../../../../labs/infrastructure/laboratory-api';
 import { Laboratory } from '../../../../labs/domain/model/laboratory.entity';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-invite-user-dialog',
@@ -23,7 +24,8 @@ import { Laboratory } from '../../../../labs/domain/model/laboratory.entity';
     MatSelectModule,
     MatIconModule,
     MatCheckboxModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   templateUrl: './invite-user-dialog.html',
   styleUrl: './invite-user-dialog.css'

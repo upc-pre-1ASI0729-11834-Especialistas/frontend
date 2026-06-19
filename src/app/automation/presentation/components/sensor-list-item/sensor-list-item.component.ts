@@ -58,6 +58,30 @@ export class SensorListItemComponent {
     }
   });
 
+  targetText = computed(() => {
+    const eqName = this.sensor().equipmentName;
+    if (eqName) return eqName;
+    return 'Room Ambient';
+  });
+
+  thresholdsText = computed(() => {
+    const min = this.sensor().minThreshold;
+    const max = this.sensor().maxThreshold;
+    const warn = this.sensor().warningThreshold;
+    const unit = this.sensor().unit;
+
+    if (min === null || min === undefined) {
+      if (max === null || max === undefined) {
+        return 'No limits established';
+      }
+      return `Max: ${max} ${unit}${warn ? ' (Warn: ' + warn + ' ' + unit + ')' : ''}`;
+    }
+    if (max === null || max === undefined) {
+      return `Min: ${min} ${unit}${warn ? ' (Warn: ' + warn + ' ' + unit + ')' : ''}`;
+    }
+    return `${min} - ${max} ${unit}${warn ? ' (Warn: ' + warn + ' ' + unit + ')' : ''}`;
+  });
+
   onCalibrate(): void {
     this.calibrate.emit(this.sensor());
   }

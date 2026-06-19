@@ -1,4 +1,4 @@
-﻿<div class="settings-page">
+<div class="settings-page">
 
   <!-- Top Row: General Settings + User Profile -->
   <section class="top-row">
@@ -11,18 +11,18 @@
           <div class="general-icon">
             <mat-icon>settings</mat-icon>
           </div>
-          <h3 class="general-title">General Settings</h3>
+          <h3 class="general-title">{{ 'settings.general.title' | translate }}</h3>
           <mat-chip-set class="system-badge">
-            <mat-chip color="primary" selected>System-wide</mat-chip>
+            <mat-chip color="primary" selected>{{ 'settings.general.badge' | translate }}</mat-chip>
           </mat-chip-set>
         </div>
 
         <p class="general-description">
-          Manage your global laboratory environment settings, including regional formatting, time zones, and default units of measurement for all experiments.
+          {{ 'settings.general.description' | translate }}
         </p>
 
         <div class="general-action">
-          <button mat-raised-button color="primary">View Details</button>
+          <button mat-raised-button color="primary">{{ 'settings.general.button' | translate }}</button>
         </div>
 
       </mat-card-content>
@@ -41,27 +41,27 @@
 
     <app-settings-card
       icon="sensors"
-      title="Sensor Configuration"
-      description="Calibrate and manage lab sensors for temperature, humidity, and atmospheric pressure monitoring."
-      buttonLabel="Configure"
+      title="{{ 'settings.sensor.title' | translate }}"
+      description="{{ 'settings.sensor.description' | translate }}"
+      buttonLabel="{{ 'settings.sensor.button' | translate }}"
       buttonStyle="filled"
       (actionClick)="navigateToSensorConfig()"
     />
 
     <app-settings-card
       icon="notifications"
-      title="Alerts & Notifications"
-      description="Define critical thresholds for automated alerts via SMS, email, or in-app notifications for specimen safety."
-      buttonLabel="Set Preferences"
+      title="{{ 'settings.alerts.title' | translate }}"
+      description="{{ 'settings.alerts.description' | translate }}"
+      buttonLabel="{{ 'settings.alerts.button' | translate }}"
       buttonStyle="outlined"
       (actionClick)="navigateToAlertsNotifications()"
     />
 
     <app-settings-card
       icon="lock"
-      title="Security & Access"
-      description="Control user permissions, API keys, and audit logs to ensure compliance with laboratory safety protocols."
-      buttonLabel="Manage"
+      title="{{ 'settings.security.title' | translate }}"
+      description="{{ 'settings.security.description' | translate }}"
+      buttonLabel="{{ 'settings.security.button' | translate }}"
       buttonStyle="outlined"
       (actionClick)="navigateToSecurityAccess()"
     />

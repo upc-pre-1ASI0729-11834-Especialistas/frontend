@@ -12,7 +12,7 @@ import { CalibrateSensorDialog } from '../../components/calibrate-sensor-dialog/
 import { SensorConfiguration } from '../../../domain/model/sensor-configuration.entity';
 import { RouterModule } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TopbarActionService } from '../../../../shared/application/topbar-action.service';
 
 @Component({
@@ -26,7 +26,8 @@ import { TopbarActionService } from '../../../../shared/application/topbar-actio
     MatFormFieldModule,
     MatDialogModule,
     SensorListItemComponent,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ],
   templateUrl: './sensor-configuration-page.component.html',
   styleUrl: './sensor-configuration-page.component.css'
@@ -168,7 +169,11 @@ export class SensorConfigurationPageComponent {
             unit: result.unit,
             calibrationDate: sensor.calibrationDate,
             isActive: result.isActive,
-            laboratoryId: result.laboratoryId
+            laboratoryId: result.laboratoryId,
+            equipmentId: result.equipmentId,
+            minThreshold: result.minThreshold,
+            maxThreshold: result.maxThreshold,
+            warningThreshold: result.warningThreshold
           });
           this.automationStore.updateSensorConfiguration(sensor.id, updated).subscribe();
         } else {
@@ -179,7 +184,11 @@ export class SensorConfigurationPageComponent {
             unit: result.unit,
             calibrationDate: '',
             isActive: result.isActive,
-            laboratoryId: result.laboratoryId
+            laboratoryId: result.laboratoryId,
+            equipmentId: result.equipmentId,
+            minThreshold: result.minThreshold,
+            maxThreshold: result.maxThreshold,
+            warningThreshold: result.warningThreshold
           });
           this.automationStore.createSensorConfiguration(newSensor).subscribe();
         }
