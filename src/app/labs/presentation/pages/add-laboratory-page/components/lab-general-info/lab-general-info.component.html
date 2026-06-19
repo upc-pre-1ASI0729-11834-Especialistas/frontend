@@ -1,49 +1,49 @@
 <app-card padding="section" [hoverLift]="true">
-  <app-section-header icon="description" title="Basic Information"
-    subtitle="General details about the laboratory" />
+  <app-section-header icon="description" title="{{ 'laboratoryForm.basicInfo' | translate }}"
+    subtitle="{{ 'laboratoryForm.basicInfoSub' | translate }}" />
 
   <div class="form-grid cols-3">
     <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Laboratory Name *</mat-label>
-      <input matInput id="lab-name" placeholder="e.g. Chemistry Lab A" [(ngModel)]="formData().name" />
+      <mat-label>{{ 'laboratoryForm.name' | translate }}</mat-label>
+      <input matInput id="lab-name" placeholder="{{ 'laboratoryForm.namePlaceholder' | translate }}" [(ngModel)]="formData().name" />
     </mat-form-field>
     <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Lab ID / Code *</mat-label>
-      <input matInput id="lab-code" placeholder="e.g. LAB-CHM-001" [(ngModel)]="formData().labCode" />
+      <mat-label>{{ 'laboratoryForm.code' | translate }}</mat-label>
+      <input matInput id="lab-code" placeholder="{{ 'laboratoryForm.codePlaceholder' | translate }}" [(ngModel)]="formData().labCode" />
     </mat-form-field>
     <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Building</mat-label>
+      <mat-label>{{ 'laboratoryForm.building' | translate }}</mat-label>
       <mat-select id="lab-building" [(ngModel)]="formData().building">
-        <mat-option value="">Select building</mat-option>
-        @for (b of buildings; track b) { <mat-option [value]="b">{{ b }}</mat-option> }
+        <mat-option value="">{{ 'laboratoryForm.selectBuilding' | translate }}</mat-option>
+        @for (b of buildings; track b) { <mat-option [value]="b">{{ 'laboratoryForm.options.buildings.' + b | translate }}</mat-option> }
       </mat-select>
     </mat-form-field>
   </div>
 
   <div class="form-grid cols-3">
     <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Floor</mat-label>
+      <mat-label>{{ 'laboratoryForm.floor' | translate }}</mat-label>
       <mat-select id="lab-floor" [(ngModel)]="formData().floor">
-        <mat-option value="">Select floor</mat-option>
-        @for (f of floors; track f) { <mat-option [value]="f">{{ f }}</mat-option> }
+        <mat-option value="">{{ 'laboratoryForm.selectFloor' | translate }}</mat-option>
+        @for (f of floors; track f) { <mat-option [value]="f">{{ 'laboratoryForm.options.floors.' + f | translate }}</mat-option> }
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Room Number</mat-label>
-      <input matInput id="lab-room" placeholder="e.g. 204" [(ngModel)]="formData().roomNumber" />
+      <mat-label>{{ 'laboratoryForm.roomNumber' | translate }}</mat-label>
+      <input matInput id="lab-room" placeholder="{{ 'laboratoryForm.roomPlaceholder' | translate }}" [(ngModel)]="formData().roomNumber" />
     </mat-form-field>
     <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Laboratory Type *</mat-label>
+      <mat-label>{{ 'laboratoryForm.type' | translate }}</mat-label>
       <mat-select id="lab-type" [(ngModel)]="formData().type">
-        <mat-option value="">Select type</mat-option>
-        @for (t of labTypes; track t) { <mat-option [value]="t">{{ t }}</mat-option> }
+        <mat-option value="">{{ 'laboratoryForm.selectType' | translate }}</mat-option>
+        @for (t of labTypes; track t) { <mat-option [value]="t">{{ 'laboratoryForm.options.labTypes.' + t | translate }}</mat-option> }
       </mat-select>
     </mat-form-field>
   </div>
 
   <div class="form-grid cols-3">
     <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Next Maintenance Date</mat-label>
+      <mat-label>{{ 'laboratoryForm.nextMaintenance' | translate }}</mat-label>
       <input matInput [matDatepicker]="picker" id="lab-next-maintenance" [(ngModel)]="formData().nextMaintenance" (click)="picker.open()" />
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
@@ -52,9 +52,9 @@
 
   <div class="form-grid cols-1">
     <mat-form-field appearance="outline" subscriptSizing="dynamic">
-      <mat-label>Description</mat-label>
+      <mat-label>{{ 'laboratoryForm.description' | translate }}</mat-label>
       <textarea matInput id="lab-desc" rows="3"
-        placeholder="Brief description of the laboratory's purpose and any special safety requirements..."
+        placeholder="{{ 'laboratoryForm.descriptionPlaceholder' | translate }}"
         [(ngModel)]="formData().description"></textarea>
     </mat-form-field>
   </div>

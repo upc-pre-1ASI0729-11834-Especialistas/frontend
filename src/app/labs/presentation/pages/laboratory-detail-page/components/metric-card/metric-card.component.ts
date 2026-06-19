@@ -1,11 +1,12 @@
 import { Component, input, computed } from '@angular/core';
+import { TitleCasePipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { LabMetric } from '../../../../../domain/model/laboratory.entity';
 import { StatusBadgeComponent } from '../../../../../../shared/presentation/components/status-badge/status-badge.component';
 
 @Component({
   selector: 'app-metric-card',
-  imports: [MatIcon, StatusBadgeComponent],
+  imports: [MatIcon, StatusBadgeComponent, TitleCasePipe],
   templateUrl: './metric-card.component.html',
   styleUrl: './metric-card.component.css',
 })

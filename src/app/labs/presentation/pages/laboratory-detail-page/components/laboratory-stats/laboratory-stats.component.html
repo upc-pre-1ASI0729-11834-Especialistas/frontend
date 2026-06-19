@@ -2,14 +2,14 @@
 
   <!-- Last Update -->
   <div class="stat-card">
-    <span class="stat-label">Last Update</span>
+    <span class="stat-label">{{ 'laboratoryStats.lastUpdate' | translate }}</span>
     <div class="stat-live-row">
       @if (lab().isLive) {
       <span class="live-dot"></span>
       }
       <span class="stat-value">{{ lab().getFormattedLastUpdate() }}</span>
       @if (lab().isLive) {
-      <span class="live-label">· Live</span>
+      <span class="live-label">· {{ 'laboratoryStats.live' | translate }}</span>
       }
     </div>
   </div>
@@ -17,12 +17,12 @@
   <!-- Next Maintenance -->
   <div class="stat-card">
     <div class="stat-top-row">
-      <span class="stat-label">Next Maintenance</span>
+      <span class="stat-label">{{ 'laboratoryStats.nextMaintenance' | translate }}</span>
       <app-status-badge [severity]="lab().isMaintenanceUrgent() ? 'warning' : 'info'"
         [label]="lab().getMaintenanceBadgeLabel().toUpperCase()" [showDot]="false" />
     </div>
     <span class="stat-value">{{ lab().getFormattedMaintenance() }}</span>
-    <span class="stat-sub">In {{ lab().maintenanceDaysLeft }} days</span>
+    <span class="stat-sub">{{ 'laboratoryStats.inDays' | translate:{count: lab().maintenanceDaysLeft} }}</span>
   </div>
 
 </div>

@@ -1,6 +1,6 @@
 <app-card padding="section" [hoverLift]="true">
-  <app-section-header icon="notifications" iconColor="var(--warning-color)" title="Notification Preferences"
-    subtitle="Choose how and when you receive laboratory alerts" />
+  <app-section-header icon="notifications" iconColor="var(--warning-color)" title="{{ 'laboratoryForm.notifications.title' | translate }}"
+    subtitle="{{ 'laboratoryForm.notifications.subtitle' | translate }}" />
 
   <div class="notifications-grid">
     <label class="notif-card-wrap">
@@ -12,8 +12,8 @@
             <mat-icon>email</mat-icon>
           </app-icon-badge>
           <div class="notif-text">
-            <h4 class="notif-title">Email</h4>
-            <p class="notif-desc">Receive alerts via email</p>
+            <h4 class="notif-title">{{ 'laboratoryForm.notifications.email' | translate }}</h4>
+            <p class="notif-desc">{{ 'laboratoryForm.notifications.emailDesc' | translate }}</p>
           </div>
         </div>
       </app-card>
@@ -28,8 +28,8 @@
             <mat-icon>chat</mat-icon>
           </app-icon-badge>
           <div class="notif-text">
-            <h4 class="notif-title">SMS</h4>
-            <p class="notif-desc">Text alerts to your phone</p>
+            <h4 class="notif-title">{{ 'laboratoryForm.notifications.sms' | translate }}</h4>
+            <p class="notif-desc">{{ 'laboratoryForm.notifications.smsDesc' | translate }}</p>
           </div>
         </div>
       </app-card>
@@ -44,8 +44,8 @@
             <mat-icon>notifications</mat-icon>
           </app-icon-badge>
           <div class="notif-text">
-            <h4 class="notif-title">Push Notifications</h4>
-            <p class="notif-desc">In-app push alerts</p>
+            <h4 class="notif-title">{{ 'laboratoryForm.notifications.push' | translate }}</h4>
+            <p class="notif-desc">{{ 'laboratoryForm.notifications.pushDesc' | translate }}</p>
           </div>
         </div>
       </app-card>
@@ -57,8 +57,8 @@
           <mat-icon>warning</mat-icon>
         </app-icon-badge>
         <div class="notif-text">
-          <h4 class="notif-title">Critical Alerts Only</h4>
-          <p class="notif-desc">Suppress non-critical notifications</p>
+          <h4 class="notif-title">{{ 'laboratoryForm.notifications.criticalOnly' | translate }}</h4>
+          <p class="notif-desc">{{ 'laboratoryForm.notifications.criticalOnlyDesc' | translate }}</p>
         </div>
         <mat-slide-toggle [(ngModel)]="notifications().criticalOnly" />
       </div>
