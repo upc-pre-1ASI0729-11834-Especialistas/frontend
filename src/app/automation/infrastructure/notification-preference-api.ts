@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BaseApi } from '../../shared/infrastructure/base-api';
@@ -16,5 +16,9 @@ export class NotificationPreferencesApi extends BaseApi {
 
   getNotificationPreferences(): Observable<NotificationPreference[]> {
     return this.notificationPreferencesEndpoint.getAll();
+  }
+
+  updateNotificationPreference(id: number, preference: NotificationPreference): Observable<NotificationPreference> {
+    return this.notificationPreferencesEndpoint.update(preference, id);
   }
 }

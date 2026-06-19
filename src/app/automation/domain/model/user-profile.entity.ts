@@ -14,6 +14,7 @@ export class UserProfile implements BaseEntity {
   private _defaultStartShift: string;
   private _shiftDuration: string;
   private _autoGenerateShiftReport: boolean;
+  private _laboratoryIds: number[];
 
   constructor(data: {
     id: number;
@@ -29,6 +30,7 @@ export class UserProfile implements BaseEntity {
     defaultStartShift?: string;
     shiftDuration?: string;
     autoGenerateShiftReport?: boolean;
+    laboratoryIds?: number[];
   }) {
     this._id = data.id;
     this._fullName = data.fullName;
@@ -43,6 +45,7 @@ export class UserProfile implements BaseEntity {
     this._defaultStartShift = data.defaultStartShift ?? '08:00 AM';
     this._shiftDuration = data.shiftDuration ?? '8 Hours';
     this._autoGenerateShiftReport = data.autoGenerateShiftReport ?? false;
+    this._laboratoryIds = data.laboratoryIds ?? [];
   }
 
   get id(): number { return this._id; }
@@ -83,4 +86,7 @@ export class UserProfile implements BaseEntity {
 
   get autoGenerateShiftReport(): boolean { return this._autoGenerateShiftReport; }
   set autoGenerateShiftReport(value: boolean) { this._autoGenerateShiftReport = value; }
+
+  get laboratoryIds(): number[] { return this._laboratoryIds; }
+  set laboratoryIds(value: number[]) { this._laboratoryIds = value; }
 }

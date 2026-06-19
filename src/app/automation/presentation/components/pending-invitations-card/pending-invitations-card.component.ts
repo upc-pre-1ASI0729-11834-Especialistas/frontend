@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,4 +14,7 @@ import { PendingInvitation } from '../../../domain/model/pending-invitation.enti
 export class PendingInvitationsCardComponent {
   @Input() invitations: PendingInvitation[] = [];
   @Input() totalCount: number = 0;
+
+  @Output() cancel = new EventEmitter<number>();
+  @Output() resend = new EventEmitter<number>();
 }

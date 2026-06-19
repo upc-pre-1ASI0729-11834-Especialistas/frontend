@@ -52,12 +52,11 @@
         <div class="checkbox-row">
           <mat-checkbox formControlName="allLabs" color="primary">All Labs</mat-checkbox>
         </div>
-        <div class="checkbox-row">
-          <mat-checkbox formControlName="lab3B" color="primary">Lab 3B</mat-checkbox>
-        </div>
-        <div class="checkbox-row">
-          <mat-checkbox formControlName="cryoStorage" color="primary">Cryo Storage</mat-checkbox>
-        </div>
+        @for (lab of laboratories(); track lab.id) {
+          <div class="checkbox-row">
+            <mat-checkbox [formControlName]="lab.id.toString()" color="primary">{{ lab.name }}</mat-checkbox>
+          </div>
+        }
       </div>
     </div>
 

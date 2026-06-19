@@ -85,8 +85,20 @@ export class EquipmentThresholdStore {
     );
   }
 
-  addEquipmentThreshold(newThreshold: EquipmentThreshold): void {
-    this.equipmentThresholdsSignal.update(list => [...list, newThreshold]);
+  addEquipmentThreshold(newThreshold: EquipmentThreshold): Observable<EquipmentThreshold> {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    return this.equipmentThresholdsApi.createEquipmentThreshold(newThreshold).pipe(
+      tap({
+        next: saved => {
+          this.equipmentThresholdsSignal.update(list => [...list, saved]);
+          this.loadingSignal.set(false);
+        },
+        error: err => {
+          this.handleError(err, 'Failed to add equipment threshold');
+        }
+      })
+    );
   }
 
   private handleError(error: any, fallback: string): void {

@@ -16,8 +16,8 @@
         <p class="invitation-time">{{ invitation.sentTimeAgo }}</p>
 
         <div class="invitation-actions">
-          <button mat-stroked-button class="action-btn cancel-btn">Cancel</button>
-          <button mat-stroked-button color="primary" class="action-btn resend-btn">Resend</button>
+          <button mat-stroked-button class="action-btn cancel-btn" (click)="cancel.emit(invitation.id)">Cancel</button>
+          <button mat-stroked-button color="primary" class="action-btn resend-btn" (click)="resend.emit(invitation.id)">Resend</button>
         </div>
       </div>
     }

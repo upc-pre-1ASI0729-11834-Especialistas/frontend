@@ -1,5 +1,6 @@
-﻿import { computed, DestroyRef, inject, Injectable, Signal, signal } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, Signal, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Observable, tap } from 'rxjs';
 import { NotificationPreference } from '../domain/model/notification-preference.entity';
 import { NotificationPreferencesApi } from '../infrastructure/notification-preference-api';
 
@@ -22,6 +23,36 @@ export class NotificationPreferenceStore {
 
   getNotificationPreferenceById(id: number | null | undefined): Signal<NotificationPreference | undefined> {
     return computed(() => id ? this.notificationPreferences().find(e => e.id === id) : undefined);
+  }
+
+  updateNotificationPreference(id: number, enabled: boolean): Observable<NotificationPreference> {
+    this.loadingSignal.set(true);
+    const existing = this.notificationPreferencesSignal().find(p => p.id === id);
+    if (!existing) {
+      throw new Error(`NotificationPreference with id ${id} not found`);
+    }
+
+    const updatedEntity = new NotificationPreference({
+      id: existing.id,
+      channel: existing.channel,
+      isEnabled: enabled,
+      threshold: existing.threshold,
+      description: existing.description
+    });
+
+    return this.notificationPreferencesApi.updateNotificationPreference(id, updatedEntity).pipe(
+      tap({
+        next: saved => {
+          this.notificationPreferencesSignal.update(list =>
+            list.map(item => item.id === id ? saved : item)
+          );
+          this.loadingSignal.set(false);
+        },
+        error: err => {
+          this.handleError(err, 'Failed to update notification preference');
+        }
+      })
+    );
   }
 
   private loadNotificationPreferences(): void {

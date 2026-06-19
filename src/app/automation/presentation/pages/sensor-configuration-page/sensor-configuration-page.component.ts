@@ -11,6 +11,9 @@ import { CreateSensorDialog } from '../../components/create-sensor-dialog/create
 import { CalibrateSensorDialog } from '../../components/calibrate-sensor-dialog/calibrate-sensor-dialog';
 import { SensorConfiguration } from '../../../domain/model/sensor-configuration.entity';
 import { RouterModule } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslateService } from '@ngx-translate/core';
+import { TopbarActionService } from '../../../../shared/application/topbar-action.service';
 
 @Component({
   selector: 'app-sensor-configuration-page',
@@ -31,10 +34,34 @@ import { RouterModule } from '@angular/router';
 export class SensorConfigurationPageComponent {
   protected readonly automationStore = inject(AutomationStore);
   private readonly dialog = inject(MatDialog);
+  private readonly topbarActionService = inject(TopbarActionService);
+  private readonly translateService = inject(TranslateService);
 
   // Filters state
   readonly selectedType = signal<string>('all-types');
   readonly selectedLocation = signal<string>('all-locations');
+
+  constructor() {
+    this.topbarActionService.setAction({
+      label: this.translateService.instant('settings.sensor.add') || 'Add New Sensor',
+      icon: 'add',
+      id: 'add-sensor-action'
+    });
+
+    this.translateService.onLangChange.pipe(takeUntilDestroyed()).subscribe(() => {
+      this.topbarActionService.setAction({
+        label: this.translateService.instant('settings.sensor.add') || 'Add New Sensor',
+        icon: 'add',
+        id: 'add-sensor-action'
+      });
+    });
+
+    this.topbarActionService.actionClicked$
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => {
+        this.openCreateSensorDialog();
+      });
+  }
 
   // Parse location helper
   getLocation(sensorName: string): string {
