@@ -30,16 +30,16 @@
 
       <div class="dropdown-wrapper">
         <select class="dropdown" [value]="selectedSeverity()" (change)="selectedSeverity.set($any($event.target).value)">
-          <option value="All">Severity: All</option>
-          <option value="CRITICAL">Critical</option>
-          <option value="WARNING">Warning</option>
-          <option value="INFO">Informational</option>
+          <option value="All">{{ 'alerts.filters.severity' | translate }}: {{ 'laboratories.status.all' | translate }}</option>
+          <option value="CRITICAL">{{ 'dashboard.severity.critical' | translate }}</option>
+          <option value="WARNING">{{ 'dashboard.severity.warning' | translate }}</option>
+          <option value="INFO">{{ 'alerts.summary.informational' | translate }}</option>
         </select>
       </div>
 
       <div class="dropdown-wrapper">
         <select class="dropdown" [value]="selectedLab()" (change)="selectedLab.set($any($event.target).value)">
-          <option value="All">Laboratory: All</option>
+          <option value="All">{{ 'alerts.filters.laboratory' | translate }}: {{ 'laboratories.status.all' | translate }}</option>
           @for (labName of uniqueLabs(); track labName) {
             @if (labName !== 'All') {
               <option [value]="labName">{{ labName }}</option>
@@ -50,9 +50,9 @@
 
       <div class="dropdown-wrapper">
         <select class="dropdown" [value]="selectedStatus()" (change)="selectedStatus.set($any($event.target).value)">
-          <option value="All">Status: All</option>
-          <option value="ACTIVE">Active</option>
-          <option value="RESOLVED">Resolved</option>
+          <option value="All">{{ 'alerts.filters.status' | translate }}: {{ 'laboratories.status.all' | translate }}</option>
+          <option value="ACTIVE">{{ 'common.status.active' | translate }}</option>
+          <option value="RESOLVED">{{ 'common.status.resolved' | translate }}</option>
         </select>
       </div>
     </div>

@@ -25,7 +25,8 @@ export class AlertAssembler implements BaseAssembler<Alert, AlertResource, Alert
       labName: resource.labName,
       labLocation: resource.labLocation,
       sensorId: resource.sensorId,
-      sensorName: resource.sensorName
+      sensorName: resource.sensorName,
+      equipmentName: resource.equipmentName
     });
   }
 
@@ -46,6 +47,7 @@ export class AlertAssembler implements BaseAssembler<Alert, AlertResource, Alert
       labLocation: entity.labLocation,
       sensorId: entity.sensorId,
       sensorName: entity.sensorName,
+      equipmentName: entity.equipmentName,
       metrics: metricsMapped
     } as AlertResource;
   }

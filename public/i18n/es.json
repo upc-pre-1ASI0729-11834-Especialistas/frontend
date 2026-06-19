@@ -106,6 +106,14 @@
       "next": "Siguiente"
     },
     "add": "Añadir Laboratorio",
+    "saveChanges": "Guardar cambios",
+    "saveLaboratory": "Guardar laboratorio",
+    "success": {
+      "title": "¡Laboratorio creado con éxito!",
+      "description": "ha sido registrado y está listo para monitoreo.",
+      "viewAll": "Ver todos los laboratorios",
+      "createAnother": "Crear otro"
+    },
     "filters": {
       "status": "Estado",
       "location": "Ubicación"
@@ -162,6 +170,47 @@
       "handoverNotice": "Esta nota será mostrada al próximo operador.",
       "placeholder": "Ingresa notas aquí...",
       "handoverPlaceholder": "Detalles importantes para el próximo turno..."
+    },
+    "drawer": {
+      "title": "Detalles del evento",
+      "name": "Nombre",
+      "date": "Fecha",
+      "lab": "Laboratorio",
+      "type": "Tipo",
+      "description": "Descripción",
+      "generateReport": "Generar informe",
+      "viewLab": "Ver laboratorio"
+    },
+    "pdf": {
+      "title": "Informe de Turno de Cumplimiento de SafeLab",
+      "activeShift": "Turno Activo",
+      "reportDate": "Fecha del Informe",
+      "systemStatus": "Estado del Sistema",
+      "operational": "Operacional",
+      "totalEvents": "Total de Eventos",
+      "incidents": "Incidentes",
+      "resolved": "Resueltos",
+      "active": "Activos",
+      "manualObservations": "Observaciones Manuales",
+      "automations": "Automatizaciones",
+      "generalNotes": "Notas Generales del Turno",
+      "handoverNote": "Nota de Entrega (para el próximo turno)",
+      "noNotes": "No se registraron notas para este turno.",
+      "noHandover": "No se registró nota de entrega.",
+      "timelineEvents": "Eventos de la Línea de Tiempo del Turno",
+      "time": "Hora",
+      "laboratory": "Laboratorio",
+      "severity": "Severidad",
+      "eventName": "Nombre del Evento",
+      "description": "Descripción",
+      "status": "Estado",
+      "noEvents": "No se registraron eventos durante este turno.",
+      "operatorSignature": "Firma del Operador ({{name}})",
+      "coordinatorSignature": "Firma del Coordinador de Seguridad"
+    },
+    "reportDialog": {
+      "previewPdf": "Vista Previa PDF",
+      "downloadPdf": "Descargar PDF"
     }
   },
   "settings": {
@@ -175,6 +224,7 @@
     },
     "userProfile": {
       "title": "Perfil de Usuario",
+      "description": "Administra tu identidad personal, información de contacto y credenciales profesionales.",
       "editProfile": "Editar Perfil"
     },
     "sensor": {
@@ -227,6 +277,607 @@
         "labsAccess": "Acceso a Laboratorios",
         "lastLogin": "Último Inicio de Sesión",
         "status": "Estado"
+      }
+    }
+  },
+  "routes": {
+    "dashboard": {
+      "title": "Panel",
+      "subtitle": "Descripción general de todos los entornos de laboratorio"
+    },
+    "laboratories": {
+      "title": "Laboratorios",
+      "subtitle": "Administrar y monitorear entornos de laboratorio",
+      "add": {
+        "title": "Añadir Laboratorio",
+        "subtitle": "Registrar un nuevo laboratorio en el sistema"
+      },
+      "edit": {
+        "title": "Editar Laboratorio",
+        "subtitle": "Modificar configuración y detalles del laboratorio"
+      },
+      "detail": {
+        "title": "Detalles del Laboratorio",
+        "subtitle": "Información detallada y métricas"
+      }
+    },
+    "alerts": {
+      "title": "Alertas",
+      "subtitle": "Ver y administrar alertas del sistema",
+      "incident": {
+        "title": "Alertas",
+        "subtitle": "Incidentes activos y notificaciones"
+      },
+      "resolve": {
+        "title": "Resolver Incidente",
+        "subtitle": "Registrar detalles de resolución para el incidente activo"
+      }
+    },
+    "history": {
+      "title": "Historial y Reportes",
+      "subtitle": "Cronología de eventos y reportes de turno"
+    },
+    "reports": {
+      "title": "Reportes",
+      "subtitle": "Generar y ver reportes del sistema"
+    },
+    "settings": {
+      "sensor": {
+        "title": "Configuración de Sensores",
+        "subtitle": "Calibrar y administrar sensores de laboratorio para monitoreo de temperatura, humedad y presión atmosférica."
+      },
+      "metricTypes": {
+        "title": "Tipos de Métricas",
+        "subtitle": "Definir y administrar tipos de métricas de sensores estándar, unidades, iconos y categorías."
+      },
+      "profile": {
+        "title": "Perfil e Identidad",
+        "subtitle": "Administra tu información personal y credenciales profesionales."
+      },
+      "alerts": {
+        "title": "Alertas y Notificaciones",
+        "subtitle": "Configura cómo y cuándo recibir alertas de seguridad y estado del laboratorio."
+      },
+      "security": {
+        "title": "Seguridad y Acceso",
+        "subtitle": "Administra tus credenciales de cuenta y preferencias de seguridad."
+      },
+      "users": {
+        "title": "Usuarios y Permisos",
+        "subtitle": "Controla quién tiene acceso a SafeLab y qué pueden hacer."
+      },
+      "threshold": {
+        "title": "Configuración de Umbrales",
+        "subtitle": "Define límites ambientales y de temperatura para cada equipo."
+      },
+      "rules": {
+        "title": "Reglas de Automatización",
+        "subtitle": "Define cómo responde el sistema automáticamente a eventos ambientales."
+      }
+    }
+  },
+  "iam": {
+    "login": {
+      "welcome": "Bienvenido de nuevo",
+      "subtitle": "Inicia sesión para monitorear tus laboratorios",
+      "emailLabel": "Dirección de correo electrónico",
+      "emailPlaceholder": "tu@organizacion.com",
+      "passwordLabel": "Contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "rememberMe": "Recordarme por 30 días",
+      "signIn": "Iniciar sesión",
+      "signingIn": "Iniciando sesión...",
+      "haveInvitation": "¿Tienes una invitación?",
+      "registerHere": "Regístrate aquí",
+      "termsPrefix": "Al iniciar sesión, aceptas nuestros",
+      "terms": "Términos de servicio",
+      "and": "y",
+      "privacy": "Política de privacidad"
+    },
+    "register": {
+      "title": "Crear cuenta",
+      "subtitle": "Regístrate para acceder a tus laboratorios compartidos",
+      "fullNameLabel": "Nombre completo",
+      "fullNamePlaceholder": "Juan Pérez",
+      "emailLabel": "Dirección de correo electrónico",
+      "emailPlaceholder": "tu@organizacion.com",
+      "passwordLabel": "Contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "passwordMismatch": "Las contraseñas no coinciden.",
+      "signUpButton": "Crear cuenta",
+      "signingUp": "Creando cuenta...",
+      "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+      "signInHere": "Inicia sesión aquí"
+    }
+  },
+  "incident": {
+    "details": {
+      "backLink": "Volver al panel",
+      "breadcrumbRoot": "Panel",
+      "breadcrumbAlerts": "Alertas",
+      "breadcrumbIncident": "Incidente",
+      "liveStatus": "Telemetría en vivo",
+      "systemStatusLabel": "Estado actual del sistema:",
+      "activeIncident": "Incidente activo",
+      "incidentId": "INCIDENTE",
+      "started": "Iniciado",
+      "affectedEquipment": "Equipo afectado",
+      "currentReadings": "Lecturas actuales",
+      "currentValueLabel": "VALOR ACTUAL",
+      "thresholdLabel": "Umbral:",
+      "exceededByLabel": "Excedido por:",
+      "durationLabel": "Duración:",
+      "chartHeader": "Gráfico en tiempo real — Últimas 2 horas",
+      "normalRange": "Rango normal",
+      "thresholdExceeded": "Umbral excedido",
+      "limitLabel": "Límite:",
+      "sensorInfo": "Información del sensor",
+      "sensorId": "ID del Sensor",
+      "location": "Ubicación",
+      "lastCalibration": "Última calibración",
+      "signalStrength": "Fuerza de señal",
+      "networkStatus": "Estado de red",
+      "sensorType": "Tipo de sensor",
+      "automationResponse": "Respuesta de automatización",
+      "activatedForZone": "Activado automáticamente para la zona",
+      "descriptionLabel": "Descripción:",
+      "noAutomationTriggered": "Ninguna regla de automatización activada",
+      "inactive": "Inactivo",
+      "noRuleMatch": "Ninguna regla de seguridad automatizada coincide con esta infracción de métrica de laboratorio.",
+      "configureRulesHint": "Configura reglas en los ajustes del sistema para automatizar respuestas de emergencia.",
+      "actions": "Acciones",
+      "actionsSubtitle": "Tomar medidas sobre este incidente",
+      "markAsResolved": "Marcar como resuelto",
+      "escalateSupervisor": "Escalar a supervisor",
+      "viewLab": "Ver laboratorio",
+      "resolveHelpText": "Resolver requiere una nota que describa la acción correctiva tomada.",
+      "incidentTimeline": "Cronología del incidente",
+      "limitBreachDetected": "Infracción de límite detectada",
+      "readingFirstBreach": "Lectura: {{value}} — primera infracción registrada",
+      "alertDispatched": "Alerta despachada",
+      "notificationDuty": "Notificación enviada al coordinador de laboratorio de turno",
+      "automationTriggered": "Automatización activada",
+      "activeFor": "activo por",
+      "resolvedState": "Incidente resuelto",
+      "awaitingState": "Esperando resolución",
+      "noteSaved": "Nota de acción correctiva guardada.",
+      "remainsActive": "El incidente permanece activo."
+    },
+    "resolve": {
+      "breadcrumbIncidents": "Incidentes",
+      "breadcrumbResolve": "Resolver",
+      "resolveIncident": "Resolver incidente",
+      "activeForLabel": "Activo durante",
+      "resolutionNote": "Nota de resolución",
+      "required": "Requerido",
+      "actionDesc": "Describe la acción correctiva tomada para resolver este incidente.",
+      "placeholder": "ej. Se ajustó el termostato a 6°C, se verificó que las 12 muestras biológicas estén intactas, se monitoreará la temperatura durante los próximos 30 minutos.",
+      "typeTitle": "Tipo de resolución",
+      "typeDesc": "Selecciona el tipo de acción que resolvió este incidente.",
+      "manualFix": "Corrección manual",
+      "resolvedStaff": "Resuelto por el personal",
+      "automated": "Automatizado",
+      "systemResolved": "Resuelto por el sistema",
+      "escalated": "Escalado",
+      "closedSupervisor": "Cerrado por supervisor",
+      "followUpTitle": "Programar mantenimiento de seguimiento",
+      "followUpSub": "Se creará una tarea de mantenimiento para {{name}}",
+      "incidentSummary": "Resumen del incidente",
+      "sensor": "SENSOR",
+      "currentValue": "VALOR ACTUAL",
+      "threshold": "umbral",
+      "triggeredAt": "ACTIVADO A LAS",
+      "today": "hoy",
+      "location": "UBICACIÓN",
+      "exceededMessage": "Excedió el umbral por {{exceededBy}} durante {{duration}}",
+      "photoAttachment": "Foto adjunta",
+      "optional": "opcional",
+      "uploadText": "Toca para adjuntar o arrastra y suelta",
+      "uploadSubText": "JPG o PNG · Máx 5MB",
+      "recommendedAudit": "Recomendado para registros de auditoría",
+      "remove": "Eliminar",
+      "permanentLogNotice": "Esta resolución se registrará permanentemente en el historial de auditoría y se incluirá en el reporte de turno.",
+      "confirmBtn": "Confirmar resolución"
+    }
+  },
+  "settingsPage": {
+    "title": "Configuración",
+    "sensor": {
+      "filterBy": "Filtrar por:",
+      "allTypes": "Todos los tipos de sensor",
+      "allLocations": "Todas las ubicaciones de lab",
+      "totalSensors": "Total {{count}} sensores",
+      "compliance": "Cumplimiento de calibración",
+      "nextAudit": "Próxima auditoría: {{date}}",
+      "calibrated": "Calibrado",
+      "pending": "Pendientes",
+      "overdue": "Atrasados",
+      "safetyFirst": "La seguridad primero",
+      "complianceText": "La calibración periódica de los sensores garantiza el cumplimiento de la norma ISO 17025 y los estándares de seguridad del laboratorio.",
+      "downloadAudit": "Descargar reporte de auditoría"
+    },
+    "sensorDialog": {
+      "editTitle": "Editar configuración de sensor",
+      "addTitle": "Añadir nuevo sensor",
+      "nameLabel": "Nombre del sensor",
+      "namePlaceholder": "ej. Sensor de temperatura - Campana 3",
+      "nameRequired": "El nombre del sensor es obligatorio",
+      "typeLabel": "Tipo / Modelo de sensor",
+      "typePlaceholder": "ej. Modelo PT100",
+      "typeRequired": "El tipo de sensor es obligatorio",
+      "serialLabel": "Número de serie / Dirección MAC",
+      "serialPlaceholder": "ej. MAC-A1-B2-C3 o SN-88291-B",
+      "serialRequired": "El número de serie o dirección MAC es obligatorio",
+      "associatedLab": "Laboratorio asociado",
+      "selectLab": "Seleccionar laboratorio",
+      "labRequired": "La asociación con un laboratorio es obligatoria",
+      "targetLabel": "Objetivo de monitoreo",
+      "roomAmbient": "Ambiente de la sala",
+      "specificEquipment": "Equipo específico",
+      "selectEquipment": "Seleccionar equipo",
+      "minThreshold": "Umbral mínimo",
+      "maxThreshold": "Umbral máximo",
+      "warningThreshold": "Umbral de advertencia",
+      "noLimit": "Sin límite",
+      "noWarningLimit": "Sin límite de advertencia",
+      "sensorActive": "El sensor está activo",
+      "hardwareNote": "Dispositivo registrado con éxito. El sensor se mantendrá como 'Inactivo' hasta que el hardware físico se encienda y realice su primera conexión.",
+      "saveSensor": "Guardar sensor"
+    },
+    "calibrateDialog": {
+      "title": "Calibrar sensor",
+      "certificateLabel": "ID del certificado / Número de calibración",
+      "certificatePlaceholder": "ej. CERT-2026-X992",
+      "certificateRequired": "El ID del certificado es obligatorio",
+      "dateLabel": "Fecha de calibración",
+      "dateRequired": "La fecha de calibración es obligatoria",
+      "expirationLabel": "Fecha de vencimiento",
+      "expirationRequired": "La fecha de vencimiento es obligatoria",
+      "submit": "Enviar calibración"
+    },
+    "metricTypes": {
+      "filterBy": "Filtrar por:",
+      "allCategories": "Todas las categorías",
+      "allStatuses": "Todos los estados",
+      "activeOnly": "Solo activos",
+      "inactiveOnly": "Solo inactivos",
+      "totalTypes": "Total {{count}} tipos de métricas",
+      "catalogDistribution": "Distribución del catálogo",
+      "activeTypes": "Tipos activos",
+      "inactiveTypes": "Tipos inactivos",
+      "totalCatalogued": "Total catalogado",
+      "databaseCatalog": "Catálogo de base de datos",
+      "catalogText": "Definir dinámicamente los tipos de métricas permite el procesamiento automático de telemetría, formateo de unidades, renderizado de iconos y mapeo de umbrales para nuevos sensores IoT sin necesidad de cambiar el código."
+    },
+    "metricTypeDialog": {
+      "editTitle": "Editar tipo de métrica",
+      "addTitle": "Añadir nuevo tipo de métrica",
+      "keyLabel": "Clave de métrica (Identificador único)",
+      "keyPlaceholder": "ej. nivel_radiacion",
+      "keyRequired": "Se requiere un identificador válido (letras minúsculas, números y guiones bajos únicamente)",
+      "displayNameLabel": "Nombre para mostrar",
+      "displayNamePlaceholder": "ej. Nivel de radiación",
+      "displayNameRequired": "El nombre para mostrar es obligatorio",
+      "unitLabel": "Unidad de medida",
+      "unitPlaceholder": "ej. uSv/h o ppm",
+      "unitRequired": "La unidad es obligatoria",
+      "iconLabel": "Nombre del icono de Material Design",
+      "iconPlaceholder": "ej. radiography o co2",
+      "iconRequired": "El nombre del icono es obligatorio",
+      "categoryLabel": "Categoría",
+      "categoryRequired": "La categoría es obligatoria",
+      "selectCategory": "Seleccionar categoría",
+      "activeToggle": "El tipo de métrica está activo",
+      "saveMetricType": "Guardar tipo de métrica"
+    },
+    "profileIdentity": {
+      "updating": "Actualizando datos del perfil...",
+      "personalInfo": "Información personal",
+      "fullName": "Nombre completo",
+      "fullNamePlaceholder": "Dr. Alexander Vance",
+      "fullNameRequired": "El nombre completo es obligatorio",
+      "email": "Dirección de correo electrónico",
+      "emailPlaceholder": "a.vance@safelab.org",
+      "emailRequired": "El correo electrónico es obligatorio",
+      "emailValid": "Por favor, introduce una dirección de correo válida",
+      "phone": "Número de teléfono",
+      "phonePlaceholder": "+1 (555) 019-2834",
+      "phoneRequired": "El número de teléfono es obligatorio",
+      "title": "Título profesional",
+      "employeeId": "ID de empleado",
+      "saveChanges": "Guardar cambios",
+      "changePhoto": "Cambiar foto",
+      "accountStatus": "Estado de la cuenta",
+      "systemState": "Estado del sistema",
+      "activeVerified": "Activo — Verificado",
+      "accessTier": "Nivel de acceso",
+      "labCoordinator": "Coordinador de laboratorio (Nivel 1)",
+      "requestRoleChange": "Solicitar cambio de rol",
+      "shiftPreferences": "Preferencias de turno",
+      "defaultStart": "Inicio predeterminado",
+      "duration": "Duración",
+      "autoGenerateReport": "Auto-generar reporte de turno",
+      "compileData": "Recopilar datos al final del turno"
+    },
+    "alertsNotifications": {
+      "channelTitle": "Canal de notificaciones",
+      "emailNotifications": "Notificaciones por correo",
+      "emailDesc": "Resúmenes diarios y alertas críticas por correo electrónico",
+      "inAppNotifications": "Notificaciones en la aplicación",
+      "inAppDesc": "Alertas en tiempo real dentro del panel",
+      "activitySummary": "Resumen de actividad del lab",
+      "dailySummary": "Resumen diario",
+      "dailyDesc": "Un resumen conciso de todas las lecturas y eventos del lab en las últimas 24 horas.",
+      "weeklyReport": "Reporte semanal",
+      "weeklyDesc": "Tendencias completas y documentación de cumplimiento de la semana anterior.",
+      "instantAlerts": "Alertas de sensor instantáneas",
+      "instantDesc": "Notificación inmediata ante fallas de hardware del sensor o pérdida de conectividad."
+    },
+    "securityAccess": {
+      "changePassword": "Cambiar contraseña",
+      "currentPassword": "Contraseña actual",
+      "newPassword": "Nueva contraseña",
+      "passwordHelp": "La contraseña debe tener más de 8 caracteres",
+      "confirmNewPassword": "Confirmar nueva contraseña",
+      "updatePassword": "Actualizar contraseña",
+      "tfa": "Autenticación de dos factores (2FA)",
+      "tfaDesc": "Añade una capa adicional de seguridad a tu cuenta requiriendo algo más que una contraseña para iniciar sesión.",
+      "enable2fa": "Habilitar 2FA",
+      "loginActivity": "Actividad de inicio de sesión",
+      "lastLogin": "Último acceso: hace {{time}} desde {{location}}",
+      "activeSessions": "Sesiones activas",
+      "sessionsCount": "{{count}} dispositivos conectados actualmente",
+      "accountStatus": "Estado de la cuenta",
+      "verifiedTech": "Técnico de laboratorio verificado (Nivel 1)"
+    },
+    "usersPermissions": {
+      "receivedInvitations": "Invitaciones recibidas",
+      "role": "Rol: {{role}}",
+      "accept": "Aceptar",
+      "reject": "Rechazar",
+      "workspaceSettings": "Ajustes del Workspace",
+      "workspaceName": "Nombre del Workspace",
+      "saveWorkspaceName": "Guardar nombre",
+      "roleDefinitions": "Definiciones de roles",
+      "permissions": "permisos",
+      "inviteUser": "Invitar nuevo usuario",
+      "emailRequired": "La dirección de correo es obligatoria",
+      "emailValid": "Por favor, introduce un correo electrónico válido",
+      "selectRole": "Seleccionar rol",
+      "chooseRole": "Elegir un rol",
+      "roleRequired": "Por favor selecciona un rol",
+      "selectLabAccess": "Seleccionar acceso a labs",
+      "allLabs": "Todos los laboratorios",
+      "personalMessage": "Mensaje personal (opcional)",
+      "messagePlaceholder": "Añade una nota al correo de invitación...",
+      "sendInvitation": "Enviar invitación",
+      "pendingInvitations": "Invitaciones pendientes",
+      "invitedAs": "Invitado como",
+      "noPending": "No hay invitaciones pendientes",
+      "roles": {
+        "administrator": "Administrador",
+        "supervisor": "Supervisor",
+        "operator": "Operador",
+        "viewer": "Lector"
+      },
+      "editPermissions": "Editar permisos",
+      "resend": "Reenviar"
+    },
+    "thresholdConfig": {
+      "changesNotice": "Los cambios en los umbrales se aplican inmediatamente y se registran en el historial de auditoría.",
+      "addEquipment": "Añadir equipo",
+      "notificationPrefs": "Preferencias de notificación",
+      "alertsTitle": "Alertas críticas y de advertencia",
+      "inApp": "En la aplicación",
+      "email": "Correo electrónico",
+      "sms": "SMS",
+      "quietHours": "Horas de silencio",
+      "quietHoursSub": "Solo se enviarán alertas críticas durante estas horas.",
+      "to": "a",
+      "onCallCoordinator": "Coordinador de guardia",
+      "onCallSub": "Contacto principal para incidentes críticos fuera de horario.",
+      "usersAccess": "Usuarios y acceso",
+      "usersAccessSub": "Configura privilegios de usuario y niveles de acceso a unidades de laboratorio específicas.",
+      "changesSaved": "Cambios guardados con éxito",
+      "equipment": "Equipo",
+      "lab": "Laboratorio",
+      "minThreshold": "Umbral mínimo",
+      "maxThreshold": "Umbral máximo",
+      "warningAt": "Advertencia en",
+      "current": "Actual",
+      "action": "Acción",
+      "updateLimits": "Actualizar límites"
+    },
+    "automationRules": {
+      "loading": "Cargando reglas de automatización...",
+      "noRules": "No hay reglas de automatización definidas",
+      "addRuleHint": "Haz clic en \"+ Añadir regla\" en la barra superior para crear tu primera regla.",
+      "neverTriggered": "Nunca activada",
+      "trigger": "Activador",
+      "action": "Acción",
+      "appliesTo": "Se aplica a: {{lab}}",
+      "createRule": "Crear nueva regla",
+      "ruleName": "Nombre de la regla",
+      "ruleNamePlaceholder": "ej., Caída de temp en turno nocturno",
+      "ruleNameRequired": "El nombre de la regla es obligatorio",
+      "scope": "Alcance",
+      "allLabs": "Todos los laboratorios",
+      "specificLab": "Laboratorio específico",
+      "selectLab": "Seleccionar laboratorio",
+      "labRequired": "Por favor elige un laboratorio",
+      "actionHvac": "Activar calefacción/enfriamiento HVAC",
+      "actionHvacSub": "El sistema intenta autocorregir el ambiente",
+      "actionPush": "Enviar notificación push",
+      "actionPushSub": "Alertar a los usuarios activos en la app",
+      "actionSms": "Enviar SMS",
+      "actionSmsSub": "Llamar al coordinador de guardia directamente",
+      "actionLog": "Solo registrar evento",
+      "actionLogSub": "Registrar en el historial sin alertas",
+      "executionLimits": "Límites de ejecución",
+      "doNotTriggerText": "No activar más de una vez cada",
+      "mins": "min.",
+      "autoResolve": "Autoresolver cuando se despeje la condición",
+      "saveRule": "Guardar regla",
+      "when": "Cuando",
+      "then": "Entonces",
+      "for": "por",
+      "min": "min",
+      "sections": {
+        "triggerCondition": "1. CONDICIÓN DE ACTIVACIÓN",
+        "automatedActions": "2. ACCIONES AUTOMATIZADAS",
+        "executionLimits": "3. LÍMITES DE EJECUCIÓN"
+      },
+      "forMoreThan": "por más de",
+      "minutes": "minutos.",
+      "metrics": {
+        "temperature": "Temperatura",
+        "humidity": "Humedad",
+        "co2": "CO2"
+      },
+      "actionsMapped": {
+        "activate_hvac": "Activar refuerzo de refrigeración HVAC",
+        "increase_ventilation": "Aumentar la ventilación",
+        "send_sms": "Enviar SMS al coordinador de guardia",
+        "send_push": "Enviar notificación push",
+        "log_event": "Registrar evento con prioridad BAJA"
+      }
+    },
+    "equipmentDialog": {
+      "editTitle": "Editar configuración de equipo",
+      "addTitle": "Añadir nuevo equipo",
+      "nameLabel": "Nombre del equipo",
+      "namePlaceholder": "ej. Refrigerador B2 o Incubadora 4",
+      "nameRequired": "El nombre del equipo es obligatorio",
+      "laboratory": "Laboratorio",
+      "selectLab": "Seleccionar laboratorio",
+      "labRequired": "El laboratorio es obligatorio",
+      "categoryIcon": "Categoría / Icono",
+      "measurementUnit": "Unidad de medida",
+      "minThreshold": "Umbral mínimo",
+      "maxThreshold": "Umbral máximo",
+      "warningThreshold": "Umbral de advertencia",
+      "noMinLimit": "Sin límite mín",
+      "noMaxLimit": "Sin límite máx",
+      "noWarningLimit": "Sin límite de advertencia",
+      "helpNote": "Al definir los rangos de operación segura y advertencia, las lecturas que superen estos umbrales generarán notificaciones automáticas y alertas en el panel.",
+      "updateEquipment": "Actualizar equipo",
+      "createEquipment": "Crear equipo",
+      "icons": {
+        "kitchen": "Refrigerador / Congelador",
+        "biotech": "Incubadora / Autoclave",
+        "device_thermostat": "Cámara / Temperatura ambiente",
+        "opacity": "Regulador de humedad",
+        "bubble_chart": "Monitor de gas"
+      }
+    }
+  },
+  "laboratoryStats": {
+    "lastUpdate": "Última actualización",
+    "live": "En vivo",
+    "nextMaintenance": "Próximo mantenimiento",
+    "inDays": "En {{count}} días"
+  },
+  "laboratoriesDetail": {
+    "loadingDetails": "Cargando detalles del laboratorio...",
+    "realtimeMetrics": "Métricas en tiempo real",
+    "liveData": "Datos en vivo",
+    "viewIncident": "Ver incidente",
+    "sensorsActive": "sensores activos",
+    "emergencyProtocol": "Protocolo de emergencia",
+    "addObservation": "Añadir observación",
+    "tempLabel": "Temp",
+    "activeIncidentLabel": "Incidente activo —",
+    "estBreach": "Infracción est. en",
+    "atCurrentRate": "A la tasa actual de escalada...",
+    "viewDetails": "Ver detalles",
+    "investigateIncident": "Investigar incidente",
+    "addManualObservation": "Añadir observación manual",
+    "forLab": "Para {{name}}",
+    "logType": "Tipo de registro",
+    "selectLogType": "Seleccionar tipo de registro",
+    "logTypeRequired": "El tipo de registro es obligatorio",
+    "observationDetails": "Detalles de observación",
+    "enterDetails": "Introduce los detalles de la observación...",
+    "detailsRequired": "Los detalles de la observación son obligatorios",
+    "saveObservation": "Guardar observación",
+    "tabs": {
+      "systems": "Sistemas",
+      "notifications": "Notificaciones",
+      "reports": "Reportes",
+      "settings": "Configuración"
+    },
+    "logTypes": {
+      "laboratory": "Registro de laboratorio",
+      "maintenance": "Registro de mantenimiento",
+      "incident": "Registro de incidente"
+    }
+  },
+  "laboratoryForm": {
+    "basicInfo": "Información básica",
+    "basicInfoSub": "Detalles generales sobre el laboratorio",
+    "name": "Nombre del laboratorio *",
+    "namePlaceholder": "ej. Laboratorio de química A",
+    "code": "ID / Código del laboratorio *",
+    "codePlaceholder": "ej. LAB-QMC-001",
+    "building": "Edificio",
+    "selectBuilding": "Seleccionar edificio",
+    "floor": "Piso",
+    "selectFloor": "Seleccionar piso",
+    "roomNumber": "Número de sala",
+    "roomPlaceholder": "ej. 204",
+    "type": "Tipo de laboratorio *",
+    "selectType": "Seleccionar tipo",
+    "nextMaintenance": "Próxima fecha de mantenimiento",
+    "description": "Descripción",
+    "descriptionPlaceholder": "Breve descripción del propósito del laboratorio y cualquier requisito de seguridad especial...",
+    "sensors": {
+      "title": "Sensores y sistemas",
+      "subtitle": "Habilite o deshabilite los módulos de monitoreo para este laboratorio y configure los umbrales de seguridad",
+      "monitor": "Monitorear {{name}} ({{unit}})",
+      "min": "Mín",
+      "max": "Máx",
+      "noLimit": "Sin límite"
+    },
+    "notifications": {
+      "title": "Preferencias de notificación",
+      "subtitle": "Elija cómo y cuándo recibe las alertas del laboratorio",
+      "email": "Correo electrónico",
+      "emailDesc": "Recibir alertas por correo electrónico",
+      "sms": "SMS",
+      "smsDesc": "Alertas de texto en su teléfono",
+      "push": "Notificaciones push",
+      "pushDesc": "Alertas push en la aplicación",
+      "criticalOnly": "Solo alertas críticas",
+      "criticalOnlyDesc": "Suprimir notificaciones no críticas"
+    },
+    "options": {
+      "buildings": {
+        "Building A": "Edificio A",
+        "Building B": "Edificio B",
+        "Building C": "Edificio C",
+        "Building D": "Edificio D"
+      },
+      "floors": {
+        "Basement": "Sótano",
+        "Floor B1": "Piso B1",
+        "Level 1": "Nivel 1",
+        "Floor 1": "Piso 1",
+        "Floor 2": "Piso 2",
+        "Floor 3": "Piso 3",
+        "Floor 4": "Piso 4"
+      },
+      "labTypes": {
+        "Biological Safety": "Seguridad biológica",
+        "Chemical Synthesis": "Síntesis química",
+        "Cryogenic Storage": "Almacenamiento criogénico",
+        "Clean Room ISO 5": "Sala limpia ISO 5",
+        "Material Science": "Ciencia de materiales",
+        "Analytical": "Analítico",
+        "Radiation Controlled": "Radiación controlada",
+        "Molecular Biology": "Biología molecular",
+        "Environmental": "Ambiental",
+        "Biohazard Level 2": "Riesgo biológico Nivel 2",
+        "Biohazard Level 3": "Riesgo biológico Nivel 3"
       }
     }
   }

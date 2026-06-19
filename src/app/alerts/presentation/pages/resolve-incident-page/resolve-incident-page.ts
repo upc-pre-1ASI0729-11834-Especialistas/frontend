@@ -5,13 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AlertsStore } from '../../../application/alerts.store';
 import { Alert } from '../../../domain/model/alert.entity';
+import { TranslatePipe } from '@ngx-translate/core';
 
 type ResolutionType = 'manual' | 'automated' | 'escalated';
 
 @Component({
   selector: 'app-resolve-incident-page',
   standalone: true,
-  imports: [MatIconModule, RouterLink, FormsModule, CommonModule],
+  imports: [MatIconModule, RouterLink, FormsModule, CommonModule, TranslatePipe],
   templateUrl: './resolve-incident-page.html',
   styleUrl: './resolve-incident-page.css',
 })
@@ -57,17 +58,12 @@ export class ResolveIncidentPage {
 
   readonly affectedEquipment = computed(() => {
     const currentAlert = this.alert();
-    if (!currentAlert) return 'Refrigerator B2';
-    const sensorName = currentAlert.sensorName || '';
-    if (sensorName.toLowerCase().includes('co2')) return 'CO2 Monitor CM-01';
-    if (sensorName.toLowerCase().includes('freezer')) return 'ULT Freezer F-07';
-    if (sensorName.toLowerCase().includes('humidity')) return 'HVAC Unit 3';
-    return sensorName || 'Refrigerator B2';
+    return currentAlert?.equipmentName || 'Room Ambient';
   });
 
   readonly sensorId = computed(() => {
     const currentAlert = this.alert();
-    return currentAlert?.sensorName || 'Sensor T-01';
+    return currentAlert?.sensorName || 'N/A';
   });
 
   readonly startedTimeAbsolute = computed(() => {
@@ -179,7 +175,8 @@ export class ResolveIncidentPage {
           labName: currentAlert.labName,
           labLocation: currentAlert.labLocation,
           sensorId: currentAlert.sensorId,
-          sensorName: currentAlert.sensorName
+          sensorName: currentAlert.sensorName,
+          equipmentName: currentAlert.equipmentName
         });
 
         this.alertsStore.updateAlert(updatedAlert);
