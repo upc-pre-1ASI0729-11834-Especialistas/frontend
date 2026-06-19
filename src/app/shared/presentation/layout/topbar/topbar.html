@@ -11,13 +11,57 @@
   }
 
   <div class="view-info">
-    <p class="view-title">{{ title() }}</p>
-    <p class="view-subtitle">{{ subtitle() }}</p>
+    @if (breadcrumbs(); as crumbs) {
+      <nav class="topbar-breadcrumbs">
+        @for (crumb of crumbs; track crumb.label; let last = $last) {
+          @if (crumb.url) {
+            <a [routerLink]="crumb.url" class="topbar-breadcrumb-link">{{ crumb.label | translate | uppercase }}</a>
+          } @else {
+            <span class="topbar-breadcrumb-current">{{ crumb.label | translate | uppercase }}</span>
+          }
+          @if (!last) {
+            <mat-icon class="topbar-breadcrumb-sep">chevron_right</mat-icon>
+          }
+        }
+      </nav>
+    } @else {
+      <p class="view-title">{{ title() | translate }}</p>
+      <p class="view-subtitle">{{ subtitle() | translate }}</p>
+    }
   </div>
 
   <span class="spacer"></span>
 
-  @if (action()) {
+  @if (actions() && actions()!.length > 0) {
+    <div class="topbar-actions">
+      @for (act of actions()!; track act.id) {
+        @if (act.routerLink) {
+          <button
+            mat-flat-button
+            [class]="'topbar-action-btn ' + (act.styleClass || '')"
+            [id]="act.id"
+            [routerLink]="act.routerLink"
+            (click)="act.onClick ? act.onClick() : onActionClick()">
+            @if (act.icon) {
+              <mat-icon class="btn-icon">{{ act.icon }}</mat-icon>
+            }
+            <span class="btn-label">{{ act.label }}</span>
+          </button>
+        } @else {
+          <button
+            mat-flat-button
+            [class]="'topbar-action-btn ' + (act.styleClass || '')"
+            [id]="act.id"
+            (click)="act.onClick ? act.onClick() : onActionClick()">
+            @if (act.icon) {
+              <mat-icon class="btn-icon">{{ act.icon }}</mat-icon>
+            }
+            <span class="btn-label">{{ act.label }}</span>
+          </button>
+        }
+      }
+    </div>
+  } @else if (action()) {
     <button
       mat-flat-button
       color="primary"

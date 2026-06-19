@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, computed, signal } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd, RouterLink } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
+import { UpperCasePipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -19,7 +20,9 @@ import { TopbarActionService, TopbarActionConfig } from '../../../application/to
     TranslateModule,
     LanguageSwitcher,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterLink,
+    UpperCasePipe
   ],
   templateUrl: './topbar.html',
   styleUrl: './topbar.css',
@@ -34,6 +37,8 @@ export class Topbar implements OnInit {
   readonly title = computed(() => this.topbarActionService.customTitle() ?? this.routeTitle());
   readonly subtitle = computed(() => this.topbarActionService.customSubtitle() ?? this.routeSubtitle());
   readonly action = computed(() => this.topbarActionService.currentAction());
+  readonly actions = computed(() => this.topbarActionService.customActions());
+  readonly breadcrumbs = computed(() => this.topbarActionService.customBreadcrumbs());
 
   constructor(
     readonly router: Router,
@@ -49,6 +54,8 @@ export class Topbar implements OnInit {
       )
       .subscribe(() => {
         this.topbarActionService.clearCustomTitleAndSubtitle();
+        this.topbarActionService.clearActions();
+        this.topbarActionService.clearBreadcrumbs();
         this.updateTitleAndSubtitle();
       });
   }

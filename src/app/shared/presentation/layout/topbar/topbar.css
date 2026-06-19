@@ -134,3 +134,69 @@
     margin: 0 !important;
   }
 }
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Breadcrumbs in topbar */
+.topbar-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.topbar-breadcrumb-link {
+  color: var(--mat-sys-on-surface-variant, #64748b);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+
+.topbar-breadcrumb-link:hover {
+  color: var(--mat-sys-primary, #2563eb);
+}
+
+.topbar-breadcrumb-sep {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: var(--mat-sys-outline-variant, #cbd5e1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topbar-breadcrumb-current {
+  color: var(--mat-sys-on-surface-variant, #64748b);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* Primary and secondary button overrides for topbar */
+.topbar-actions .btn-primary {
+  background-color: var(--mat-sys-primary, #2563eb) !important;
+  color: white !important;
+}
+
+.topbar-actions .btn-secondary {
+  background-color: var(--mat-sys-surface, #ffffff) !important;
+  color: var(--mat-sys-on-surface, #0f172a) !important;
+  border: 1.5px solid var(--mat-sys-outline-variant, #e2e8f0) !important;
+}
+
+.topbar-actions .btn-secondary:hover {
+  border-color: var(--mat-sys-primary, #2563eb) !important;
+  color: var(--mat-sys-primary, #2563eb) !important;
+}
+
+.topbar-actions .btn-emergency {
+  background-color: var(--mat-sys-error, #ef4444) !important;
+  color: white !important;
+}
+
