@@ -1,4 +1,4 @@
-﻿import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -8,6 +8,7 @@ import { SettingsCardComponent } from '../../components/settings-card/settings-c
 import { UserProfileCardComponent } from '../../components/user-profile-card/user-profile-card.component';
 import { UserProfile } from '../../../domain/model/user-profile.entity';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-settings-page',
@@ -18,7 +19,8 @@ import { Router } from '@angular/router';
     MatCardModule,
     MatButtonModule,
     SettingsCardComponent,
-    UserProfileCardComponent
+    UserProfileCardComponent,
+    TranslateModule
   ],
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.css'

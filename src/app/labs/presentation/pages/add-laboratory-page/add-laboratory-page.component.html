@@ -6,15 +6,15 @@
 
   <div class="page-top-bar">
     <nav class="breadcrumb">
-      <a routerLink="/laboratories" class="breadcrumb-link">Laboratories</a>
+      <a routerLink="/laboratories" class="breadcrumb-link">{{ 'laboratories.title' | translate }}</a>
       <mat-icon class="breadcrumb-sep">chevron_right</mat-icon>
-      <span class="breadcrumb-current">{{ isEditMode ? 'Edit Laboratory' : 'New Laboratory' }}</span>
+      <span class="breadcrumb-current">{{ isEditMode ? ('routes.laboratories.edit.title' | translate) : ('routes.laboratories.add.title' | translate) }}</span>
     </nav>
     <div class="header-actions">
-      <button mat-stroked-button (click)="onCancel()">Cancel</button>
+      <button mat-stroked-button (click)="onCancel()">{{ 'common.cancel' | translate }}</button>
       <button mat-flat-button (click)="onSubmit()" [disabled]="!isFormValid() || laboratoryStore.loading()">
         <mat-icon>save</mat-icon>
-        {{ isEditMode ? 'Save Changes' : 'Save Laboratory' }}
+        {{ isEditMode ? ('laboratories.saveChanges' | translate) : ('laboratories.saveLaboratory' | translate) }}
       </button>
     </div>
   </div>

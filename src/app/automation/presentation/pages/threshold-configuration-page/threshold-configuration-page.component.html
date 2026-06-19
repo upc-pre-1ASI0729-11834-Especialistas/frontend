@@ -3,7 +3,7 @@
   <!-- Info alert bar at the top -->
   <div class="info-alert">
     <mat-icon class="info-icon">info</mat-icon>
-    <span class="info-alert-text">Changes to thresholds apply immediately and are logged in the audit trail.</span>
+    <span class="info-alert-text">{{ 'settingsPage.thresholdConfig.changesNotice' | translate }}</span>
   </div>
 
   <!-- Threshold Configuration Card (Table) -->
@@ -12,11 +12,12 @@
       <app-threshold-equipment-table
         [equipmentThresholds]="automationStore.equipmentThresholds()"
         (updateThreshold)="onUpdateThreshold($event)"
+        (editEquipment)="onEditEquipment($event)"
       ></app-threshold-equipment-table>
     </div>
     <div class="table-footer">
       <button mat-stroked-button class="add-btn" (click)="onAddEquipment()">
-        <mat-icon>add</mat-icon> Add Equipment
+        <mat-icon>add</mat-icon> {{ 'settingsPage.thresholdConfig.addEquipment' | translate }}
       </button>
     </div>
   </div>
@@ -26,7 +27,7 @@
     <div class="card-header" (click)="toggleNotificationPreferences()">
       <div class="header-title-area">
         <mat-icon>notifications</mat-icon>
-        <h2>Notification Preferences</h2>
+        <h2>{{ 'settingsPage.thresholdConfig.notificationPrefs' | translate }}</h2>
       </div>
       <mat-icon class="header-arrow" [style.transform]="notificationPreferencesExpanded() ? 'rotate(180deg)' : 'rotate(0deg)'">
         expand_more
@@ -38,11 +39,11 @@
         <div class="preferences-grid">
           <!-- Critical & Warning Alerts Checkboxes -->
           <div class="pref-section">
-            <h3 class="pref-section-title">Critical & Warning Alerts</h3>
+            <h3 class="pref-section-title">{{ 'settingsPage.thresholdConfig.alertsTitle' | translate }}</h3>
             <div class="checkbox-group">
-              <mat-checkbox [(ngModel)]="alertPrefs.inApp" (change)="onPrefChange()">In-app</mat-checkbox>
-              <mat-checkbox [(ngModel)]="alertPrefs.email" (change)="onPrefChange()">Email</mat-checkbox>
-              <mat-checkbox [(ngModel)]="alertPrefs.sms" (change)="onPrefChange()">SMS</mat-checkbox>
+              <mat-checkbox [(ngModel)]="alertPrefs.inApp" (change)="onPrefChange()">{{ 'settingsPage.thresholdConfig.inApp' | translate }}</mat-checkbox>
+              <mat-checkbox [(ngModel)]="alertPrefs.email" (change)="onPrefChange()">{{ 'settingsPage.thresholdConfig.email' | translate }}</mat-checkbox>
+              <mat-checkbox [(ngModel)]="alertPrefs.sms" (change)="onPrefChange()">{{ 'settingsPage.thresholdConfig.sms' | translate }}</mat-checkbox>
             </div>
           </div>
 
@@ -54,13 +55,13 @@
             <div class="quiet-hours-col">
               <div class="row-align">
                 <div class="col-header">
-                  <span class="col-title">Quiet Hours</span>
-                  <span class="col-subtitle">Only critical alerts will be sent during these hours.</span>
+                  <span class="col-title">{{ 'settingsPage.thresholdConfig.quietHours' | translate }}</span>
+                  <span class="col-subtitle">{{ 'settingsPage.thresholdConfig.quietHoursSub' | translate }}</span>
                 </div>
                 <mat-slide-toggle
-                  color="primary"
-                  [(ngModel)]="quietHours.enabled"
-                  (change)="onPrefChange()"
+                   color="primary"
+                   [(ngModel)]="quietHours.enabled"
+                   (change)="onPrefChange()"
                 ></mat-slide-toggle>
               </div>
 
@@ -72,7 +73,7 @@
                   (change)="onPrefChange()"
                   placeholder="10:00 PM"
                 />
-                <span class="to-text">to</span>
+                <span class="to-text">{{ 'settingsPage.thresholdConfig.to' | translate }}</span>
                 <input
                   type="text"
                   class="time-box"
@@ -86,8 +87,8 @@
             <!-- On-call Coordinator Column -->
             <div class="coordinator-col">
               <div class="col-header">
-                <span class="col-title">On-call Coordinator</span>
-                <span class="col-subtitle">Primary contact for off-hours critical incidents.</span>
+                <span class="col-title">{{ 'settingsPage.thresholdConfig.onCallCoordinator' | translate }}</span>
+                <span class="col-subtitle">{{ 'settingsPage.thresholdConfig.onCallSub' | translate }}</span>
               </div>
               <div class="phone-input-wrapper">
                 <mat-icon>phone</mat-icon>
@@ -111,7 +112,7 @@
     <div class="card-header" (click)="toggleUsersAccess()">
       <div class="header-title-area">
         <mat-icon>people</mat-icon>
-        <h2>Users & Access</h2>
+        <h2>{{ 'settingsPage.thresholdConfig.usersAccess' | translate }}</h2>
       </div>
       <mat-icon class="header-arrow" [style.transform]="usersAccessExpanded() ? 'rotate(180deg)' : 'rotate(0deg)'">
         expand_more
@@ -121,7 +122,7 @@
     @if (usersAccessExpanded()) {
       <div class="card-content">
         <p style="color: #64748B; font-size: 14px; margin: 0;">
-          Configure user privileges and access levels to specific laboratory units.
+          {{ 'settingsPage.thresholdConfig.usersAccessSub' | translate }}
         </p>
       </div>
     }
@@ -131,7 +132,7 @@
   @if (showSavedToast()) {
     <div class="autosave-toast">
       <mat-icon>check_circle</mat-icon>
-      <span>Changes saved successfully</span>
+      <span>{{ 'settingsPage.thresholdConfig.changesSaved' | translate }}</span>
     </div>
   }
 

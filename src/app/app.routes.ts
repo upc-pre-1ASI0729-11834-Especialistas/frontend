@@ -18,6 +18,7 @@ import { AutomationRulesPageComponent } from './automation/presentation/pages/au
 import { ProfileIdentityPageComponent } from './automation/presentation/pages/profile-identity-page/profile-identity-page.component';
 import { MetricTypesPageComponent } from './automation/presentation/pages/metric-types-page/metric-types-page.component';
 import { LoginPageComponent } from './iam/presentation/pages/login-page/login-page.component';
+import { RegisterPageComponent } from './iam/presentation/pages/register-page/register-page.component';
 import { authGuard } from './iam/infrastructure/authentication.guard';
 
 
@@ -25,6 +26,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginPageComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterPageComponent,
   },
   {
     path: '',
@@ -35,16 +40,16 @@ export const routes: Routes = [
         path: '',
         component: DashboardPageComponent,
         data: {
-          title: 'Dashboard',
-          subtitle: 'Overview of all laboratory environments'
+          title: 'routes.dashboard.title',
+          subtitle: 'routes.dashboard.subtitle'
         }
       },
       {
         path: 'dashboard',
         component: DashboardPageComponent,
         data: {
-          title: 'Dashboard',
-          subtitle: 'Overview of all laboratory environments'
+          title: 'routes.dashboard.title',
+          subtitle: 'routes.dashboard.subtitle'
         }
       },
       {
@@ -54,32 +59,32 @@ export const routes: Routes = [
             path: '',
             component: LaboratoriesPageComponent,
             data: {
-              title: 'Laboratories',
-              subtitle: 'Manage and monitor laboratory environments'
+              title: 'routes.laboratories.title',
+              subtitle: 'routes.laboratories.subtitle'
             }
           },
           {
             path: 'add',
             component: AddLaboratoryPageComponent,
             data: {
-              title: 'Add Laboratory',
-              subtitle: 'Register a new laboratory in the system'
+              title: 'routes.laboratories.add.title',
+              subtitle: 'routes.laboratories.add.subtitle'
             }
           },
           {
             path: ':id/edit',
             component: AddLaboratoryPageComponent,
             data: {
-              title: 'Edit Laboratory',
-              subtitle: 'Modify laboratory configuration and details'
+              title: 'routes.laboratories.edit.title',
+              subtitle: 'routes.laboratories.edit.subtitle'
             }
           },
           {
             path: ':id',
             component: LaboratoryDetailPageComponent,
             data: {
-              title: 'Laboratory Details',
-              subtitle: 'Detailed information and metrics'
+              title: 'routes.laboratories.detail.title',
+              subtitle: 'routes.laboratories.detail.subtitle'
             }
           }
         ]
@@ -88,32 +93,37 @@ export const routes: Routes = [
         path: 'alerts',
         component: AlertsPage,
         data: {
-          title: 'Alerts',
-          subtitle: 'View and manage system alerts'
+          title: 'routes.alerts.title',
+          subtitle: 'routes.alerts.subtitle'
         }
       },
       {
         path: 'alerts/incident',
         component: IncidentViewPage,
         data: {
-          title: 'Alerts',
-          subtitle: 'Active incidents and notifications'
+          title: 'routes.alerts.title',
+          subtitle: 'routes.alerts.incident.subtitle'
         }
       },
       {
         path: 'history',
         component: HistoryPage,
         data: {
-          title: 'History',
-          subtitle: 'View system activity and logs'
+          title: 'routes.history.title',
+          subtitle: 'routes.history.subtitle',
+          topbarAction: {
+            label: 'Generate Shift Report',
+            icon: 'picture_as_pdf',
+            id: 'generate-report-action'
+          }
         }
       },
       {
         path: 'reports',
         component: AlertsPage,
         data: {
-          title: 'Reports',
-          subtitle: 'Generate and view system reports'
+          title: 'routes.reports.title',
+          subtitle: 'routes.reports.subtitle'
         }
       },
       {
@@ -129,48 +139,58 @@ export const routes: Routes = [
             path: 'sensor-configuration',
             component: SensorConfigurationPageComponent,
             data: {
-              title: 'Sensor Configuration',
-              subtitle: 'Calibrate and manage lab sensors for temperature, humidity, and atmospheric pressure monitoring.'
+              title: 'routes.settings.sensor.title',
+              subtitle: 'routes.settings.sensor.subtitle',
+              topbarAction: {
+                label: 'Add New Sensor',
+                icon: 'add',
+                id: 'add-sensor-action'
+              }
             }
           },
           {
             path: 'metric-types',
             component: MetricTypesPageComponent,
             data: {
-              title: 'Metric Types',
-              subtitle: 'Define and manage standard sensor metric types, units, icons, and categories.'
+              title: 'routes.settings.metricTypes.title',
+              subtitle: 'routes.settings.metricTypes.subtitle',
+              topbarAction: {
+                label: 'Add Metric Type',
+                icon: 'add',
+                id: 'add-metric-type-action'
+              }
             }
           },
           {
             path: 'profile-identity',
             component: ProfileIdentityPageComponent,
             data: {
-              title: 'Profile & Identity',
-              subtitle: 'Manage your personal information and professional credentials.'
+              title: 'routes.settings.profile.title',
+              subtitle: 'routes.settings.profile.subtitle'
             }
           },
           {
             path: 'alerts-notifications',
             component: AlertsNotificationsPageComponent,
             data: {
-              title: 'Alerts & Notifications',
-              subtitle: 'Configure how and when you receive laboratory safety and status updates.'
+              title: 'routes.settings.alerts.title',
+              subtitle: 'routes.settings.alerts.subtitle'
             }
           },
           {
             path: 'security-access',
             component: SecurityAccessPageComponent,
             data: {
-              title: 'Security & Access',
-              subtitle: 'Manage your account credentials and security preferences.'
+              title: 'routes.settings.security.title',
+              subtitle: 'routes.settings.security.subtitle'
             }
           },
           {
             path: 'users-permissions',
             component: UsersPermissionsPageComponent,
             data: {
-              title: 'Users & Permissions',
-              subtitle: 'Control who has access to SafeLab and what they can do.',
+              title: 'routes.settings.users.title',
+              subtitle: 'routes.settings.users.subtitle',
               topbarAction: {
                 label: 'Invite User',
                 icon: 'person_add',
@@ -182,16 +202,16 @@ export const routes: Routes = [
             path: 'threshold-configuration',
             component: ThresholdConfigurationPageComponent,
             data: {
-              title: 'Threshold Configuration',
-              subtitle: 'Define temperature and environmental limits for each equipment.'
+              title: 'routes.settings.threshold.title',
+              subtitle: 'routes.settings.threshold.subtitle'
             }
           },
           {
             path: 'automation-rules',
             component: AutomationRulesPageComponent,
             data: {
-              title: 'Automation Rules',
-              subtitle: 'Define how the system responds automatically to environmental events.',
+              title: 'routes.settings.rules.title',
+              subtitle: 'routes.settings.rules.subtitle',
               topbarAction: {
                 label: 'Add Rule',
                 icon: 'add',
@@ -205,8 +225,8 @@ export const routes: Routes = [
         path: 'alerts/incident/resolve',
         component: ResolveIncidentPage,
         data: {
-          title: 'Resolve Incident',
-          subtitle: 'Log resolution details for the active incident'
+          title: 'routes.resolveIncident.title',
+          subtitle: 'routes.resolveIncident.subtitle'
         }
       }
     ]

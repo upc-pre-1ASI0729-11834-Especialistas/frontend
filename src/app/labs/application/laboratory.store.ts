@@ -39,6 +39,7 @@ export class LaboratoryStore {
   private readonly selectedLaboratorySignal = signal<Laboratory | null>(null);
   private readonly loadingSignal = signal<boolean>(false);
   private readonly errorSignal = signal<string | null>(null);
+  private readonly allLaboratoriesSignal = signal<Laboratory[]>([]);
 
 
   private readonly totalCountSignal = signal<number>(0);
@@ -70,6 +71,7 @@ export class LaboratoryStore {
   readonly selectedLaboratory = this.selectedLaboratorySignal.asReadonly();
   readonly loading = this.loadingSignal.asReadonly();
   readonly error = this.errorSignal.asReadonly();
+  readonly allLaboratories = this.allLaboratoriesSignal.asReadonly();
 
   readonly totalCount = this.totalCountSignal.asReadonly();
   readonly currentPage = this.currentPageSignal.asReadonly();
@@ -146,6 +148,7 @@ export class LaboratoryStore {
       finalize(() => this.loadingSignal.set(false))
     ).subscribe({
       next: (allLabs) => {
+        this.allLaboratoriesSignal.set(allLabs);
         const status = this.statusFilterSignal();
         const location = this.locationFilterSignal();
         const search = this.searchQuerySignal().toLowerCase();
@@ -221,6 +224,7 @@ export class LaboratoryStore {
   loadFilterData(): void {
     this.api.getAll().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (labs) => {
+        this.allLaboratoriesSignal.set(labs);
         const buildings = [...new Set(labs.map(l => l.building))].sort();
         this.locationsSignal.set(buildings);
 

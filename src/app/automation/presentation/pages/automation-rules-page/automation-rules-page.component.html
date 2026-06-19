@@ -2,7 +2,7 @@
   <!-- Loading state -->
   <div *ngIf="automationStore.loading()" class="loading-overlay">
     <div class="spinner"></div>
-    <span class="loading-text">Loading automation rules...</span>
+    <span class="loading-text">{{ 'settingsPage.automationRules.loading' | translate }}</span>
   </div>
 
   <!-- Rules list -->
@@ -17,8 +17,8 @@
     
     <div *ngIf="automationStore.automationRules().length === 0" class="empty-state">
       <mat-icon class="empty-icon">settings_suggest</mat-icon>
-      <h3>No Automation Rules defined</h3>
-      <p>Click "+ Add Rule" in the top bar to create your first rule.</p>
+      <h3>{{ 'settingsPage.automationRules.noRules' | translate }}</h3>
+      <p>{{ 'settingsPage.automationRules.addRuleHint' | translate }}</p>
     </div>
   </div>
 </div>

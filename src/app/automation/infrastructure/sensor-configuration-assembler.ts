@@ -19,6 +19,11 @@ export class SensorConfigurationAssembler implements BaseAssembler<SensorConfigu
       lastConnected: resource.lastConnected,
       laboratoryId: resource.laboratoryId,
       laboratoryName: resource.laboratoryName,
+      equipmentId: resource.equipmentId,
+      equipmentName: resource.equipmentName,
+      minThreshold: resource.minThreshold,
+      maxThreshold: resource.maxThreshold,
+      warningThreshold: resource.warningThreshold
     });
   }
 
@@ -34,6 +39,11 @@ export class SensorConfigurationAssembler implements BaseAssembler<SensorConfigu
       lastConnected: entity.lastConnected,
       laboratoryId: entity.laboratoryId,
       laboratoryName: entity.laboratoryName,
+      equipmentId: entity.equipmentId,
+      equipmentName: entity.equipmentName,
+      minThreshold: entity.minThreshold,
+      maxThreshold: entity.maxThreshold,
+      warningThreshold: entity.warningThreshold
     } as SensorConfigurationResource;
   }
 }

@@ -11,6 +11,30 @@
     </div>
   </div>
 
+  <!-- Workspace Selector -->
+  @if (workspaceStore.workspaces().length > 0) {
+  <div class="workspace-selector-container">
+    <mat-form-field appearance="outline" class="workspace-select-field"
+      [matTooltip]="workspaceStore.activeWorkspace()?.name || ''"
+      matTooltipPosition="right">
+      <mat-select [value]="workspaceStore.activeWorkspaceId()" (selectionChange)="onWorkspaceChange($event.value)">
+        <mat-select-trigger>
+          <div class="ws-select-trigger-content">
+            <span class="ws-name-text">{{ workspaceStore.activeWorkspace()?.name }}</span>
+          </div>
+        </mat-select-trigger>
+        @for (ws of workspaceStore.workspaces(); track ws.id) {
+        <mat-option [value]="ws.id">
+          <div class="ws-option-content">
+            <span class="ws-name-text">{{ ws.name }}</span>
+          </div>
+        </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  }
+
   <!-- Nav principal -->
   <nav class="nav-links">
     <p class="options-title">{{ 'sidebar.menu.main' | translate }}</p>
@@ -30,7 +54,7 @@
       <span>{{ 'sidebar.menu.alerts' | translate }}</span>
       <!-- Badge de alertas activas -->
       @if (activeAlertsCount() > 0) {
-        <span class="alert-badge">{{ activeAlertsCount() }}</span>
+      <span class="alert-badge">{{ activeAlertsCount() }}</span>
       }
     </a>
 
@@ -57,12 +81,14 @@
   <div class="user-panel">
     <div class="user-avatar">{{ userInitials() }}</div>
     <div class="user-info">
-      <p class="user-name" [title]="currentProfile()?.fullName || authStore.currentUser()?.fullName || 'SafeLab Administrator'">
+      <p class="user-name"
+        [title]="currentProfile()?.fullName || authStore.currentUser()?.fullName || 'SafeLab Administrator'">
         {{ currentProfile()?.fullName || authStore.currentUser()?.fullName || 'SafeLab Administrator' }}
       </p>
       <p class="user-role">{{ currentProfile()?.role || ('sidebar.user.role' | translate) }}</p>
     </div>
-    <button class="logout-btn" mat-icon-button (click)="logout()" id="logout-btn" [title]="'sidebar.user.logout' | translate">
+    <button class="logout-btn" mat-icon-button (click)="logout()" id="logout-btn"
+      [title]="'sidebar.user.logout' | translate">
       <mat-icon>logout</mat-icon>
     </button>
   </div>

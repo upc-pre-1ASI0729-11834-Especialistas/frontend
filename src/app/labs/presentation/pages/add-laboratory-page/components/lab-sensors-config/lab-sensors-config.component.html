@@ -1,6 +1,6 @@
 <app-card padding="section" [hoverLift]="true">
-  <app-section-header icon="sensors" iconColor="var(--mat-sys-primary)" title="Sensors & Systems"
-    subtitle="Enable or disable monitoring modules for this laboratory and configure safety thresholds" />
+  <app-section-header icon="sensors" iconColor="var(--mat-sys-primary)" title="{{ 'laboratoryForm.sensors.title' | translate }}"
+    subtitle="{{ 'laboratoryForm.sensors.subtitle' | translate }}" />
 
   <div class="sensors-grid">
     @for (sub of metricSubscriptions(); track sub.metricTypeId) {
@@ -12,23 +12,23 @@
         <mat-slide-toggle [checked]="sub.enabled" (change)="toggleSubscription(sub.metricTypeId)" />
       </div>
       <h4 class="sensor-name">{{ sub.metricTypeDisplayName }}</h4>
-      <p class="sensor-desc">Monitor {{ sub.metricTypeDisplayName }} ({{ sub.metricTypeUnit }})</p>
+      <p class="sensor-desc">{{ 'laboratoryForm.sensors.monitor' | translate:{name: sub.metricTypeDisplayName, unit: sub.metricTypeUnit} }}</p>
 
       @if (sub.enabled) {
         <div class="thresholds-inputs">
           <div class="threshold-field">
-            <label>Min ({{ sub.metricTypeUnit }})</label>
+            <label>{{ 'laboratoryForm.sensors.min' | translate }} ({{ sub.metricTypeUnit }})</label>
             <input type="number" 
                    [ngModel]="sub.minThreshold" 
                    (ngModelChange)="onThresholdChange(sub.metricTypeId, 'min', $event)" 
-                   placeholder="No limit" />
+                   placeholder="{{ 'laboratoryForm.sensors.noLimit' | translate }}" />
           </div>
           <div class="threshold-field">
-            <label>Max ({{ sub.metricTypeUnit }})</label>
+            <label>{{ 'laboratoryForm.sensors.max' | translate }} ({{ sub.metricTypeUnit }})</label>
             <input type="number" 
                    [ngModel]="sub.maxThreshold" 
                    (ngModelChange)="onThresholdChange(sub.metricTypeId, 'max', $event)" 
-                   placeholder="No limit" />
+                   placeholder="{{ 'laboratoryForm.sensors.noLimit' | translate }}" />
           </div>
         </div>
       }

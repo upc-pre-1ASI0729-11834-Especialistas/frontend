@@ -1,10 +1,6 @@
 <div class="alerts-container">
 
-  <div class="header-section">
-    <div class="header-titles">
-      <h1 class="page-title">{{ 'alerts.title' | translate }}</h1>
-      <p class="page-subtitle">{{ 'alerts.subtitle' | translate }}</p>
-    </div>
+  <div class="header-section" style="justify-content: flex-end;">
     <div class="header-time">
       <mat-icon>schedule</mat-icon>
       {{ currentTime | date:'fullDate' }} <strong>{{ currentTime | date:'shortTime' }}</strong>
@@ -27,23 +23,41 @@
     <div class="filters-left">
       <div class="search-box">
         <mat-icon>search</mat-icon>
-        <input type="text" [placeholder]="'alerts.searchPlaceholder' | translate">
+        <input type="text" [placeholder]="'alerts.searchPlaceholder' | translate"
+               [value]="searchQuery()"
+               (input)="searchQuery.set(($any($event.target).value || '').trim())">
       </div>
 
-      <div class="dropdown">
-        <span>{{ 'alerts.filters.severity' | translate }}</span> <mat-icon>expand_more</mat-icon>
+      <div class="dropdown-wrapper">
+        <select class="dropdown" [value]="selectedSeverity()" (change)="selectedSeverity.set($any($event.target).value)">
+          <option value="All">{{ 'alerts.filters.severity' | translate }}: {{ 'laboratories.status.all' | translate }}</option>
+          <option value="CRITICAL">{{ 'dashboard.severity.critical' | translate }}</option>
+          <option value="WARNING">{{ 'dashboard.severity.warning' | translate }}</option>
+          <option value="INFO">{{ 'alerts.summary.informational' | translate }}</option>
+        </select>
       </div>
 
-      <div class="dropdown">
-        <span>{{ 'alerts.filters.laboratory' | translate }}</span> <mat-icon>expand_more</mat-icon>
+      <div class="dropdown-wrapper">
+        <select class="dropdown" [value]="selectedLab()" (change)="selectedLab.set($any($event.target).value)">
+          <option value="All">{{ 'alerts.filters.laboratory' | translate }}: {{ 'laboratories.status.all' | translate }}</option>
+          @for (labName of uniqueLabs(); track labName) {
+            @if (labName !== 'All') {
+              <option [value]="labName">{{ labName }}</option>
+            }
+          }
+        </select>
       </div>
 
-      <div class="dropdown">
-        <span>{{ 'alerts.filters.status' | translate }}</span> <mat-icon>expand_more</mat-icon>
+      <div class="dropdown-wrapper">
+        <select class="dropdown" [value]="selectedStatus()" (change)="selectedStatus.set($any($event.target).value)">
+          <option value="All">{{ 'alerts.filters.status' | translate }}: {{ 'laboratories.status.all' | translate }}</option>
+          <option value="ACTIVE">{{ 'common.status.active' | translate }}</option>
+          <option value="RESOLVED">{{ 'common.status.resolved' | translate }}</option>
+        </select>
       </div>
     </div>
     <div class="filters-right">
-      <span class="total-text">{{ 'alerts.total' | translate:{count: alerts().length} }}</span>
+      <span class="total-text">{{ 'alerts.total' | translate:{count: filteredAlerts().length} }}</span>
     </div>
   </section>
 

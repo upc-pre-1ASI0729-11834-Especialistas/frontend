@@ -10,6 +10,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-rule-dialog',
@@ -25,7 +26,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
     MatCheckboxModule,
     MatRadioModule,
     MatSlideToggleModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   templateUrl: './create-rule-dialog.html',
   styleUrl: './create-rule-dialog.css'

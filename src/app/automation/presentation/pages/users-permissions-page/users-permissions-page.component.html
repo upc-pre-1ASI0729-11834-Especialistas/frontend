@@ -7,7 +7,8 @@
     <div class="main-column">
       <app-active-users-table
         [users]="automationStore.labUsers()"
-        [totalCount]="automationStore.labUsersCount()">
+        [totalCount]="automationStore.labUsersCount()"
+        (editPermissions)="onEditPermissions($event)">
       </app-active-users-table>
     </div>
 
@@ -15,8 +16,62 @@
     <div class="sidebar-column">
       <app-pending-invitations-card
         [invitations]="automationStore.pendingInvitations()"
-        [totalCount]="automationStore.pendingInvitationsCount()">
+        [totalCount]="automationStore.pendingInvitationsCount()"
+        (cancel)="cancelInvitation($event)"
+        (resend)="resendInvitation($event)">
       </app-pending-invitations-card>
+
+      <!-- Mis Invitaciones Recibidas -->
+      @if (automationStore.receivedInvitationsCount() > 0) {
+        <mat-card class="sidebar-card received-invitations-card">
+          <mat-card-header class="card-header">
+            <mat-icon class="card-icon">mail_outline</mat-icon>
+            <div class="card-title-group">
+              <span class="card-title">{{ 'settingsPage.usersPermissions.receivedInvitations' | translate }}</span>
+              <span class="received-badge">{{ automationStore.receivedInvitationsCount() }}</span>
+            </div>
+          </mat-card-header>
+          <mat-card-content class="received-list">
+            @for (invite of automationStore.receivedInvitations(); track invite.id) {
+              <div class="received-item">
+                <div class="invite-info">
+                  <p class="invite-workspace">{{ invite.workspaceName }}</p>
+                  <p class="invite-details">{{ 'settingsPage.usersPermissions.role' | translate:{role: invite.role} }}</p>
+                </div>
+                <div class="invite-actions">
+                  <button mat-icon-button color="primary" (click)="acceptInvitation(invite.id)" title="{{ 'settingsPage.usersPermissions.accept' | translate }}">
+                    <mat-icon>check_circle</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="rejectInvitation(invite.id)" title="{{ 'settingsPage.usersPermissions.reject' | translate }}">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </div>
+              </div>
+            }
+          </mat-card-content>
+        </mat-card>
+      }
+
+      <!-- Ajustes del Workspace -->
+      @if (workspaceStore.activeWorkspace()) {
+        <mat-card class="sidebar-card workspace-settings-card">
+          <mat-card-header class="card-header">
+            <mat-icon class="card-icon">business</mat-icon>
+            <div class="card-title-group">
+              <span class="card-title">{{ 'settingsPage.usersPermissions.workspaceSettings' | translate }}</span>
+            </div>
+          </mat-card-header>
+          <mat-card-content class="workspace-settings-content">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>{{ 'settingsPage.usersPermissions.workspaceName' | translate }}</mat-label>
+              <input matInput #wsNameInput [value]="workspaceStore.activeWorkspace()!.name">
+            </mat-form-field>
+            <button mat-flat-button color="primary" class="save-ws-btn full-width" (click)="updateWorkspaceName(wsNameInput.value)">
+              <mat-icon class="btn-icon">save</mat-icon> {{ 'settingsPage.usersPermissions.saveWorkspaceName' | translate }}
+            </button>
+          </mat-card-content>
+        </mat-card>
+      }
 
       <app-role-definitions-panel
         [roles]="automationStore.roleDefinitions()">

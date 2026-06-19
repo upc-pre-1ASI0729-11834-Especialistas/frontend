@@ -1,0 +1,62 @@
+<div class="reports-container animate-fade-in">
+  <div class="header-section">
+    <div class="header-icon-wrapper">
+      <mat-icon>insert_drive_file</mat-icon>
+    </div>
+    <div class="header-text">
+      <h2>Safety Audits & Reports</h2>
+      <p>Access generated compliance sheets, device logs, and system calibration reports for <strong>{{ lab().name }}</strong>.</p>
+    </div>
+  </div>
+
+  <div class="reports-grid">
+    @for (report of reportsList; track report.id) {
+      <div class="report-card">
+        <div class="report-icon-container">
+          <mat-icon>picture_as_pdf</mat-icon>
+        </div>
+        
+        <div class="report-body">
+          <span class="report-badge">{{ report.type }}</span>
+          <h3 class="report-name">{{ report.name }}</h3>
+          
+          <div class="report-meta">
+            <div class="meta-item">
+              <mat-icon>date_range</mat-icon>
+              <span>{{ report.period }}</span>
+            </div>
+            <div class="meta-item">
+              <mat-icon>sd_card</mat-icon>
+              <span>{{ report.size }}</span>
+            </div>
+            <div class="meta-item">
+              <mat-icon>schedule</mat-icon>
+              <span>Updated: {{ getFormattedDate(report.generatedAt) }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-actions">
+          <button mat-stroked-button class="download-btn" (click)="downloadReport(report)">
+            <mat-icon>download</mat-icon>
+            <span>Download</span>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="generate-box">
+    <div class="generate-info">
+      <mat-icon>info_outline</mat-icon>
+      <div>
+        <h4>Need custom time range analysis?</h4>
+        <p>You can compile specialized sensors charts and alarm reports in the main reports center.</p>
+      </div>
+    </div>
+    <button mat-flat-button class="nav-reports-btn">
+      <mat-icon>bar_chart</mat-icon>
+      Go to Reports Center
+    </button>
+  </div>
+</div>

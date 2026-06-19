@@ -14,6 +14,7 @@ export interface UserProfileResource extends BaseResource {
   defaultStartShift?: string;
   shiftDuration?: string;
   autoGenerateShiftReport?: boolean;
+  laboratoryIds?: number[];
 }
 
 export interface UserProfilesResponse extends BaseResponse {

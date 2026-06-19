@@ -7,11 +7,12 @@ import { EscalateSupervisorDialog } from '../escalate-dialog/escalate-supervisor
 import { AlertsStore } from '../../../application/alerts.store';
 import { TemperatureReadingApi } from '../../../../telemetry/infrastructure/temperature-reading-api';
 import { TemperatureReading } from '../../../../telemetry/domain/model/temperature-reading.entity';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-incident-view-page',
   standalone: true,
-  imports: [MatIconModule, RouterLink, MatDialogModule, CommonModule],
+  imports: [MatIconModule, RouterLink, MatDialogModule, CommonModule, TranslatePipe],
   templateUrl: './incident-view-page.html',
   styleUrl: './incident-view-page.css',
 })
@@ -58,17 +59,12 @@ export class IncidentViewPage {
 
   readonly affectedEquipment = computed(() => {
     const currentAlert = this.alert();
-    if (!currentAlert) return 'Refrigerator B2';
-    const sensorName = currentAlert.sensorName || '';
-    if (sensorName.toLowerCase().includes('co2')) return 'CO2 Monitor CM-01';
-    if (sensorName.toLowerCase().includes('freezer')) return 'ULT Freezer F-07';
-    if (sensorName.toLowerCase().includes('humidity')) return 'HVAC Unit 3';
-    return sensorName || 'Refrigerator B2';
+    return currentAlert?.equipmentName || 'Room Ambient';
   });
 
   readonly sensorId = computed(() => {
     const currentAlert = this.alert();
-    return currentAlert?.sensorName || 'Sensor T-01';
+    return currentAlert?.sensorName || 'N/A';
   });
 
   readonly sensorType = computed(() => {

@@ -1,21 +1,25 @@
-import { Component, inject, OnInit, computed } from '@angular/core';
+import { Component, inject, OnInit, computed, effect } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LaboratoryStore } from '../../../application/laboratory.store';
 import { HistoryStore } from '../../../../history/application/history.store';
 import { AlertsStore } from '../../../../alerts/application/alerts.store';
 import { HistoryRecord } from '../../../../history/domain/model/history-record.entity';
 import { MetricCardComponent } from './components/metric-card/metric-card.component';
-import { LaboratoryHeaderComponent } from './components/laboratory-header/laboratory-header.component';
 import { LaboratoryStatsComponent } from './components/laboratory-stats/laboratory-stats.component';
 import { LaboratoryActivityComponent } from './components/laboratory-activity/laboratory-activity.component';
 import { LaboratorySchedulesComponent } from './components/laboratory-schedules/laboratory-schedules.component';
-import { StatusBadgeComponent } from '../../../../shared/presentation/components/status-badge/status-badge.component';
 import { AddObservationDialogComponent } from './components/add-observation-dialog/add-observation-dialog.component';
+import { LabNotificationsTabComponent } from './components/lab-notifications-tab/lab-notifications-tab.component';
+import { LabReportsTabComponent } from './components/lab-reports-tab/lab-reports-tab.component';
+import { LabSettingsTabComponent } from './components/lab-settings-tab/lab-settings-tab.component';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TopbarActionService } from '../../../../shared/application/topbar-action.service';
 
 @Component({
   selector: 'app-laboratory-detail-page',
@@ -28,11 +32,13 @@ import { AddObservationDialogComponent } from './components/add-observation-dial
     MatTab,
     MatDialogModule,
     MetricCardComponent,
-    LaboratoryHeaderComponent,
     LaboratoryStatsComponent,
     LaboratoryActivityComponent,
     LaboratorySchedulesComponent,
-    StatusBadgeComponent,
+    LabNotificationsTabComponent,
+    LabReportsTabComponent,
+    LabSettingsTabComponent,
+    TranslatePipe
   ],
   templateUrl: './laboratory-detail-page.component.html',
   styleUrl: './laboratory-detail-page.component.css',
@@ -43,8 +49,75 @@ export class LaboratoryDetailPageComponent implements OnInit {
   private readonly historyStore = inject(HistoryStore);
   private readonly route = inject(ActivatedRoute);
   private readonly dialog = inject(MatDialog);
+  private readonly topbarActionService = inject(TopbarActionService);
+  private readonly translateService = inject(TranslateService);
 
   tabs = ['Systems', 'Notifications', 'Reports', 'Settings'];
+
+  constructor() {
+    effect(() => {
+      this.updateTopbar();
+    });
+
+    this.translateService.onLangChange.pipe(takeUntilDestroyed()).subscribe(() => {
+      this.updateTopbar();
+    });
+  }
+
+  private updateTopbar(): void {
+    const lab = this.laboratoryStore.selectedLaboratory();
+    if (lab) {
+      this.topbarActionService.setBreadcrumbs([
+        { label: 'routes.laboratories.title', url: '/laboratories' }
+      ]);
+
+      this.topbarActionService.setTitle(lab.name + ' — ' + lab.type);
+
+      const sensorsText = this.translateService.instant('laboratoriesDetail.sensorsActive') || 'sensors active';
+      this.topbarActionService.setSubtitle(
+        `${lab.building} · ${lab.floor} · ${lab.metrics.length * 2} ${sensorsText}`
+      );
+
+      this.topbarActionService.setBadge({
+        severity: lab.isCritical() ? 'critical' : lab.isWarning() ? 'warning' : 'normal',
+        label: lab.overallStatus
+      });
+
+      const actions = [];
+      if (lab.isCritical() || lab.isWarning()) {
+        actions.push({
+          label: this.translateService.instant('laboratoriesDetail.emergencyProtocol'),
+          icon: 'emergency',
+          id: 'emergency-protocol-action',
+          styleClass: 'btn-emergency',
+          onClick: () => {
+            // Emergency action can be a no-op placeholder or custom action
+          }
+        });
+      }
+      actions.push({
+        label: this.translateService.instant('laboratoriesDetail.addObservation'),
+        icon: 'edit_note',
+        id: 'add-observation-action',
+        styleClass: 'btn-primary',
+        onClick: () => this.openAddObservationDialog()
+      });
+      actions.push({
+        label: this.translateService.instant('common.edit'),
+        icon: 'edit',
+        id: 'edit-laboratory-action',
+        styleClass: 'btn-secondary',
+        routerLink: ['/laboratories', lab.id, 'edit']
+      });
+
+      this.topbarActionService.setActions(actions);
+    } else {
+      this.topbarActionService.clearBreadcrumbs();
+      this.topbarActionService.clearActions();
+      this.topbarActionService.clearCustomTitleAndSubtitle();
+      this.topbarActionService.clearBadge();
+    }
+  }
 
   readonly activeAlert = computed(() => {
     const lab = this.laboratoryStore.selectedLaboratory();

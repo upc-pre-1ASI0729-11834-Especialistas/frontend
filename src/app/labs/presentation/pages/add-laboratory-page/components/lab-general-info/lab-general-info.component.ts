@@ -8,6 +8,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Component, model, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lab-general-info',
@@ -21,7 +22,8 @@ import { FormsModule } from '@angular/forms';
     MatSelect,
     MatOption,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    TranslateModule
   ],
   templateUrl: './lab-general-info.component.html',
   styleUrl: './lab-general-info.component.css'

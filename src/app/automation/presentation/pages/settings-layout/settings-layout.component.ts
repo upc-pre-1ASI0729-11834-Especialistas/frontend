@@ -22,15 +22,16 @@ export class SettingsLayoutComponent {
       icon: 'sensors'
     },
     {
+      label: 'Equipment',
+      route: '/settings/threshold-configuration',
+      icon: 'biotech'
+    },
+    {
       label: 'Metric Types',
       route: '/settings/metric-types',
       icon: 'category'
     },
-    {
-      label: 'Thresholds',
-      route: '/settings/threshold-configuration',
-      icon: 'thermostat'
-    },
+
     {
       label: 'Alerts',
       route: '/settings/alerts-notifications',

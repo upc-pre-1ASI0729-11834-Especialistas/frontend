@@ -1,4 +1,4 @@
-﻿<mat-card appearance="outlined" class="profile-card">
+<mat-card appearance="outlined" class="profile-card">
   <mat-card-content class="profile-content">
 
     <div class="avatar-section">
@@ -14,12 +14,12 @@
     <p class="profile-role">{{ profile().role }}</p>
 
     <p class="profile-description">
-      Manage your personal identity, contact information, and professional credentials.
+      {{ 'settings.userProfile.description' | translate }}
     </p>
 
     <div class="profile-action">
       <button mat-stroked-button color="primary" (click)="onEditProfile()">
-        Edit Profile
+        {{ 'settings.userProfile.editProfile' | translate }}
       </button>
     </div>
 

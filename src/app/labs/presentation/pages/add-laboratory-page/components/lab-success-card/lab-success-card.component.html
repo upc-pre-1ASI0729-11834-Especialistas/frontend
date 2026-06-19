@@ -2,11 +2,10 @@
   <div class="success-icon-wrapper">
     <mat-icon>check_circle</mat-icon>
   </div>
-  <h2 class="success-title">Laboratory Created Successfully!</h2>
-  <p class="success-desc"><strong>{{ createdLab()?.name }}</strong> has been registered and is ready for
-    monitoring.</p>
+  <h2 class="success-title">{{ 'laboratories.success.title' | translate }}</h2>
+  <p class="success-desc"><strong>{{ createdLab()?.name }}</strong> {{ 'laboratories.success.description' | translate }}</p>
   <div class="success-actions">
-    <button class="btn btn-save" (click)="goToLaboratories.emit()">View All Laboratories</button>
-    <button class="btn btn-cancel" (click)="createAnother.emit()">Create Another</button>
+    <button class="btn btn-save" (click)="goToLaboratories.emit()">{{ 'laboratories.success.viewAll' | translate }}</button>
+    <button class="btn btn-cancel" (click)="createAnother.emit()">{{ 'laboratories.success.createAnother' | translate }}</button>
   </div>
 </div>

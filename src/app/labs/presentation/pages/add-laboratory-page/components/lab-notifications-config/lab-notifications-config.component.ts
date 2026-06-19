@@ -7,10 +7,11 @@ import { IconBadgeComponent } from '../../../../../../shared/presentation/compon
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { SectionHeaderComponent } from '../../../../../../shared/presentation/components/section-header/section-header.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lab-notifications-config',
-  imports: [MatIcon, FormsModule, CardComponent, IconBadgeComponent, SectionHeaderComponent, MatCheckbox, MatSlideToggle],
+  imports: [MatIcon, FormsModule, CardComponent, IconBadgeComponent, SectionHeaderComponent, MatCheckbox, MatSlideToggle, TranslateModule],
   templateUrl: './lab-notifications-config.component.html',
   styleUrl: './lab-notifications-config.component.css'
 })

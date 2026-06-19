@@ -13,6 +13,9 @@ export class PendingInvitationAssembler implements BaseAssembler<PendingInvitati
       email: resource.email,
       role: resource.role,
       sentTimeAgo: resource.sentTimeAgo,
+      laboratoryIds: resource.laboratoryIds,
+      workspaceId: resource.workspaceId,
+      workspaceName: resource.workspaceName,
     });
   }
 
@@ -22,6 +25,9 @@ export class PendingInvitationAssembler implements BaseAssembler<PendingInvitati
       email: entity.email,
       role: entity.role,
       sentTimeAgo: entity.sentTimeAgo,
+      laboratoryIds: entity.laboratoryIds,
+      workspaceId: entity.workspaceId,
+      workspaceName: entity.workspaceName,
     } as PendingInvitationResource;
   }
 }

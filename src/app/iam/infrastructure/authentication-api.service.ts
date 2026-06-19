@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { AuthenticatedUser } from '../domain/model/authenticated-user.entity';
 import { AuthenticationPort } from '../domain/ports/authentication.port';
-import { SignInRequest, SignInResponse } from './authentication.dto';
+import { SignInRequest, SignInResponse, SignUpRequest } from './authentication.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +24,10 @@ export class AuthenticationApiService implements AuthenticationPort {
 
   updatePassword(currentPassword: string, newPassword: string): Observable<void> {
     return this.http.put<void>(`${this.baseUrl}${this.authPath}/password`, { currentPassword, newPassword });
+  }
+
+  signUp(email: string, password: string, fullName: string): Observable<void> {
+    const body: SignUpRequest = { email, password, fullName, roles: [] };
+    return this.http.post<void>(`${this.baseUrl}${this.authPath}/sign-up`, body);
   }
 }

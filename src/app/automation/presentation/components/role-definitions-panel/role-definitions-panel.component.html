@@ -3,7 +3,7 @@
     <mat-expansion-panel-header>
       <mat-panel-title>
         <mat-icon class="panel-icon">settings</mat-icon>
-        <span class="panel-title-text">Role definitions</span>
+        <span class="panel-title-text">{{ 'settingsPage.usersPermissions.roleDefinitions' | translate }}</span>
       </mat-panel-title>
     </mat-expansion-panel-header>
 
@@ -12,7 +12,7 @@
         <div class="role-item">
           <div class="role-header">
             <span class="role-name">{{ role.name }}</span>
-            <span class="role-permissions">{{ role.permissionsCount }} permissions</span>
+            <span class="role-permissions">{{ role.permissionsCount }} {{ 'settingsPage.usersPermissions.permissions' | translate }}</span>
           </div>
           <p class="role-description">{{ role.description }}</p>
         </div>

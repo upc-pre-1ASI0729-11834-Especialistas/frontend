@@ -34,6 +34,7 @@ export class LanguageSwitcher implements OnInit {
   }
 
   useLanguage(language: string) {
+    console.log('LanguageSwitcher: switching to', language);
     this.currentLanguage = language;
     this.translate.use(language);
     localStorage.setItem('selectedLanguage', language);

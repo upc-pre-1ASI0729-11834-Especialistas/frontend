@@ -14,6 +14,7 @@ export class Alert implements BaseEntity {
   private _labLocation?: string;
   private _sensorId?: number;
   private _sensorName?: string;
+  private _equipmentName?: string;
 
   constructor(fields: {
     id: number;
@@ -28,6 +29,7 @@ export class Alert implements BaseEntity {
     labLocation?: string;
     sensorId?: number;
     sensorName?: string;
+    equipmentName?: string;
   }) {
     this._id = fields.id;
     this._title = fields.title;
@@ -41,6 +43,7 @@ export class Alert implements BaseEntity {
     this._labLocation = fields.labLocation;
     this._sensorId = fields.sensorId;
     this._sensorName = fields.sensorName;
+    this._equipmentName = fields.equipmentName;
   }
 
   get id(): number {
@@ -137,5 +140,13 @@ export class Alert implements BaseEntity {
 
   set sensorName(value: string | undefined) {
     this._sensorName = value;
+  }
+
+  get equipmentName(): string | undefined {
+    return this._equipmentName;
+  }
+
+  set equipmentName(value: string | undefined) {
+    this._equipmentName = value;
   }
 }

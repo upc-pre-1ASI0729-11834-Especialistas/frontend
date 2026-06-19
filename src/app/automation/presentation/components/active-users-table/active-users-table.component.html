@@ -17,6 +17,7 @@
             <th>{{ 'automation.activeUsers.columns.labsAccess' | translate }}</th>
             <th>{{ 'automation.activeUsers.columns.lastLogin' | translate }}</th>
             <th>{{ 'automation.activeUsers.columns.status' | translate }}</th>
+            <th>{{ 'common.actions' | translate }}</th>
           </tr>
         </thead>
         <tbody>
@@ -47,6 +48,17 @@
                     }}
                   </span>
                 </div>
+              </td>
+              <td>
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Change user permissions">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="editPermissions.emit(user.id)">
+                    <mat-icon>security</mat-icon>
+                    <span>{{ 'settingsPage.usersPermissions.editPermissions' | translate }}</span>
+                  </button>
+                </mat-menu>
               </td>
             </tr>
           }

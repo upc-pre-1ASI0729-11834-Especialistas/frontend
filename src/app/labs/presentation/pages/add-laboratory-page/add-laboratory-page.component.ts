@@ -11,6 +11,7 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { LabSensorsConfigComponent } from './components/lab-sensors-config/lab-sensors-config.component';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-laboratory-page',
@@ -23,6 +24,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     LabSensorsConfigComponent,
     LabNotificationsConfigComponent,
     LabSuccessCardComponent,
+    TranslateModule,
   ],
   templateUrl: './add-laboratory-page.component.html',
   styleUrl: './add-laboratory-page.component.css',

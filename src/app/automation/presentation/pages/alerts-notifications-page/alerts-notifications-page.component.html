@@ -29,46 +29,7 @@
         </div>
       </section>
 
-      <!-- Alert Thresholds Section -->
-      <section class="config-section">
-        <h2 class="section-title">Alert Thresholds</h2>
-        <div class="divider"></div>
 
-        <div class="threshold-container">
-          <div class="threshold-header">
-            <mat-icon class="threshold-icon">device_thermostat</mat-icon>
-            <span class="threshold-title">Temperature Alerts</span>
-          </div>
-
-          <div class="threshold-grid">
-            <div class="threshold-field">
-              <span class="field-label">Warning Level</span>
-              <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                <mat-select formControlName="tempWarningLevel">
-                  <mat-option value="2c">2°C Deviation</mat-option>
-                  <mat-option value="3c">3°C Deviation</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <div class="helper-text warning">
-                <span class="dot"></span> Visual indicator on dashboard
-              </div>
-            </div>
-
-            <div class="threshold-field">
-              <span class="field-label">Critical Level</span>
-              <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                <mat-select formControlName="tempCriticalLevel">
-                  <mat-option value="4c">4°C Deviation</mat-option>
-                  <mat-option value="5c">5°C Deviation</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <div class="helper-text critical">
-                <span class="dot"></span> Immediate push notification required
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <!-- Lab Activity Summary Section -->
       <section class="config-section">

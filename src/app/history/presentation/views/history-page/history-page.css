@@ -178,7 +178,7 @@
 /* ── TWO-COLUMN LAYOUT ─────────────────────────────────────────── */
 .two-col-layout {
   display: grid;
-  grid-template-columns: 7fr 3fr;
+  grid-template-columns: 1fr;
   gap: 20px;
   align-items: start;
 }

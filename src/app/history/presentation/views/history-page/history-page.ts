@@ -1,4 +1,4 @@
-import { Component, ViewChild, computed, signal, inject } from '@angular/core';
+import { Component, ViewChild, computed, signal, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule, MatDrawer } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,9 +18,13 @@ import { HistoryStore } from '../../../application/history.store';
 import { HistoryRecord } from '../../../domain/model/history-record.entity';
 import { HistoryTimeline } from '../../components/history-timeline/history-timeline';
 import { HistoryPlaceholderDialog } from '../../components/history-placeholder-dialog/history-placeholder-dialog';
+import { GenerateReportDialog } from '../../components/generate-report-dialog/generate-report-dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { AuthStore } from '../../../../iam/application/auth.store';
+import { AutomationStore } from '../../../../automation/application/automation.store';
+import { TopbarActionService } from '../../../../shared/application/topbar-action.service';
 
 @Component({
   selector: 'app-history-page',
@@ -54,14 +58,69 @@ export class HistoryPage {
   private readonly historyStore = inject(HistoryStore);
   private readonly dialog = inject(MatDialog);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly authStore = inject(AuthStore);
+  private readonly automationStore = inject(AutomationStore);
+  private readonly topbarActionService = inject(TopbarActionService);
+  private readonly translateService = inject(TranslateService);
 
   readonly history = this.historyStore.history;
   readonly loading = this.historyStore.loading;
   readonly error = this.historyStore.error;
 
+  private readonly currentLang = signal(this.translateService.currentLang || 'en');
+
+  readonly loggedInProfile = computed(() => {
+    const email = this.authStore.currentUser()?.email;
+    return this.automationStore.userProfiles().find(p => p.email === email);
+  });
+
+  readonly shiftInfoText = computed(() => {
+    this.currentLang();
+
+    const profile = this.loggedInProfile();
+    const name = profile?.fullName || 'Manuel Sánchez';
+    const startStr = profile?.defaultStartShift || '08:00 AM';
+    const durationStr = profile?.shiftDuration || '8 Hours';
+
+    // Parse start time (e.g. "08:00 AM")
+    const match = startStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+    let hours = 8;
+    let minutes = 0;
+    if (match) {
+      hours = parseInt(match[1], 10);
+      minutes = parseInt(match[2], 10);
+      const ampm = match[3].toUpperCase();
+      if (ampm === 'PM' && hours < 12) hours += 12;
+      if (ampm === 'AM' && hours === 12) hours = 0;
+    }
+
+    const todayStart = new Date();
+    todayStart.setHours(hours, minutes, 0, 0);
+
+    const now = new Date();
+    let diffMs = now.getTime() - todayStart.getTime();
+    if (diffMs < 0) {
+      todayStart.setDate(todayStart.getDate() - 1);
+      diffMs = now.getTime() - todayStart.getTime();
+    }
+
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+
+    const durationHours = parseInt(durationStr, 10) || 8;
+    const endHours = (hours + durationHours) % 24;
+    const endAmPm = endHours >= 12 ? 'PM' : 'AM';
+    const displayEndHours = endHours % 12 === 0 ? 12 : endHours % 12;
+    const endStr = `${displayEndHours}:${minutes.toString().padStart(2, '0')} ${endAmPm}`;
+
+    const currentShiftTrans = this.translateService.instant('history.shift.current');
+    const activeTrans = this.translateService.instant('history.shift.active');
+    return `${currentShiftTrans}: ${startStr} – ${endStr} · ${name} · ${diffHours}h ${diffMins}m ${activeTrans}`;
+  });
+
   readonly selectedTab = signal<string>('All events');
-  readonly shiftNotes = signal<string>('');
-  readonly handoverNote = signal<string>('');
+  shiftNotes = '';
+  handoverNote = '';
 
   readonly searchQuery = signal('');
   readonly selectedLab = signal('');
@@ -142,6 +201,37 @@ export class HistoryPage {
           end: value?.end ?? null
         });
       });
+
+    effect(() => {
+      const text = this.shiftInfoText();
+      this.topbarActionService.setSubtitle(text);
+    });
+
+    // Set initial title and action using current translation
+    this.topbarActionService.setTitle(this.translateService.instant('history.title'));
+    this.topbarActionService.setAction({
+      label: this.translateService.instant('history.button.generateReport'),
+      icon: 'picture_as_pdf',
+      id: 'generate-report-action'
+    });
+
+    // Listen to translation changes to update topbar title and action
+    this.translateService.onLangChange.pipe(takeUntilDestroyed()).subscribe(event => {
+      this.currentLang.set(event.lang);
+      this.topbarActionService.setTitle(this.translateService.instant('history.title'));
+      this.topbarActionService.setAction({
+        label: this.translateService.instant('history.button.generateReport'),
+        icon: 'picture_as_pdf',
+        id: 'generate-report-action'
+      });
+    });
+
+    // Subscribe to Topbar action click
+    this.topbarActionService.actionClicked$
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => {
+        this.generateShiftReport();
+      });
   }
 
   openDrawer(record: HistoryRecord): void {
@@ -151,13 +241,39 @@ export class HistoryPage {
 
   openPlaceholder(actionLabel: string): void {
     if (actionLabel.toLowerCase().includes('report') || actionLabel.toLowerCase().includes('pdf')) {
-      this.snackBar.open(`Generating PDF: ${actionLabel}...`, 'Close', { duration: 3000 });
+      this.generateShiftReport();
       return;
     }
     this.dialog.open(HistoryPlaceholderDialog, {
       data: {
         title: actionLabel,
         message: 'This action will be available in a future release.'
+      }
+    });
+  }
+
+  generateShiftReport(): void {
+    const dialogRef = this.dialog.open(GenerateReportDialog, {
+      position: { right: '0', top: '0' },
+      height: '100vh',
+      width: '400px',
+      panelClass: 'side-sheet-dialog',
+      data: {
+        shiftNotes: this.shiftNotes,
+        handoverNote: this.handoverNote,
+        criticalEvents: this.criticalEvents(),
+        activeEvents: this.activeEvents(),
+        resolvedEvents: this.resolvedEvents(),
+        totalEvents: this.totalEvents(),
+        filteredHistory: this.filteredHistory(),
+        loggedInProfile: this.loggedInProfile()
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.shiftNotes = result.shiftNotes;
+        this.handoverNote = result.handoverNote;
       }
     });
   }

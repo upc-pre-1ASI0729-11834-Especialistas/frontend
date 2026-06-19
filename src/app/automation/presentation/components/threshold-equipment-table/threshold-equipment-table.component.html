@@ -3,13 +3,13 @@
   <table class="desktop-table">
     <thead>
       <tr>
-        <th>Equipment</th>
-        <th>Lab</th>
-        <th class="text-center">Min Threshold</th>
-        <th class="text-center">Max Threshold</th>
-        <th class="text-center">Warning At</th>
-        <th class="text-center">Current</th>
-        <th class="text-center">Action</th>
+        <th>{{ 'settingsPage.thresholdConfig.equipment' | translate }}</th>
+        <th>{{ 'settingsPage.thresholdConfig.lab' | translate }}</th>
+        <th class="text-center">{{ 'settingsPage.thresholdConfig.minThreshold' | translate }}</th>
+        <th class="text-center">{{ 'settingsPage.thresholdConfig.maxThreshold' | translate }}</th>
+        <th class="text-center">{{ 'settingsPage.thresholdConfig.warningAt' | translate }}</th>
+        <th class="text-center">{{ 'settingsPage.thresholdConfig.current' | translate }}</th>
+        <th class="text-center">{{ 'settingsPage.thresholdConfig.action' | translate }}</th>
       </tr>
     </thead>
     <tbody>
@@ -84,21 +84,21 @@
         <div class="card-body">
           <div class="form-row">
             <div class="form-group">
-              <label>Min Threshold</label>
+              <label>{{ 'settingsPage.thresholdConfig.minThreshold' | translate }}</label>
               <div class="threshold-input-wrapper">
                 <input type="number" [value]="item.minThreshold" (change)="onThresholdChange(item, 'minThreshold', $event)" />
                 <span class="unit-label">{{ item.unit }}</span>
               </div>
             </div>
             <div class="form-group">
-              <label>Max Threshold</label>
+              <label>{{ 'settingsPage.thresholdConfig.maxThreshold' | translate }}</label>
               <div class="threshold-input-wrapper">
                 <input type="number" [value]="item.maxThreshold" (change)="onThresholdChange(item, 'maxThreshold', $event)" />
                 <span class="unit-label">{{ item.unit }}</span>
               </div>
             </div>
             <div class="form-group">
-              <label>Warning At</label>
+              <label>{{ 'settingsPage.thresholdConfig.warningAt' | translate }}</label>
               <div class="threshold-input-wrapper">
                 <input type="number" [value]="item.warningAt" (change)="onThresholdChange(item, 'warningAt', $event)" />
                 <span class="unit-label">{{ item.unit }}</span>
@@ -108,7 +108,7 @@
         </div>
         <div class="card-footer">
           <button mat-flat-button color="primary" class="mobile-edit-btn" (click)="onEdit(item)">
-            <mat-icon>edit</mat-icon> Update limits
+            <mat-icon>edit</mat-icon> {{ 'settingsPage.thresholdConfig.updateLimits' | translate }}
           </button>
         </div>
       </div>

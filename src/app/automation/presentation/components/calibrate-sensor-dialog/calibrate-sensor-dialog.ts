@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { SensorConfiguration } from '../../../domain/model/sensor-configuration.entity';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-calibrate-sensor-dialog',
@@ -18,7 +19,8 @@ import { SensorConfiguration } from '../../../domain/model/sensor-configuration.
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule
   ],
   templateUrl: './calibrate-sensor-dialog.html',
   styleUrl: './calibrate-sensor-dialog.css'

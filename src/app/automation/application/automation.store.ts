@@ -11,6 +11,7 @@ import { EquipmentThresholdStore } from './equipment-threshold.store';
 import { AutomationRuleStore } from './automation-rule.store';
 import { UserProfile } from '../domain/model/user-profile.entity';
 import { SensorConfiguration } from '../domain/model/sensor-configuration.entity';
+import { EquipmentThreshold } from '../domain/model/equipment-threshold.entity';
 
 @Injectable({ providedIn: 'root' })
 export class AutomationStore {
@@ -37,6 +38,8 @@ export class AutomationStore {
   readonly activeUsersCount = this.labUserStore.activeUsersCount;
   readonly pendingInvitations = this.pendingInvitationStore.pendingInvitations;
   readonly pendingInvitationsCount = this.pendingInvitationStore.pendingInvitationsCount;
+  readonly receivedInvitations = this.pendingInvitationStore.receivedInvitations;
+  readonly receivedInvitationsCount = this.pendingInvitationStore.receivedInvitationsCount;
   readonly roleDefinitions = this.roleDefinitionStore.roleDefinitions;
   readonly equipmentThresholds = this.equipmentThresholdStore.equipmentThresholds;
   readonly automationRules = this.automationRuleStore.automationRules;
@@ -55,8 +58,36 @@ export class AutomationStore {
     this.automationRuleStore.loading()
   );
 
-  inviteUser(email: string, role: string) {
-    return this.pendingInvitationStore.inviteUser(email, role);
+  inviteUser(email: string, role: string, laboratoryIds: number[]) {
+    return this.pendingInvitationStore.inviteUser(email, role, laboratoryIds);
+  }
+
+  cancelInvitation(id: number) {
+    return this.pendingInvitationStore.cancelInvitation(id);
+  }
+
+  resendInvitation(id: number) {
+    return this.pendingInvitationStore.resendInvitation(id);
+  }
+
+  acceptInvitation(id: number) {
+    return this.pendingInvitationStore.acceptInvitation(id);
+  }
+
+  rejectInvitation(id: number) {
+    return this.pendingInvitationStore.rejectInvitation(id);
+  }
+
+  loadReceivedInvitations() {
+    this.pendingInvitationStore.loadReceivedInvitations();
+  }
+
+  updateGeneralSetting(id: number, value: string) {
+    return this.generalSettingStore.updateGeneralSetting(id, value);
+  }
+
+  updateNotificationPreference(id: number, enabled: boolean) {
+    return this.notificationPreferenceStore.updateNotificationPreference(id, enabled);
   }
 
   updateEquipmentThreshold(id: number, data: {
@@ -123,5 +154,13 @@ export class AutomationStore {
 
   calibrateSensor(id: number, certificateId: string, expirationDate: Date, calibratedAt: Date) {
     return this.sensorConfigurationStore.calibrateSensor(id, certificateId, expirationDate, calibratedAt);
+  }
+
+  addEquipmentThreshold(newThreshold: EquipmentThreshold) {
+    return this.equipmentThresholdStore.addEquipmentThreshold(newThreshold);
+  }
+
+  loadLabUsers() {
+    this.labUserStore.loadLabUsers();
   }
 }
