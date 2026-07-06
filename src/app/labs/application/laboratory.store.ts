@@ -310,6 +310,22 @@ export class LaboratoryStore {
     });
   }
 
+  deleteLaboratory(id: number, onSuccess?: () => void): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+
+    this.api.delete(id).pipe(
+      takeUntilDestroyed(this.destroyRef),
+      finalize(() => this.loadingSignal.set(false))
+    ).subscribe({
+      next: () => {
+        this.loadLaboratories();
+        if (onSuccess) onSuccess();
+      },
+      error: (err) => this.errorSignal.set(err.message)
+    });
+  }
+
   resetCreationState(): void {
     this.creationSuccessSignal.set(false);
     this.lastCreatedLabSignal.set(null);

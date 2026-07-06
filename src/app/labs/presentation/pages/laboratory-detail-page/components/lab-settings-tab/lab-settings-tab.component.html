@@ -96,4 +96,24 @@
       </button>
     </div>
   </form>
+
+  <!-- Danger Zone -->
+  <div class="danger-zone-card animate-fade-in">
+    <div class="danger-header">
+      <mat-icon class="danger-icon">warning</mat-icon>
+      <div class="danger-title">
+        <h3>Danger Zone</h3>
+        <p>Permanently delete this laboratory and all associated operational data.</p>
+      </div>
+    </div>
+    <div class="danger-content">
+      <p class="danger-description">
+        Once you delete a laboratory, all its historical sensor readings, active alerts, and configuration metrics will be permanently erased from the system. This action is irreversible.
+      </p>
+      <button type="button" mat-flat-button class="delete-lab-btn" (click)="onDelete()">
+        <mat-icon>delete_forever</mat-icon>
+        <span>Delete Laboratory</span>
+      </button>
+    </div>
+  </div>
 </div>

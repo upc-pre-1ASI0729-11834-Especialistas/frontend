@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Laboratory, LaboratoryType } from '../../../../../domain/model/laboratory.entity';
 import { LaboratoryStore } from '../../../../../application/laboratory.store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lab-settings-tab',
@@ -31,6 +32,7 @@ export class LabSettingsTabComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly laboratoryStore = inject(LaboratoryStore);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly router = inject(Router);
 
   settingsForm!: FormGroup;
   isSaving = false;
@@ -101,5 +103,21 @@ export class LabSettingsTabComponent implements OnInit {
         verticalPosition: 'bottom'
       });
     }, 600);
+  }
+
+  onDelete() {
+    const confirmation = confirm(`Are you sure you want to permanently delete "${this.lab().name}"? This action cannot be undone.`);
+    if (confirmation) {
+      this.isSaving = true;
+      this.laboratoryStore.deleteLaboratory(this.lab().id, () => {
+        this.isSaving = false;
+        this.snackBar.open('Laboratory deleted successfully.', 'Dismiss', {
+          duration: 3000,
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom'
+        });
+        this.router.navigate(['/laboratories']);
+      });
+    }
   }
 }
