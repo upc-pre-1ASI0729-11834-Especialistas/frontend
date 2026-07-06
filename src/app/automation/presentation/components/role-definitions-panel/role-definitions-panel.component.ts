@@ -9,7 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [MatExpansionModule, MatIconModule, TranslateModule],
   templateUrl: './role-definitions-panel.component.html',
-  styleUrls: ['']
+  styleUrls: ['./role-definitions-panel.component.css']
 })
 export class RoleDefinitionsPanelComponent {
   @Input() roles: RoleDefinition[] = [];

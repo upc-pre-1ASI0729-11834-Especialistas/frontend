@@ -29,7 +29,7 @@ import { AuthStore } from '../../../../iam/application/auth.store';
     MatSnackBarModule
   ],
   templateUrl: './profile-identity-page.component.html',
-  styleUrls: ['']
+  styleUrls: ['./profile-identity-page.component.css']
 })
 export class ProfileIdentityPageComponent implements OnInit {
   protected readonly automationStore = inject(AutomationStore);

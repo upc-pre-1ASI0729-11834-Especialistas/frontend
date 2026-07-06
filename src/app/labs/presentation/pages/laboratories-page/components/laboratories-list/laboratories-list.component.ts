@@ -7,7 +7,7 @@ import { Laboratory } from '../../../../../domain/model/laboratory.entity';
   selector: 'app-laboratories-list',
   imports: [RouterLink, LaboratoryDetailCardComponent],
   templateUrl: './laboratories-list.component.html',
-  styleUrls: ['']
+  styleUrls: ['./laboratories-list.component.css']
 })
 export class LaboratoriesListComponent {
   laboratories = input.required<Laboratory[]>();

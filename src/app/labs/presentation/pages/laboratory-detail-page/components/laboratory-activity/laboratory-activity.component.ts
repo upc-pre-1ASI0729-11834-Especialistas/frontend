@@ -8,7 +8,7 @@ import { LabActivity } from '../../../../../domain/model/laboratory.entity';
   selector: 'app-laboratory-activity',
   imports: [RouterLink, MatIcon, TranslatePipe],
   templateUrl: './laboratory-activity.component.html',
-  styleUrls: ['']
+  styleUrls: ['./laboratory-activity.component.css']
 })
 export class LaboratoryActivityComponent {
   activities = input.required<LabActivity[]>();

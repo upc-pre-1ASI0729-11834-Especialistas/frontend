@@ -7,7 +7,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'app-laboratory-header',
   imports: [StatusBadgeComponent, TranslatePipe],
   templateUrl: './laboratory-header.component.html',
-  styleUrls: ['']
+  styleUrls: ['./laboratory-header.component.css']
 })
 export class LaboratoryHeaderComponent {
   lab = input.required<Laboratory>();

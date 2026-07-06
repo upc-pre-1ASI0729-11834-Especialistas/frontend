@@ -22,7 +22,7 @@ import { LaboratoryStore } from '../../../../../application/laboratory.store';
     MatSnackBarModule
   ],
   templateUrl: './lab-notifications-tab.component.html',
-  styleUrls: ['']
+  styleUrls: ['./lab-notifications-tab.component.css']
 })
 export class LabNotificationsTabComponent implements OnInit {
   lab = input.required<Laboratory>();
@@ -77,7 +77,7 @@ export class LabNotificationsTabComponent implements OnInit {
     });
 
     this.laboratoryStore.updateLaboratory(this.lab().id, updatedLab);
-    
+
     // Simulate slight save duration for premium UX feeling
     setTimeout(() => {
       this.isSaving = false;

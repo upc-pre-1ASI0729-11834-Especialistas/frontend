@@ -25,7 +25,7 @@ interface SafetyReport {
     MatSnackBarModule
   ],
   templateUrl: './lab-reports-tab.component.html',
-  styleUrls: ['']
+  styleUrls: ['./lab-reports-tab.component.css']
 })
 export class LabReportsTabComponent {
   lab = input.required<Laboratory>();

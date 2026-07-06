@@ -13,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'app-lab-notifications-config',
   imports: [MatIcon, FormsModule, CardComponent, IconBadgeComponent, SectionHeaderComponent, MatCheckbox, MatSlideToggle, TranslateModule],
   templateUrl: './lab-notifications-config.component.html',
-  styleUrls: ['']
+  styleUrls: ['./lab-notifications-config.component.css']
 })
 export class LabNotificationsConfigComponent {
   notifications = model.required<NotificationPreferences>();

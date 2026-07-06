@@ -8,7 +8,7 @@ import { AutomationRule } from '../../../../../../automation/domain/model/automa
   selector: 'app-laboratory-schedules',
   imports: [RouterLink, TranslatePipe],
   templateUrl: './laboratory-schedules.component.html',
-  styleUrls: ['']
+  styleUrls: ['./laboratory-schedules.component.css']
 })
 export class LaboratorySchedulesComponent {
   readonly laboratoryId = input.required<number>();

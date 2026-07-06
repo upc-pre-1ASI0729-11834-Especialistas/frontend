@@ -28,7 +28,7 @@ import { forkJoin, Observable } from 'rxjs';
     MatSnackBarModule
   ],
   templateUrl: './alerts-notifications-page.component.html',
-  styleUrls: ['']
+  styleUrls: ['./alerts-notifications-page.component.css']
 })
 export class AlertsNotificationsPageComponent implements OnInit {
   protected readonly automationStore = inject(AutomationStore);

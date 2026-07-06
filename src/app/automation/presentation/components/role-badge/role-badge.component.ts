@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './role-badge.component.html',
-  styleUrls: ['']
+  styleUrls: ['./role-badge.component.css']
 })
 export class RoleBadgeComponent {
   @Input() role: string = '';
