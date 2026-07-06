@@ -30,7 +30,7 @@ interface GenerateReportDialogData {
     TranslatePipe
   ],
   templateUrl: './generate-report-dialog.html',
-  styleUrl: './generate-report-dialog.css'
+  styleUrls: ['./generate-report-dialog.css']
 })
 export class GenerateReportDialog implements OnInit {
   private readonly translateService = inject(TranslateService);

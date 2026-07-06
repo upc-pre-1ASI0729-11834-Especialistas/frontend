@@ -16,7 +16,7 @@ interface HistoryGroup {
   standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule, MatChipsModule, MatIconModule],
   templateUrl: './history-timeline.html',
-  styleUrl: './history-timeline.css'
+  styleUrls: ['./history-timeline.css']
 })
 export class HistoryTimeline {
   private readonly recordsSignal = signal<HistoryRecord[]>([]);
@@ -63,4 +63,3 @@ export class HistoryTimeline {
     });
   }
 }
-
