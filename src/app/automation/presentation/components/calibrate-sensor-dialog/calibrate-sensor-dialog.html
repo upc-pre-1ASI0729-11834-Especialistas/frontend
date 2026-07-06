@@ -2,7 +2,7 @@
   <!-- Header -->
   <div class="dialog-header">
     <h2 class="dialog-title">{{ 'settingsPage.calibrateDialog.title' | translate }}</h2>
-    <button type="button" class="close-btn" (click)="onCancel()" aria-label="Close dialog">
+    <button type="button" class="close-btn" (click)="onCancel()" [attr.aria-label]="'common.closeDialog' | translate">
       <mat-icon>close</mat-icon>
     </button>
   </div>

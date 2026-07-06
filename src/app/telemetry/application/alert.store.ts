@@ -16,9 +16,7 @@ export class AlertStore {
   readonly loading = this.loadingSignal.asReadonly();
   readonly alertsCount = computed(() => this.alerts().length);
 
-  constructor(private readonly alertApi: AlertApi) {
-    this.loadAlerts();
-  }
+  constructor(private readonly alertApi: AlertApi) {}
 
   getAlertById(id: number | null | undefined): Signal<Alert | undefined> {
     return computed(() => id ? this.alerts().find(a => a.id === id) : undefined);
@@ -78,7 +76,7 @@ export class AlertStore {
     });
   }
 
-  private loadAlerts(): void {
+  loadAlerts(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.alertApi.getAlerts().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({

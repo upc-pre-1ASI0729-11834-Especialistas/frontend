@@ -1,3 +1,4 @@
+import { TranslatePipe } from '@ngx-translate/core';
 import { Component, input, output, computed } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,7 +9,7 @@ import { SensorConfiguration } from '../../../domain/model/sensor-configuration.
 @Component({
   selector: 'app-sensor-list-item',
   standalone: true,
-  imports: [MatCardModule, MatIconModule, MatButtonModule, CommonModule],
+  imports: [MatCardModule, MatIconModule, MatButtonModule, CommonModule, TranslatePipe,],
   templateUrl: './sensor-list-item.component.html',
   styleUrls: ['./sensor-list-item.component.css']
 })

@@ -4,11 +4,11 @@
     <div class="login-card" id="login-card">
       <!-- Logo & Branding -->
       <div class="card-header">
-        <div class="card-logo" (dblclick)="onClearTestUsers()" style="cursor: pointer;" title="Double click to clear test users">
+        <div class="card-logo" (dblclick)="onClearTestUsers()" style="cursor: pointer;" [title]="'iam.login.clearTestUsers' | translate">
           <mat-icon>science</mat-icon>
         </div>
-        <h1 class="card-brand">Safelab</h1>
-        <span class="card-subtitle">BY ESPECIALISTAS</span>
+        <h1 class="card-brand">{{ 'sidebar.logo.name' | translate }}</h1>
+        <span class="card-subtitle">{{ 'iam.byEspecialistas' | translate }}</span>
       </div>
 
       <!-- Welcome Text -->

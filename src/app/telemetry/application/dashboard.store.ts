@@ -1,4 +1,4 @@
-﻿import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { StatsStore } from './stats.store';
 import { LaboratoryStore } from './laboratory.store';
 import { AlertStore } from './alert.store';
@@ -25,7 +25,12 @@ export class DashboardStore {
     this.temperatureStore.loading()
   );
 
-  loadAll(): void { }
+  loadAll(): void {
+    this.statsStore.loadStats();
+    this.laboratoryStore.loadLaboratories();
+    this.alertStore.loadAlerts();
+    this.temperatureStore.loadReadings();
+  }
 
   loadTemperatureTrends(period: string): void {
     this.temperatureStore.setPeriod(period);

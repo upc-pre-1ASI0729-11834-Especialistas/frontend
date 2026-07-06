@@ -37,19 +37,15 @@ export class AutomationRulesPageComponent implements OnInit {
   readonly labs = signal<Laboratory[]>([]);
 
   constructor() {
-    this.topbarActionService.setAction({
-      label: this.translateService.instant('settingsPage.automationRules.createRule') || 'Create New Rule',
-      icon: 'add',
-      id: 'add-rule-action'
-    });
-
-    this.translateService.onLangChange.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-      this.topbarActionService.setAction({
-        label: this.translateService.instant('settingsPage.automationRules.createRule') || 'Create New Rule',
-        icon: 'add',
-        id: 'add-rule-action'
+    this.translateService.stream('settingsPage.automationRules.createRule')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(label => {
+        this.topbarActionService.setAction({
+          label: label || 'Create New Rule',
+          icon: 'add',
+          id: 'add-rule-action'
+        });
       });
-    });
 
     this.topbarActionService.actionClicked$
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -60,6 +56,7 @@ export class AutomationRulesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadLabs();
+    this.automationStore.loadAutomationRules();
   }
 
   private loadLabs(): void {

@@ -1,81 +1,94 @@
-<div class="page-body">
-
-  <mat-card appearance="outlined" class="filter-card">
-    <mat-card-content class="filter-content">
-      <span class="filter-label">{{ 'settingsPage.sensor.filterBy' | translate }}</span>
-
-      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="dense-field">
-        <mat-select [value]="selectedType()" (selectionChange)="selectedType.set($event.value)">
-          <mat-option value="all-types">{{ 'settingsPage.sensor.allTypes' | translate }}</mat-option>
-          @for (type of sensorTypes(); track type) {
-            <mat-option [value]="type">{{ type }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="dense-field">
-        <mat-select [value]="selectedLocation()" (selectionChange)="selectedLocation.set($event.value)">
-          <mat-option value="all-locations">{{ 'settingsPage.sensor.allLocations' | translate }}</mat-option>
-          @for (loc of sensorLocations(); track loc) {
-            <mat-option [value]="loc">{{ loc }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-
-      <div class="spacer"></div>
-
-      <span class="total-sensors">{{ 'settingsPage.sensor.totalSensors' | translate:{count: filteredSensors().length} }}</span>
-    </mat-card-content>
-  </mat-card>
-
-  <div class="sensor-list">
-    @for (sensor of filteredSensors(); track sensor.id) {
-      <app-sensor-list-item 
-        [sensor]="sensor"
-        (edit)="openCreateSensorDialog($event)"
-        (calibrate)="openCalibrateSensorDialog($event)">
-      </app-sensor-list-item>
-    }
+@if (automationStore.loading()) {
+  <div class="loading-state">
+    <mat-spinner diameter="36" />
+    <p>{{ 'layout.loading' | translate }}</p>
   </div>
-
-  <!-- Bottom Section: Compliance and Safety -->
-  <div class="bottom-section">
-
-    <mat-card appearance="outlined" class="compliance-card">
-      <mat-card-content>
-        <div class="compliance-header">
-          <h2 class="section-title">{{ 'settingsPage.sensor.compliance' | translate }}</h2>
-          <span class="audit-badge">{{ 'settingsPage.sensor.nextAudit' | translate:{date: 'Dec 15'} }}</span>
-        </div>
-
-        <div class="metrics-grid">
-          <div class="metric-box">
-            <div class="metric-value success">{{ calibratedPercent() }}%</div>
-            <div class="metric-label">{{ 'settingsPage.sensor.calibrated' | translate }}</div>
-          </div>
-          <div class="metric-box">
-            <div class="metric-value warning">{{ pendingPercent() }}%</div>
-            <div class="metric-label">{{ 'settingsPage.sensor.pending' | translate }}</div>
-          </div>
-          <div class="metric-box">
-            <div class="metric-value error">{{ overduePercent() }}%</div>
-            <div class="metric-label">{{ 'settingsPage.sensor.overdue' | translate }}</div>
-          </div>
-        </div>
+} @else {
+  <div class="page-body">
+  
+    <mat-card appearance="outlined" class="filter-card">
+      <mat-card-content class="filter-content">
+        <span class="filter-label">{{ 'settingsPage.sensor.filterBy' | translate }}</span>
+  
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="dense-field">
+          <mat-select #typeSelect [value]="selectedType()" (selectionChange)="selectedType.set($event.value)">
+            <mat-select-trigger>
+              {{ typeSelect.value === 'all-types' ? ('settingsPage.sensor.allTypes' | translate) : typeSelect.value }}
+            </mat-select-trigger>
+            <mat-option value="all-types">{{ 'settingsPage.sensor.allTypes' | translate }}</mat-option>
+            @for (type of sensorTypes(); track type) {
+              <mat-option [value]="type">{{ type }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="dense-field">
+          <mat-select #locSelect [value]="selectedLocation()" (selectionChange)="selectedLocation.set($event.value)">
+            <mat-select-trigger>
+              {{ locSelect.value === 'all-locations' ? ('settingsPage.sensor.allLocations' | translate) : locSelect.value }}
+            </mat-select-trigger>
+            <mat-option value="all-locations">{{ 'settingsPage.sensor.allLocations' | translate }}</mat-option>
+            @for (loc of sensorLocations(); track loc) {
+              <mat-option [value]="loc">{{ loc }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+  
+        <div class="spacer"></div>
+  
+        <span class="total-sensors">{{ 'settingsPage.sensor.totalSensors' | translate:{count: filteredSensors().length} }}</span>
       </mat-card-content>
     </mat-card>
-
-    <div class="safety-card">
-      <div class="safety-icon">
-        <mat-icon>verified_user</mat-icon>
-      </div>
-      <h2 class="safety-title">{{ 'settingsPage.sensor.safetyFirst' | translate }}</h2>
-      <p class="safety-text">
-        {{ 'settingsPage.sensor.complianceText' | translate }}
-      </p>
-      <button mat-flat-button class="safety-btn" (click)="downloadAuditReport()">{{ 'settingsPage.sensor.downloadAudit' | translate }}</button>
+  
+    <div class="sensor-list">
+      @for (sensor of filteredSensors(); track sensor.id) {
+        <app-sensor-list-item 
+          [sensor]="sensor"
+          (edit)="openCreateSensorDialog($event)"
+          (calibrate)="openCalibrateSensorDialog($event)">
+        </app-sensor-list-item>
+      }
     </div>
-
+  
+    <!-- Bottom Section: Compliance and Safety -->
+    <div class="bottom-section">
+  
+      <mat-card appearance="outlined" class="compliance-card">
+        <mat-card-content>
+          <div class="compliance-header">
+            <h2 class="section-title">{{ 'settingsPage.sensor.compliance' | translate }}</h2>
+            <span class="audit-badge">{{ 'settingsPage.sensor.nextAudit' | translate:{date: 'Dec 15'} }}</span>
+          </div>
+  
+          <div class="metrics-grid">
+            <div class="metric-box">
+              <div class="metric-value success">{{ calibratedPercent() }}%</div>
+              <div class="metric-label">{{ 'settingsPage.sensor.calibrated' | translate }}</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-value warning">{{ pendingPercent() }}%</div>
+              <div class="metric-label">{{ 'settingsPage.sensor.pending' | translate }}</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-value error">{{ overduePercent() }}%</div>
+              <div class="metric-label">{{ 'settingsPage.sensor.overdue' | translate }}</div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+  
+      <div class="safety-card">
+        <div class="safety-icon">
+          <mat-icon>verified_user</mat-icon>
+        </div>
+        <h2 class="safety-title">{{ 'settingsPage.sensor.safetyFirst' | translate }}</h2>
+        <p class="safety-text">
+          {{ 'settingsPage.sensor.complianceText' | translate }}
+        </p>
+        <button mat-flat-button class="safety-btn" (click)="downloadAuditReport()">{{ 'settingsPage.sensor.downloadAudit' | translate }}</button>
+      </div>
+  
+    </div>
+  
   </div>
-
-</div>
+}

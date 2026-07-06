@@ -13,6 +13,7 @@ import { SensorConfiguration } from '../../../domain/model/sensor-configuration.
 import { LaboratoryStore } from '../../../../telemetry/application/laboratory.store';
 import { AutomationStore } from '../../../application/automation.store';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-create-sensor-dialog',
@@ -28,7 +29,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatCheckboxModule,
     MatSlideToggleModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    MatProgressSpinner
   ],
   templateUrl: './create-sensor-dialog.html',
   styleUrls: ['./create-sensor-dialog.css']
@@ -59,6 +61,9 @@ export class CreateSensorDialog implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.laboratoryStore.loadLaboratories();
+    this.automationStore.loadEquipmentThresholds();
+
     if (this.data && this.data.sensor) {
       this.isEditMode = true;
       const sensor = this.data.sensor;

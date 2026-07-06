@@ -1,4 +1,4 @@
-import { Component, inject, computed, signal } from '@angular/core';
+import { Component, inject, computed, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -47,10 +47,15 @@ interface AlertGroup {
   templateUrl: './alerts-page.html',
   styleUrls: ['./alerts-page.css'],
 })
-export class AlertsPage {
+export class AlertsPage implements OnInit {
   private readonly router = inject(Router);
   private readonly alertsStore = inject(AlertsStore);
   private readonly laboratoryStore = inject(LaboratoryStore);
+
+  ngOnInit(): void {
+    this.alertsStore.loadAlerts();
+    this.laboratoryStore.loadLaboratories();
+  }
 
   readonly currentTime = new Date();
 

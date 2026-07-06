@@ -45,7 +45,8 @@
       "viewAll": "View all",
       "equipmentStatus": "Equipment Status",
       "equipmentStatusSubtitle": "Current temperature readings",
-      "allEquipment": "All equipment"
+      "allEquipment": "All equipment",
+      "recentAlerts": "Recent Alerts"
     },
     "severity": {
       "critical": "Critical",
@@ -63,7 +64,14 @@
     "environmentalMetrics": "Environmental Metrics",
     "selectMetric": "Select Metric",
     "laboratories": "Laboratories",
-    "fab": "Generate Shift Report"
+    "fab": "Generate Shift Report",
+    "chart": {
+      "trends": "Trends",
+      "average_across_all_active": "Average across all active zones",
+      "filter_laboratories": "Filter Laboratories",
+      "no_trends_available": "No {{metric}} trends available",
+      "metric": "metric"
+    }
   },
   "alerts": {
     "title": "Alerts",
@@ -129,6 +137,45 @@
       "building-b": "Building B",
       "building-c": "Building C",
       "building-d": "Building D"
+    },
+    "toolbar": {
+      "grid_view": "Grid view",
+      "list_view": "List view",
+      "gridView": "Grid view",
+      "listView": "List view"
+    },
+    "detailCard": {
+      "12_min": "~12 min"
+    },
+    "detail": {
+      "notifications": {
+        "notification_channels_rules": "Notification Channels & Rules",
+        "configure_alert_dispatch_channels": "Configure alert dispatch channels and threshold escalation levels specifically for",
+        "active_channels": "Active Channels",
+        "select_which_communication_channels": "Select which communication channels are active for telemetry warnings and critical events.",
+        "email_dispatch": "Email dispatch",
+        "send_full_reports_and": "Send full reports and incident details to assigned supervisors",
+        "sms_alert": "SMS alert",
+        "critical_mobile_alerts_for": "Critical mobile alerts for immediate evacuation notices",
+        "push_notification": "Push notification",
+        "realtime_alerts_directly_to": "Real-time alerts directly to the laboratory control station screen",
+        "alert_filtering": "Alert Filtering",
+        "define_restrictions_for_alerts": "Define restrictions for alerts generated in this laboratory to prevent message fatigue.",
+        "mute_warnings_amber_state": "Mute warnings (amber state) and only send notifications for critical thresholds (red state).",
+        "when_critical_alerts_only": "When \"Critical Alerts Only\" is activated, standard calibration drift or slight temperature changes will not trigger notifications, but will still show in the dashboard logs.",
+        "save_preferences": "Save Preferences"
+      },
+      "reports": {
+        "safety_audits_reports": "Safety Audits & Reports",
+        "access_generated_compliance_sheets": "Access generated compliance sheets, device logs, and system calibration reports for",
+        "updated": "Updated:",
+        "need_custom_time_range": "Need custom time range analysis?",
+        "you_can_compile_specialized": "You can compile specialized sensors charts and alarm reports in the main reports center."
+      },
+      "alerts": {
+        "recent_alerts": "Recent Alerts",
+        "no_recent_alerts": "No recent alerts"
+      }
     }
   },
   "history": {
@@ -211,6 +258,11 @@
     "reportDialog": {
       "previewPdf": "Preview PDF",
       "downloadPdf": "Download PDF"
+    },
+    "timeline": {
+      "noEventsMatch": "No history records match the current filters.",
+      "viewIncident": "View incident",
+      "viewDetails": "View details"
     }
   },
   "settings": {
@@ -258,6 +310,7 @@
     "close": "Close",
     "back": "Back",
     "loading": "Loading...",
+    "saving": "Saving...",
     "error": "Error",
     "success": "Success",
     "status": {
@@ -265,7 +318,9 @@
       "inactive": "Inactive",
       "pending": "Pending",
       "resolved": "Resolved"
-    }
+    },
+    "closeDialog": "Close dialog",
+    "preferredLanguage": "Preferred Language"
   },
   "automation": {
     "activeUsers": {
@@ -277,7 +332,8 @@
         "labsAccess": "Labs Access",
         "lastLogin": "Last Login",
         "status": "Status"
-      }
+      },
+      "changePermissions": "Change user permissions"
     }
   },
   "routes": {
@@ -372,7 +428,8 @@
       "termsPrefix": "By signing in, you agree to our",
       "terms": "Terms of Service",
       "and": "and",
-      "privacy": "Privacy Policy"
+      "privacy": "Privacy Policy",
+      "clearTestUsers": "Double click to clear test users"
     },
     "register": {
       "title": "Create Account",
@@ -400,7 +457,9 @@
       "resendCode": "Resend verification code",
       "resendSuccess": "A new code has been sent to your email.",
       "backToLogin": "Back to Sign In"
-    }
+    },
+    "byEspecialistas": "BY ESPECIALISTAS",
+    "": "••••••••••"
   },
   "incident": {
     "details": {
@@ -453,7 +512,8 @@
       "resolvedState": "Incident resolved",
       "awaitingState": "Awaiting resolution",
       "noteSaved": "Corrective action note saved.",
-      "remainsActive": "Incident remains active."
+      "remainsActive": "Incident remains active.",
+      "loading": "Loading incident details..."
     },
     "resolve": {
       "breadcrumbIncidents": "Incidents",
@@ -489,7 +549,28 @@
       "recommendedAudit": "Recommended for audit records",
       "remove": "Remove",
       "permanentLogNotice": "This resolution will be permanently logged in the audit history and included in the shift report.",
-      "confirmBtn": "Confirm Resolution"
+      "confirmBtn": "Confirm Resolution",
+      "maxchars": "= MAX_CHARS\">\r\n             /",
+      "attachedPhotoAlt": "Attached photo",
+      "chars": "characters"
+    },
+    "escalate": {
+      "escalation_reason": "Escalation reason",
+      "select_reason": "Select reason...",
+      "message_to_supervisor": "Message to supervisor",
+      "add_context_for_the": "Add context for the supervisor...",
+      "notify_via": "Notify via",
+      "supervisor_on_duty": "Supervisor on duty:",
+      "dr_jean_arizabal_last": "Dr. Jean Arizabal · Last active 3 min ago",
+      "send_escalation": "Send Escalation",
+      "reasons": {
+        "temperature_exceeded": "Temperature threshold exceeded",
+        "equipment_malfunction": "Equipment malfunction",
+        "contamination_risk": "Contamination risk",
+        "power_failure": "Power failure",
+        "sensor_error": "Sensor error",
+        "other": "Other"
+      }
     }
   },
   "settingsPage": {
@@ -506,7 +587,11 @@
       "overdue": "Overdue",
       "safetyFirst": "Safety First",
       "complianceText": "Regular sensor calibration ensures ISO 17025 compliance and lab safety standards.",
-      "downloadAudit": "Download Audit Report"
+      "downloadAudit": "Download Audit Report",
+      "sensorDetailsTemplate": "Type: {{type}} | Unit: {{unit}} | Last Cal: {{lastCal}}",
+      "target": "Target:",
+      "safety_limits": "Safety Limits:",
+      "calibrate": "Calibrate"
     },
     "sensorDialog": {
       "editTitle": "Edit Sensor Configuration",
@@ -534,7 +619,17 @@
       "noWarningLimit": "No warning limit",
       "sensorActive": "Sensor is Active",
       "hardwareNote": "Device registered successfully. The sensor will remain 'Inactive' until the physical hardware turns on and makes its first connection.",
-      "saveSensor": "Save Sensor"
+      "saveSensor": "Save Sensor",
+      "loadingEquipment": "Loading equipment...",
+      "labLabel": "Associated Laboratory",
+      "locationType": "Monitoring Target",
+      "ambient": "Room Ambient",
+      "equipment": "Specific Equipment",
+      "equipmentLabel": "Specific Equipment",
+      "equipmentRequired": "Equipment association is required",
+      "minLabel": "Min Threshold",
+      "maxLabel": "Max Threshold",
+      "warningLabel": "Warning Threshold"
     },
     "calibrateDialog": {
       "title": "Calibrate Sensor",
@@ -559,7 +654,11 @@
       "inactiveTypes": "Inactive Types",
       "totalCatalogued": "Total catalogued",
       "databaseCatalog": "Database Catalog",
-      "catalogText": "Defining metric types dynamically allows automatic telemetry processing, unit formatting, icon rendering, and thresholds mapping for new IoT sensors without requiring code changes."
+      "catalogText": "Defining metric types dynamically allows automatic telemetry processing, unit formatting, icon rendering, and thresholds mapping for new IoT sensors without requiring code changes.",
+      "total_metric_types": "Total  Metric Types",
+      "key": "Key:",
+      "unit": "Unit:",
+      "no_metric_types_match": "No metric types match the selected filters."
     },
     "metricTypeDialog": {
       "editTitle": "Edit Metric Type",
@@ -640,7 +739,10 @@
       "activeSessions": "Active Sessions",
       "sessionsCount": "{{count}} devices currently connected",
       "accountStatus": "Account Status",
-      "verifiedTech": "Verified Lab Technician (Tier 1)"
+      "verifiedTech": "Verified Lab Technician (Tier 1)",
+      "": "••••••••",
+      "lastLoginSwiss": "Last login: {{time}} ago from Swiss",
+      "2_devices_currently_connected": "2 devices currently connected"
     },
     "usersPermissions": {
       "receivedInvitations": "Invitations Received",
@@ -673,7 +775,8 @@
         "viewer": "Viewer"
       },
       "editPermissions": "Edit Permissions",
-      "resend": "Resend"
+      "resend": "Resend",
+      "emailPlaceholder": "e.g. name@safelab.org"
     },
     "thresholdConfig": {
       "changesNotice": "Changes to thresholds apply immediately and are logged in the audit trail.",
@@ -698,7 +801,9 @@
       "warningAt": "Warning At",
       "current": "Current",
       "action": "Action",
-      "updateLimits": "Update limits"
+      "updateLimits": "Update limits",
+      "1000_pm": "10:00 PM",
+      "0600_am": "06:00 AM"
     },
     "automationRules": {
       "loading": "Loading automation rules...",
@@ -752,7 +857,10 @@
         "send_sms": "Send SMS to on-call coordinator",
         "send_push": "Send Push Notification",
         "log_event": "Log event with LOW priority"
-      }
+      },
+      "gt": "=\">&gt;=",
+      "lt": "&lt;=",
+      "eg_80": "e.g. 8.0"
     },
     "equipmentDialog": {
       "editTitle": "Edit Equipment Configuration",
@@ -831,6 +939,17 @@
       "laboratory": "Laboratory log",
       "maintenance": "Maintenance log",
       "incident": "Incident log"
+    },
+    "tabSettings": {
+      "title": "Laboratory Settings",
+      "subtitle": "Manage advanced settings and deletion options for this facility.",
+      "dangerZone": {
+        "title": "Danger Zone",
+        "subtitle": "Permanently delete this laboratory and all associated operational data.",
+        "description": "Once you delete a laboratory, all its historical sensor readings, active alerts, and configuration metrics will be permanently erased from the system. This action is irreversible.",
+        "deleteButton": "Delete Laboratory",
+        "confirmDelete": "Are you sure you want to permanently delete \"{{name}}\"? This action cannot be undone."
+      }
     }
   },
   "laboratoryForm": {
@@ -900,6 +1019,16 @@
         "Biohazard Level 2": "Biohazard Level 2",
         "Biohazard Level 3": "Biohazard Level 3"
       }
+    }
+  },
+  "layout": {
+    "loading": "Loading...",
+    "errors": {
+      "mqttDisconnected": "INFRASTRUCTURE ERROR: The platform cannot communicate with the MQTT telemetry server. Real-time readings are temporarily suspended.",
+      "serverDisconnected": "CONNECTION ERROR: Cannot establish contact with the main server."
+    },
+    "topbar": {
+      "toggleSidebar": "Toggle sidebar"
     }
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, computed, signal } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd, RouterLink } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd, NavigationStart, RouterLink } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { UpperCasePipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -50,15 +50,24 @@ export class Topbar implements OnInit {
 
   ngOnInit() {
     this.updateTitleAndSubtitle();
+    
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationStart)
+      )
+      .subscribe(() => {
+        this.topbarActionService.clearCustomTitleAndSubtitle();
+        this.topbarActionService.clearAction();
+        this.topbarActionService.clearActions();
+        this.topbarActionService.clearBreadcrumbs();
+        this.topbarActionService.clearBadge();
+      });
+
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd)
       )
       .subscribe(() => {
-        this.topbarActionService.clearCustomTitleAndSubtitle();
-        this.topbarActionService.clearActions();
-        this.topbarActionService.clearBreadcrumbs();
-        this.topbarActionService.clearBadge();
         this.updateTitleAndSubtitle();
       });
   }
@@ -76,6 +85,8 @@ export class Topbar implements OnInit {
     this.routeTitle.set(data['title'] ?? '');
     this.routeSubtitle.set(data['subtitle'] ?? '');
     const routeAction = data['topbarAction'] ?? null;
-    this.topbarActionService.setAction(routeAction);
+    if (routeAction) {
+      this.topbarActionService.setAction(routeAction);
+    }
   }
 }

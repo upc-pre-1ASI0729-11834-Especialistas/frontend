@@ -16,15 +16,13 @@ export class LaboratoryStore {
   readonly loading = this.loadingSignal.asReadonly();
   readonly laboratoriesCount = computed(() => this.laboratories().length);
 
-  constructor(private readonly laboratoryApi: LaboratoryApi) {
-    this.loadLaboratories();
-  }
+  constructor(private readonly laboratoryApi: LaboratoryApi) {}
 
   getLaboratoryById(id: number | null | undefined): Signal<Laboratory | undefined> {
     return computed(() => id ? this.laboratories().find(l => l.id === id) : undefined);
   }
 
-  private loadLaboratories(): void {
+  loadLaboratories(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.laboratoryApi.getLaboratories().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({

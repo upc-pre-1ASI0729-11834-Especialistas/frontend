@@ -2,103 +2,110 @@
   <!-- Header -->
   <div class="dialog-header">
     <h2 class="dialog-title">{{ isEditMode ? ('settingsPage.equipmentDialog.editTitle' | translate) : ('settingsPage.equipmentDialog.addTitle' | translate) }}</h2>
-    <button type="button" class="close-btn" (click)="onCancel()" aria-label="Close dialog">
+    <button type="button" class="close-btn" (click)="onCancel()" [attr.aria-label]="'common.closeDialog' | translate">
       <mat-icon>close</mat-icon>
     </button>
   </div>
 
   <!-- Form Body -->
-  <div class="dialog-content-scroll" [formGroup]="equipmentForm">
-    <!-- Equipment Name -->
-    <div class="form-group">
-      <label class="form-label">{{ 'settingsPage.equipmentDialog.nameLabel' | translate }}</label>
-      <div class="input-with-icon" [class.error]="equipmentForm.get('name')?.invalid && equipmentForm.get('name')?.touched">
-        <mat-icon class="input-icon">inventory</mat-icon>
-        <input
-          type="text"
-          formControlName="name"
-          placeholder="{{ 'settingsPage.equipmentDialog.namePlaceholder' | translate }}"
-          class="custom-input"
-          required>
+  @if (laboratoryStore.loading()) {
+    <div class="dialog-loading">
+      <mat-spinner diameter="32" />
+      <p>{{ 'layout.loading' | translate }}</p>
+    </div>
+  } @else {
+    <div class="dialog-content-scroll" [formGroup]="equipmentForm">
+      <!-- Equipment Name -->
+      <div class="form-group">
+        <label class="form-label">{{ 'settingsPage.equipmentDialog.nameLabel' | translate }}</label>
+        <div class="input-with-icon" [class.error]="equipmentForm.get('name')?.invalid && equipmentForm.get('name')?.touched">
+          <mat-icon class="input-icon">inventory</mat-icon>
+          <input
+            type="text"
+            formControlName="name"
+            placeholder="{{ 'settingsPage.equipmentDialog.namePlaceholder' | translate }}"
+            class="custom-input"
+            required>
+        </div>
+        @if (equipmentForm.get('name')?.invalid && equipmentForm.get('name')?.touched) {
+          <span class="error-text">{{ 'settingsPage.equipmentDialog.nameRequired' | translate }}</span>
+        }
       </div>
-      @if (equipmentForm.get('name')?.invalid && equipmentForm.get('name')?.touched) {
-        <span class="error-text">{{ 'settingsPage.equipmentDialog.nameRequired' | translate }}</span>
-      }
-    </div>
-
-    <!-- Laboratory -->
-    <div class="form-group">
-      <label class="form-label">{{ 'settingsPage.equipmentDialog.laboratory' | translate }}</label>
-      <div class="input-with-icon" [class.error]="equipmentForm.get('lab')?.invalid && equipmentForm.get('lab')?.touched">
-        <mat-icon class="input-icon">business</mat-icon>
-        <mat-select formControlName="lab" placeholder="{{ 'settingsPage.equipmentDialog.selectLab' | translate }}" class="custom-select-control">
-          @for (lab of laboratoryStore.laboratories(); track lab.id) {
-            <mat-option [value]="lab.name">{{ lab.name }}</mat-option>
-          }
-        </mat-select>
+  
+      <!-- Laboratory -->
+      <div class="form-group">
+        <label class="form-label">{{ 'settingsPage.equipmentDialog.laboratory' | translate }}</label>
+        <div class="input-with-icon" [class.error]="equipmentForm.get('lab')?.invalid && equipmentForm.get('lab')?.touched">
+          <mat-icon class="input-icon">business</mat-icon>
+          <mat-select formControlName="lab" placeholder="{{ 'settingsPage.equipmentDialog.selectLab' | translate }}" class="custom-select-control">
+            @for (lab of laboratoryStore.laboratories(); track lab.id) {
+              <mat-option [value]="lab.name">{{ lab.name }}</mat-option>
+            }
+          </mat-select>
+        </div>
+        @if (equipmentForm.get('lab')?.invalid && equipmentForm.get('lab')?.touched) {
+          <span class="error-text">{{ 'settingsPage.equipmentDialog.labRequired' | translate }}</span>
+        }
       </div>
-      @if (equipmentForm.get('lab')?.invalid && equipmentForm.get('lab')?.touched) {
-        <span class="error-text">{{ 'settingsPage.equipmentDialog.labRequired' | translate }}</span>
-      }
-    </div>
-
-    <!-- Category / Icon -->
-    <div class="form-group">
-      <label class="form-label">{{ 'settingsPage.equipmentDialog.categoryIcon' | translate }}</label>
-      <div class="input-with-icon">
-        <mat-icon class="input-icon">category</mat-icon>
-        <mat-select formControlName="icon" class="custom-select-control">
-          @for (ico of iconsList; track ico.value) {
-            <mat-option [value]="ico.value">{{ 'settingsPage.equipmentDialog.icons.' + ico.value | translate }}</mat-option>
-          }
-        </mat-select>
+  
+      <!-- Category / Icon -->
+      <div class="form-group">
+        <label class="form-label">{{ 'settingsPage.equipmentDialog.categoryIcon' | translate }}</label>
+        <div class="input-with-icon">
+          <mat-icon class="input-icon">category</mat-icon>
+          <mat-select formControlName="icon" class="custom-select-control">
+            @for (ico of iconsList; track ico.value) {
+              <mat-option [value]="ico.value">{{ 'settingsPage.equipmentDialog.icons.' + ico.value | translate }}</mat-option>
+            }
+          </mat-select>
+        </div>
+      </div>
+  
+      <!-- Measurement Unit -->
+      <div class="form-group">
+        <label class="form-label">{{ 'settingsPage.equipmentDialog.measurementUnit' | translate }}</label>
+        <div class="input-with-icon">
+          <mat-icon class="input-icon">percent</mat-icon>
+          <mat-select formControlName="unit" class="custom-select-control">
+            @for (u of unitsList; track u) {
+              <mat-option [value]="u">{{ u }}</mat-option>
+            }
+          </mat-select>
+        </div>
+      </div>
+  
+      <!-- Safety Thresholds -->
+      <div class="form-group-row" style="display: flex; gap: 12px; margin-bottom: 8px;">
+        <div class="form-group" style="flex: 1; margin-bottom: 0;">
+          <label class="form-label">{{ 'settingsPage.equipmentDialog.minThreshold' | translate }}</label>
+          <input type="number" formControlName="minThreshold" placeholder="{{ 'settingsPage.equipmentDialog.noMinLimit' | translate }}" class="custom-input custom-border">
+        </div>
+        <div class="form-group" style="flex: 1; margin-bottom: 0;">
+          <label class="form-label">{{ 'settingsPage.equipmentDialog.maxThreshold' | translate }}</label>
+          <input type="number" formControlName="maxThreshold" placeholder="{{ 'settingsPage.equipmentDialog.noMaxLimit' | translate }}" class="custom-input custom-border">
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label class="form-label">{{ 'settingsPage.equipmentDialog.warningThreshold' | translate }}</label>
+        <input type="number" formControlName="warningAt" placeholder="{{ 'settingsPage.equipmentDialog.noWarningLimit' | translate }}" class="custom-input custom-border">
+      </div>
+  
+      <!-- Help note -->
+      <div class="form-note">
+        <mat-icon class="info-icon">info</mat-icon>
+        <p class="note-text">{{ 'settingsPage.equipmentDialog.helpNote' | translate }}</p>
       </div>
     </div>
-
-    <!-- Measurement Unit -->
-    <div class="form-group">
-      <label class="form-label">{{ 'settingsPage.equipmentDialog.measurementUnit' | translate }}</label>
-      <div class="input-with-icon">
-        <mat-icon class="input-icon">percent</mat-icon>
-        <mat-select formControlName="unit" class="custom-select-control">
-          @for (u of unitsList; track u) {
-            <mat-option [value]="u">{{ u }}</mat-option>
-          }
-        </mat-select>
-      </div>
-    </div>
-
-    <!-- Safety Thresholds -->
-    <div class="form-group-row" style="display: flex; gap: 12px; margin-bottom: 8px;">
-      <div class="form-group" style="flex: 1; margin-bottom: 0;">
-        <label class="form-label">{{ 'settingsPage.equipmentDialog.minThreshold' | translate }}</label>
-        <input type="number" formControlName="minThreshold" placeholder="{{ 'settingsPage.equipmentDialog.noMinLimit' | translate }}" class="custom-input custom-border">
-      </div>
-      <div class="form-group" style="flex: 1; margin-bottom: 0;">
-        <label class="form-label">{{ 'settingsPage.equipmentDialog.maxThreshold' | translate }}</label>
-        <input type="number" formControlName="maxThreshold" placeholder="{{ 'settingsPage.equipmentDialog.noMaxLimit' | translate }}" class="custom-input custom-border">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">{{ 'settingsPage.equipmentDialog.warningThreshold' | translate }}</label>
-      <input type="number" formControlName="warningAt" placeholder="{{ 'settingsPage.equipmentDialog.noWarningLimit' | translate }}" class="custom-input custom-border">
-    </div>
-
-    <!-- Help note -->
-    <div class="form-note">
-      <mat-icon class="info-icon">info</mat-icon>
-      <p class="note-text">{{ 'settingsPage.equipmentDialog.helpNote' | translate }}</p>
-    </div>
-  </div>
-
+  }
+  
   <!-- Footer Actions -->
   <div class="dialog-footer">
     <button type="button" class="cancel-btn" (click)="onCancel()">{{ 'common.cancel' | translate }}</button>
     <button
       type="button"
       class="submit-btn"
-      [disabled]="equipmentForm.invalid"
+      [disabled]="equipmentForm.invalid || laboratoryStore.loading()"
       (click)="onSubmit()">
       <mat-icon>save</mat-icon>
       <span>{{ isEditMode ? ('settingsPage.equipmentDialog.updateEquipment' | translate) : ('settingsPage.equipmentDialog.createEquipment' | translate) }}</span>

@@ -17,9 +17,7 @@ export class SensorConfigurationStore {
   readonly loading = this.loadingSignal.asReadonly();
   readonly sensorConfigurationsCount = computed(() => this.sensorConfigurations().length);
 
-  constructor(private readonly sensorConfigurationsApi: SensorConfigurationsApi) {
-    this.loadSensorConfigurations();
-  }
+  constructor(private readonly sensorConfigurationsApi: SensorConfigurationsApi) {}
 
   getSensorConfigurationById(id: number | null | undefined): Signal<SensorConfiguration | undefined> {
     return computed(() => id ? this.sensorConfigurations().find(e => e.id === id) : undefined);
@@ -68,7 +66,7 @@ export class SensorConfigurationStore {
     );
   }
 
-  private loadSensorConfigurations(): void {
+  loadSensorConfigurations(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.sensorConfigurationsApi.getSensorConfigurations().pipe(

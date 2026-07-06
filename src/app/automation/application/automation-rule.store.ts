@@ -17,15 +17,13 @@ export class AutomationRuleStore {
   readonly loading = this.loadingSignal.asReadonly();
   readonly automationRulesCount = computed(() => this.automationRules().length);
 
-  constructor(private readonly automationRulesApi: AutomationRulesApi) {
-    this.loadAutomationRules();
-  }
+  constructor(private readonly automationRulesApi: AutomationRulesApi) {}
 
   getAutomationRuleById(id: number | null | undefined): Signal<AutomationRule | undefined> {
     return computed(() => id ? this.automationRules().find(r => r.id === id) : undefined);
   }
 
-  private loadAutomationRules(): void {
+  loadAutomationRules(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.automationRulesApi.getAutomationRules().pipe(

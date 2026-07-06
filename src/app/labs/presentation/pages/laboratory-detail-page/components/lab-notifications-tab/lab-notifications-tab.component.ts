@@ -1,3 +1,4 @@
+import { TranslatePipe } from '@ngx-translate/core';
 import { Component, inject, input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,15 +13,13 @@ import { LaboratoryStore } from '../../../../../application/laboratory.store';
 @Component({
   selector: 'app-lab-notifications-tab',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [CommonModule,
     FormsModule,
     MatIconModule,
     MatButtonModule,
     MatCheckboxModule,
     MatSlideToggleModule,
-    MatSnackBarModule
-  ],
+    MatSnackBarModule, TranslatePipe,],
   templateUrl: './lab-notifications-tab.component.html',
   styleUrls: ['./lab-notifications-tab.component.css']
 })

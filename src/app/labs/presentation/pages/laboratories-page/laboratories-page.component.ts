@@ -1,4 +1,4 @@
-﻿import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LaboratoriesToolbarComponent } from './components/laboratories-toolbar/laboratories-toolbar.component';
 import { LaboratoriesListComponent } from './components/laboratories-list/laboratories-list.component';
@@ -30,7 +30,8 @@ export class LaboratoriesPageComponent implements OnInit {
   viewMode: 'grid' | 'list' = 'grid';
 
   ngOnInit(): void {
-
+    this.laboratoryStore.loadLaboratories();
+    this.laboratoryStore.loadFilterData();
   }
 
   onSearchInput(event: Event): void {

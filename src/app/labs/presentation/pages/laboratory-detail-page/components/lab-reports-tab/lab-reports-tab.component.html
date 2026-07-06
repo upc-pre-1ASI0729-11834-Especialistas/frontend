@@ -4,13 +4,13 @@
       <mat-icon>insert_drive_file</mat-icon>
     </div>
     <div class="header-text">
-      <h2>Safety Audits & Reports</h2>
-      <p>Access generated compliance sheets, device logs, and system calibration reports for <strong>{{ lab().name }}</strong>.</p>
+      <h2>{{ 'laboratories.detail.reports.safety_audits_reports' | translate }}</h2>
+      <p>{{ 'laboratories.detail.reports.access_generated_compliance_sheets' | translate }} <strong>{{ lab().name }}</strong>.</p>
     </div>
   </div>
 
   <div class="reports-grid">
-    @for (report of reportsList; track report.id) {
+    @for (report of reportsList(); track report.id) {
       <div class="report-card">
         <div class="report-icon-container">
           <mat-icon>picture_as_pdf</mat-icon>
@@ -31,7 +31,7 @@
             </div>
             <div class="meta-item">
               <mat-icon>schedule</mat-icon>
-              <span>Updated: {{ getFormattedDate(report.generatedAt) }}</span>
+              <span>{{ 'laboratories.detail.reports.updated' | translate }} {{ getFormattedDate(report.generatedAt) }}</span>
             </div>
           </div>
         </div>
@@ -50,8 +50,8 @@
     <div class="generate-info">
       <mat-icon>info_outline</mat-icon>
       <div>
-        <h4>Need custom time range analysis?</h4>
-        <p>You can compile specialized sensors charts and alarm reports in the main reports center.</p>
+        <h4>{{ 'laboratories.detail.reports.need_custom_time_range' | translate }}</h4>
+        <p>{{ 'laboratories.detail.reports.you_can_compile_specialized' | translate }}</p>
       </div>
     </div>
     <button mat-flat-button class="nav-reports-btn">

@@ -133,10 +133,7 @@ export class LaboratoryStore {
   readonly gasSensitivities: GasSensitivity[] = ['Low - General labs', 'Medium - Chemical labs', 'High - Hazmat areas'];
   readonly alertEscalations: AlertEscalation[] = ['Immediate - Stop all activity', 'Gradual - Warn then escalate', 'Monitor - Log only'];
 
-  constructor() {
-    this.loadFilterData();
-    this.loadLaboratories();
-  }
+  constructor() {}
 
 
   loadLaboratories(): void {
@@ -305,6 +302,22 @@ export class LaboratoryStore {
         this.creationSuccessSignal.set(true);
         this.selectedLaboratorySignal.set(updated);
         this.loadLaboratories();
+      },
+      error: (err) => this.errorSignal.set(err.message)
+    });
+  }
+
+  deleteLaboratory(id: number, onSuccess?: () => void): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+
+    this.api.delete(id).pipe(
+      takeUntilDestroyed(this.destroyRef),
+      finalize(() => this.loadingSignal.set(false))
+    ).subscribe({
+      next: () => {
+        this.loadLaboratories();
+        if (onSuccess) onSuccess();
       },
       error: (err) => this.errorSignal.set(err.message)
     });

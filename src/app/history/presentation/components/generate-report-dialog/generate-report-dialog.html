@@ -6,7 +6,7 @@
         {{ 'history.panel.report' | translate }}
       </h2>
     </div>
-    <button type="button" class="close-btn" (click)="onCancel()" aria-label="Close dialog">
+    <button type="button" class="close-btn" (click)="onCancel()" [attr.aria-label]="'common.closeDialog' | translate">
       <mat-icon>close</mat-icon>
     </button>
   </div>

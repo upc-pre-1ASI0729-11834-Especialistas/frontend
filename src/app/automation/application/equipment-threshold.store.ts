@@ -17,15 +17,13 @@ export class EquipmentThresholdStore {
   readonly loading = this.loadingSignal.asReadonly();
   readonly equipmentThresholdsCount = computed(() => this.equipmentThresholds().length);
 
-  constructor(private readonly equipmentThresholdsApi: EquipmentThresholdsApi) {
-    this.loadEquipmentThresholds();
-  }
+  constructor(private readonly equipmentThresholdsApi: EquipmentThresholdsApi) {}
 
   getEquipmentThresholdById(id: number | null | undefined): Signal<EquipmentThreshold | undefined> {
     return computed(() => id ? this.equipmentThresholds().find(e => e.id === id) : undefined);
   }
 
-  private loadEquipmentThresholds(): void {
+  loadEquipmentThresholds(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.equipmentThresholdsApi.getEquipmentThresholds().pipe(

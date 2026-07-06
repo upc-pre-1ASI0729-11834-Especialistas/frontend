@@ -1,3 +1,4 @@
+import { TranslatePipe } from '@ngx-translate/core';
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,8 +19,7 @@ import { TopbarActionService } from '../../../../shared/application/topbar-actio
 @Component({
   selector: 'app-metric-types-page',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [CommonModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,
@@ -27,8 +27,7 @@ import { TopbarActionService } from '../../../../shared/application/topbar-actio
     MatFormFieldModule,
     MatDialogModule,
     MatSlideToggleModule,
-    RouterModule
-  ],
+    RouterModule, TranslatePipe,],
   templateUrl: './metric-types-page.component.html',
   styleUrls: ['./metric-types-page.component.css']
 })
@@ -43,19 +42,15 @@ export class MetricTypesPageComponent {
   readonly selectedStatus = signal<string>('all-statuses');
 
   constructor() {
-    this.topbarActionService.setAction({
-      label: this.translateService.instant('settings.metricTypes.add') || 'Add Metric Type',
-      icon: 'add',
-      id: 'add-metric-type-action'
-    });
-
-    this.translateService.onLangChange.pipe(takeUntilDestroyed()).subscribe(() => {
-      this.topbarActionService.setAction({
-        label: this.translateService.instant('settings.metricTypes.add') || 'Add Metric Type',
-        icon: 'add',
-        id: 'add-metric-type-action'
+    this.translateService.stream('settings.metricTypes.add')
+      .pipe(takeUntilDestroyed())
+      .subscribe(label => {
+        this.topbarActionService.setAction({
+          label: label || 'Add Metric Type',
+          icon: 'add',
+          id: 'add-metric-type-action'
+        });
       });
-    });
 
     this.topbarActionService.actionClicked$
       .pipe(takeUntilDestroyed())
