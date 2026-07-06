@@ -24,7 +24,7 @@ import { AuthStore } from '../../../../iam/application/auth.store';
     MatSnackBarModule
   ],
   templateUrl: './security-access-page.component.html',
-  styleUrl: './security-access-page.component.css'
+  styleUrls: ['./security-access-page.component.css']
 })
 export class SecurityAccessPageComponent implements OnInit {
   protected readonly automationStore = inject(AutomationStore);

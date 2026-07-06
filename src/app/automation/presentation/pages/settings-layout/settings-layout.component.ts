@@ -7,7 +7,7 @@ import { SecondarySidebarComponent, SecondarySidebarItem } from '../../../../sha
   standalone: true,
   imports: [RouterOutlet, SecondarySidebarComponent],
   templateUrl: './settings-layout.component.html',
-  styleUrl: './settings-layout.component.css'
+  styleUrls: ['./settings-layout.component.css']
 })
 export class SettingsLayoutComponent {
   readonly settingsSidebarItems: SecondarySidebarItem[] = [

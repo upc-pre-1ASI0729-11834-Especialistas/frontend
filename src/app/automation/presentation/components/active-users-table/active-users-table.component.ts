@@ -21,7 +21,7 @@ import {TranslatePipe} from '@ngx-translate/core';
     TranslatePipe
   ],
   templateUrl: './active-users-table.component.html',
-  styleUrl: './active-users-table.component.css'
+  styleUrls: ['./active-users-table.component.css']
 })
 export class ActiveUsersTableComponent {
   @Input() users: LabUser[] = [];

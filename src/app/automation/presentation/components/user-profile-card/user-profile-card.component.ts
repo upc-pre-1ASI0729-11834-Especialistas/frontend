@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [MatCardModule, MatButtonModule, MatIconModule, TranslateModule],
   templateUrl: './user-profile-card.component.html',
-  styleUrl: './user-profile-card.component.css'
+  styleUrls: ['./user-profile-card.component.css']
 })
 export class UserProfileCardComponent {
   profile = input.required<UserProfile>();

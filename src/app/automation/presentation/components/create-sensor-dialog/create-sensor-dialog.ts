@@ -31,7 +31,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule
   ],
   templateUrl: './create-sensor-dialog.html',
-  styleUrl: './create-sensor-dialog.css'
+  styleUrls: ['./create-sensor-dialog.css']
 })
 export class CreateSensorDialog implements OnInit {
   private readonly fb = inject(FormBuilder);

@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [CommonModule, MatIconModule, MatButtonModule, TranslateModule],
   templateUrl: './threshold-equipment-table.component.html',
-  styleUrl: './threshold-equipment-table.component.css'
+  styleUrls: ['./threshold-equipment-table.component.css']
 })
 export class ThresholdEquipmentTableComponent {
   equipmentThresholds = input.required<EquipmentThreshold[]>();

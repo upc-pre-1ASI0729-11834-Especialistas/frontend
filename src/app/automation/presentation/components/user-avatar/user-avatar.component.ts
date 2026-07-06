@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './user-avatar.component.html',
-  styleUrl: './user-avatar.component.css'
+  styleUrls: ['./user-avatar.component.css']
 })
 export class UserAvatarComponent {
   @Input() initials: string = '';

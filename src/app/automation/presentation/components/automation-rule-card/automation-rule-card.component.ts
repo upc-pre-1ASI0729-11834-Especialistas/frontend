@@ -10,7 +10,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   standalone: true,
   imports: [CommonModule, MatSlideToggleModule, MatIconModule, TranslateModule],
   templateUrl: './automation-rule-card.component.html',
-  styleUrl: './automation-rule-card.component.css'
+  styleUrls: ['./automation-rule-card.component.css']
 })
 export class AutomationRuleCardComponent {
   private readonly translateService = inject(TranslateService);

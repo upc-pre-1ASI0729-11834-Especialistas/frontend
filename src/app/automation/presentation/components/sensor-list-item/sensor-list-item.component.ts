@@ -10,7 +10,7 @@ import { SensorConfiguration } from '../../../domain/model/sensor-configuration.
   standalone: true,
   imports: [MatCardModule, MatIconModule, MatButtonModule, CommonModule],
   templateUrl: './sensor-list-item.component.html',
-  styleUrl: './sensor-list-item.component.css'
+  styleUrls: ['./sensor-list-item.component.css']
 })
 export class SensorListItemComponent {
   sensor = input.required<SensorConfiguration>();
