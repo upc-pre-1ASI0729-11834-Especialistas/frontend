@@ -28,7 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule
   ],
   templateUrl: './dashboard-page.component.html',
-  styleUrl: './dashboard-page.component.css',
+  styleUrls: ['./dashboard-page.component.css'],
 })
 export class DashboardPageComponent implements OnInit {
   protected readonly dashboardStore = inject(DashboardStore);
@@ -66,18 +66,18 @@ export class DashboardPageComponent implements OnInit {
     const records = this.historyStore.history();
     if (!records || records.length === 0) return 'No info';
     const reportRecord = [...records]
-      .filter(r => 
-        r.eventType?.toLowerCase().includes('report') || 
+      .filter(r =>
+        r.eventType?.toLowerCase().includes('report') ||
         r.eventType?.toLowerCase().includes('compliance') ||
         r.name?.toLowerCase().includes('report') ||
         r.name?.toLowerCase().includes('compliance')
       )
       .sort((a, b) => Date.parse(b.occurredAt) - Date.parse(a.occurredAt))[0];
-    
+
     if (reportRecord) {
       return this.formatRelativeTime(reportRecord.occurredAt);
     }
-    
+
     return 'No info';
   });
 
@@ -132,13 +132,13 @@ export class DashboardPageComponent implements OnInit {
   private formatRelativeTime(dateString: string): string {
     const occurred = Date.parse(dateString);
     if (Number.isNaN(occurred)) return 'N/A';
-    
+
     const now = Date.now();
     const diffMs = now - occurred;
     const diffMins = Math.floor(diffMs / 60000);
     const diffHours = Math.floor(diffMins / 60);
     const diffDays = Math.floor(diffHours / 24);
-    
+
     if (diffMins < 1) return 'Just now';
     if (diffMins < 60) return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
     if (diffHours < 24) return `${diffHours} hr${diffHours > 1 ? 's' : ''} ago`;
@@ -146,4 +146,3 @@ export class DashboardPageComponent implements OnInit {
     return `${diffDays} days ago`;
   }
 }
-

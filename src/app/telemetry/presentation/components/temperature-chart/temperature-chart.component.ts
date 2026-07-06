@@ -39,7 +39,7 @@ export type ChartOptions = {
   selector: 'app-temperature-chart',
   imports: [CardComponent, MatButtonToggleGroup, MatButtonToggle, NgApexchartsModule, MatIcon, MatSelectModule, MatFormFieldModule],
   templateUrl: './temperature-chart.component.html',
-  styleUrl: './temperature-chart.component.css',
+  styleUrls: ['./temperature-chart.component.css'],
 })
 export class TemperatureChartComponent {
   readings = input.required<TemperatureReading[]>();
@@ -81,7 +81,7 @@ export class TemperatureChartComponent {
           // ignore
         }
       }
-      
+
       if (labs.length <= 3) {
         this.selectedLabIds.set(labs.map(l => l.id));
       } else {
