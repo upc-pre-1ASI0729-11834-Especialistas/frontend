@@ -45,7 +45,7 @@ interface AlertGroup {
     TranslateModule
   ],
   templateUrl: './alerts-page.html',
-  styleUrl: './alerts-page.css',
+  styleUrls: ['./alerts-page.css'],
 })
 export class AlertsPage {
   private readonly router = inject(Router);
@@ -144,8 +144,8 @@ export class AlertsPage {
 
     const labs = this.laboratoryStore.allLaboratories();
     const lab = labs.find(l => l.id === alert.laboratoryId);
-    const location = lab 
-      ? `${lab.building} — ${lab.name}` 
+    const location = lab
+      ? `${lab.building} — ${lab.name}`
       : (alert.labLocation || alert.labName || 'Main Laboratory');
 
     return {

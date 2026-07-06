@@ -14,7 +14,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   standalone: true,
   imports: [MatIconModule, RouterLink, MatDialogModule, CommonModule, TranslatePipe],
   templateUrl: './incident-view-page.html',
-  styleUrl: './incident-view-page.css',
+  styleUrls: ['./incident-view-page.css'],
 })
 export class IncidentViewPage {
   private readonly dialog = inject(MatDialog);

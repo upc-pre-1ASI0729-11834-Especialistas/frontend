@@ -25,7 +25,7 @@ export interface EscalateDialogData {
     FormsModule
   ],
   templateUrl: './escalate-supervisor-dialog.html',
-  styleUrl: './escalate-supervisor-dialog.css'
+  styleUrls: ['./escalate-supervisor-dialog.css']
 })
 export class EscalateSupervisorDialog {
   readonly reasons = [
