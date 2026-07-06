@@ -388,6 +388,18 @@
       "signingUp": "Creando cuenta...",
       "alreadyHaveAccount": "¿Ya tienes una cuenta?",
       "signInHere": "Inicia sesión aquí"
+    },
+    "confirmAccount": {
+      "title": "Verifica tu Cuenta",
+      "subtitle": "Enviamos un código de confirmación de 6 dígitos a",
+      "emailLabel": "Correo electrónico",
+      "codeLabel": "Código de Verificación",
+      "codePlaceholder": "Ingresa el código de 6 dígitos",
+      "submitButton": "Verificar Cuenta",
+      "submitting": "Verificando...",
+      "resendCode": "Reenviar código de verificación",
+      "resendSuccess": "Se ha enviado un nuevo código a tu correo electrónico.",
+      "backToLogin": "Volver a Iniciar Sesión"
     }
   },
   "incident": {

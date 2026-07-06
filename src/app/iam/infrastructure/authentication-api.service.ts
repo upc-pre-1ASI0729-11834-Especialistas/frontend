@@ -30,4 +30,16 @@ export class AuthenticationApiService implements AuthenticationPort {
     const body: SignUpRequest = { email, password, fullName, roles: [] };
     return this.http.post<void>(`${this.baseUrl}${this.authPath}/sign-up`, body);
   }
+
+  confirmAccount(email: string, code: string): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}${this.authPath}/confirm-account`, { email, code });
+  }
+
+  resendCode(email: string): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}${this.authPath}/resend-code`, { email });
+  }
+
+  cleanTestUsers(): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}${this.authPath}/clean-test-users`);
+  }
 }

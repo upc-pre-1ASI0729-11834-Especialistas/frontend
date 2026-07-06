@@ -4,7 +4,7 @@
     <div class="login-card" id="login-card">
       <!-- Logo & Branding -->
       <div class="card-header">
-        <div class="card-logo">
+        <div class="card-logo" (dblclick)="onClearTestUsers()" style="cursor: pointer;" title="Double click to clear test users">
           <mat-icon>science</mat-icon>
         </div>
         <h1 class="card-brand">Safelab</h1>
@@ -20,6 +20,14 @@
         <div class="login-error-message" style="color: #ef4444; background-color: #fef2f2; border: 1px solid #fee2e2; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;">
           <mat-icon style="font-size: 18px; width: 18px; height: 18px; color: #ef4444;">error_outline</mat-icon>
           <span>{{ authStore.error() }}</span>
+        </div>
+      }
+
+      <!-- Success Message -->
+      @if (successMessage) {
+        <div class="login-success-message" style="color: #10b981; background-color: #ecfdf5; border: 1px solid #d1fae5; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <mat-icon style="font-size: 18px; width: 18px; height: 18px; color: #10b981;">check_circle_outline</mat-icon>
+          <span>{{ successMessage }}</span>
         </div>
       }
 
