@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'app-lab-sensors-config',
   imports: [MatIcon, IconBadgeComponent, CardComponent, SectionHeaderComponent, MatSlideToggle, FormsModule, TranslateModule],
   templateUrl: './lab-sensors-config.component.html',
-  styleUrl: './lab-sensors-config.component.css'
+  styleUrls: ['']
 })
 export class LabSensorsConfigComponent {
   metricSubscriptions = model.required<{

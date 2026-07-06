@@ -9,7 +9,7 @@ import { StatusBadgeComponent } from '../../../../../../shared/presentation/comp
   selector: 'app-metric-card',
   imports: [MatIcon, StatusBadgeComponent, TitleCasePipe, TranslatePipe],
   templateUrl: './metric-card.component.html',
-  styleUrl: './metric-card.component.css',
+  styleUrls: ['./metric-card.component.css'],
 })
 export class MetricCardComponent {
   metric = input.required<LabMetric>();

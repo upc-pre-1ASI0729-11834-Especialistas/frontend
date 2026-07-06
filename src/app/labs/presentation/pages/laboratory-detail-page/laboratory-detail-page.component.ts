@@ -41,7 +41,7 @@ import { TopbarActionService } from '../../../../shared/application/topbar-actio
     TranslatePipe
   ],
   templateUrl: './laboratory-detail-page.component.html',
-  styleUrl: './laboratory-detail-page.component.css',
+  styleUrls: ['./laboratory-detail-page.component.css'],
 })
 export class LaboratoryDetailPageComponent implements OnInit {
   protected readonly laboratoryStore = inject(LaboratoryStore);

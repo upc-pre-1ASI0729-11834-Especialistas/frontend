@@ -22,7 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule
   ],
   templateUrl: './laboratories-page.component.html',
-  styleUrl: './laboratories-page.component.css',
+  styleUrls: ['./laboratories-page.component.css'],
 })
 export class LaboratoriesPageComponent implements OnInit {
   protected readonly laboratoryStore = inject(LaboratoryStore);
@@ -51,4 +51,3 @@ export class LaboratoriesPageComponent implements OnInit {
     this.laboratoryStore.goToPage(page);
   }
 }
-

@@ -22,7 +22,7 @@ import {TranslatePipe} from '@ngx-translate/core';
     TranslatePipe
   ],
   templateUrl: './laboratories-toolbar.component.html',
-  styleUrl: './laboratories-toolbar.component.css'
+  styleUrls: ['./laboratories-toolbar.component.css']
 })
 export class LaboratoriesToolbarComponent {
   totalCount = input.required<number>();

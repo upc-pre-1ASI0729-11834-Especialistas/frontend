@@ -22,7 +22,7 @@ import { LaboratoryStore } from '../../../../../application/laboratory.store';
     MatSnackBarModule
   ],
   templateUrl: './lab-notifications-tab.component.html',
-  styleUrl: './lab-notifications-tab.component.css'
+  styleUrls: ['']
 })
 export class LabNotificationsTabComponent implements OnInit {
   lab = input.required<Laboratory>();

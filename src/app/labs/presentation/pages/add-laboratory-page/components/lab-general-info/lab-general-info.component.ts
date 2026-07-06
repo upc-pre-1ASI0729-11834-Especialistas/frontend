@@ -26,7 +26,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule
   ],
   templateUrl: './lab-general-info.component.html',
-  styleUrl: './lab-general-info.component.css'
+  styleUrls: ['./lab-general-info.component.css']
 })
 export class LabGeneralInfoComponent {
   protected readonly laboratoryStore = inject(LaboratoryStore);

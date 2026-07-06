@@ -8,7 +8,7 @@ import { StatusBadgeComponent } from '../../../../../../shared/presentation/comp
   selector: 'app-laboratory-alerts',
   imports: [CardComponent, StatusBadgeComponent, RouterLink],
   templateUrl: './laboratory-alerts.component.html',
-  styleUrl: './laboratory-alerts.component.css',
+  styleUrls: ['']
 })
 export class LaboratoryAlertsComponent {
   alerts = input.required<LabAlert[]>();
