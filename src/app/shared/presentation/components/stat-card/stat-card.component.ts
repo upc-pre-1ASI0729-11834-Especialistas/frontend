@@ -7,7 +7,7 @@ import { MatProgressBar } from '@angular/material/progress-bar';
   selector: 'app-stat-card',
   imports: [CardComponent, IconBadgeComponent, MatProgressBar],
   templateUrl: './stat-card.component.html',
-  styleUrl: './stat-card.component.css',
+  styleUrls: ['./stat-card.component.css'],
 })
 export class StatCardComponent {
   label = input.required<string>();

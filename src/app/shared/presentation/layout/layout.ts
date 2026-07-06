@@ -21,7 +21,7 @@ const MOBILE_BREAKPOINT = 768;
     MatIconModule
   ],
   templateUrl: './layout.html',
-  styleUrl: './layout.css',
+  styleUrls: ['./layout.css'],
 })
 export class Layout implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav!: MatSidenav;

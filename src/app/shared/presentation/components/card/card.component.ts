@@ -4,7 +4,7 @@ import { MatCard } from '@angular/material/card';
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
-  styleUrl: './card.component.css',
+  styleUrls: ['./card.component.css'],
   imports: [MatCard],
 })
 export class CardComponent {

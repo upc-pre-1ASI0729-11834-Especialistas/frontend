@@ -9,7 +9,7 @@ import {TranslateService} from '@ngx-translate/core';
     MatButtonToggle
   ],
   templateUrl: './language-switcher.html',
-  styleUrl: './language-switcher.css',
+  styleUrls: ['./language-switcher.css'],
 })
 export class LanguageSwitcher implements OnInit {
   currentLanguage = 'en';
