@@ -23,7 +23,7 @@ import { AuthStore } from '../../../application/auth.store';
     TranslatePipe
   ],
   templateUrl: './register-page.component.html',
-  styleUrl: './register-page.component.css',
+  styleUrls: ['./register-page.component.css'],
 })
 export class RegisterPageComponent implements OnInit {
   readonly authStore = inject(AuthStore);
