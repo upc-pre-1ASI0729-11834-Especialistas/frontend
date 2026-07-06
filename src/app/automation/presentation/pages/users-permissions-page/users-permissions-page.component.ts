@@ -1,4 +1,4 @@
-import { Component, inject, DestroyRef } from '@angular/core';
+import { Component, inject, DestroyRef, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
@@ -34,7 +34,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   templateUrl: './users-permissions-page.component.html',
   styleUrls: ['./users-permissions-page.component.css']
 })
-export class UsersPermissionsPageComponent {
+export class UsersPermissionsPageComponent implements OnInit {
   protected readonly workspaceStore = inject(WorkspaceStore);
   protected readonly automationStore = inject(AutomationStore);
   private readonly dialog = inject(MatDialog);
@@ -42,20 +42,22 @@ export class UsersPermissionsPageComponent {
   private readonly destroyRef = inject(DestroyRef);
   private readonly translateService = inject(TranslateService);
 
-  constructor() {
-    this.topbarActionService.setAction({
-      label: this.translateService.instant('settingsPage.usersPermissions.inviteUser') || 'Invite New User',
-      icon: 'person_add',
-      id: 'invite-user-action'
-    });
+  ngOnInit() {
+    this.automationStore.loadLabUsers();
+    this.automationStore.loadPendingInvitations();
+    this.automationStore.loadRoleDefinitions();
+  }
 
-    this.translateService.onLangChange.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-      this.topbarActionService.setAction({
-        label: this.translateService.instant('settingsPage.usersPermissions.inviteUser') || 'Invite New User',
-        icon: 'person_add',
-        id: 'invite-user-action'
+  constructor() {
+    this.translateService.stream('settingsPage.usersPermissions.inviteUser')
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(label => {
+        this.topbarActionService.setAction({
+          label: label || 'Invite New User',
+          icon: 'person_add',
+          id: 'invite-user-action'
+        });
       });
-    });
 
     this.topbarActionService.actionClicked$
       .pipe(takeUntilDestroyed(this.destroyRef))

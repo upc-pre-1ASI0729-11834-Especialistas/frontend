@@ -142,6 +142,7 @@ export class LaboratoryDetailPageComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.alertsStore.loadAlerts();
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.laboratoryStore.loadLaboratoryById(parseInt(id, 10));

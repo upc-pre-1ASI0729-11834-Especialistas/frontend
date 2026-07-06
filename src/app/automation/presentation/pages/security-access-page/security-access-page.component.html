@@ -5,35 +5,35 @@
     <!-- Change Password Card -->
     <mat-card appearance="outlined" class="password-card">
       <mat-card-content class="card-content">
-        <h2 class="card-title">Change Password</h2>
+        <h2 class="card-title">{{ 'settingsPage.securityAccess.changePassword' | translate }}</h2>
 
         <form [formGroup]="passwordForm" (ngSubmit)="onUpdatePassword()" class="form-container">
           <div class="form-field">
-            <label class="field-label">Current Password</label>
+            <label class="field-label">{{ 'settingsPage.securityAccess.currentPassword' | translate }}</label>
             <mat-form-field appearance="outline" subscriptSizing="dynamic">
-              <input matInput type="password" formControlName="currentPassword" placeholder="••••••••">
+              <input matInput type="password" formControlName="currentPassword" [placeholder]="'settingsPage.securityAccess.' | translate">
             </mat-form-field>
           </div>
 
           <div class="form-field">
-            <label class="field-label">New Password</label>
+            <label class="field-label">{{ 'settingsPage.securityAccess.newPassword' | translate }}</label>
             <mat-form-field appearance="outline" subscriptSizing="dynamic">
-              <input matInput type="password" formControlName="newPassword" placeholder="••••••••">
+              <input matInput type="password" formControlName="newPassword" [placeholder]="'settingsPage.securityAccess.' | translate">
             </mat-form-field>
-            <div class="helper-text">Password must be 8+ characters</div>
+            <div class="helper-text">{{ 'settingsPage.securityAccess.passwordHelp' | translate }}</div>
           </div>
 
           <div class="form-field">
-            <label class="field-label">Confirm New Password</label>
+            <label class="field-label">{{ 'settingsPage.securityAccess.confirmNewPassword' | translate }}</label>
             <mat-form-field appearance="outline" subscriptSizing="dynamic">
-              <input matInput type="password" formControlName="confirmPassword" placeholder="••••••••">
+              <input matInput type="password" formControlName="confirmPassword" [placeholder]="'settingsPage.securityAccess.' | translate">
             </mat-form-field>
           </div>
 
           <div class="divider"></div>
 
           <div class="actions-right">
-            <button type="submit" mat-flat-button color="primary">Update Password</button>
+            <button type="submit" mat-flat-button color="primary">{{ 'settingsPage.securityAccess.updatePassword' | translate }}</button>
           </div>
         </form>
       </mat-card-content>
@@ -42,7 +42,7 @@
     <!-- 2FA Card -->
     <mat-card appearance="outlined" class="tfa-card">
       <mat-card-content class="card-content tfa-content">
-        <h2 class="card-title">Two-Factor Authentication (2FA)</h2>
+        <h2 class="card-title">{{ 'settingsPage.securityAccess.tfa' | translate }}</h2>
 
         <div class="tfa-illustration">
           <div class="shield-icon">
@@ -54,13 +54,13 @@
         </div>
 
         <p class="tfa-description">
-          Add an extra layer of security to your account by requiring more than just a password to log in.
+          {{ 'settingsPage.securityAccess.tfaDesc' | translate }}
         </p>
 
         <div class="spacer"></div>
         <div class="divider"></div>
 
-        <button mat-stroked-button color="primary" class="full-width-btn" (click)="onEnable2FA()">Enable 2FA</button>
+        <button mat-stroked-button color="primary" class="full-width-btn" (click)="onEnable2FA()">{{ 'settingsPage.securityAccess.enable2fa' | translate }}</button>
       </mat-card-content>
     </mat-card>
 
@@ -74,8 +74,8 @@
         <mat-icon color="primary">history</mat-icon>
       </div>
       <div class="info-text">
-        <h3 class="info-title">Login Activity</h3>
-        <p class="info-desc">Last login: 2 hours ago from Zurich, CH</p>
+        <h3 class="info-title">{{ 'settingsPage.securityAccess.loginActivity' | translate }}</h3>
+        <p class="info-desc">{{ 'settingsPage.securityAccess.lastLoginSwiss' | translate }}</p>
       </div>
     </div>
 
@@ -84,8 +84,8 @@
         <mat-icon color="primary">devices</mat-icon>
       </div>
       <div class="info-text">
-        <h3 class="info-title">Active Sessions</h3>
-        <p class="info-desc">2 devices currently connected</p>
+        <h3 class="info-title">{{ 'settingsPage.securityAccess.activeSessions' | translate }}</h3>
+        <p class="info-desc">{{ 'settingsPage.securityAccess.2_devices_currently_connected' | translate }}</p>
       </div>
     </div>
 
@@ -94,8 +94,8 @@
         <mat-icon color="primary">verified_user</mat-icon>
       </div>
       <div class="info-text">
-        <h3 class="info-title">Account Status</h3>
-        <p class="info-desc">Verified Lab Technician (Tier 1)</p>
+        <h3 class="info-title">{{ 'settingsPage.securityAccess.accountStatus' | translate }}</h3>
+        <p class="info-desc">{{ 'settingsPage.securityAccess.verifiedTech' | translate }}</p>
       </div>
     </div>
 

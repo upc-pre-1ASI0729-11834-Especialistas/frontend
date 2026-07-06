@@ -1,13 +1,12 @@
+import { TranslatePipe } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-language-switcher',
-  imports: [
-    MatButtonToggleGroup,
-    MatButtonToggle
-  ],
+  imports: [MatButtonToggleGroup,
+    MatButtonToggle, TranslatePipe,],
   templateUrl: './language-switcher.html',
   styleUrls: ['./language-switcher.css'],
 })

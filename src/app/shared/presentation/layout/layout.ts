@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { SystemStatusService } from '../../application/system-status.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 const MOBILE_BREAKPOINT = 768;
 
@@ -18,7 +19,8 @@ const MOBILE_BREAKPOINT = 768;
     Topbar,
     RouterModule,
     MatSidenavModule,
-    MatIconModule
+    MatIconModule,
+    TranslatePipe
   ],
   templateUrl: './layout.html',
   styleUrls: ['./layout.css'],

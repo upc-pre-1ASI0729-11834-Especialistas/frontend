@@ -22,12 +22,12 @@
     @if (systemStatus() === 'DISCONNECTED') {
       <div class="global-status-banner warning-banner">
         <mat-icon class="banner-icon">warning</mat-icon>
-        <span class="banner-text">ERROR DE INFRAESTRUCTURA: La plataforma no puede comunicarse con el servidor de telemetría MQTT. Las lecturas en tiempo real se encuentran temporalmente suspendidas.</span>
+        <span class="banner-text">{{ 'layout.errors.mqttDisconnected' | translate }}</span>
       </div>
     } @else if (systemStatus() === 'SERVER_ERROR') {
       <div class="global-status-banner error-banner">
         <mat-icon class="banner-icon">error</mat-icon>
-        <span class="banner-text">ERROR DE CONEXIÓN: No se puede establecer contacto con el servidor principal.</span>
+        <span class="banner-text">{{ 'layout.errors.serverDisconnected' | translate }}</span>
       </div>
     }
 

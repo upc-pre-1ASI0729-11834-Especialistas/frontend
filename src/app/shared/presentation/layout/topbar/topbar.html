@@ -4,7 +4,7 @@
     <button
       mat-icon-button
       class="hamburger-btn"
-      aria-label="Toggle sidebar"
+      [attr.aria-label]="'layout.topbar.toggleSidebar' | translate"
       (click)="hamburgerClick.emit()">
       <mat-icon>menu</mat-icon>
     </button>

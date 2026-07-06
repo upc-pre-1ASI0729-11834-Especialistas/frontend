@@ -17,9 +17,7 @@ export class LabUserStore {
   readonly labUsersCount = computed(() => this.labUsers().length);
   readonly activeUsersCount = computed(() => this.labUsers().filter(u => u.status === 'Active').length);
 
-  constructor(private readonly labUsersApi: LabUsersApi) {
-    this.loadLabUsers();
-  }
+  constructor(private readonly labUsersApi: LabUsersApi) {}
 
   getLabUserById(id: number | null | undefined): Signal<LabUser | undefined> {
     return computed(() => id ? this.labUsers().find(e => e.id === id) : undefined);

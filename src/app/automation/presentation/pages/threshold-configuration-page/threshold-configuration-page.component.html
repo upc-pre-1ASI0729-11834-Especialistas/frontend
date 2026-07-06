@@ -71,7 +71,7 @@
                   class="time-box"
                   [(ngModel)]="quietHours.start"
                   (change)="onPrefChange()"
-                  placeholder="10:00 PM"
+                  [placeholder]="'settingsPage.thresholdConfig.1000_pm' | translate"
                 />
                 <span class="to-text">{{ 'settingsPage.thresholdConfig.to' | translate }}</span>
                 <input
@@ -79,7 +79,7 @@
                   class="time-box"
                   [(ngModel)]="quietHours.end"
                   (change)="onPrefChange()"
-                  placeholder="06:00 AM"
+                  [placeholder]="'settingsPage.thresholdConfig.0600_am' | translate"
                 />
               </div>
             </div>

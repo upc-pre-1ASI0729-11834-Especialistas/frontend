@@ -8,7 +8,7 @@ export class TemperatureReadingStore {
   private readonly rawReadingsSignal = signal<TemperatureReading[]>([]);
   private readonly errorSignal = signal<string | null>(null);
   private readonly loadingSignal = signal<boolean>(false);
-  private readonly periodSignal = signal<string>('30d');
+  private readonly periodSignal = signal<string>('2m');
   private readonly metricKeySignal = signal<string>('temperature');
   private readonly destroyRef = inject(DestroyRef);
 
@@ -21,9 +21,7 @@ export class TemperatureReadingStore {
   readonly selectedPeriod = this.periodSignal.asReadonly();
   readonly selectedMetricKey = this.metricKeySignal.asReadonly();
 
-  constructor(private readonly temperatureApi: TemperatureReadingApi) {
-    this.loadReadings();
-  }
+  constructor(private readonly temperatureApi: TemperatureReadingApi) {}
 
   setPeriod(period: string): void {
     this.periodSignal.set(period);
@@ -35,7 +33,7 @@ export class TemperatureReadingStore {
     this.loadReadings();
   }
 
-  private loadReadings(): void {
+  loadReadings(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.temperatureApi.getReadingsByMetric(this.metricKeySignal()).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
@@ -68,7 +66,59 @@ export class TemperatureReadingStore {
 
     const maxDate = this.parseDateString(sorted[sorted.length - 1].date);
 
-    if (period === '24h') {
+    if (period === '2m') {
+      const result: TemperatureReading[] = [];
+      let idCounter = 1;
+
+      // We want exactly 12 intervals of 10 seconds ending at maxDate:
+      // T_0 = maxDate - 110s, T_1 = maxDate - 100s, ..., T_11 = maxDate
+      const intervals: Date[] = [];
+      for (let i = 11; i >= 0; i--) {
+        intervals.push(new Date(maxDate.getTime() - i * 10 * 1000));
+      }
+
+      for (const T of intervals) {
+        const tMs = T.getTime();
+        const windowStart = tMs - 5 * 1000;
+        const windowEnd = tMs + 5 * 1000;
+
+        // Find readings in this specific 10s window
+        const readingsInWindow = sorted.filter(r => {
+          const rTime = this.parseDateString(r.date).getTime();
+          return rTime >= windowStart && rTime <= windowEnd;
+        });
+
+        let avgValues: { [labId: string]: number } = {};
+
+        if (readingsInWindow.length > 0) {
+          // If we have readings in this window, average them
+          avgValues = this.averageValues(readingsInWindow);
+        } else {
+          // If no readings in this window, look for the most recent reading prior to this window's end
+          const priorReadings = sorted.filter(r => {
+            const rTime = this.parseDateString(r.date).getTime();
+            return rTime <= windowEnd;
+          });
+
+          if (priorReadings.length > 0) {
+            // Grab the latest one prior to this interval
+            const latestPrior = priorReadings[priorReadings.length - 1];
+            avgValues = { ...latestPrior.values };
+          } else {
+            // No prior data exists at all (e.g. beginning of data stream)
+            avgValues = {};
+          }
+        }
+
+        result.push(new TemperatureReading({
+          id: idCounter++,
+          date: this.format10SecondLabel(T),
+          values: avgValues
+        }));
+      }
+
+      return result;
+    } else if (period === '24h') {
       // Last 24 hours cutoff
       const cutoff = new Date(maxDate.getTime() - 24 * 60 * 60 * 1000);
       const inRange = sorted.filter(r => this.parseDateString(r.date) >= cutoff);
@@ -151,6 +201,23 @@ export class TemperatureReadingStore {
       normalized = normalized + 'T00:00:00';
     }
     return new Date(normalized);
+  }
+
+  private format10SecondKey(d: Date): string {
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const hh = String(d.getHours()).padStart(2, '0');
+    const min = String(d.getMinutes()).padStart(2, '0');
+    const sec = String(Math.floor(d.getSeconds() / 10) * 10).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}T${hh}:${min}:${sec}`;
+  }
+
+  private format10SecondLabel(d: Date): string {
+    const hh = String(d.getHours()).padStart(2, '0');
+    const min = String(d.getMinutes()).padStart(2, '0');
+    const sec = String(d.getSeconds()).padStart(2, '0');
+    return `${hh}:${min}:${sec}`;
   }
 
   private formatHourKey(d: Date): string {

@@ -1,3 +1,4 @@
+import { TranslatePipe } from '@ngx-translate/core';
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Alert } from '../../../domain/model/alert.entity';
@@ -6,7 +7,7 @@ import { StatusBadgeComponent } from '../../../../shared/presentation/components
 
 @Component({
   selector: 'app-recent-alerts',
-  imports: [StatusBadgeComponent, CardComponent, RouterLink],
+  imports: [StatusBadgeComponent, CardComponent, RouterLink, TranslatePipe,],
   templateUrl: './recent-alerts.component.html',
   styleUrls: ['./recent-alerts.component.css'],
 })

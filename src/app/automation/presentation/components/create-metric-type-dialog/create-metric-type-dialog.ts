@@ -1,3 +1,4 @@
+import { TranslatePipe } from '@ngx-translate/core';
 import { Component, inject, OnInit, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -13,8 +14,7 @@ import { MetricType } from '../../../../telemetry/domain/model/metric-type.entit
 @Component({
   selector: 'app-create-metric-type-dialog',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [CommonModule,
     MatDialogModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -22,8 +22,7 @@ import { MetricType } from '../../../../telemetry/domain/model/metric-type.entit
     MatSelectModule,
     MatIconModule,
     MatSlideToggleModule,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule, TranslatePipe,],
   templateUrl: './create-metric-type-dialog.html',
   styleUrl: './create-metric-type-dialog.css'
 })

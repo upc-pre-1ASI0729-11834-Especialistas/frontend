@@ -1,3 +1,4 @@
+import { TranslatePipe } from '@ngx-translate/core';
 import { Component, EventEmitter, Input, Output, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -14,7 +15,7 @@ interface HistoryGroup {
 @Component({
   selector: 'app-history-timeline',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatChipsModule, MatIconModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatChipsModule, MatIconModule, TranslatePipe,],
   templateUrl: './history-timeline.html',
   styleUrls: ['./history-timeline.css']
 })

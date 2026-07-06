@@ -18,9 +18,7 @@ export class UserProfileStore {
 
   readonly currentProfile = computed(() => this.userProfiles().length > 0 ? this.userProfiles()[0] : undefined);
 
-  constructor(private readonly userProfilesApi: UserProfilesApi) {
-    this.loadUserProfiles();
-  }
+  constructor(private readonly userProfilesApi: UserProfilesApi) {}
 
   getUserProfileById(id: number | null | undefined): Signal<UserProfile | undefined> {
     return computed(() => id ? this.userProfiles().find(e => e.id === id) : undefined);
@@ -43,7 +41,7 @@ export class UserProfileStore {
     );
   }
 
-  private loadUserProfiles(): void {
+  loadUserProfiles(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.userProfilesApi.getUserProfiles().pipe(

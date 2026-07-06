@@ -15,10 +15,10 @@
       </p>
       <p class="sensor-target-limits">
         <mat-icon>gps_fixed</mat-icon>
-        <strong>Target:</strong> <span [style.color]="sensor().equipmentName ? 'var(--primary-color)' : 'inherit'">{{ targetText() }}</span>
+        <strong>{{ 'settingsPage.sensor.target' | translate }}</strong> <span [style.color]="sensor().equipmentName ? 'var(--primary-color)' : 'inherit'">{{ targetText() }}</span>
         <span class="divider-dot">•</span>
         <mat-icon>thermostat</mat-icon>
-        <strong>Safety Limits:</strong> <span>{{ thresholdsText() }}</span>
+        <strong>{{ 'settingsPage.sensor.safety_limits' | translate }}</strong> <span>{{ thresholdsText() }}</span>
       </p>
       @if (connectionStatus() !== 'INACTIVE' && sensor().lastConnected) {
         <p class="sensor-connection-time"><mat-icon class="inline-icon">wifi</mat-icon> Last Connected: {{ lastConnectedText() }}</p>
@@ -49,8 +49,8 @@
     </div>
 
     <div class="sensor-actions">
-      <button mat-flat-button color="primary" (click)="onCalibrate()">Calibrate</button>
-      <button mat-stroked-button (click)="onEdit()">Edit</button>
+      <button mat-flat-button color="primary" (click)="onCalibrate()">{{ 'settingsPage.sensor.calibrate' | translate }}</button>
+      <button mat-stroked-button (click)="onEdit()">{{ 'common.edit' | translate }}</button>
     </div>
 
   </mat-card-content>

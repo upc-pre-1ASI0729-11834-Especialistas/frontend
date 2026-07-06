@@ -1,3 +1,4 @@
+import { TranslatePipe } from '@ngx-translate/core';
 import { Component, inject, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -15,8 +16,7 @@ import { forkJoin, Observable } from 'rxjs';
 @Component({
   selector: 'app-alerts-notifications-page',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [CommonModule,
     ReactiveFormsModule,
     MatCardModule,
     MatSlideToggleModule,
@@ -25,8 +25,7 @@ import { forkJoin, Observable } from 'rxjs';
     MatCheckboxModule,
     MatButtonModule,
     MatIconModule,
-    MatSnackBarModule
-  ],
+    MatSnackBarModule, TranslatePipe,],
   templateUrl: './alerts-notifications-page.component.html',
   styleUrls: ['./alerts-notifications-page.component.css']
 })
@@ -63,6 +62,8 @@ export class AlertsNotificationsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.automationStore.loadNotificationPreferences();
+    this.automationStore.loadGeneralSettings();
   }
 
   private initForm(): void {

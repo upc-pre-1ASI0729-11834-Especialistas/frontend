@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TopbarActionService } from '../../../../shared/application/topbar-action.service';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-sensor-configuration-page',
@@ -27,12 +28,13 @@ import { TopbarActionService } from '../../../../shared/application/topbar-actio
     MatDialogModule,
     SensorListItemComponent,
     RouterModule,
-    TranslateModule
+    TranslateModule,
+    MatProgressSpinner
   ],
   templateUrl: './sensor-configuration-page.component.html',
   styleUrls: ['./sensor-configuration-page.component.css']
 })
-export class SensorConfigurationPageComponent {
+export class SensorConfigurationPageComponent implements OnInit {
   protected readonly automationStore = inject(AutomationStore);
   private readonly dialog = inject(MatDialog);
   private readonly topbarActionService = inject(TopbarActionService);
@@ -42,20 +44,20 @@ export class SensorConfigurationPageComponent {
   readonly selectedType = signal<string>('all-types');
   readonly selectedLocation = signal<string>('all-locations');
 
-  constructor() {
-    this.topbarActionService.setAction({
-      label: this.translateService.instant('settings.sensor.add') || 'Add New Sensor',
-      icon: 'add',
-      id: 'add-sensor-action'
-    });
+  ngOnInit() {
+    this.automationStore.loadSensorConfigurations();
+  }
 
-    this.translateService.onLangChange.pipe(takeUntilDestroyed()).subscribe(() => {
-      this.topbarActionService.setAction({
-        label: this.translateService.instant('settings.sensor.add') || 'Add New Sensor',
-        icon: 'add',
-        id: 'add-sensor-action'
+  constructor() {
+    this.translateService.stream('settings.sensor.add')
+      .pipe(takeUntilDestroyed())
+      .subscribe(label => {
+        this.topbarActionService.setAction({
+          label: label || 'Add New Sensor',
+          icon: 'add',
+          id: 'add-sensor-action'
+        });
       });
-    });
 
     this.topbarActionService.actionClicked$
       .pipe(takeUntilDestroyed())

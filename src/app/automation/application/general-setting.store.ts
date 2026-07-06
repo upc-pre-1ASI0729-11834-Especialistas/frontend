@@ -17,9 +17,7 @@ export class GeneralSettingStore {
   readonly loading = this.loadingSignal.asReadonly();
   readonly generalSettingsCount = computed(() => this.generalSettings().length);
 
-  constructor(private readonly generalSettingsApi: GeneralSettingsApi) {
-    this.loadGeneralSettings();
-  }
+  constructor(private readonly generalSettingsApi: GeneralSettingsApi) {}
 
   getGeneralSettingById(id: number | null | undefined): Signal<GeneralSetting | undefined> {
     return computed(() => id ? this.generalSettings().find(e => e.id === id) : undefined);
@@ -55,7 +53,7 @@ export class GeneralSettingStore {
     );
   }
 
-  private loadGeneralSettings(): void {
+  loadGeneralSettings(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.generalSettingsApi.getGeneralSettings().pipe(

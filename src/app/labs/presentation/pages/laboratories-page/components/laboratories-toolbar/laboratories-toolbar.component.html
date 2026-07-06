@@ -9,7 +9,15 @@
 
     <mat-form-field appearance="outline" class="filter-field" subscriptSizing="dynamic">
       <mat-label>{{ 'laboratories.filters.status' | translate }}</mat-label>
-      <mat-select id="status-filter" value="All" (selectionChange)="statusChange.emit($event.value)">
+      <mat-select #statusSelect id="status-filter" value="All" (selectionChange)="statusChange.emit($event.value)">
+        <mat-select-trigger>
+          @switch (statusSelect.value) {
+            @case ('All') { {{ 'laboratories.status.all' | translate }} }
+            @case ('Operational') { {{ 'laboratories.status.ok' | translate }} }
+            @case ('Warning') { {{ 'laboratories.status.warning' | translate }} }
+            @case ('Critical') { {{ 'laboratories.status.critical' | translate }} }
+          }
+        </mat-select-trigger>
         <mat-option value="All">{{ 'laboratories.status.all' | translate }}</mat-option>
         <mat-option value="Operational">{{ 'laboratories.status.ok' | translate }}</mat-option>
         <mat-option value="Warning">{{ 'laboratories.status.warning' | translate }}</mat-option>
@@ -20,7 +28,10 @@
 
     <mat-form-field appearance="outline" class="filter-field" subscriptSizing="dynamic">
       <mat-label>{{ 'laboratories.filters.location' | translate }}</mat-label>
-      <mat-select id="location-filter" value="All" (selectionChange)="locationChange.emit($event.value)">
+      <mat-select #locSelect id="location-filter" value="All" (selectionChange)="locationChange.emit($event.value)">
+        <mat-select-trigger>
+          {{ locSelect.value === 'All' ? ('laboratories.status.all' | translate) : locSelect.value }}
+        </mat-select-trigger>
         <mat-option value="All">{{ 'laboratories.status.all' | translate }}</mat-option>
         @for (loc of locations(); track loc) {
         <mat-option [value]="loc">{{ loc }}</mat-option>
@@ -30,10 +41,10 @@
 
 
     <mat-button-toggle-group [value]="viewMode()" (change)="viewModeChange.emit($event.value)">
-      <mat-button-toggle value="grid" title="Grid view">
+      <mat-button-toggle value="grid" [title]="'laboratories.toolbar.grid_view' | translate">
         <mat-icon>grid_view</mat-icon>
       </mat-button-toggle>
-      <mat-button-toggle value="list" title="List view">
+      <mat-button-toggle value="list" [title]="'laboratories.toolbar.list_view' | translate">
         <mat-icon>view_list</mat-icon>
       </mat-button-toggle>
     </mat-button-toggle-group>

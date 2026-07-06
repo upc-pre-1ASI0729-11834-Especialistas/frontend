@@ -163,4 +163,40 @@ export class AutomationStore {
   loadLabUsers() {
     this.labUserStore.loadLabUsers();
   }
+
+  loadGeneralSettings() {
+    this.generalSettingStore.loadGeneralSettings();
+  }
+
+  loadUserProfiles() {
+    this.userProfileStore.loadUserProfiles();
+  }
+
+  loadSensorConfigurations() {
+    this.sensorConfigurationStore.loadSensorConfigurations();
+  }
+
+  loadNotificationPreferences() {
+    this.notificationPreferenceStore.loadNotificationPreferences();
+  }
+
+  loadSecurityAccesses() {
+    this.securityAccessStore.loadSecurityAccesses();
+  }
+
+  loadPendingInvitations() {
+    this.pendingInvitationStore.loadPendingInvitations();
+  }
+
+  loadRoleDefinitions() {
+    this.roleDefinitionStore.loadRoleDefinitions();
+  }
+
+  loadEquipmentThresholds() {
+    this.equipmentThresholdStore.loadEquipmentThresholds();
+  }
+
+  loadAutomationRules() {
+    this.automationRuleStore.loadAutomationRules();
+  }
 }

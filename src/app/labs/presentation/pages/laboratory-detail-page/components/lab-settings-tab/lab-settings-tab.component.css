@@ -299,3 +299,60 @@
 .delete-lab-btn:hover {
   background-color: #b91c1c !important;
 }
+
+/* Configuration Info Card */
+.info-card {
+  display: flex;
+  gap: 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.info-card mat-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  color: hsl(220, 100%, 33%);
+}
+
+.info-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-card-content h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.info-card-content p {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.open-editor-btn {
+  background-color: hsl(220, 100%, 33%) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  align-self: flex-start;
+  transition: background-color 0.2s !important;
+}
+
+.open-editor-btn:hover {
+  background-color: hsl(220, 100%, 25%) !important;
+}

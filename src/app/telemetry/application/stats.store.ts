@@ -1,4 +1,4 @@
-﻿import { StatsApi } from '../infrastructure/stats-api';
+import { StatsApi } from '../infrastructure/stats-api';
 import { DashboardStats } from '../domain/model/dashboard-stats.entity';
 import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -14,11 +14,9 @@ export class StatsStore {
   readonly error = this.errorSignal.asReadonly();
   readonly loading = this.loadingSignal.asReadonly();
 
-  constructor(private readonly statsApi: StatsApi) {
-    this.loadStats();
-  }
+  constructor(private readonly statsApi: StatsApi) {}
 
-  private loadStats(): void {
+  loadStats(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.statsApi.getStats().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({

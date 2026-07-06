@@ -1,7 +1,7 @@
 @if (grouped().length === 0) {
 <div class="empty-state">
   <mat-icon>inbox</mat-icon>
-  <p>No history records match the current filters.</p>
+  <p>{{ 'history.timeline.noEventsMatch' | translate }}</p>
 </div>
 }
 
@@ -46,7 +46,7 @@
         <p class="timeline-desc">{{ record.lab }} — {{ record.description }}</p>
 
         <button class="timeline-link" (click)="$event.stopPropagation(); select(record)">
-          View {{ record.status === 'Resolved' ? 'Incident' : 'details' }} →
+          {{ (record.status === 'Resolved' ? 'history.timeline.viewIncident' : 'history.timeline.viewDetails') | translate }} →
         </button>
       </div>
 

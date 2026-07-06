@@ -1,202 +1,192 @@
 <div class="resolve-container">
-
-  <!-- Breadcrumb -->
-  <nav class="breadcrumb">
-    <a routerLink="/alerts" class="breadcrumb-link">{{ 'incident.resolve.breadcrumbIncidents' | translate }}</a>
-    <mat-icon>chevron_right</mat-icon>
-    <a [routerLink]="['/alerts/incident']" [queryParams]="{ id: alertId() }" class="breadcrumb-link">Incident #{{ alert()?.id || '4821' }}</a>
-    <mat-icon>chevron_right</mat-icon>
-    <span class="breadcrumb-current">{{ 'incident.resolve.breadcrumbResolve' | translate }}</span>
-  </nav>
-
-  <!-- Page Title -->
-  <div class="page-header">
-    <div class="page-header-left">
-      <div class="title-row">
-        <div class="status-dot"></div>
-        <h1 class="page-title">{{ 'incident.resolve.resolveIncident' | translate }}</h1>
-        <span class="incident-badge">{{ 'incident.details.incidentId' | translate }} #{{ alert()?.id || '4821' }}</span>
-      </div>
-      <p class="page-subtitle">
-        <mat-icon class="subtitle-icon">device_thermostat</mat-icon> {{ affectedEquipment() }}
-        <span class="sep">·</span>
-        <mat-icon class="subtitle-icon">science</mat-icon> {{ alert()?.labName || 'Laboratory' }}
-        <span class="sep">·</span>
-        <mat-icon class="subtitle-icon">schedule</mat-icon> {{ 'incident.resolve.activeForLabel' | translate }} {{ startedTimeAgo() }}
-      </p>
+  @if (isLoading()) {
+    <div class="loading-state">
+      <mat-spinner diameter="36" />
+      <p>{{ 'layout.loading' | translate }}</p>
     </div>
-    <div class="severity-badge-wrap">
-      <span class="severity-chip" [ngClass]="{'pill-critical': alert()?.severity?.toLowerCase() === 'critical', 'pill-warning': alert()?.severity?.toLowerCase() === 'warning'}">
-        <mat-icon>warning</mat-icon> {{ alert()?.severity || 'CRITICAL' }}
-      </span>
-    </div>
-  </div>
-
-  <!-- Two-column layout -->
-  <div class="resolve-grid">
-
-    <!-- LEFT: Form -->
-    <div class="left-col">
-
-      <!-- Resolution Note -->
-      <div class="form-card">
-        <div class="form-card-header">
-          <mat-icon class="form-card-icon">edit_note</mat-icon>
-          <h3 class="form-card-title">{{ 'incident.resolve.resolutionNote' | translate }}</h3>
-          <span class="required-chip">{{ 'incident.resolve.required' | translate }}</span>
+  } @else {
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <a routerLink="/alerts" class="breadcrumb-link">{{ 'incident.resolve.breadcrumbIncidents' | translate }}</a>
+      <mat-icon>chevron_right</mat-icon>
+      <a [routerLink]="['/alerts/incident']" [queryParams]="{ id: alertId() }" class="breadcrumb-link">{{ 'incident.details.incidentId' | translate }}{{ alert()?.id || '4821' }}</a>
+      <mat-icon>chevron_right</mat-icon>
+      <span class="breadcrumb-current">{{ 'incident.resolve.breadcrumbResolve' | translate }}</span>
+    </nav>
+  
+    <!-- Page Title -->
+    <div class="page-header">
+      <div class="page-header-left">
+        <div class="title-row">
+          <div class="status-dot"></div>
+          <h1 class="page-title">{{ 'incident.resolve.resolveIncident' | translate }}</h1>
+          <span class="incident-badge">{{ 'incident.details.incidentId' | translate }} #{{ alert()?.id || '4821' }}</span>
         </div>
-        <p class="form-card-desc">{{ 'incident.resolve.actionDesc' | translate }}</p>
-        <div class="textarea-wrapper">
-          <textarea class="resolution-textarea"
-            [placeholder]="'incident.resolve.placeholder' | translate"
-            [value]="resolutionNote()" (input)="onNoteChange($any($event.target).value)" rows="6">
-          </textarea>
-          <span class="char-count" [class.char-limit]="noteLength >= MAX_CHARS">
-            {{ noteLength }} / {{ MAX_CHARS }}
-          </span>
-        </div>
+        <p class="page-subtitle">
+          <mat-icon class="subtitle-icon">device_thermostat</mat-icon> {{ affectedEquipment() }}
+          <span class="sep">·</span>
+          <mat-icon class="subtitle-icon">science</mat-icon> {{ alert()?.labName || 'Laboratory' }}
+          <span class="sep">·</span>
+          <mat-icon class="subtitle-icon">schedule</mat-icon> {{ 'incident.resolve.activeForLabel' | translate }} {{ startedTimeAgo() }}
+        </p>
       </div>
-
-      <!-- Resolution Type -->
-      <div class="form-card">
-        <div class="form-card-header">
-          <mat-icon class="form-card-icon">tune</mat-icon>
+      <div class="severity-badge-wrap">
+        <span class="severity-chip" [ngClass]="{'pill-critical': alert()?.severity?.toLowerCase() === 'critical', 'pill-warning': alert()?.severity?.toLowerCase() === 'warning'}">
+          <mat-icon>warning</mat-icon> {{ alert()?.severity || 'CRITICAL' }}
+        </span>
+      </div>
+    </div>
+  
+    <div class="resolve-grid">
+      <!-- Left Column: Form -->
+      <div class="resolve-left">
+        
+        <!-- Resolution Note Card -->
+        <div class="form-card">
+          <div class="form-card-header">
+            <h3 class="form-card-title">{{ 'incident.resolve.resolutionNote' | translate }}</h3>
+            <span class="required-chip">{{ 'incident.resolve.required' | translate }}</span>
+          </div>
+          <p class="form-card-desc">{{ 'incident.resolve.actionDesc' | translate }}</p>
+          
+          <textarea 
+            [ngModel]="resolutionNote()" 
+            (ngModelChange)="onNoteChange($event)"
+            [placeholder]="'incident.resolve.placeholder' | translate" 
+            class="note-textarea"
+            maxlength="500"></textarea>
+          
+          <div class="textarea-footer">
+            <span class="char-count" [class.max-reached]="noteLength >= MAX_CHARS">{{ noteLength }} / {{ MAX_CHARS }} {{ 'incident.resolve.chars' | translate }}</span>
+          </div>
+        </div>
+  
+        <!-- Resolution Type Card -->
+        <div class="form-card">
           <h3 class="form-card-title">{{ 'incident.resolve.typeTitle' | translate }}</h3>
-        </div>
-        <p class="form-card-desc">{{ 'incident.resolve.typeDesc' | translate }}</p>
-        <div class="type-buttons">
-          <button class="type-btn" [class.type-btn--active]="resolutionType() === 'manual'"
-            (click)="setResolutionType('manual')">
-            <div class="type-btn-icon-wrap" [class.active-icon]="resolutionType() === 'manual'">
-              <mat-icon>build</mat-icon>
-            </div>
-            <div class="type-btn-text">
+          <p class="form-card-desc">{{ 'incident.resolve.typeDesc' | translate }}</p>
+          
+          <div class="type-buttons">
+            <button 
+              type="button" 
+              class="type-btn" 
+              [class.active]="resolutionType() === 'manual'"
+              (click)="setResolutionType('manual')">
+              <mat-icon class="type-btn-icon">engineering</mat-icon>
               <span class="type-btn-label">{{ 'incident.resolve.manualFix' | translate }}</span>
               <span class="type-btn-sub">{{ 'incident.resolve.resolvedStaff' | translate }}</span>
-            </div>
-          </button>
-          <button class="type-btn" [class.type-btn--active]="resolutionType() === 'automated'"
-            (click)="setResolutionType('automated')">
-            <div class="type-btn-icon-wrap" [class.active-icon]="resolutionType() === 'automated'">
-              <mat-icon>smart_toy</mat-icon>
-            </div>
-            <div class="type-btn-text">
+            </button>
+  
+            <button 
+              type="button" 
+              class="type-btn" 
+              [class.active]="resolutionType() === 'automated'"
+              (click)="setResolutionType('automated')">
+              <mat-icon class="type-btn-icon">bolt</mat-icon>
               <span class="type-btn-label">{{ 'incident.resolve.automated' | translate }}</span>
               <span class="type-btn-sub">{{ 'incident.resolve.systemResolved' | translate }}</span>
-            </div>
-          </button>
-          <button class="type-btn" [class.type-btn--active]="resolutionType() === 'escalated'"
-            (click)="setResolutionType('escalated')">
-            <div class="type-btn-icon-wrap" [class.active-icon]="resolutionType() === 'escalated'">
-              <mat-icon>checklist</mat-icon>
-            </div>
-            <div class="type-btn-text">
+            </button>
+  
+            <button 
+              type="button" 
+              class="type-btn" 
+              [class.active]="resolutionType() === 'escalated'"
+              (click)="setResolutionType('escalated')">
+              <mat-icon class="type-btn-icon">supervisor_account</mat-icon>
               <span class="type-btn-label">{{ 'incident.resolve.escalated' | translate }}</span>
               <span class="type-btn-sub">{{ 'incident.resolve.closedSupervisor' | translate }}</span>
-            </div>
-          </button>
+            </button>
+          </div>
         </div>
-      </div>
-
-      <!-- Follow-up Maintenance -->
-      <div class="form-card followup-card" [class.followup-card--active]="scheduleFollowUp()">
-        <label class="checkbox-label" (click)="toggleFollowUp()">
-          <div class="checkbox" [class.checkbox--checked]="scheduleFollowUp()">
+  
+        <!-- Follow up Action Card -->
+        <div class="form-card option-card" [class.active]="scheduleFollowUp()" (click)="toggleFollowUp()">
+          <div class="option-checkbox" [class.checked]="scheduleFollowUp()">
             <mat-icon *ngIf="scheduleFollowUp()">check</mat-icon>
           </div>
-          <div class="followup-text">
-            <span class="followup-title">
-              <mat-icon class="followup-icon">build_circle</mat-icon>
+          <div class="option-content">
+            <h4 class="option-title">
               {{ 'incident.resolve.followUpTitle' | translate }}
-            </span>
+            </h4>
             <span class="followup-sub">{{ 'incident.resolve.followUpSub' | translate:{name: affectedEquipment()} }}</span>
           </div>
-        </label>
-      </div>
-
-    </div>
-
-    <!-- RIGHT: Summary + Photo -->
-    <div class="right-col">
-
-      <!-- Incident Summary Card -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-header">
-          <mat-icon class="sidebar-icon">info</mat-icon>
-          <h4 class="sidebar-card-title">{{ 'incident.resolve.incidentSummary' | translate }}</h4>
         </div>
-        <div class="sidebar-divider"></div>
-        <div class="summary-body">
-
-          <div class="summary-item">
-            <span class="summary-label">
-              <mat-icon class="s-icon">sensors</mat-icon> {{ 'incident.resolve.sensor' | translate }}
-            </span>
-            <span class="summary-value">{{ sensorId() }}</span>
-          </div>
-
-          <div class="summary-item">
-            <span class="summary-label">
-              <mat-icon class="s-icon">device_thermostat</mat-icon> {{ 'incident.resolve.currentValue' | translate }}
-            </span>
-            <span class="summary-value text-red">
-              {{ currentValue() }}
+  
+      </div>
+  
+      <!-- Right Column: Details & Attachment -->
+      <div class="resolve-right">
+        
+        <!-- Incident Summary Card -->
+        <div class="sidebar-card">
+          <h4 class="sidebar-card-title">{{ 'incident.resolve.incidentSummary' | translate }}</h4>
+          <div class="summary-list">
+            <div class="summary-item">
+              <div class="summary-label">
+                <mat-icon class="s-icon">sensors</mat-icon> {{ 'incident.resolve.sensor' | translate }}
+              </div>
+              <span class="summary-value">{{ sensorId() }}</span>
+            </div>
+            
+            <div class="summary-item">
+              <div class="summary-label">
+                <mat-icon class="s-icon">device_thermostat</mat-icon> {{ 'incident.resolve.currentValue' | translate }}
+              </div>
+              <span class="summary-value text-red">{{ currentValue() }}</span>
               <span class="threshold-note">({{ 'incident.resolve.threshold' | translate }}: {{ thresholdValue() }})</span>
-            </span>
+            </div>
+  
+            <div class="summary-item">
+              <div class="summary-label">
+                <mat-icon class="s-icon">schedule</mat-icon> {{ 'incident.resolve.triggeredAt' | translate }}
+              </div>
+              <span class="summary-value">{{ startedTimeAbsolute() }} {{ 'incident.resolve.today' | translate }}</span>
+            </div>
+  
+            <div class="summary-item">
+              <div class="summary-label">
+                <mat-icon class="s-icon">bolt</mat-icon> {{ 'incident.resolve.location' | translate }}
+              </div>
+              <span class="summary-value">{{ location() }}</span>
+            </div>
           </div>
-
-          <div class="summary-item">
-            <span class="summary-label">
-              <mat-icon class="s-icon">schedule</mat-icon> {{ 'incident.resolve.triggeredAt' | translate }}
-            </span>
-            <span class="summary-value">{{ startedTimeAbsolute() }} {{ 'incident.resolve.today' | translate }}</span>
-          </div>
-
-          <div class="summary-item">
-            <span class="summary-label">
-              <mat-icon class="s-icon">bolt</mat-icon> {{ 'incident.resolve.location' | translate }}
-            </span>
-            <span class="summary-value text-green">
-              {{ location() }}
-            </span>
-          </div>
-
-          <div class="exceeded-alert">
-            <mat-icon>trending_up</mat-icon>
+          
+          <div class="summary-footer">
+            <mat-icon class="f-icon">info</mat-icon>
             <span>{{ 'incident.resolve.exceededMessage' | translate:{exceededBy: exceededByValue(), duration: startedTimeAgo()} }}</span>
           </div>
-
         </div>
-      </div>
-
-      <!-- Photo Attachment Card -->
-      <div class="sidebar-card">
-        <div class="sidebar-card-header">
-          <mat-icon class="sidebar-icon">photo_camera</mat-icon>
+  
+        <!-- Attachment Card -->
+        <div class="sidebar-card">
           <h4 class="sidebar-card-title">
             {{ 'incident.resolve.photoAttachment' | translate }}
             <span class="optional-badge">{{ 'incident.resolve.optional' | translate }}</span>
           </h4>
-        </div>
-        <div class="sidebar-divider"></div>
-        <div class="photo-body">
-          <div *ngIf="!uploadedFilePreview()" class="upload-zone" [class.upload-zone--dragging]="isDraggingOver()"
-            (dragover)="onDragOver($event)" (dragleave)="onDragLeave()" (drop)="onDrop($event)"
+          
+          <!-- Dropzone -->
+          <div 
+            *ngIf="!uploadedFilePreview()"
+            class="upload-dropzone"
+            [class.dragover]="isDraggingOver()"
+            (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave()"
+            (drop)="onDrop($event)"
             (click)="fileInput.click()">
+            <input type="file" #fileInput style="display:none;" (change)="onFileSelected($event)" accept="image/png, image/jpeg">
             <mat-icon class="upload-icon">cloud_upload</mat-icon>
             <span class="upload-main-text">{{ 'incident.resolve.uploadText' | translate }}</span>
             <span class="upload-sub-text">{{ 'incident.resolve.uploadSubText' | translate }}</span>
-            <span class="upload-rec">
-              <mat-icon style="font-size:12px;width:12px;height:12px;">verified</mat-icon>
+            <span class="upload-tip">
+              <mat-icon>verified</mat-icon>
               {{ 'incident.resolve.recommendedAudit' | translate }}
             </span>
-            <input #fileInput type="file" accept="image/jpeg,image/png" hidden (change)="onFileSelected($event)" />
           </div>
-
-          <div *ngIf="uploadedFilePreview()" class="preview-wrapper">
-            <img [src]="uploadedFilePreview()" alt="Attached photo" class="preview-img" />
-            <div class="preview-check">
-              <mat-icon>check</mat-icon>
+  
+          <!-- Preview -->
+          <div *ngIf="uploadedFilePreview()" class="upload-preview-container">
+            <div class="preview-img-wrap">
+              <img [src]="uploadedFilePreview()" [alt]="'incident.resolve.attachedPhotoAlt' | translate" class="preview-img" />
             </div>
             <div class="preview-footer">
               <span class="preview-filename">
@@ -210,24 +200,23 @@
           </div>
         </div>
       </div>
-
+  
     </div>
-  </div>
-
-  <!-- Footer Actions -->
-  <div class="footer-bar">
-    <p class="footer-note">
-      <mat-icon>lock</mat-icon>
-      {{ 'incident.resolve.permanentLogNotice' | translate }}
-    </p>
-    <div class="footer-actions">
-      <a [routerLink]="['/alerts/incident']" [queryParams]="{ id: alertId() }" class="btn btn-cancel">
-        <mat-icon>close</mat-icon> {{ 'common.cancel' | translate }}
-      </a>
-      <button class="btn btn-confirm" [disabled]="!canConfirm" (click)="onConfirm()">
-        <mat-icon>check_circle</mat-icon> {{ 'incident.resolve.confirmBtn' | translate }}
-      </button>
+  
+    <!-- Footer Actions -->
+    <div class="footer-bar">
+      <p class="footer-note">
+        <mat-icon>lock</mat-icon>
+        {{ 'incident.resolve.permanentLogNotice' | translate }}
+      </p>
+      <div class="footer-actions">
+        <a [routerLink]="['/alerts/incident']" [queryParams]="{ id: alertId() }" class="btn btn-cancel">
+          <mat-icon>close</mat-icon> {{ 'common.cancel' | translate }}
+        </a>
+        <button class="btn btn-confirm" [disabled]="!canConfirm" (click)="onConfirm()">
+          <mat-icon>check_circle</mat-icon> {{ 'incident.resolve.confirmBtn' | translate }}
+        </button>
+      </div>
     </div>
-  </div>
-
+  }
 </div>

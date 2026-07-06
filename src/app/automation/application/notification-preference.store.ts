@@ -17,9 +17,7 @@ export class NotificationPreferenceStore {
   readonly loading = this.loadingSignal.asReadonly();
   readonly notificationPreferencesCount = computed(() => this.notificationPreferences().length);
 
-  constructor(private readonly notificationPreferencesApi: NotificationPreferencesApi) {
-    this.loadNotificationPreferences();
-  }
+  constructor(private readonly notificationPreferencesApi: NotificationPreferencesApi) {}
 
   getNotificationPreferenceById(id: number | null | undefined): Signal<NotificationPreference | undefined> {
     return computed(() => id ? this.notificationPreferences().find(e => e.id === id) : undefined);
@@ -55,7 +53,7 @@ export class NotificationPreferenceStore {
     );
   }
 
-  private loadNotificationPreferences(): void {
+  loadNotificationPreferences(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.notificationPreferencesApi.getNotificationPreferences().pipe(

@@ -133,10 +133,7 @@ export class LaboratoryStore {
   readonly gasSensitivities: GasSensitivity[] = ['Low - General labs', 'Medium - Chemical labs', 'High - Hazmat areas'];
   readonly alertEscalations: AlertEscalation[] = ['Immediate - Stop all activity', 'Gradual - Warn then escalate', 'Monitor - Log only'];
 
-  constructor() {
-    this.loadFilterData();
-    this.loadLaboratories();
-  }
+  constructor() {}
 
 
   loadLaboratories(): void {

@@ -1,4 +1,4 @@
-<mat-button-toggle-group [value]="currentLanguage" (change)="useLanguage($event.value)" appearance="standard" aria-label="Preferred Language" name="language">
+<mat-button-toggle-group [value]="currentLanguage" (change)="useLanguage($event.value)" appearance="standard" [attr.aria-label]="'common.preferredLanguage' | translate" name="language">
   @for (language of languages; track language) {
     <mat-button-toggle [aria-label]="language"
                        [value]="language"> {{ language.toUpperCase()}}

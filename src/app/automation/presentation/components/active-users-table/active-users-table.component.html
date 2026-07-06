@@ -50,7 +50,7 @@
                 </div>
               </td>
               <td>
-                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Change user permissions">
+                <button mat-icon-button [matMenuTriggerFor]="menu" [attr.aria-label]="'automation.activeUsers.changePermissions' | translate">
                   <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">

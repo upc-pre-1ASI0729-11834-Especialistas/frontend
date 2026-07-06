@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, computed } from '@angular/core';
+import { Component, inject, OnInit, computed, DestroyRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TemperatureChartComponent } from '../../components/temperature-chart/temperature-chart.component';
 import { LaboratoryCardComponent } from '../../components/laboratory-card/laboratory-card.component';
@@ -36,6 +36,7 @@ export class DashboardPageComponent implements OnInit {
   private readonly temperatureStore = inject(TemperatureReadingStore);
   private readonly automationStore = inject(AutomationStore);
   private readonly historyStore = inject(HistoryStore);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly selectedMetricKey = this.temperatureStore.selectedMetricKey;
 
@@ -84,7 +85,21 @@ export class DashboardPageComponent implements OnInit {
   readonly equipmentList = computed(() => this.automationStore.equipmentThresholds());
 
   ngOnInit(): void {
+    this.loadData();
+    const interval = setInterval(() => {
+      this.loadData();
+    }, 5000);
+
+    this.destroyRef.onDestroy(() => {
+      clearInterval(interval);
+    });
+  }
+
+  private loadData(): void {
     this.dashboardStore.loadAll();
+    this.automationStore.loadEquipmentThresholds();
+    this.automationStore.loadSensorConfigurations();
+    this.historyStore.loadHistory();
   }
 
   onPeriodChange(period: string): void {
