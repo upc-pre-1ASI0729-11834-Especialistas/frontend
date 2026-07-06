@@ -51,6 +51,9 @@ export class AuthStore {
           errorMsg = 'Connection timed out. Please try again.';
         } else if (err.status === 400 || err.status === 401) {
           errorMsg = 'Incorrect email/username or password.';
+        } else if (err.status === 403 && err.error?.message === 'ACCOUNT_NOT_CONFIRMED') {
+          errorMsg = 'Your account is not confirmed yet. Redirecting to verification...';
+          this.router.navigate(['/confirm-account'], { queryParams: { email } });
         } else if (err.status === 0) {
           errorMsg = 'Cannot connect to the authorization server.';
         }
@@ -69,7 +72,7 @@ export class AuthStore {
       finalize(() => this.loadingSignal.set(false))
     ).subscribe({
       next: () => {
-        this.signIn(email, password);
+        this.router.navigate(['/confirm-account'], { queryParams: { email } });
       },
       error: (err) => {
         console.error('Sign-up failed:', err);
@@ -77,7 +80,87 @@ export class AuthStore {
         if (err.name === 'TimeoutError') {
           errorMsg = 'Connection timed out. Please try again.';
         } else if (err.status === 400) {
-          errorMsg = err.error?.message || 'Email already registered or invalid invitation.';
+          if (err.error?.message === 'EMAIL_ALREADY_EXISTS_UNCONFIRMED') {
+            errorMsg = 'This email is already registered but unconfirmed. Redirecting to verification...';
+            setTimeout(() => {
+              this.router.navigate(['/confirm-account'], { queryParams: { email } });
+            }, 3000);
+          } else if (err.error?.message === 'EMAIL_ALREADY_EXISTS') {
+            errorMsg = 'This email is already registered. Please sign in instead.';
+          } else {
+            errorMsg = err.error?.message || 'Email already registered or invalid invitation.';
+          }
+        } else if (err.status === 0) {
+          errorMsg = 'Cannot connect to the authorization server.';
+        }
+        this.errorSignal.set(errorMsg);
+      }
+    });
+  }
+
+  cleanTestUsers(onSuccess: () => void): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+
+    this.authPort.cleanTestUsers().pipe(
+      timeout(10000),
+      takeUntilDestroyed(this.destroyRef),
+      finalize(() => this.loadingSignal.set(false))
+    ).subscribe({
+      next: () => {
+        onSuccess();
+      },
+      error: (err) => {
+        console.error('Failed to clean test users:', err);
+        this.errorSignal.set('Failed to clear test users. Please try again.');
+      }
+    });
+  }
+
+  confirmAccount(email: string, code: string, onSuccess: () => void): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+
+    this.authPort.confirmAccount(email, code).pipe(
+      timeout(10000),
+      takeUntilDestroyed(this.destroyRef),
+      finalize(() => this.loadingSignal.set(false))
+    ).subscribe({
+      next: () => {
+        onSuccess();
+      },
+      error: (err) => {
+        console.error('Confirmation failed:', err);
+        let errorMsg = 'Invalid verification code. Please try again.';
+        if (err.name === 'TimeoutError') {
+          errorMsg = 'Connection timed out. Please try again.';
+        } else if (err.status === 400) {
+          errorMsg = err.error?.message || 'Invalid or expired confirmation code.';
+        } else if (err.status === 0) {
+          errorMsg = 'Cannot connect to the authorization server.';
+        }
+        this.errorSignal.set(errorMsg);
+      }
+    });
+  }
+
+  resendCode(email: string, onSuccess: () => void): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+
+    this.authPort.resendCode(email).pipe(
+      timeout(10000),
+      takeUntilDestroyed(this.destroyRef),
+      finalize(() => this.loadingSignal.set(false))
+    ).subscribe({
+      next: () => {
+        onSuccess();
+      },
+      error: (err) => {
+        console.error('Resending verification code failed:', err);
+        let errorMsg = 'Failed to resend verification code. Please try again.';
+        if (err.name === 'TimeoutError') {
+          errorMsg = 'Connection timed out. Please try again.';
         } else if (err.status === 0) {
           errorMsg = 'Cannot connect to the authorization server.';
         }

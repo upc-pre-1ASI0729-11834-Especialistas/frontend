@@ -388,6 +388,18 @@
       "signingUp": "Creating account...",
       "alreadyHaveAccount": "Already have an account?",
       "signInHere": "Sign in here"
+    },
+    "confirmAccount": {
+      "title": "Verify Your Account",
+      "subtitle": "We sent a 6-digit confirmation code to",
+      "emailLabel": "Email address",
+      "codeLabel": "Verification Code",
+      "codePlaceholder": "Enter 6-digit code",
+      "submitButton": "Verify Account",
+      "submitting": "Verifying...",
+      "resendCode": "Resend verification code",
+      "resendSuccess": "A new code has been sent to your email.",
+      "backToLogin": "Back to Sign In"
     }
   },
   "incident": {
