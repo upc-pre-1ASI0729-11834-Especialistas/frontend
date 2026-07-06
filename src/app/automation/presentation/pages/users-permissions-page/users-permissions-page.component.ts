@@ -32,7 +32,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     TranslateModule
   ],
   templateUrl: './users-permissions-page.component.html',
-  styleUrl: './users-permissions-page.component.css'
+  styleUrls: ['./users-permissions-page.component.css']
 })
 export class UsersPermissionsPageComponent {
   protected readonly workspaceStore = inject(WorkspaceStore);

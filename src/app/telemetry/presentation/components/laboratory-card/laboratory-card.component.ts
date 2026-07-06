@@ -7,7 +7,7 @@ import { CardComponent } from '../../../../shared/presentation/components/card/c
   selector: 'app-laboratory-card',
   imports: [StatusBadgeComponent, CardComponent],
   templateUrl: './laboratory-card.component.html',
-  styleUrl: './laboratory-card.component.css',
+  styleUrls: ['./laboratory-card.component.css'],
 })
 export class LaboratoryCardComponent {
   lab = input.required<Laboratory>();

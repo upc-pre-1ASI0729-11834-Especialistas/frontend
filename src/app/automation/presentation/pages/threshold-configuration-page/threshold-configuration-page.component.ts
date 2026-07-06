@@ -30,7 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule
   ],
   templateUrl: './threshold-configuration-page.component.html',
-  styleUrl: './threshold-configuration-page.component.css'
+  styleUrls: ['./threshold-configuration-page.component.css']
 })
 export class ThresholdConfigurationPageComponent {
   readonly automationStore = inject(AutomationStore);

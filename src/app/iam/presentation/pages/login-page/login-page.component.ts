@@ -22,7 +22,7 @@ import { AuthStore } from '../../../application/auth.store';
     TranslatePipe,
   ],
   templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.css',
+  styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent {
   readonly authStore = inject(AuthStore);

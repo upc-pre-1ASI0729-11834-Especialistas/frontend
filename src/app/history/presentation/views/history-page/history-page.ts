@@ -50,7 +50,7 @@ import { TopbarActionService } from '../../../../shared/application/topbar-actio
     TranslatePipe
   ],
   templateUrl: './history-page.html',
-  styleUrl: './history-page.css'
+  styleUrls: ['./history-page.css']
 })
 export class HistoryPage {
   @ViewChild('drawer') drawer!: MatDrawer;

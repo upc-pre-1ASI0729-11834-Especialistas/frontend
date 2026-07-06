@@ -12,7 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'app-laboratory-detail-card',
   imports: [StatusBadgeComponent, CardComponent, MatIcon, MatButtonModule, RouterLink, TranslatePipe],
   templateUrl: './laboratory-detail-card.component.html',
-  styleUrl: './laboratory-detail-card.component.css',
+  styleUrls: ['./laboratory-detail-card.component.css'],
 })
 export class LaboratoryDetailCardComponent {
   private readonly alertsStore = inject(AlertsStore);

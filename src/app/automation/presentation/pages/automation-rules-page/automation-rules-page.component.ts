@@ -24,7 +24,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     TranslateModule
   ],
   templateUrl: './automation-rules-page.component.html',
-  styleUrl: './automation-rules-page.component.css'
+  styleUrls: ['./automation-rules-page.component.css']
 })
 export class AutomationRulesPageComponent implements OnInit {
   protected readonly automationStore = inject(AutomationStore);

@@ -27,7 +27,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule,
   ],
   templateUrl: './add-laboratory-page.component.html',
-  styleUrl: './add-laboratory-page.component.css',
+  styleUrls: ['./add-laboratory-page.component.css'],
 })
 export class AddLaboratoryPageComponent implements OnInit {
   protected readonly laboratoryStore = inject(LaboratoryStore);
@@ -77,7 +77,7 @@ export class AddLaboratoryPageComponent implements OnInit {
           this.formData.floor = lab.floor;
           this.formData.roomNumber = lab.roomNumber || '';
           this.formData.description = lab.description || '';
-          
+
           if (lab.nextMaintenance) {
             const parts = lab.nextMaintenance.split('-');
             if (parts.length === 3) {
@@ -96,7 +96,7 @@ export class AddLaboratoryPageComponent implements OnInit {
           if (lab.notifications) {
             this.formData.notifications = { ...lab.notifications };
           }
-          
+
           const activeTypes = this.metricTypeStore.activeMetricTypes();
           if (activeTypes.length > 0) {
             this.formData.metricSubscriptions = activeTypes.map(mt => {
@@ -271,4 +271,3 @@ export class AddLaboratoryPageComponent implements OnInit {
     this.laboratoryStore.resetCreationState();
   }
 }
-

@@ -23,7 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule
   ],
   templateUrl: './calibrate-sensor-dialog.html',
-  styleUrl: './calibrate-sensor-dialog.css'
+  styleUrls: ['./calibrate-sensor-dialog.css']
 })
 export class CalibrateSensorDialog implements OnInit {
   private readonly fb = inject(FormBuilder);

@@ -8,7 +8,7 @@ import { StatusBadgeComponent } from '../../../../shared/presentation/components
   selector: 'app-recent-alerts',
   imports: [StatusBadgeComponent, CardComponent, RouterLink],
   templateUrl: './recent-alerts.component.html',
-  styleUrl: './recent-alerts.component.css',
+  styleUrls: ['./recent-alerts.component.css'],
 })
 export class RecentAlertsComponent {
   alerts = input.required<Alert[]>();

@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'app-laboratories-pagination',
   imports: [MatButton, TranslateModule],
   templateUrl: './laboratories-pagination.component.html',
-  styleUrl: './laboratories-pagination.component.css'
+  styleUrls: ['./laboratories-pagination.component.css']
 })
 export class LaboratoriesPaginationComponent {
   totalPages = input.required<number>();

@@ -35,7 +35,7 @@ interface NavSection {
     TranslateModule
   ],
   templateUrl: './sidebar.html',
-  styleUrl: './sidebar.css',
+  styleUrls: ['./sidebar.css'],
 })
 
 export class Sidebar {
@@ -49,7 +49,7 @@ export class Sidebar {
     if (!email) return undefined;
     return this.userProfileStore.userProfiles().find(p => p.email.toLowerCase() === email.toLowerCase());
   });
-  
+
   readonly userInitials = computed(() => {
     const profile = this.currentProfile();
     if (profile) {

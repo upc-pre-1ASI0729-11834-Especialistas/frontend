@@ -24,7 +24,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe
   ],
   templateUrl: './add-observation-dialog.component.html',
-  styleUrl: './add-observation-dialog.component.css'
+  styleUrls: ['./add-observation-dialog.component.css']
 })
 export class AddObservationDialogComponent implements OnInit {
   private readonly fb = inject(FormBuilder);

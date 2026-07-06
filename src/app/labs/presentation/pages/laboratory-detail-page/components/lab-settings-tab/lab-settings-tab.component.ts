@@ -24,7 +24,7 @@ import { LaboratoryStore } from '../../../../../application/laboratory.store';
     MatSnackBarModule
   ],
   templateUrl: './lab-settings-tab.component.html',
-  styleUrl: './lab-settings-tab.component.css'
+  styleUrls: ['./lab-settings-tab.component.css']
 })
 export class LabSettingsTabComponent implements OnInit {
   lab = input.required<Laboratory>();

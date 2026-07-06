@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [MatCardModule, MatIconModule, MatButtonModule],
   templateUrl: './settings-card.component.html',
-  styleUrl: './settings-card.component.css'
+  styleUrls: ['./settings-card.component.css']
 })
 export class SettingsCardComponent {
   icon = input.required<string>();

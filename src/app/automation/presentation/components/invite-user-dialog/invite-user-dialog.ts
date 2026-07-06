@@ -28,7 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule
   ],
   templateUrl: './invite-user-dialog.html',
-  styleUrl: './invite-user-dialog.css'
+  styleUrls: ['./invite-user-dialog.css']
 })
 export class InviteUserDialog implements OnInit {
   private readonly fb = inject(FormBuilder);

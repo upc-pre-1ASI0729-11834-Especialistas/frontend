@@ -14,7 +14,7 @@ export interface SecondarySidebarItem {
   standalone: true,
   imports: [RouterModule, MatIconModule],
   templateUrl: './secondary-sidebar.html',
-  styleUrl: './secondary-sidebar.css'
+  styleUrls: ['./secondary-sidebar.css']
 })
 export class SecondarySidebarComponent {
   @Input() title: string = '';

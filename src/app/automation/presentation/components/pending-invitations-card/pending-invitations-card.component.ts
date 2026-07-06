@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [MatCardModule, MatButtonModule, MatIconModule, TranslateModule],
   templateUrl: './pending-invitations-card.component.html',
-  styleUrl: './pending-invitations-card.component.css'
+  styleUrls: ['./pending-invitations-card.component.css']
 })
 export class PendingInvitationsCardComponent {
   @Input() invitations: PendingInvitation[] = [];

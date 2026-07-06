@@ -27,12 +27,12 @@ import { StatusBadgeComponent } from '../../components/status-badge/status-badge
     StatusBadgeComponent
   ],
   templateUrl: './topbar.html',
-  styleUrl: './topbar.css',
+  styleUrls: ['./topbar.css'],
 })
 export class Topbar implements OnInit {
   @Input() showHamburger = false;
   @Output() hamburgerClick = new EventEmitter<void>();
-  
+
   private readonly routeTitle = signal('');
   private readonly routeSubtitle = signal('');
 

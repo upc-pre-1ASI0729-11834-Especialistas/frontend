@@ -30,7 +30,7 @@ import { TopbarActionService } from '../../../../shared/application/topbar-actio
     RouterModule
   ],
   templateUrl: './metric-types-page.component.html',
-  styleUrl: './metric-types-page.component.css'
+  styleUrls: ['./metric-types-page.component.css']
 })
 export class MetricTypesPageComponent {
   protected readonly metricTypeStore = inject(MetricTypeStore);

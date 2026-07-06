@@ -23,7 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule
   ],
   templateUrl: './settings-page.component.html',
-  styleUrl: './settings-page.component.css'
+  styleUrls: ['./settings-page.component.css']
 })
 export class SettingsPageComponent {
   protected readonly automationStore = inject(AutomationStore);

@@ -7,7 +7,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'app-lab-success-card',
   imports: [MatIcon, TranslatePipe],
   templateUrl: './lab-success-card.component.html',
-  styleUrl: './lab-success-card.component.css'
+  styleUrls: ['./lab-success-card.component.css']
 })
 export class LabSuccessCardComponent {
   createdLab = input.required<Laboratory | null>();

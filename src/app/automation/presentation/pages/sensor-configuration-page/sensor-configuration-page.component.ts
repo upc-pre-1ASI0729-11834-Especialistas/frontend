@@ -30,7 +30,7 @@ import { TopbarActionService } from '../../../../shared/application/topbar-actio
     TranslateModule
   ],
   templateUrl: './sensor-configuration-page.component.html',
-  styleUrl: './sensor-configuration-page.component.css'
+  styleUrls: ['./sensor-configuration-page.component.css']
 })
 export class SensorConfigurationPageComponent {
   protected readonly automationStore = inject(AutomationStore);

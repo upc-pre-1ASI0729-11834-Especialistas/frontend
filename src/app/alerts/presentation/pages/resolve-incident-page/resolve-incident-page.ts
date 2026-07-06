@@ -14,7 +14,7 @@ type ResolutionType = 'manual' | 'automated' | 'escalated';
   standalone: true,
   imports: [MatIconModule, RouterLink, FormsModule, CommonModule, TranslatePipe],
   templateUrl: './resolve-incident-page.html',
-  styleUrl: './resolve-incident-page.css',
+  styleUrls: ['./resolve-incident-page.css'],
 })
 export class ResolveIncidentPage {
   private readonly router = inject(Router);
@@ -158,7 +158,7 @@ export class ResolveIncidentPage {
 
   onConfirm(): void {
     if (!this.canConfirm) return;
-    
+
     const id = this.alertId();
     if (id) {
       const currentAlert = this.alertsStore.getAlertById(id)();
