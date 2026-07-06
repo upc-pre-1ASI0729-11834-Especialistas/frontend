@@ -1,0 +1,85 @@
+<div class="login-shell">
+  <!-- Main Content -->
+  <main class="login-main">
+    <div class="login-card" id="confirm-card">
+      <!-- Logo & Branding -->
+      <div class="card-header">
+        <div class="card-logo">
+          <mat-icon>science</mat-icon>
+        </div>
+        <h1 class="card-brand">Safelab</h1>
+        <span class="card-subtitle">BY ESPECIALISTAS</span>
+      </div>
+
+      <!-- Title & Text -->
+      <h2 class="welcome-title">{{ 'iam.confirmAccount.title' | translate }}</h2>
+      <p class="welcome-text">
+        {{ 'iam.confirmAccount.subtitle' | translate }} <strong>{{ email }}</strong>
+      </p>
+
+      <!-- Error Message -->
+      @if (authStore.error()) {
+        <div class="login-error-message" style="color: #ef4444; background-color: #fef2f2; border: 1px solid #fee2e2; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <mat-icon style="font-size: 18px; width: 18px; height: 18px; color: #ef4444;">error_outline</mat-icon>
+          <span>{{ authStore.error() }}</span>
+        </div>
+      }
+
+      <!-- Resend Success Message -->
+      @if (resendSuccess) {
+        <div class="login-success-message" style="color: #10b981; background-color: #ecfdf5; border: 1px solid #d1fae5; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <mat-icon style="font-size: 18px; width: 18px; height: 18px; color: #10b981;">check_circle_outline</mat-icon>
+          <span>{{ 'iam.confirmAccount.resendSuccess' | translate }}</span>
+        </div>
+      }
+
+      <!-- Form -->
+      <form class="login-form" id="confirm-form" (ngSubmit)="onConfirm()">
+        <!-- Email (Prefilled, Read-only) -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'iam.confirmAccount.emailLabel' | translate }}</mat-label>
+          <mat-icon matPrefix>mail_outline</mat-icon>
+          <input matInput type="email" [(ngModel)]="email" name="email" id="confirm-email" readonly [disabled]="true" />
+        </mat-form-field>
+
+        <!-- Verification Code -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'iam.confirmAccount.codeLabel' | translate }}</mat-label>
+          <mat-icon matPrefix>lock_open</mat-icon>
+          <input matInput type="text" [placeholder]="'iam.confirmAccount.codePlaceholder' | translate"
+                 [(ngModel)]="code" name="code" autocomplete="off" id="confirm-code"
+                 [disabled]="authStore.loading()" required minlength="6" maxlength="10" />
+        </mat-form-field>
+
+        <!-- Submit Button -->
+        <button mat-flat-button color="primary" type="submit" class="sign-in-btn" id="confirm-submit-btn"
+                [disabled]="authStore.loading() || !email || !code">
+          @if (!authStore.loading()) {
+            <mat-icon>check_circle</mat-icon>
+          }
+          {{ authStore.loading() ? ('iam.confirmAccount.submitting' | translate) : ('iam.confirmAccount.submitButton' | translate) }}
+        </button>
+      </form>
+
+      <!-- Resend Link -->
+      <div style="text-align: center; margin-top: 16px; font-size: 14px;">
+        <button mat-button color="accent" type="button" (click)="onResendCode()" [disabled]="authStore.loading() || !email" style="font-weight: 500;">
+          {{ 'iam.confirmAccount.resendCode' | translate }}
+        </button>
+      </div>
+
+      <!-- Back to login link -->
+      <div style="text-align: center; margin-top: 12px; font-size: 14px;">
+        <a routerLink="/login" class="link-accent">{{ 'iam.confirmAccount.backToLogin' | translate }}</a>
+      </div>
+
+      <!-- Footer -->
+      <footer class="login-footer" id="confirm-footer">
+        {{ 'iam.login.termsPrefix' | translate }}
+        <a href="#" class="link-accent">{{ 'iam.login.terms' | translate }}</a>
+        {{ 'iam.login.and' | translate }}
+        <a href="#" class="link-accent">{{ 'iam.login.privacy' | translate }}</a>
+      </footer>
+    </div>
+  </main>
+</div>

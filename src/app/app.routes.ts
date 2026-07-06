@@ -19,6 +19,7 @@ import { ProfileIdentityPageComponent } from './automation/presentation/pages/pr
 import { MetricTypesPageComponent } from './automation/presentation/pages/metric-types-page/metric-types-page.component';
 import { LoginPageComponent } from './iam/presentation/pages/login-page/login-page.component';
 import { RegisterPageComponent } from './iam/presentation/pages/register-page/register-page.component';
+import { ConfirmAccountPageComponent } from './iam/presentation/pages/confirm-account-page/confirm-account-page.component';
 import { authGuard } from './iam/infrastructure/authentication.guard';
 
 
@@ -30,6 +31,10 @@ export const routes: Routes = [
   {
     path: 'register',
     component: RegisterPageComponent,
+  },
+  {
+    path: 'confirm-account',
+    component: ConfirmAccountPageComponent,
   },
   {
     path: '',
