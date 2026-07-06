@@ -1,4 +1,4 @@
-import { Component, inject, signal, DestroyRef, effect } from '@angular/core';
+import { Component, inject, signal, DestroyRef, effect, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,10 +32,14 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './threshold-configuration-page.component.html',
   styleUrls: ['./threshold-configuration-page.component.css']
 })
-export class ThresholdConfigurationPageComponent {
+export class ThresholdConfigurationPageComponent implements OnInit {
   readonly automationStore = inject(AutomationStore);
   private readonly destroyRef = inject(DestroyRef);
   private readonly dialog = inject(MatDialog);
+
+  ngOnInit() {
+    this.automationStore.loadEquipmentThresholds();
+  }
 
   // Card expansion states
   notificationPreferencesExpanded = signal(true);

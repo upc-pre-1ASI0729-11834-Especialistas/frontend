@@ -1,8 +1,8 @@
 <div class="side-sheet-container">
   <!-- Header -->
   <div class="dialog-header">
-    <h2 class="dialog-title">{{ isEditMode ? 'Edit Metric Type' : 'Add New Metric Type' }}</h2>
-    <button type="button" class="close-btn" (click)="onCancel()" aria-label="Close dialog">
+    <h2 class="dialog-title">{{ isEditMode ? ('settingsPage.metricTypeDialog.editTitle' | translate) : ('settingsPage.metricTypeDialog.addTitle' | translate) }}</h2>
+    <button type="button" class="close-btn" (click)="onCancel()" [attr.aria-label]="'common.closeDialog' | translate">
       <mat-icon>close</mat-icon>
     </button>
   </div>
@@ -11,106 +11,106 @@
   <div class="dialog-content-scroll" [formGroup]="metricTypeForm">
     <!-- Key (Slug) -->
     <div class="form-group">
-      <label class="form-label">Metric Key (Unique slug)</label>
+      <label class="form-label">{{ 'settingsPage.metricTypeDialog.keyLabel' | translate }}</label>
       <div class="input-with-icon" [class.error]="metricTypeForm.get('key')?.invalid && metricTypeForm.get('key')?.touched">
         <mat-icon class="input-icon">tag</mat-icon>
         <input
           type="text"
           formControlName="key"
-          placeholder="e.g. radiation_level"
+          [placeholder]="'settingsPage.metricTypeDialog.keyPlaceholder' | translate"
           class="custom-input"
           required>
       </div>
       @if (metricTypeForm.get('key')?.invalid && metricTypeForm.get('key')?.touched) {
-        <span class="error-text">Valid slug is required (lowercase letters, numbers and underscores only)</span>
+        <span class="error-text">{{ 'settingsPage.metricTypeDialog.keyRequired' | translate }}</span>
       }
     </div>
 
     <!-- Display Name -->
     <div class="form-group">
-      <label class="form-label">Display Name</label>
+      <label class="form-label">{{ 'settingsPage.metricTypeDialog.displayNameLabel' | translate }}</label>
       <div class="input-with-icon" [class.error]="metricTypeForm.get('displayName')?.invalid && metricTypeForm.get('displayName')?.touched">
         <mat-icon class="input-icon">title</mat-icon>
         <input
           type="text"
           formControlName="displayName"
-          placeholder="e.g. Radiation Level"
+          [placeholder]="'settingsPage.metricTypeDialog.displayNamePlaceholder' | translate"
           class="custom-input"
           required>
       </div>
       @if (metricTypeForm.get('displayName')?.invalid && metricTypeForm.get('displayName')?.touched) {
-        <span class="error-text">Display name is required</span>
+        <span class="error-text">{{ 'settingsPage.metricTypeDialog.displayNameRequired' | translate }}</span>
       }
     </div>
 
     <!-- Unit -->
     <div class="form-group">
-      <label class="form-label">Unit of Measurement</label>
+      <label class="form-label">{{ 'settingsPage.metricTypeDialog.unitLabel' | translate }}</label>
       <div class="input-with-icon" [class.error]="metricTypeForm.get('unit')?.invalid && metricTypeForm.get('unit')?.touched">
         <mat-icon class="input-icon">straighten</mat-icon>
         <input
           type="text"
           formControlName="unit"
-          placeholder="e.g. uSv/h or ppm"
+          [placeholder]="'settingsPage.metricTypeDialog.unitPlaceholder' | translate"
           class="custom-input"
           required>
       </div>
       @if (metricTypeForm.get('unit')?.invalid && metricTypeForm.get('unit')?.touched) {
-        <span class="error-text">Unit is required</span>
+        <span class="error-text">{{ 'settingsPage.metricTypeDialog.unitRequired' | translate }}</span>
       }
     </div>
 
     <!-- Icon -->
     <div class="form-group">
-      <label class="form-label">Material Icon Name</label>
+      <label class="form-label">{{ 'settingsPage.metricTypeDialog.iconLabel' | translate }}</label>
       <div class="input-with-icon" [class.error]="metricTypeForm.get('icon')?.invalid && metricTypeForm.get('icon')?.touched">
         <mat-icon class="input-icon">image</mat-icon>
         <input
           type="text"
           formControlName="icon"
-          placeholder="e.g. radiography or co2"
+          [placeholder]="'settingsPage.metricTypeDialog.iconPlaceholder' | translate"
           class="custom-input"
           required>
       </div>
       @if (metricTypeForm.get('icon')?.invalid && metricTypeForm.get('icon')?.touched) {
-        <span class="error-text">Icon name is required</span>
+        <span class="error-text">{{ 'settingsPage.metricTypeDialog.iconRequired' | translate }}</span>
       }
     </div>
 
     <!-- Category -->
     <div class="form-group">
-      <label class="form-label">Category</label>
+      <label class="form-label">{{ 'settingsPage.metricTypeDialog.categoryLabel' | translate }}</label>
       <div class="input-with-icon" [class.error]="metricTypeForm.get('category')?.invalid && metricTypeForm.get('category')?.touched">
         <mat-icon class="input-icon">category</mat-icon>
-        <mat-select formControlName="category" placeholder="Select Category" class="custom-select-control">
+        <mat-select formControlName="category" [placeholder]="'settingsPage.metricTypeDialog.selectCategory' | translate" class="custom-select-control">
           @for (cat of categories; track cat) {
             <mat-option [value]="cat">{{ cat }}</mat-option>
           }
         </mat-select>
       </div>
       @if (metricTypeForm.get('category')?.invalid && metricTypeForm.get('category')?.touched) {
-        <span class="error-text">Category is required</span>
+        <span class="error-text">{{ 'settingsPage.metricTypeDialog.categoryRequired' | translate }}</span>
       }
     </div>
 
     <!-- Active Toggle -->
     <div class="form-group toggle-group">
       <mat-slide-toggle formControlName="active" color="primary">
-        Metric Type is Active
+        {{ 'settingsPage.metricTypeDialog.activeToggle' | translate }}
       </mat-slide-toggle>
     </div>
   </div>
 
   <!-- Footer Actions -->
   <div class="dialog-footer">
-    <button type="button" class="cancel-btn" (click)="onCancel()">Cancel</button>
+    <button type="button" class="cancel-btn" (click)="onCancel()">{{ 'common.cancel' | translate }}</button>
     <button
       type="button"
       class="submit-btn"
       [disabled]="metricTypeForm.invalid"
       (click)="onSubmit()">
       <mat-icon>save</mat-icon>
-      <span>Save Metric Type</span>
+      <span>{{ 'settingsPage.metricTypeDialog.saveMetricType' | translate }}</span>
     </button>
   </div>
 </div>

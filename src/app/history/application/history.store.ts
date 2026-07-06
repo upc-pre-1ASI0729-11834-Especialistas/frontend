@@ -1,11 +1,13 @@
 import { HistoryApi } from '../infrastructure/history-api';
 import { HistoryRecord } from '../domain/model/history-record.entity';
-import { computed, Injectable, Signal, signal } from '@angular/core';
+import { computed, Injectable, Signal, signal, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { retry } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class HistoryStore {
+  private readonly destroyRef = inject(DestroyRef);
+
   private readonly historySignal = signal<HistoryRecord[]>([]);
   private readonly errorSignal = signal<string | null>(null);
   private readonly loadingSignal = signal<boolean>(false);
@@ -16,8 +18,21 @@ export class HistoryStore {
 
   readonly historyCount = computed(() => this.history().length);
 
-  constructor(private readonly historyApi: HistoryApi) {
-    this.loadHistory();
+  constructor(private readonly historyApi: HistoryApi) {}
+
+  loadHistory(): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    this.historyApi.getHistory().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+      next: history => {
+        this.historySignal.set(history);
+        this.loadingSignal.set(false);
+      },
+      error: err => {
+        this.errorSignal.set(this.formatError(err, 'Failed to load history'));
+        this.loadingSignal.set(false);
+      }
+    });
   }
 
   getHistoryRecordById(id: number | null | undefined): Signal<HistoryRecord | undefined> {
@@ -72,20 +87,7 @@ export class HistoryStore {
     });
   }
 
-  private loadHistory(): void {
-    this.loadingSignal.set(true);
-    this.errorSignal.set(null);
-    this.historyApi.getHistory().pipe(takeUntilDestroyed()).subscribe({
-      next: history => {
-        this.historySignal.set(history);
-        this.loadingSignal.set(false);
-      },
-      error: err => {
-        this.errorSignal.set(this.formatError(err, 'Failed to load history'));
-        this.loadingSignal.set(false);
-      }
-    });
-  }
+
 
   private formatError(error: any, fallback: string): string {
     if (error instanceof Error) {

@@ -60,7 +60,14 @@
             <mat-icon>show_chart</mat-icon>
             {{ 'history.panel.timeline' | translate }}
           </h2>
-          <app-history-timeline [records]="filteredHistory()" (recordSelected)="openDrawer($event)" />
+          @if (loading()) {
+            <div class="loading-state">
+              <mat-spinner diameter="36" />
+              <p>{{ 'layout.loading' | translate }}</p>
+            </div>
+          } @else {
+            <app-history-timeline [records]="filteredHistory()" (recordSelected)="openDrawer($event)" />
+          }
         </section>
 
       </div>

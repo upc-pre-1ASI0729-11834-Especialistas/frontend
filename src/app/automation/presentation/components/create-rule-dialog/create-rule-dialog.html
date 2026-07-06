@@ -53,7 +53,7 @@
           <!-- Row 2: [Value] Unit -->
           <div class="trigger-row">
             <mat-form-field appearance="outline" class="value-input-field">
-              <input matInput type="number" step="0.1" formControlName="triggerValue" placeholder="e.g. 8.0">
+              <input matInput type="number" step="0.1" formControlName="triggerValue" [placeholder]="'settingsPage.automationRules.eg_80' | translate">
             </mat-form-field>
             <span class="unit-text">{{ unitSuffix }}</span>
           </div>

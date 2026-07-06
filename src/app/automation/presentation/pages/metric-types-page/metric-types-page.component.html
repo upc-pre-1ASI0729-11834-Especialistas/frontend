@@ -2,11 +2,11 @@
 
   <mat-card appearance="outlined" class="filter-card">
     <mat-card-content class="filter-content">
-      <span class="filter-label">Filter by:</span>
+      <span class="filter-label">{{ 'settingsPage.metricTypes.filterBy' | translate }}</span>
 
       <mat-form-field appearance="outline" subscriptSizing="dynamic" class="dense-field">
         <mat-select [value]="selectedCategory()" (selectionChange)="selectedCategory.set($event.value)">
-          <mat-option value="all-categories">All Categories</mat-option>
+          <mat-option value="all-categories">{{ 'settingsPage.metricTypes.allCategories' | translate }}</mat-option>
           @for (cat of categories; track cat) {
             <mat-option [value]="cat">{{ cat }}</mat-option>
           }
@@ -15,15 +15,15 @@
 
       <mat-form-field appearance="outline" subscriptSizing="dynamic" class="dense-field">
         <mat-select [value]="selectedStatus()" (selectionChange)="selectedStatus.set($event.value)">
-          <mat-option value="all-statuses">All Statuses</mat-option>
-          <mat-option value="active">Active Only</mat-option>
-          <mat-option value="inactive">Inactive Only</mat-option>
+          <mat-option value="all-statuses">{{ 'settingsPage.metricTypes.allStatuses' | translate }}</mat-option>
+          <mat-option value="active">{{ 'settingsPage.metricTypes.activeOnly' | translate }}</mat-option>
+          <mat-option value="inactive">{{ 'settingsPage.metricTypes.inactiveOnly' | translate }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <div class="spacer"></div>
 
-      <span class="total-sensors">Total {{ filteredMetricTypes().length }} Metric Types</span>
+      <span class="total-sensors">{{ 'settingsPage.metricTypes.totalTypes' | translate:{count: filteredMetricTypes().length} }}</span>
     </mat-card-content>
   </mat-card>
 
@@ -41,9 +41,9 @@
             <span class="metric-category-badge">{{ type.category }}</span>
           </div>
           <div class="metric-info-row">
-            <span class="metric-info-label">Key: <code>{{ type.key }}</code></span>
+            <span class="metric-info-label">{{ 'settingsPage.metricTypes.key' | translate }} <code>{{ type.key }}</code></span>
             <span class="metric-info-divider">•</span>
-            <span class="metric-info-label">Unit: <strong>{{ type.unit }}</strong></span>
+            <span class="metric-info-label">{{ 'settingsPage.metricTypes.unit' | translate }} <strong>{{ type.unit }}</strong></span>
           </div>
         </div>
 
@@ -53,10 +53,10 @@
             (change)="toggleActive(type)"
             color="primary"
             class="active-toggle">
-            {{ type.active ? 'Active' : 'Inactive' }}
+            {{ (type.active ? 'common.status.active' : 'common.status.inactive') | translate }}
           </mat-slide-toggle>
 
-          <button mat-icon-button (click)="openCreateMetricTypeDialog(type)" title="Edit Metric Type">
+          <button mat-icon-button (click)="openCreateMetricTypeDialog(type)" [title]="'settingsPage.metricTypeDialog.editTitle' | translate">
             <mat-icon>edit</mat-icon>
           </button>
         </div>
@@ -64,7 +64,7 @@
     } @empty {
       <div class="no-metrics-state">
         <mat-icon class="no-metrics-icon">category</mat-icon>
-        <p class="no-metrics-text">No metric types match the selected filters.</p>
+        <p class="no-metrics-text">{{ 'settingsPage.metricTypes.no_metric_types_match' | translate }}</p>
       </div>
     }
   </div>
@@ -74,21 +74,21 @@
     <mat-card appearance="outlined" class="compliance-card">
       <mat-card-content>
         <div class="compliance-header">
-          <h2 class="section-title">Catalog Distribution</h2>
+          <h2 class="section-title">{{ 'settingsPage.metricTypes.catalogDistribution' | translate }}</h2>
         </div>
 
         <div class="metrics-grid">
           <div class="metric-box">
             <div class="metric-value success">{{ activeCount() }}</div>
-            <div class="metric-label">Active Types</div>
+            <div class="metric-label">{{ 'settingsPage.metricTypes.activeTypes' | translate }}</div>
           </div>
           <div class="metric-box">
             <div class="metric-value error">{{ inactiveCount() }}</div>
-            <div class="metric-label">Inactive Types</div>
+            <div class="metric-label">{{ 'settingsPage.metricTypes.inactiveTypes' | translate }}</div>
           </div>
           <div class="metric-box">
             <div class="metric-value success" style="color: var(--mat-sys-primary);">{{ totalCount() }}</div>
-            <div class="metric-label">Total catalogued</div>
+            <div class="metric-label">{{ 'settingsPage.metricTypes.totalCatalogued' | translate }}</div>
           </div>
         </div>
       </mat-card-content>
@@ -98,9 +98,9 @@
       <div class="safety-icon">
         <mat-icon>category</mat-icon>
       </div>
-      <h2 class="safety-title">Database Catalog</h2>
+      <h2 class="safety-title">{{ 'settingsPage.metricTypes.databaseCatalog' | translate }}</h2>
       <p class="safety-text">
-        Defining metric types dynamically allows automatic telemetry processing, unit formatting, icon rendering, and thresholds mapping for new IoT sensors without requiring code changes.
+        {{ 'settingsPage.metricTypes.catalogText' | translate }}
       </p>
     </div>
   </div>

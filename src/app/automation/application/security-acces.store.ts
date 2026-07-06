@@ -1,4 +1,4 @@
-﻿import { computed, DestroyRef, inject, Injectable, Signal, signal } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, Signal, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SecurityAccess } from '../domain/model/security-access.entity';
 import { SecurityAccessesApi } from '../infrastructure/security-access-api';
@@ -16,15 +16,13 @@ export class SecurityAccessStore {
   readonly loading = this.loadingSignal.asReadonly();
   readonly securityAccessesCount = computed(() => this.securityAccesses().length);
 
-  constructor(private readonly securityAccessesApi: SecurityAccessesApi) {
-    this.loadSecurityAccesses();
-  }
+  constructor(private readonly securityAccessesApi: SecurityAccessesApi) {}
 
   getSecurityAccessById(id: number | null | undefined): Signal<SecurityAccess | undefined> {
     return computed(() => id ? this.securityAccesses().find(e => e.id === id) : undefined);
   }
 
-  private loadSecurityAccesses(): void {
+  loadSecurityAccesses(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.securityAccessesApi.getSecurityAccesses().pipe(

@@ -1,11 +1,13 @@
 import { AlertsApi } from '../infrastructure/alerts-api';
 import { Alert } from '../domain/model/alert.entity';
-import { computed, Injectable, Signal, signal } from '@angular/core';
+import { computed, Injectable, Signal, signal, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { retry} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class AlertsStore {
+  private readonly destroyRef = inject(DestroyRef);
+
   // State signals
   private readonly alertsSignal = signal<Alert[]>([]);
   private readonly errorSignal = signal<string | null>(null);
@@ -17,9 +19,7 @@ export class AlertsStore {
   readonly alertsCount = computed(() => this.alerts().length);
   readonly loading = this.loadingSignal.asReadonly();
 
-  constructor(private readonly alertsApi: AlertsApi) {
-    this.loadAlerts();
-  }
+  constructor(private readonly alertsApi: AlertsApi) {}
 
   getAlertById(id: number | null | undefined): Signal<Alert | undefined> {
     return computed(() => id ? this.alerts().find(a => a.id === id) : undefined);
@@ -70,10 +70,10 @@ export class AlertsStore {
     });
   }
 
-  private loadAlerts(): void {
+  loadAlerts(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
-    this.alertsApi.getAlerts().pipe(takeUntilDestroyed()).subscribe({
+    this.alertsApi.getAlerts().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: alerts => {
         this.alertsSignal.set(alerts);
         this.loadingSignal.set(false);

@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { MatSelect, MatOption } from '@angular/material/select';
+import { MatSelect, MatOption, MatSelectTrigger } from '@angular/material/select';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatButton } from '@angular/material/button';
@@ -13,6 +13,7 @@ import {TranslatePipe} from '@ngx-translate/core';
     RouterLink,
     MatSelect,
     MatOption,
+    MatSelectTrigger,
     MatFormField,
     MatLabel,
     MatButtonToggleGroup,

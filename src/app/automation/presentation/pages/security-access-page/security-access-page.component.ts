@@ -1,3 +1,4 @@
+import { TranslatePipe } from '@ngx-translate/core';
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -13,16 +14,14 @@ import { AuthStore } from '../../../../iam/application/auth.store';
 @Component({
   selector: 'app-security-access-page',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [CommonModule,
     ReactiveFormsModule,
     MatCardModule,
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSnackBarModule
-  ],
+    MatSnackBarModule, TranslatePipe,],
   templateUrl: './security-access-page.component.html',
   styleUrls: ['./security-access-page.component.css']
 })

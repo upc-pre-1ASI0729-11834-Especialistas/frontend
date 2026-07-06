@@ -115,12 +115,7 @@ export const routes: Routes = [
         component: HistoryPage,
         data: {
           title: 'routes.history.title',
-          subtitle: 'routes.history.subtitle',
-          topbarAction: {
-            label: 'Generate Shift Report',
-            icon: 'picture_as_pdf',
-            id: 'generate-report-action'
-          }
+          subtitle: 'routes.history.subtitle'
         }
       },
       {
@@ -145,12 +140,7 @@ export const routes: Routes = [
             component: SensorConfigurationPageComponent,
             data: {
               title: 'routes.settings.sensor.title',
-              subtitle: 'routes.settings.sensor.subtitle',
-              topbarAction: {
-                label: 'Add New Sensor',
-                icon: 'add',
-                id: 'add-sensor-action'
-              }
+              subtitle: 'routes.settings.sensor.subtitle'
             }
           },
           {
@@ -158,12 +148,7 @@ export const routes: Routes = [
             component: MetricTypesPageComponent,
             data: {
               title: 'routes.settings.metricTypes.title',
-              subtitle: 'routes.settings.metricTypes.subtitle',
-              topbarAction: {
-                label: 'Add Metric Type',
-                icon: 'add',
-                id: 'add-metric-type-action'
-              }
+              subtitle: 'routes.settings.metricTypes.subtitle'
             }
           },
           {
@@ -195,12 +180,7 @@ export const routes: Routes = [
             component: UsersPermissionsPageComponent,
             data: {
               title: 'routes.settings.users.title',
-              subtitle: 'routes.settings.users.subtitle',
-              topbarAction: {
-                label: 'Invite User',
-                icon: 'person_add',
-                id: 'invite-user-action'
-              }
+              subtitle: 'routes.settings.users.subtitle'
             }
           },
           {
@@ -216,12 +196,7 @@ export const routes: Routes = [
             component: AutomationRulesPageComponent,
             data: {
               title: 'routes.settings.rules.title',
-              subtitle: 'routes.settings.rules.subtitle',
-              topbarAction: {
-                label: 'Add Rule',
-                icon: 'add',
-                id: 'add-rule-action'
-              }
+              subtitle: 'routes.settings.rules.subtitle'
             }
           }
         ]

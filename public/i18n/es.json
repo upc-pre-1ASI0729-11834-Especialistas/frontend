@@ -17,8 +17,8 @@
       "systemActive": "Sistema Activo"
     },
     "user": {
-      "logout": "Cerrar Sesión"
-      ,"role": "Coordinador de Laboratorio"
+      "logout": "Cerrar Sesión",
+      "role": "Coordinador de Laboratorio"
     }
   },
   "topbar": {
@@ -45,7 +45,8 @@
       "viewAll": "Ver todos",
       "equipmentStatus": "Estado del Equipo",
       "equipmentStatusSubtitle": "Lecturas de temperatura actuales",
-      "allEquipment": "Todo el equipo"
+      "allEquipment": "Todo el equipo",
+      "recentAlerts": "Alertas Recientes"
     },
     "severity": {
       "critical": "Crítico",
@@ -63,7 +64,14 @@
     "environmentalMetrics": "Métricas Ambientales",
     "selectMetric": "Seleccionar Métrica",
     "laboratories": "Laboratorios",
-    "fab": "Generar Reporte de Turno"
+    "fab": "Generar Reporte de Turno",
+    "chart": {
+      "trends": "Tendencias",
+      "average_across_all_active": "Promedio en todas las zonas activas",
+      "filter_laboratories": "Filtrar laboratorios",
+      "no_trends_available": "No hay tendencias de {{metric}} disponibles",
+      "metric": "métrica"
+    }
   },
   "alerts": {
     "title": "Alertas",
@@ -129,6 +137,45 @@
       "building-b": "Edificio B",
       "building-c": "Edificio C",
       "building-d": "Edificio D"
+    },
+    "toolbar": {
+      "grid_view": "Vista de cuadrícula",
+      "list_view": "Vista de lista",
+      "gridView": "Vista de cuadrícula",
+      "listView": "Vista de lista"
+    },
+    "detailCard": {
+      "12_min": "~12 min"
+    },
+    "detail": {
+      "notifications": {
+        "notification_channels_rules": "Notification Channels & Rules",
+        "configure_alert_dispatch_channels": "Configure alert dispatch channels and threshold escalation levels specifically for",
+        "active_channels": "Active Channels",
+        "select_which_communication_channels": "Select which communication channels are active for telemetry warnings and critical events.",
+        "email_dispatch": "Envío por correo",
+        "send_full_reports_and": "Enviar informes completos y detalles del incidente a los supervisores asignados",
+        "sms_alert": "Alerta por SMS",
+        "critical_mobile_alerts_for": "Alertas móviles críticas para avisos de evacuación inmediata",
+        "push_notification": "Notificación push",
+        "realtime_alerts_directly_to": "Alertas en tiempo real directamente en la pantalla de la estación de control del laboratorio",
+        "alert_filtering": "Filtrado de alertas",
+        "define_restrictions_for_alerts": "Define restricciones para las alertas generadas en este laboratorio para evitar la fatiga por mensajes.",
+        "mute_warnings_amber_state": "Silenciar advertencias (estado ámbar) y solo enviar notificaciones para umbrales críticos (estado rojo).",
+        "when_critical_alerts_only": "Cuando \"Solo alertas críticas\" está activado, los desvíos estándar de calibración o cambios leves de temperatura no generarán notificaciones, pero se seguirán mostrando en los registros del panel.",
+        "save_preferences": "Guardar Preferencias"
+      },
+      "reports": {
+        "safety_audits_reports": "Auditorías y Reportes de Seguridad",
+        "access_generated_compliance_sheets": "Acceda a las hojas de cumplimiento generadas, registros de dispositivos e informes de calibración del sistema para",
+        "updated": "Actualizado:",
+        "need_custom_time_range": "¿Necesita un análisis de rango de tiempo personalizado?",
+        "you_can_compile_specialized": "Puede recopilar gráficos de sensores especializados e informes de alarma en el centro de informes principal."
+      },
+      "alerts": {
+        "recent_alerts": "Alertas Recientes",
+        "no_recent_alerts": "No recent alerts"
+      }
     }
   },
   "history": {
@@ -211,6 +258,11 @@
     "reportDialog": {
       "previewPdf": "Vista Previa PDF",
       "downloadPdf": "Descargar PDF"
+    },
+    "timeline": {
+      "noEventsMatch": "Ningún evento coincide con los filtros actuales.",
+      "viewIncident": "Ver incidente",
+      "viewDetails": "Ver detalles"
     }
   },
   "settings": {
@@ -258,6 +310,7 @@
     "close": "Cerrar",
     "back": "Atrás",
     "loading": "Cargando...",
+    "saving": "Guardando...",
     "error": "Error",
     "success": "Éxito",
     "status": {
@@ -265,7 +318,9 @@
       "inactive": "Inactivo",
       "pending": "Pendiente",
       "resolved": "Resuelto"
-    }
+    },
+    "closeDialog": "Cerrar diálogo",
+    "preferredLanguage": "Idioma preferido"
   },
   "automation": {
     "activeUsers": {
@@ -277,7 +332,8 @@
         "labsAccess": "Acceso a Laboratorios",
         "lastLogin": "Último Inicio de Sesión",
         "status": "Estado"
-      }
+      },
+      "changePermissions": "Cambiar permisos de usuario"
     }
   },
   "routes": {
@@ -372,7 +428,8 @@
       "termsPrefix": "Al iniciar sesión, aceptas nuestros",
       "terms": "Términos de servicio",
       "and": "y",
-      "privacy": "Política de privacidad"
+      "privacy": "Política de privacidad",
+      "clearTestUsers": "Doble clic para borrar usuarios de prueba"
     },
     "register": {
       "title": "Crear cuenta",
@@ -400,7 +457,9 @@
       "resendCode": "Reenviar código de verificación",
       "resendSuccess": "Se ha enviado un nuevo código a tu correo electrónico.",
       "backToLogin": "Volver a Iniciar Sesión"
-    }
+    },
+    "byEspecialistas": "POR ESPECIALISTAS",
+    "": "••••••••••"
   },
   "incident": {
     "details": {
@@ -453,7 +512,8 @@
       "resolvedState": "Incidente resuelto",
       "awaitingState": "Esperando resolución",
       "noteSaved": "Nota de acción correctiva guardada.",
-      "remainsActive": "El incidente permanece activo."
+      "remainsActive": "El incidente permanece activo.",
+      "loading": "Cargando detalles del incidente..."
     },
     "resolve": {
       "breadcrumbIncidents": "Incidentes",
@@ -489,7 +549,28 @@
       "recommendedAudit": "Recomendado para registros de auditoría",
       "remove": "Eliminar",
       "permanentLogNotice": "Esta resolución se registrará permanentemente en el historial de auditoría y se incluirá en el reporte de turno.",
-      "confirmBtn": "Confirmar resolución"
+      "confirmBtn": "Confirmar resolución",
+      "maxchars": "= MAX_CHARS\">\r\n             /",
+      "attachedPhotoAlt": "Foto adjunta",
+      "chars": "caracteres"
+    },
+    "escalate": {
+      "escalation_reason": "Motivo de escalación",
+      "select_reason": "Seleccionar motivo...",
+      "message_to_supervisor": "Mensaje al supervisor",
+      "add_context_for_the": "Añadir contexto para el supervisor...",
+      "notify_via": "Notificar por",
+      "supervisor_on_duty": "Supervisor de guardia:",
+      "dr_jean_arizabal_last": "Dr. Jean Arizabal · Activo hace 3 min",
+      "send_escalation": "Enviar escalación",
+      "reasons": {
+        "temperature_exceeded": "Umbral de temperatura excedido",
+        "equipment_malfunction": "Mal funcionamiento del equipo",
+        "contamination_risk": "Riesgo de contaminación",
+        "power_failure": "Falla de energía",
+        "sensor_error": "Error del sensor",
+        "other": "Otro"
+      }
     }
   },
   "settingsPage": {
@@ -506,7 +587,11 @@
       "overdue": "Atrasados",
       "safetyFirst": "La seguridad primero",
       "complianceText": "La calibración periódica de los sensores garantiza el cumplimiento de la norma ISO 17025 y los estándares de seguridad del laboratorio.",
-      "downloadAudit": "Descargar reporte de auditoría"
+      "downloadAudit": "Descargar reporte de auditoría",
+      "sensorDetailsTemplate": "Tipo: {{type}} | Unidad: {{unit}} | Última Cal: {{lastCal}}",
+      "target": "Objetivo:",
+      "safety_limits": "Límite de seguridad:",
+      "calibrate": "Calibrar"
     },
     "sensorDialog": {
       "editTitle": "Editar configuración de sensor",
@@ -534,7 +619,17 @@
       "noWarningLimit": "Sin límite de advertencia",
       "sensorActive": "El sensor está activo",
       "hardwareNote": "Dispositivo registrado con éxito. El sensor se mantendrá como 'Inactivo' hasta que el hardware físico se encienda y realice su primera conexión.",
-      "saveSensor": "Guardar sensor"
+      "saveSensor": "Guardar sensor",
+      "loadingEquipment": "Cargando equipos...",
+      "labLabel": "Laboratorio asociado",
+      "locationType": "Objetivo de monitoreo",
+      "ambient": "Ambiente de la sala",
+      "equipment": "Equipo específico",
+      "equipmentLabel": "Equipo específico",
+      "equipmentRequired": "La asociación con un equipo es obligatoria",
+      "minLabel": "Umbral mínimo",
+      "maxLabel": "Umbral máximo",
+      "warningLabel": "Umbral de advertencia"
     },
     "calibrateDialog": {
       "title": "Calibrar sensor",
@@ -559,7 +654,11 @@
       "inactiveTypes": "Tipos inactivos",
       "totalCatalogued": "Total catalogado",
       "databaseCatalog": "Catálogo de base de datos",
-      "catalogText": "Definir dinámicamente los tipos de métricas permite el procesamiento automático de telemetría, formateo de unidades, renderizado de iconos y mapeo de umbrales para nuevos sensores IoT sin necesidad de cambiar el código."
+      "catalogText": "Definir dinámicamente los tipos de métricas permite el procesamiento automático de telemetría, formateo de unidades, renderizado de iconos y mapeo de umbrales para nuevos sensores IoT sin necesidad de cambiar el código.",
+      "total_metric_types": "Total de tipos de métricas",
+      "key": "Clave:",
+      "unit": "Unidad:",
+      "no_metric_types_match": "No metric types match the selected filters."
     },
     "metricTypeDialog": {
       "editTitle": "Editar tipo de métrica",
@@ -640,7 +739,10 @@
       "activeSessions": "Sesiones activas",
       "sessionsCount": "{{count}} dispositivos conectados actualmente",
       "accountStatus": "Estado de la cuenta",
-      "verifiedTech": "Técnico de laboratorio verificado (Nivel 1)"
+      "verifiedTech": "Técnico de laboratorio verificado (Nivel 1)",
+      "": "••••••••",
+      "lastLoginSwiss": "Último acceso: hace {{time}} desde Suiza",
+      "2_devices_currently_connected": "2 devices currently connected"
     },
     "usersPermissions": {
       "receivedInvitations": "Invitaciones recibidas",
@@ -673,7 +775,8 @@
         "viewer": "Lector"
       },
       "editPermissions": "Editar permisos",
-      "resend": "Reenviar"
+      "resend": "Reenviar",
+      "emailPlaceholder": "e.g. name@safelab.org"
     },
     "thresholdConfig": {
       "changesNotice": "Los cambios en los umbrales se aplican inmediatamente y se registran en el historial de auditoría.",
@@ -698,7 +801,9 @@
       "warningAt": "Advertencia en",
       "current": "Actual",
       "action": "Acción",
-      "updateLimits": "Actualizar límites"
+      "updateLimits": "Actualizar límites",
+      "1000_pm": "10:00 PM",
+      "0600_am": "06:00 AM"
     },
     "automationRules": {
       "loading": "Cargando reglas de automatización...",
@@ -752,7 +857,10 @@
         "send_sms": "Enviar SMS al coordinador de guardia",
         "send_push": "Enviar notificación push",
         "log_event": "Registrar evento con prioridad BAJA"
-      }
+      },
+      "gt": "=\">&gt;=",
+      "lt": "&lt;=",
+      "eg_80": "e.g. 8.0"
     },
     "equipmentDialog": {
       "editTitle": "Editar configuración de equipo",
@@ -831,6 +939,17 @@
       "laboratory": "Registro de laboratorio",
       "maintenance": "Registro de mantenimiento",
       "incident": "Registro de incidente"
+    },
+    "tabSettings": {
+      "title": "Configuración del Laboratorio",
+      "subtitle": "Administra los ajustes avanzados y las opciones de eliminación para esta instalación.",
+      "dangerZone": {
+        "title": "Zona de Peligro",
+        "subtitle": "Elimina de forma permanente este laboratorio y todos los datos operativos asociados.",
+        "description": "Una vez que elimines un laboratorio, todas sus lecturas históricas de sensores, alertas activas y métricas de configuración se borrarán permanentemente del sistema. Esta acción es irreversible.",
+        "deleteButton": "Eliminar Laboratorio",
+        "confirmDelete": "¿Estás seguro de que deseas eliminar permanentemente \"{{name}}\"? Esta acción no se puede deshacer."
+      }
     }
   },
   "laboratoryForm": {
@@ -900,6 +1019,16 @@
         "Biohazard Level 2": "Riesgo biológico Nivel 2",
         "Biohazard Level 3": "Riesgo biológico Nivel 3"
       }
+    }
+  },
+  "layout": {
+    "loading": "Cargando...",
+    "errors": {
+      "mqttDisconnected": "ERROR DE INFRAESTRUCTURA: La plataforma no puede comunicarse con el servidor de telemetría MQTT. Las lecturas en tiempo real se encuentran temporalmente suspendidas.",
+      "serverDisconnected": "ERROR DE CONEXIÓN: No se puede establecer contacto con el servidor principal."
+    },
+    "topbar": {
+      "toggleSidebar": "Alternar barra lateral"
     }
   }
 }

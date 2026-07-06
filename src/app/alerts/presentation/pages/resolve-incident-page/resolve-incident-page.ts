@@ -6,13 +6,14 @@ import { CommonModule } from '@angular/common';
 import { AlertsStore } from '../../../application/alerts.store';
 import { Alert } from '../../../domain/model/alert.entity';
 import { TranslatePipe } from '@ngx-translate/core';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 type ResolutionType = 'manual' | 'automated' | 'escalated';
 
 @Component({
   selector: 'app-resolve-incident-page',
   standalone: true,
-  imports: [MatIconModule, RouterLink, FormsModule, CommonModule, TranslatePipe],
+  imports: [MatIconModule, RouterLink, FormsModule, CommonModule, TranslatePipe, MatProgressSpinner],
   templateUrl: './resolve-incident-page.html',
   styleUrls: ['./resolve-incident-page.css'],
 })
@@ -30,6 +31,9 @@ export class ResolveIncidentPage {
 
   readonly MAX_CHARS = 500;
   readonly alertId = signal<number | null>(null);
+  readonly isLoading = computed(() => {
+    return this.alertsStore.loading() || !this.alert();
+  });
 
   readonly alert = computed(() => {
     const id = this.alertId();
@@ -83,6 +87,8 @@ export class ResolveIncidentPage {
   });
 
   constructor() {
+    this.alertsStore.loadAlerts();
+
     this.route.queryParams.subscribe(params => {
       const id = params['id'];
       if (id) {

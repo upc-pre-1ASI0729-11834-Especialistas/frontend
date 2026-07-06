@@ -8,11 +8,12 @@ import { AlertsStore } from '../../../application/alerts.store';
 import { TemperatureReadingApi } from '../../../../telemetry/infrastructure/temperature-reading-api';
 import { TemperatureReading } from '../../../../telemetry/domain/model/temperature-reading.entity';
 import { TranslatePipe } from '@ngx-translate/core';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-incident-view-page',
   standalone: true,
-  imports: [MatIconModule, RouterLink, MatDialogModule, CommonModule, TranslatePipe],
+  imports: [MatIconModule, RouterLink, MatDialogModule, CommonModule, TranslatePipe, MatProgressSpinner],
   templateUrl: './incident-view-page.html',
   styleUrls: ['./incident-view-page.css'],
 })
@@ -24,6 +25,11 @@ export class IncidentViewPage {
 
   readonly alertId = signal<number | null>(null);
   readonly historicalReadings = signal<TemperatureReading[]>([]);
+  readonly readingsLoading = signal<boolean>(false);
+
+  readonly isLoading = computed(() => {
+    return this.alertsStore.loading() || !this.alert() || this.readingsLoading();
+  });
 
   readonly alert = computed(() => {
     const id = this.alertId();
@@ -133,6 +139,111 @@ export class IncidentViewPage {
   });
 
   // Dynamic Chart calculations
+  readonly limits = computed(() => {
+    const currentAlert = this.alert();
+    if (!currentAlert) return { min: undefined, max: undefined };
+
+    const getNum = (label: string) => {
+      const metric = currentAlert.metrics?.find(m => m.label === label);
+      if (!metric) return undefined;
+      const match = metric.value.match(/[-?[\d\.]+/);
+      return match ? parseFloat(match[0]) : undefined;
+    };
+
+    let min = getNum('minThreshold');
+    let max = getNum('maxThreshold');
+
+    // Fallback/Legacy support: if they aren't explicitly saved as minThreshold/maxThreshold,
+    // look at 'threshold' and guess based on current value.
+    if (min === undefined && max === undefined) {
+      const thresholdVal = getNum('threshold');
+      if (thresholdVal !== undefined) {
+        const cur = getNum('currentValue');
+        if (cur !== undefined && cur < thresholdVal) {
+          min = thresholdVal;
+        } else {
+          max = thresholdVal;
+        }
+      }
+    }
+
+    return { min, max };
+  });
+
+  readonly unit = computed(() => {
+    const thresh = this.thresholdValue();
+    const match = thresh.match(/[^\d\.\s]+/);
+    return match ? match[0] : '';
+  });
+
+  readonly currentValueAsNumber = computed(() => {
+    const curStr = this.currentValue();
+    const match = curStr.match(/[-?[\d\.]+/);
+    return match ? parseFloat(match[0]) : 0;
+  });
+
+  readonly isMinBreach = computed(() => {
+    const limits = this.limits();
+    if (limits.min !== undefined && this.currentValueAsNumber() < limits.min) {
+      return true;
+    }
+    const title = this.alert()?.title.toLowerCase() || '';
+    if (title.includes('low') || title.includes('min') || title.includes('under')) {
+      return true;
+    }
+    return false;
+  });
+
+  readonly chartBounds = computed(() => {
+    const readings = this.historicalReadings();
+    const labId = this.alert()?.laboratoryId?.toString();
+    const limits = this.limits();
+
+    if (!labId) {
+      return { minVal: 15, maxVal: 30, valRange: 15 };
+    }
+
+    const dataPoints = readings
+      .map(r => ({
+        date: new Date(r.date).getTime(),
+        value: r.values[labId]
+      }))
+      .filter(p => p.value !== undefined && !isNaN(p.value))
+      .sort((a, b) => a.date - b.date);
+
+    const valuesList = dataPoints.map(p => p.value);
+    if (limits.min !== undefined) valuesList.push(limits.min);
+    if (limits.max !== undefined) valuesList.push(limits.max);
+
+    if (valuesList.length === 0) {
+      return { minVal: 15, maxVal: 30, valRange: 15 };
+    }
+
+    let minVal = Math.min(...valuesList);
+    let maxVal = Math.max(...valuesList);
+
+    if (minVal === maxVal) {
+      minVal -= 1;
+      maxVal += 1;
+    }
+
+    // Add 5% padding so thresholds and curves don't sit hard on chart edges
+    const range = maxVal - minVal;
+    minVal -= range * 0.05;
+    maxVal += range * 0.05;
+
+    return { minVal, maxVal, valRange: maxVal - minVal };
+  });
+
+  getY(value: number): number {
+    const { minVal, valRange } = this.chartBounds();
+    const padding = 15;
+    const chartHeight = 120 - 2 * padding;
+    const normalized = (value - minVal) / valRange;
+    const y = 120 - padding - normalized * chartHeight;
+    return Math.max(5, Math.min(115, y));
+  }
+
   readonly chartPath = computed(() => {
     const readings = this.historicalReadings();
     const labId = this.alert()?.laboratoryId?.toString();
@@ -152,18 +263,9 @@ export class IncidentViewPage {
       return 'M 0 60 L 500 60';
     }
 
-    const valuesList = dataPoints.map(p => p.value);
-    const minVal = Math.min(...valuesList);
-    const maxVal = Math.max(...valuesList);
-    const valRange = maxVal - minVal || 1.0;
-
-    const padding = 15;
-    const chartHeight = 120 - 2 * padding;
-
     const points = dataPoints.map((p, index) => {
       const x = (index / (dataPoints.length - 1)) * 500;
-      const normalized = (p.value - minVal) / valRange;
-      const y = 120 - padding - normalized * chartHeight;
+      const y = this.getY(p.value);
       return { x, y };
     });
 
@@ -174,40 +276,39 @@ export class IncidentViewPage {
     return path;
   });
 
-  readonly thresholdY = computed(() => {
-    const readings = this.historicalReadings();
-    const labId = this.alert()?.laboratoryId?.toString();
-    const currentAlert = this.alert();
-    if (!readings.length || !labId || !currentAlert) {
-      return 60;
+  readonly minThresholdY = computed(() => {
+    const limits = this.limits();
+    if (limits.min === undefined) return undefined;
+    return this.getY(limits.min);
+  });
+
+  readonly maxThresholdY = computed(() => {
+    const limits = this.limits();
+    if (limits.max === undefined) return undefined;
+    return this.getY(limits.max);
+  });
+
+  readonly normalRangeRect = computed(() => {
+    const minTry = this.minThresholdY();
+    const maxTry = this.maxThresholdY();
+
+    if (minTry !== undefined && maxTry !== undefined) {
+      return { y: maxTry, height: minTry - maxTry };
+    } else if (maxTry !== undefined) {
+      return { y: maxTry, height: 120 - maxTry };
+    } else if (minTry !== undefined) {
+      return { y: 0, height: minTry };
     }
+    return { y: 0, height: 120 };
+  });
 
-    const thresholdStr = currentAlert.metrics?.find(m => m.label === 'threshold')?.value || '';
-    const match = thresholdStr.match(/[\d\.]+/);
-    if (!match) return 60;
-    const thresholdVal = parseFloat(match[0]);
-
-    const dataPoints = readings
-      .map(r => ({
-        date: new Date(r.date).getTime(),
-        value: r.values[labId]
-      }))
-      .filter(p => p.value !== undefined && !isNaN(p.value))
-      .sort((a, b) => a.date - b.date);
-
-    if (!dataPoints.length) return 60;
-
-    const valuesList = [...dataPoints.map(p => p.value), thresholdVal];
-    const minVal = Math.min(...valuesList);
-    const maxVal = Math.max(...valuesList);
-    const valRange = maxVal - minVal || 1.0;
-
-    const padding = 15;
-    const chartHeight = 120 - 2 * padding;
-
-    const normalized = (thresholdVal - minVal) / valRange;
-    const y = 120 - padding - normalized * chartHeight;
-    return Math.max(5, Math.min(115, y));
+  // Keep thresholdY / thresholdHeight for compatibility with any external bindings, if any
+  readonly thresholdY = computed(() => {
+    const max = this.maxThresholdY();
+    if (max !== undefined) return max;
+    const min = this.minThresholdY();
+    if (min !== undefined) return min;
+    return 60;
   });
 
   readonly thresholdHeight = computed(() => {
@@ -244,6 +345,8 @@ export class IncidentViewPage {
   });
 
   constructor() {
+    this.alertsStore.loadAlerts();
+
     this.route.queryParams.subscribe(params => {
       const id = params['id'];
       if (id) {
@@ -255,8 +358,15 @@ export class IncidentViewPage {
       const currentAlert = this.alert();
       if (currentAlert) {
         const key = this.metricKey();
-        this.telemetryApi.getReadingsByMetric(key).subscribe(readings => {
-          this.historicalReadings.set(readings);
+        this.readingsLoading.set(true);
+        this.telemetryApi.getReadingsByMetric(key).subscribe({
+          next: readings => {
+            this.historicalReadings.set(readings);
+            this.readingsLoading.set(false);
+          },
+          error: () => {
+            this.readingsLoading.set(false);
+          }
         });
       }
     }, { allowSignalWrites: true });

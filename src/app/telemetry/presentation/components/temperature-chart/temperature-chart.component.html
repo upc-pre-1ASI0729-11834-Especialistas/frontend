@@ -1,13 +1,13 @@
 <app-card padding="none">
   <div class="chart-header">
     <div class="chart-title-group">
-      <h3 class="chart-title">{{ metricType()?.displayName || 'Metric' }} Trends</h3>
-      <p class="chart-subtitle">Average across all active zones</p>
+      <h3 class="chart-title">{{ metricType()?.displayName || 'Metric' }} {{ 'dashboard.chart.trends' | translate }}</h3>
+      <p class="chart-subtitle">{{ 'dashboard.chart.average_across_all_active' | translate }}</p>
     </div>
     <div class="chart-actions">
       @if (laboratoryStore.laboratories().length > 0) {
         <mat-form-field appearance="outline" class="lab-filter-select">
-          <mat-label>Filter Laboratories</mat-label>
+          <mat-label>{{ 'dashboard.chart.filter_laboratories' | translate }}</mat-label>
           <mat-select [value]="selectedLabIds()" (selectionChange)="onLabSelectionChange($event.value)" multiple>
             @for (lab of laboratoryStore.laboratories(); track lab.id) {
               <mat-option [value]="lab.id">{{ lab.name }}</mat-option>
@@ -26,14 +26,14 @@
 
   <div class="chart-body">
     @if (readings().length > 0) {
-    <apx-chart [series]="chartOptions().series!" [chart]="chartOptions().chart!" [xaxis]="chartOptions().xaxis!"
-      [yaxis]="chartOptions().yaxis!" [stroke]="chartOptions().stroke!" [dataLabels]="chartOptions().dataLabels!"
-      [grid]="chartOptions().grid!" [colors]="chartOptions().colors!" [fill]="chartOptions().fill!"
-      [tooltip]="chartOptions().tooltip!" [legend]="chartOptions().legend!"></apx-chart>
+    <apx-chart [series]="series()" [chart]="chart" [xaxis]="xaxis()"
+      [yaxis]="yaxis()" [stroke]="stroke" [dataLabels]="dataLabels"
+      [grid]="grid" [colors]="colors()" [fill]="fill"
+      [tooltip]="tooltip" [legend]="legend"></apx-chart>
     } @else {
     <div class="no-data-state">
       <mat-icon class="no-data-icon">trending_flat</mat-icon>
-      <p class="no-data-text">No {{ metricType()?.displayName || 'metric' }} trends available</p>
+      <p class="no-data-text">{{ 'dashboard.chart.no_trends_available' | translate:{metric: metricType()?.displayName || ('dashboard.chart.metric' | translate)} }}</p>
     </div>
     }
   </div>

@@ -16,15 +16,13 @@ export class RoleDefinitionStore {
   readonly loading = this.loadingSignal.asReadonly();
   readonly roleDefinitionsCount = computed(() => this.roleDefinitions().length);
 
-  constructor(private readonly roleDefinitionsApi: RoleDefinitionsApi) {
-    this.loadRoleDefinitions();
-  }
+  constructor(private readonly roleDefinitionsApi: RoleDefinitionsApi) {}
 
   getRoleDefinitionById(id: number | null | undefined): Signal<RoleDefinition | undefined> {
     return computed(() => id ? this.roleDefinitions().find(e => e.id === id) : undefined);
   }
 
-  private loadRoleDefinitions(): void {
+  loadRoleDefinitions(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.roleDefinitionsApi.getRoleDefinitions().pipe(

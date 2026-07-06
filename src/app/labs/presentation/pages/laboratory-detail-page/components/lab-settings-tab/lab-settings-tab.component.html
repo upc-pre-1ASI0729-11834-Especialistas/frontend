@@ -4,96 +4,28 @@
       <mat-icon>settings</mat-icon>
     </div>
     <div class="header-text">
-      <h2>Laboratory Settings</h2>
-      <p>Manage identification codes, floor locations, and environmental classification metadata for this facility.</p>
+      <h2>{{ 'laboratoriesDetail.tabSettings.title' | translate }}</h2>
+      <p>{{ 'laboratoriesDetail.tabSettings.subtitle' | translate }}</p>
     </div>
   </div>
 
-  <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()" class="settings-form">
-    <div class="form-grid">
-      <!-- Name -->
-      <div class="form-group span-2">
-        <label class="form-label">Laboratory Name</label>
-        <div class="input-with-icon" [class.error]="settingsForm.get('name')?.invalid && settingsForm.get('name')?.touched">
-          <mat-icon class="input-icon">business</mat-icon>
-          <input type="text" formControlName="name" class="custom-input" placeholder="e.g. Chemical Analysis Lab B">
-        </div>
-        @if (settingsForm.get('name')?.invalid && settingsForm.get('name')?.touched) {
-          <span class="error-text">Laboratory name is required</span>
-        }
-      </div>
-
-      <!-- Code -->
-      <div class="form-group">
-        <label class="form-label">Identification Code</label>
-        <div class="input-with-icon" [class.error]="settingsForm.get('labCode')?.invalid && settingsForm.get('labCode')?.touched">
-          <mat-icon class="input-icon">qr_code</mat-icon>
-          <input type="text" formControlName="labCode" class="custom-input" placeholder="e.g. LAB-104">
-        </div>
-        @if (settingsForm.get('labCode')?.invalid && settingsForm.get('labCode')?.touched) {
-          <span class="error-text">Identification code is required</span>
-        }
-      </div>
-
-      <!-- Class / Type -->
-      <div class="form-group">
-        <label class="form-label">Classification / Type</label>
-        <div class="input-with-icon">
-          <mat-icon class="input-icon">category</mat-icon>
-          <mat-select formControlName="type" class="custom-select-control">
-            @for (t of labTypes; track t) {
-              <mat-option [value]="t">{{ t }}</mat-option>
-            }
-          </mat-select>
-        </div>
-      </div>
-
-      <!-- Building -->
-      <div class="form-group">
-        <label class="form-label">Building / Pavilion</label>
-        <div class="input-with-icon" [class.error]="settingsForm.get('building')?.invalid && settingsForm.get('building')?.touched">
-          <mat-icon class="input-icon">corporate_fare</mat-icon>
-          <input type="text" formControlName="building" class="custom-input" placeholder="e.g. Pavilion A">
-        </div>
-      </div>
-
-      <!-- Floor -->
-      <div class="form-group">
-        <label class="form-label">Floor</label>
-        <div class="input-with-icon" [class.error]="settingsForm.get('floor')?.invalid && settingsForm.get('floor')?.touched">
-          <mat-icon class="input-icon">layers</mat-icon>
-          <input type="text" formControlName="floor" class="custom-input" placeholder="e.g. 2nd Floor">
-        </div>
-      </div>
-
-      <!-- Room Number -->
-      <div class="form-group">
-        <label class="form-label">Room Number (Optional)</label>
-        <div class="input-with-icon">
-          <mat-icon class="input-icon">meeting_room</mat-icon>
-          <input type="text" formControlName="roomNumber" class="custom-input" placeholder="e.g. 204-B">
-        </div>
-      </div>
-
-      <!-- Description -->
-      <div class="form-group span-3">
-        <label class="form-label">Description / Specific Guidelines</label>
-        <textarea formControlName="description" class="custom-textarea" rows="4" placeholder="Describe specific biosafety levels, operations or emergency contacts for this lab..."></textarea>
+  <!-- Danger Zone -->
+  <div class="danger-zone-card animate-fade-in">
+    <div class="danger-header">
+      <mat-icon class="danger-icon">warning</mat-icon>
+      <div class="danger-title">
+        <h3>{{ 'laboratoriesDetail.tabSettings.dangerZone.title' | translate }}</h3>
+        <p>{{ 'laboratoriesDetail.tabSettings.dangerZone.subtitle' | translate }}</p>
       </div>
     </div>
-
-    <div class="actions-panel">
-      <button type="submit" mat-flat-button class="save-btn" [disabled]="settingsForm.invalid || isSaving">
-        @if (isSaving) {
-          <span class="spinner-inline"></span>
-          Saving...
-        } @else {
-          <ng-container>
-            <mat-icon>save</mat-icon>
-            <span>Save Changes</span>
-          </ng-container>
-        }
+    <div class="danger-content">
+      <p class="danger-description">
+        {{ 'laboratoriesDetail.tabSettings.dangerZone.description' | translate }}
+      </p>
+      <button type="button" mat-flat-button class="delete-lab-btn" [disabled]="isSaving" (click)="onDelete()">
+        <mat-icon>delete_forever</mat-icon>
+        <span>{{ 'laboratoriesDetail.tabSettings.dangerZone.deleteButton' | translate }}</span>
       </button>
     </div>
-  </form>
+  </div>
 </div>

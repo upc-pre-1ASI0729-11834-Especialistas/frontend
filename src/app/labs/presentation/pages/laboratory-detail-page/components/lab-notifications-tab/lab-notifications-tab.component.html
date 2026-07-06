@@ -4,8 +4,8 @@
       <mat-icon>notifications_active</mat-icon>
     </div>
     <div class="header-text">
-      <h2>Notification Channels & Rules</h2>
-      <p>Configure alert dispatch channels and threshold escalation levels specifically for <strong>{{ lab().name }}</strong>.</p>
+      <h2>{{ 'laboratories.detail.notifications.notification_channels_rules' | translate }}</h2>
+      <p>{{ 'laboratories.detail.notifications.configure_alert_dispatch_channels' | translate }} <strong>{{ lab().name }}</strong>.</p>
     </div>
   </div>
 
@@ -14,17 +14,17 @@
     <div class="pref-card">
       <div class="card-title">
         <mat-icon>chat_bubble_outline</mat-icon>
-        <h3>Active Channels</h3>
+        <h3>{{ 'laboratories.detail.notifications.active_channels' | translate }}</h3>
       </div>
-      <p class="card-desc">Select which communication channels are active for telemetry warnings and critical events.</p>
+      <p class="card-desc">{{ 'laboratories.detail.notifications.select_which_communication_channels' | translate }}</p>
       
       <div class="channels-list">
         <div class="channel-item" [class.active]="email">
           <div class="channel-info">
             <mat-icon class="channel-icon">mail_outline</mat-icon>
             <div class="channel-meta">
-              <span class="channel-name">Email dispatch</span>
-              <span class="channel-sub">Send full reports and incident details to assigned supervisors</span>
+              <span class="channel-name">{{ 'laboratories.detail.notifications.email_dispatch' | translate }}</span>
+              <span class="channel-sub">{{ 'laboratories.detail.notifications.send_full_reports_and' | translate }}</span>
             </div>
           </div>
           <mat-checkbox [(ngModel)]="email" color="primary"></mat-checkbox>
@@ -34,8 +34,8 @@
           <div class="channel-info">
             <mat-icon class="channel-icon">phone_android</mat-icon>
             <div class="channel-meta">
-              <span class="channel-name">SMS alert</span>
-              <span class="channel-sub">Critical mobile alerts for immediate evacuation notices</span>
+              <span class="channel-name">{{ 'laboratories.detail.notifications.sms_alert' | translate }}</span>
+              <span class="channel-sub">{{ 'laboratories.detail.notifications.critical_mobile_alerts_for' | translate }}</span>
             </div>
           </div>
           <mat-checkbox [(ngModel)]="sms" color="primary"></mat-checkbox>
@@ -45,8 +45,8 @@
           <div class="channel-info">
             <mat-icon class="channel-icon">devices</mat-icon>
             <div class="channel-meta">
-              <span class="channel-name">Push notification</span>
-              <span class="channel-sub">Real-time alerts directly to the laboratory control station screen</span>
+              <span class="channel-name">{{ 'laboratories.detail.notifications.push_notification' | translate }}</span>
+              <span class="channel-sub">{{ 'laboratories.detail.notifications.realtime_alerts_directly_to' | translate }}</span>
             </div>
           </div>
           <mat-checkbox [(ngModel)]="push" color="primary"></mat-checkbox>
@@ -58,15 +58,15 @@
     <div class="pref-card">
       <div class="card-title">
         <mat-icon>tune</mat-icon>
-        <h3>Alert Filtering</h3>
+        <h3>{{ 'laboratories.detail.notifications.alert_filtering' | translate }}</h3>
       </div>
-      <p class="card-desc">Define restrictions for alerts generated in this laboratory to prevent message fatigue.</p>
+      <p class="card-desc">{{ 'laboratories.detail.notifications.define_restrictions_for_alerts' | translate }}</p>
 
       <div class="rules-box">
         <div class="toggle-rule">
           <div class="rule-info">
-            <span class="rule-name">Critical Alerts Only</span>
-            <span class="rule-sub">Mute warnings (amber state) and only send notifications for critical thresholds (red state).</span>
+            <span class="rule-name">{{ 'laboratoryForm.notifications.criticalOnly' | translate }}</span>
+            <span class="rule-sub">{{ 'laboratories.detail.notifications.mute_warnings_amber_state' | translate }}</span>
           </div>
           <mat-slide-toggle [(ngModel)]="criticalOnly" color="primary"></mat-slide-toggle>
         </div>
@@ -74,7 +74,7 @@
         <div class="rule-warning-note">
           <mat-icon>info_outline</mat-icon>
           <p>
-            When "Critical Alerts Only" is activated, standard calibration drift or slight temperature changes will not trigger notifications, but will still show in the dashboard logs.
+            {{ 'laboratories.detail.notifications.when_critical_alerts_only' | translate }}
           </p>
         </div>
       </div>
@@ -85,11 +85,11 @@
     <button mat-flat-button class="save-btn" [disabled]="isSaving" (click)="onSave()">
       @if (isSaving) {
         <span class="spinner-inline"></span>
-        Saving...
+        {{ 'common.saving' | translate }}
       } @else {
         <ng-container>
           <mat-icon>save</mat-icon>
-          <span>Save Preferences</span>
+          <span>{{ 'laboratories.detail.notifications.save_preferences' | translate }}</span>
         </ng-container>
       }
     </button>

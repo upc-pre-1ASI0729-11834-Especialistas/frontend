@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface EscalateDialogData {
   equipmentName: string;
@@ -22,19 +23,20 @@ export interface EscalateDialogData {
     MatIconModule,
     MatSelectModule,
     MatFormFieldModule,
-    FormsModule
+    FormsModule,
+    TranslatePipe
   ],
   templateUrl: './escalate-supervisor-dialog.html',
   styleUrls: ['./escalate-supervisor-dialog.css']
 })
 export class EscalateSupervisorDialog {
   readonly reasons = [
-    'Temperature threshold exceeded',
-    'Equipment malfunction',
-    'Contamination risk',
-    'Power failure',
-    'Sensor error',
-    'Other'
+    'incident.escalate.reasons.temperature_exceeded',
+    'incident.escalate.reasons.equipment_malfunction',
+    'incident.escalate.reasons.contamination_risk',
+    'incident.escalate.reasons.power_failure',
+    'incident.escalate.reasons.sensor_error',
+    'incident.escalate.reasons.other'
   ];
 
   selectedReason = signal('');

@@ -1,3 +1,4 @@
+import { TranslatePipe } from '@ngx-translate/core';
 import { Component, inject, OnInit, effect, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -16,8 +17,7 @@ import { AuthStore } from '../../../../iam/application/auth.store';
 @Component({
   selector: 'app-profile-identity-page',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [CommonModule,
     ReactiveFormsModule,
     MatCardModule,
     MatButtonModule,
@@ -26,8 +26,7 @@ import { AuthStore } from '../../../../iam/application/auth.store';
     MatInputModule,
     MatSelectModule,
     MatSlideToggleModule,
-    MatSnackBarModule
-  ],
+    MatSnackBarModule, TranslatePipe,],
   templateUrl: './profile-identity-page.component.html',
   styleUrls: ['./profile-identity-page.component.css']
 })
@@ -87,7 +86,9 @@ export class ProfileIdentityPageComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.automationStore.loadUserProfiles();
+  }
 
   private initForm(): void {
     this.profileForm = this.fb.group({

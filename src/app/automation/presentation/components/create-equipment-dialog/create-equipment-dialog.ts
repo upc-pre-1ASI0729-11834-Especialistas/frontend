@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { EquipmentThreshold } from '../../../domain/model/equipment-threshold.entity';
 import { LaboratoryStore } from '../../../../telemetry/application/laboratory.store';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-create-equipment-dialog',
@@ -23,7 +24,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSelectModule,
     MatIconModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    MatProgressSpinner
   ],
   templateUrl: './create-equipment-dialog.html',
   styleUrl: './create-equipment-dialog.css'
@@ -60,6 +62,7 @@ export class CreateEquipmentDialog implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.laboratoryStore.loadLaboratories();
     if (this.data && this.data.equipment) {
       this.isEditMode = true;
       const eq = this.data.equipment;

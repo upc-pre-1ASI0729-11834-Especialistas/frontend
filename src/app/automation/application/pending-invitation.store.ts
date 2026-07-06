@@ -24,10 +24,7 @@ export class PendingInvitationStore {
   readonly pendingInvitationsCount = computed(() => this.pendingInvitations().length);
   readonly receivedInvitationsCount = computed(() => this.receivedInvitations().length);
 
-  constructor(private readonly pendingInvitationsApi: PendingInvitationsApi) {
-    this.loadPendingInvitations();
-    this.loadReceivedInvitations();
-  }
+  constructor(private readonly pendingInvitationsApi: PendingInvitationsApi) {}
 
   getPendingInvitationById(id: number | null | undefined): Signal<PendingInvitation | undefined> {
     return computed(() => id ? this.pendingInvitations().find(e => e.id === id) : undefined);
@@ -132,7 +129,7 @@ export class PendingInvitationStore {
     );
   }
 
-  private loadPendingInvitations(): void {
+  loadPendingInvitations(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
     this.pendingInvitationsApi.getPendingInvitations().pipe(

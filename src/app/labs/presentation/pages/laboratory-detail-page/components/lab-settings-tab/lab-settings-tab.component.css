@@ -230,3 +230,129 @@
     grid-column: span 1;
   }
 }
+
+/* Danger Zone */
+.danger-zone-card {
+  background: #ffffff;
+  border: 1px solid #fee2e2;
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.danger-header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.danger-icon {
+  color: #dc2626;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.danger-title h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #991b1b;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.danger-title p {
+  font-size: 13px;
+  color: #7f1d1d;
+  margin: 4px 0 0 0;
+}
+
+.danger-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.danger-description {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.delete-lab-btn {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  height: 44px !important;
+  align-self: flex-start;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: background-color 0.2s !important;
+}
+
+.delete-lab-btn:hover {
+  background-color: #b91c1c !important;
+}
+
+/* Configuration Info Card */
+.info-card {
+  display: flex;
+  gap: 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.info-card mat-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  color: hsl(220, 100%, 33%);
+}
+
+.info-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-card-content h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.info-card-content p {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.open-editor-btn {
+  background-color: hsl(220, 100%, 33%) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  align-self: flex-start;
+  transition: background-color 0.2s !important;
+}
+
+.open-editor-btn:hover {
+  background-color: hsl(220, 100%, 25%) !important;
+}

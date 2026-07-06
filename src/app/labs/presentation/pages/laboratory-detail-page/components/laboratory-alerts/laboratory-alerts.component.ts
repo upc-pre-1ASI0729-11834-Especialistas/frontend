@@ -1,3 +1,4 @@
+import { TranslatePipe } from '@ngx-translate/core';
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LabAlert } from '../../../../../domain/model/laboratory.entity';
@@ -6,7 +7,7 @@ import { StatusBadgeComponent } from '../../../../../../shared/presentation/comp
 
 @Component({
   selector: 'app-laboratory-alerts',
-  imports: [CardComponent, StatusBadgeComponent, RouterLink],
+  imports: [CardComponent, StatusBadgeComponent, RouterLink, TranslatePipe,],
   templateUrl: './laboratory-alerts.component.html',
   styleUrls: ['./laboratory-alerts.component.css']
 })

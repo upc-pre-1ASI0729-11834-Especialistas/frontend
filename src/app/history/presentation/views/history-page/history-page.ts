@@ -1,4 +1,4 @@
-import { Component, ViewChild, computed, signal, inject, effect } from '@angular/core';
+import { Component, ViewChild, computed, signal, inject, effect, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule, MatDrawer } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,6 +25,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AuthStore } from '../../../../iam/application/auth.store';
 import { AutomationStore } from '../../../../automation/application/automation.store';
 import { TopbarActionService } from '../../../../shared/application/topbar-action.service';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-history-page',
@@ -47,12 +48,13 @@ import { TopbarActionService } from '../../../../shared/application/topbar-actio
     FormsModule,
     MatSnackBarModule,
     HistoryTimeline,
-    TranslatePipe
+    TranslatePipe,
+    MatProgressSpinner
   ],
   templateUrl: './history-page.html',
   styleUrls: ['./history-page.css']
 })
-export class HistoryPage {
+export class HistoryPage implements OnInit {
   @ViewChild('drawer') drawer!: MatDrawer;
 
   private readonly historyStore = inject(HistoryStore);
@@ -207,23 +209,22 @@ export class HistoryPage {
       this.topbarActionService.setSubtitle(text);
     });
 
-    // Set initial title and action using current translation
-    this.topbarActionService.setTitle(this.translateService.instant('history.title'));
-    this.topbarActionService.setAction({
-      label: this.translateService.instant('history.button.generateReport'),
-      icon: 'picture_as_pdf',
-      id: 'generate-report-action'
-    });
+    this.translateService.stream('history.title')
+      .pipe(takeUntilDestroyed())
+      .subscribe(title => this.topbarActionService.setTitle(title));
 
-    // Listen to translation changes to update topbar title and action
+    this.translateService.stream('history.button.generateReport')
+      .pipe(takeUntilDestroyed())
+      .subscribe(label => {
+        this.topbarActionService.setAction({
+          label,
+          icon: 'picture_as_pdf',
+          id: 'generate-report-action'
+        });
+      });
+
     this.translateService.onLangChange.pipe(takeUntilDestroyed()).subscribe(event => {
       this.currentLang.set(event.lang);
-      this.topbarActionService.setTitle(this.translateService.instant('history.title'));
-      this.topbarActionService.setAction({
-        label: this.translateService.instant('history.button.generateReport'),
-        icon: 'picture_as_pdf',
-        id: 'generate-report-action'
-      });
     });
 
     // Subscribe to Topbar action click
@@ -232,6 +233,11 @@ export class HistoryPage {
       .subscribe(() => {
         this.generateShiftReport();
       });
+  }
+
+  ngOnInit(): void {
+    this.historyStore.loadHistory();
+    this.automationStore.loadUserProfiles();
   }
 
   openDrawer(record: HistoryRecord): void {
